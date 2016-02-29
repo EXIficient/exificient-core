@@ -23,7 +23,6 @@
 
 package com.siemens.ct.exi.grammars;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.Constants;
@@ -67,11 +66,11 @@ public class SchemaLessGrammars extends AbstractGrammars {
 			QNameContext[] grammarQNames1 = new QNameContext[Constants.LOCAL_NAMES_XML.length];
 			for (int i = 0; i < grammarQNames1.length; i++) {
 				grammarQNames1[i] = new QNameContext(namespaceUriID, i,
-						new QName(XMLConstants.XML_NS_URI,
+						new QName(Constants.XML_NS_URI,
 								Constants.LOCAL_NAMES_XML[i]), qNameID++);
 			}
 			grammarUriContextsX[namespaceUriID] = new GrammarUriContext(
-					namespaceUriID, XMLConstants.XML_NS_URI, grammarQNames1,
+					namespaceUriID, Constants.XML_NS_URI, grammarQNames1,
 					Constants.PREFIXES_XML);
 		}
 		// 2
@@ -80,12 +79,12 @@ public class SchemaLessGrammars extends AbstractGrammars {
 			QNameContext[] grammarQNames2 = new QNameContext[Constants.LOCAL_NAMES_XSI.length];
 			for (int i = 0; i < grammarQNames2.length; i++) {
 				grammarQNames2[i] = new QNameContext(namespaceUriID, i,
-						new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+						new QName(Constants.XML_SCHEMA_INSTANCE_NS_URI,
 								Constants.LOCAL_NAMES_XSI[i]), qNameID++);
 			}
 			grammarUriContextsX[namespaceUriID] = new GrammarUriContext(
 					namespaceUriID,
-					XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+					Constants.XML_SCHEMA_INSTANCE_NS_URI,
 					grammarQNames2, Constants.PREFIXES_XSI);
 		}
 

@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.Constants;
@@ -536,15 +535,15 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		if (this.preservePrefix) {
 			// XMLConstants.W3C_XML_SCHEMA_NS_URI ==
 			// "http://www.w3.org/2001/XMLSchema"
-			pfx = this.getPrefix(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			pfx = this.getPrefix(Constants.XML_SCHEMA_NS_URI);
 			if (pfx == null) {
 				// no prefixes for XSD haven been declared so far
 				pfx = "xsdP";
 				this.encodeNamespaceDeclaration(
-						XMLConstants.W3C_XML_SCHEMA_NS_URI, pfx);
+						Constants.XML_SCHEMA_NS_URI, pfx);
 			}
 		}
-		QNameValue type = new QNameValue(XMLConstants.W3C_XML_SCHEMA_NS_URI,
+		QNameValue type = new QNameValue(Constants.XML_SCHEMA_NS_URI,
 				"anyType", pfx);
 
 		// needed to avoid grammar learning
@@ -716,7 +715,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			 */
 			if (qnameURI == null) {
 				/* uri in scope for prefix */
-				qnameURI = XMLConstants.NULL_NS_URI;
+				qnameURI = Constants.XML_NULL_NS_URI;
 				qnameLocalName = sType;
 			} else {
 				qnameLocalName = QNameUtilities.getLocalPart(sType);
@@ -750,7 +749,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 				ei = null;
 			} else {
 				ei = currentGrammar.getAttributeProduction(
-						XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+						Constants.XML_SCHEMA_INSTANCE_NS_URI,
 						Constants.XSI_TYPE);
 			}
 
@@ -898,7 +897,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 						encode1stLevelEventCode(ei.getEventCode());
 						// qname & prefix
 						RuntimeUriContext euc = encodeUri(
-								XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+								Constants.XML_SCHEMA_INSTANCE_NS_URI,
 								channel);
 						encodeLocalName(Constants.XSI_NIL, euc, channel);
 						if (this.preservePrefix) {
@@ -936,7 +935,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 				encodeSchemaInvalidAttributeEventCode(sig
 						.getNumberOfDeclaredAttributes());
 				RuntimeUriContext euc = encodeUri(
-						XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, channel);
+						Constants.XML_SCHEMA_INSTANCE_NS_URI, channel);
 				encodeLocalName(Constants.XSI_NIL, euc, channel);
 				if (this.preservePrefix) {
 					encodeQNamePrefix(getXsiNilContext(), pfx, channel);
@@ -948,7 +947,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			}
 		} else {
 			// encode as any other attribute
-			encodeAttribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+			encodeAttribute(Constants.XML_SCHEMA_INSTANCE_NS_URI,
 					Constants.XSI_NIL, pfx, nil);
 		}
 
@@ -1114,7 +1113,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		updateCurrentRule(next);
 
 		if (value.getValueType() == ValueType.STRING
-				&& XMLConstants.XML_NS_URI.equals(uri)) {
+				&& Constants.XML_NS_URI.equals(uri)) {
 			ElementContext ec = this.getElementContext();
 			if ("preserve".equals(value.toString())) {
 				this.isXmlSpacePreserve = true;

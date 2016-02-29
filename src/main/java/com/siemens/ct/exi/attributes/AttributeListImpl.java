@@ -26,7 +26,6 @@ package com.siemens.ct.exi.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.Constants;
@@ -44,7 +43,7 @@ import com.siemens.ct.exi.core.container.NamespaceDeclaration;
  */
 
 public class AttributeListImpl implements AttributeList {
-	public static final int XMLNS_PFX_START = XMLConstants.XMLNS_ATTRIBUTE
+	public static final int XMLNS_PFX_START = Constants.XML_NS_ATTRIBUTE
 			.length() + 1;
 
 	// options
@@ -245,11 +244,11 @@ public class AttributeListImpl implements AttributeList {
 
 	public void addAttribute(String uri, String localName, String pfx,
 			String value) {
-		uri = uri == null ? XMLConstants.NULL_NS_URI : uri;
-		pfx = pfx == null ? XMLConstants.DEFAULT_NS_PREFIX : pfx;
+		uri = uri == null ? Constants.XML_NULL_NS_URI : uri;
+		pfx = pfx == null ? Constants.XML_DEFAULT_NS_PREFIX : pfx;
 
 		// xsi:*
-		if (uri.equals(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI)) {
+		if (uri.equals(Constants.XML_SCHEMA_INSTANCE_NS_URI)) {
 			// xsi:type
 			if (localName.equals(Constants.XSI_TYPE)) {
 				// Note: prefix to uri mapping is done later on

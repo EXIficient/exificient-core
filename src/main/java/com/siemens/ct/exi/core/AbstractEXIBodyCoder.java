@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.Constants;
@@ -267,7 +266,7 @@ public abstract class AbstractEXIBodyCoder {
 				}
 			}
 		}
-		return prefix.length() == 0 ? XMLConstants.NULL_NS_URI : null;
+		return prefix.length() == 0 ? Constants.XML_NULL_NS_URI : null;
 	}
 
 	protected final String getPrefix(String uri) {

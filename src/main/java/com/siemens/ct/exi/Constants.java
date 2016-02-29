@@ -197,7 +197,15 @@ public interface Constants {
 	public static final String XSI_SCHEMA_LOCATION = "schemaLocation";
 	public static final String XSI_NONAMESPACE_SCHEMA_LOCATION = "noNamespaceSchemaLocation";
 
-	public static final String XML_PFX = XMLConstants.XML_NS_PREFIX; // "xml";
+	public static final String XML_NS_PREFIX = XMLConstants.XML_NS_PREFIX; // "xml"
+	public static final String XML_NULL_NS_URI = XMLConstants.NULL_NS_URI; // ""
+	public static final String XML_DEFAULT_NS_PREFIX = XMLConstants.DEFAULT_NS_PREFIX; // ""
+	public static final String XML_NS_ATTRIBUTE_NS_URI = XMLConstants.XMLNS_ATTRIBUTE_NS_URI; // "http://www.w3.org/2000/xmlns/"
+	public static final String XML_NS_ATTRIBUTE = XMLConstants.XMLNS_ATTRIBUTE; // "xmlns"
+	public static final String XML_NS_URI = XMLConstants.XML_NS_URI; // "http://www.w3.org/XML/1998/namespace"
+	public static final String XML_SCHEMA_INSTANCE_NS_URI = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI; // "http://www.w3.org/2001/XMLSchema-instance"
+	public static final String XML_SCHEMA_NS_URI = XMLConstants.W3C_XML_SCHEMA_NS_URI; // "http://www.w3.org/2001/XMLSchema"
+	
 	public static final String XSI_PFX = "xsi";
 	public static final String XSI_TYPE = "type";
 	public static final String XSI_NIL = "nil";

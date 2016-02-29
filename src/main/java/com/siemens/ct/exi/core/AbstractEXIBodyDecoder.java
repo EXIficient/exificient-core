@@ -26,8 +26,6 @@ package com.siemens.ct.exi.core;
 import java.io.IOException;
 import java.util.Iterator;
 
-import javax.xml.XMLConstants;
-
 import com.siemens.ct.exi.Constants;
 import com.siemens.ct.exi.EXIBodyDecoder;
 import com.siemens.ct.exi.EXIFactory;
@@ -194,7 +192,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 
 		if (uc.namespaceUriID == 0) {
 			// XMLConstants.DEFAULT_NS_PREFIX
-			prefix = XMLConstants.NULL_NS_URI;
+			prefix = Constants.XML_NULL_NS_URI;
 		} else {
 			int numberOfPrefixes = uc.getNumberOfPrefixes();
 			if (numberOfPrefixes > 0) {

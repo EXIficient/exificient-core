@@ -23,9 +23,9 @@
 
 package com.siemens.ct.exi.types;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import com.siemens.ct.exi.Constants;
 import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.datatype.StringDatatype;
@@ -44,69 +44,69 @@ public class BuiltIn {
 	 * Binary
 	 */
 	public static final QName XSD_BASE64BINARY = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "base64Binary");
+			Constants.XML_SCHEMA_NS_URI, "base64Binary");
 	public static final QName XSD_HEXBINARY = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "hexBinary");
+			Constants.XML_SCHEMA_NS_URI, "hexBinary");
 	/*
 	 * Boolean
 	 */
 	public static final QName XSD_BOOLEAN = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "boolean");
+			Constants.XML_SCHEMA_NS_URI, "boolean");
 	/*
 	 * Date-Time
 	 */
 	public static final QName XSD_DATETIME = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "dateTime");
+			Constants.XML_SCHEMA_NS_URI, "dateTime");
 	public static final QName XSD_TIME = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "time");
+			Constants.XML_SCHEMA_NS_URI, "time");
 	public static final QName XSD_DATE = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "date");
+			Constants.XML_SCHEMA_NS_URI, "date");
 	public static final QName XSD_GYEARMONTH = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "gYearMonth");
+			Constants.XML_SCHEMA_NS_URI, "gYearMonth");
 	public static final QName XSD_GYEAR = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "gYear");
+			Constants.XML_SCHEMA_NS_URI, "gYear");
 	public static final QName XSD_GMONTHDAY = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "gMonthDay");
+			Constants.XML_SCHEMA_NS_URI, "gMonthDay");
 	public static final QName XSD_GDAY = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "gDay");
+			Constants.XML_SCHEMA_NS_URI, "gDay");
 	public static final QName XSD_GMONTH = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "gMonth");
+			Constants.XML_SCHEMA_NS_URI, "gMonth");
 
 	/*
 	 * Decimal
 	 */
 	public static final QName XSD_DECIMAL = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "decimal");
+			Constants.XML_SCHEMA_NS_URI, "decimal");
 	/*
 	 * Float
 	 */
 	public static final QName XSD_FLOAT = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "float");
+			Constants.XML_SCHEMA_NS_URI, "float");
 	public static final QName XSD_DOUBLE = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "double");
+			Constants.XML_SCHEMA_NS_URI, "double");
 	/*
 	 * Integer
 	 */
 	public static final QName XSD_INTEGER = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "integer");
+			Constants.XML_SCHEMA_NS_URI, "integer");
 	public static final QName XSD_NON_NEGATIVE_INTEGER = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "nonNegativeInteger");
+			Constants.XML_SCHEMA_NS_URI, "nonNegativeInteger");
 	/*
 	 * String
 	 */
 	public static final QName XSD_STRING = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "string");
+			Constants.XML_SCHEMA_NS_URI, "string");
 	//
 	public static final QName XSD_ANY_SIMPLE_TYPE = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "anySimpleType");
+			Constants.XML_SCHEMA_NS_URI, "anySimpleType");
 
 	/*
 	 * Misc
 	 */
 	public static final QName XSD_QNAME = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "QName");
+			Constants.XML_SCHEMA_NS_URI, "QName");
 	public static final QName XSD_NOTATION = new QName(
-			XMLConstants.W3C_XML_SCHEMA_NS_URI, "Notation");
+			Constants.XML_SCHEMA_NS_URI, "Notation");
 
 	/*
 	 * default QName / BuiltInType / Datatype

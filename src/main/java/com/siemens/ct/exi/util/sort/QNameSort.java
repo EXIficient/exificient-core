@@ -25,8 +25,9 @@ package com.siemens.ct.exi.util.sort;
 
 import java.util.Comparator;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
+
+import com.siemens.ct.exi.Constants;
 
 /**
  * Helper Class for sorting element declarations, context et cetera by qname.
@@ -57,13 +58,10 @@ public class QNameSort implements Comparator<QName> {
 	 */
 	public static int compare(String ns1, String ln1, String ns2, String ln2) {
 		if (ns1 == null) {
-			ns1 = XMLConstants.NULL_NS_URI;
+			ns1 = Constants.XML_NULL_NS_URI;
 		}
 		if (ns2 == null) {
-			ns2 = XMLConstants.NULL_NS_URI;
-		}
-		if(ln1 == null || ln2 == null) {
-			System.err.println("XXXXXXX");
+			ns2 = Constants.XML_NULL_NS_URI;
 		}
 		int cLocalPart = ln1.compareTo(ln2);
 		return (cLocalPart == 0 ? ns1.compareTo(ns2) : cLocalPart);

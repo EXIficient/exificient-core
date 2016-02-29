@@ -25,7 +25,6 @@ package com.siemens.ct.exi.core;
 
 import java.io.IOException;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.CodingMode;
@@ -193,7 +192,7 @@ public class EXIHeaderEncoder extends AbstractEXIHeader {
 								.getMaximumNumberOfBuiltInProductions());
 
 						QNameValue qnv = new QNameValue(
-								XMLConstants.W3C_XML_SCHEMA_NS_URI, "decimal",
+								Constants.XML_SCHEMA_NS_URI, "decimal",
 								null);
 						encoder.encodeAttributeXsiType(qnv, null);
 						DecimalValue dv = new DecimalValue(negative, integral,
