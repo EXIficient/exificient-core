@@ -38,7 +38,6 @@ import com.siemens.ct.exi.SchemaIdResolver;
 import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.exceptions.UnsupportedOption;
-import com.siemens.ct.exi.grammars.Grammars;
 import com.siemens.ct.exi.grammars.SchemaLessGrammars;
 import com.siemens.ct.exi.grammars.event.EventType;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
@@ -374,32 +373,32 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 				if(sir != null) {
 					f.setGrammars(sir.resolveSchemaId(schemaId));
 				} else {
-					// default --> try to find GrammarFactory
-					// com.siemens.ct.exi.GrammarFactory
-					try {
-						Class<?> cls  = this.getClass().getClassLoader().loadClass("com.siemens.ct.exi.GrammarFactory");
-						// no parameter for static newInstance method
-						Class<?> noparams[] = {};
-						cls.getDeclaredMethods();
-						java.lang.reflect.Method methodGF = cls.getDeclaredMethod("newInstance", noparams);
-						Object grammarFactory = methodGF.invoke(null);
-						
-						Grammars grs;
-						if(schemaId.length() == 0) {
-							// call the createXSDTypesOnlyGrammars method
-							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createXSDTypesOnlyGrammars");
-							grs = (Grammars) method.invoke(grammarFactory);
-						} else {
-							// call the createGrammars method, pass schemaId as String parameter
-							Class<?>[] paramString = new Class[1];	
-							paramString[0] = String.class;
-							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createGrammars", paramString);
-							grs = (Grammars) method.invoke(grammarFactory, schemaId);
-						}
-						f.setGrammars(grs);
-					} catch (Exception e) {
-						throw new EXIException("EXI Header povides schemaId '"+ schemaId + "'. GrammarFactory not present neither schemaIdResolver set! " + e.getMessage());
-					}
+//					// default --> try to find GrammarFactory
+//					// com.siemens.ct.exi.GrammarFactory
+//					try {
+//						Class<?> cls  = this.getClass().getClassLoader().loadClass("com.siemens.ct.exi.GrammarFactory");
+//						// no parameter for static newInstance method
+//						Class<?> noparams[] = {};
+//						cls.getDeclaredMethods();
+//						java.lang.reflect.Method methodGF = cls.getDeclaredMethod("newInstance", noparams);
+//						Object grammarFactory = methodGF.invoke(null);
+//						
+//						Grammars grs;
+//						if(schemaId.length() == 0) {
+//							// call the createXSDTypesOnlyGrammars method
+//							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createXSDTypesOnlyGrammars");
+//							grs = (Grammars) method.invoke(grammarFactory);
+//						} else {
+//							// call the createGrammars method, pass schemaId as String parameter
+//							Class<?>[] paramString = new Class[1];	
+//							paramString[0] = String.class;
+//							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createGrammars", paramString);
+//							grs = (Grammars) method.invoke(grammarFactory, schemaId);
+//						}
+//						f.setGrammars(grs);
+//					} catch (Exception e) {
+						throw new EXIException("EXI Header povides schemaId '"+ schemaId + "'. No schemaIdResolver set!");
+//					}
 				}
 			}
 		} else if (PROFILE.equals(localName)) {
