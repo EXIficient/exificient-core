@@ -25,9 +25,6 @@ package com.siemens.ct.exi;
 
 import javax.xml.namespace.QName;
 
-//import org.xml.sax.XMLReader;
-//
-//import com.siemens.ct.exi.api.sax.SAXEncoder;
 import com.siemens.ct.exi.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.exceptions.EXIException;
@@ -382,45 +379,45 @@ public interface EXIFactory extends Cloneable {
 	 */
 	public boolean isGrammarLearningDisabled();
 
-	/**
-	 * Allows to use another body encoder implementation. The provided class
-	 * needs to implement the EXIBodyEncoder interface.
-	 * 
-	 * @see EXIBodyEncoder
-	 * @param className class name
-	 * @throws EXIException EXI exception
-	 */
-	public void setEXIBodyEncoder(String className) throws EXIException;
-
-	/**
-	 * Allows to use another body encoder implementation.
-	 * 
-	 * @see EXIBodyEncoder
-	 * @param bodyEncoder body encoder
-	 * @throws EXIException EXI exception
-	 */
-	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
-			throws EXIException;
-
-	/**
-	 * Allows to use another body decoder implementation. The provided class
-	 * needs to implement the EXIBodyDecoder interface.
-	 * 
-	 * @see EXIBodyDecoder
-	 * @param className class name
-	 * @throws EXIException EXI exception
-	 */
-	public void setEXIBodyDecoder(String className) throws EXIException;
-
-	/**
-	 * Allows to use another body decoder implementation.
-	 * 
-	 * @see EXIBodyDecoder
-	 * @param bodyDecoder body decoder
-	 * @throws EXIException EXI exception
-	 */
-	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
-			throws EXIException;
+//	/**
+//	 * Allows to use another body encoder implementation. The provided class
+//	 * needs to implement the EXIBodyEncoder interface.
+//	 * 
+//	 * @see EXIBodyEncoder
+//	 * @param className class name
+//	 * @throws EXIException EXI exception
+//	 */
+//	public void setEXIBodyEncoder(String className) throws EXIException;
+//
+//	/**
+//	 * Allows to use another body encoder implementation.
+//	 * 
+//	 * @see EXIBodyEncoder
+//	 * @param bodyEncoder body encoder
+//	 * @throws EXIException EXI exception
+//	 */
+//	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
+//			throws EXIException;
+//
+//	/**
+//	 * Allows to use another body decoder implementation. The provided class
+//	 * needs to implement the EXIBodyDecoder interface.
+//	 * 
+//	 * @see EXIBodyDecoder
+//	 * @param className class name
+//	 * @throws EXIException EXI exception
+//	 */
+//	public void setEXIBodyDecoder(String className) throws EXIException;
+//
+//	/**
+//	 * Allows to use another body decoder implementation.
+//	 * 
+//	 * @see EXIBodyDecoder
+//	 * @param bodyDecoder body decoder
+//	 * @throws EXIException EXI exception
+//	 */
+//	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
+//			throws EXIException;
 
 	/**
 	 * Returns an <code>EXIBodyEncoder</code>

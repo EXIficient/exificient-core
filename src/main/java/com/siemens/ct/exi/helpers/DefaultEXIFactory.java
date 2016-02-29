@@ -119,9 +119,9 @@ public class DefaultEXIFactory implements EXIFactory {
 	// /* default: no profile */
 	// protected String profile;
 
-	/* default: use no specify body coder */
-	protected EXIBodyEncoder bodyEncoder;
-	protected EXIBodyDecoder bodyDecoder;
+//	/* default: use no specify body coder */
+//	protected EXIBodyEncoder bodyEncoder;
+//	protected EXIBodyDecoder bodyDecoder;
 	
 	protected static final QNameSort qnameSort = new QNameSort();
 
@@ -395,62 +395,62 @@ public class DefaultEXIFactory implements EXIFactory {
 		}
 	}
 
-	public void setEXIBodyEncoder(String className) throws EXIException {
-		try {
-			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
-			Class<?> aClass = classLoader.loadClass(className);
-			Object aObject = aClass.newInstance();
-			if (!EXIBodyEncoder.class.isInstance(aObject)) {
-				throw new EXIException("Class does not implemement "
-						+ EXIBodyEncoder.class);
-			}
-
-			setEXIBodyEncoder((EXIBodyEncoder) aObject);
-
-		} catch (ClassNotFoundException e) {
-			throw new EXIException(e);
-		} catch (InstantiationException e) {
-			throw new EXIException(e);
-		} catch (IllegalAccessException e) {
-			throw new EXIException(e);
-		}
-	}
-
-	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
-			throws EXIException {
-		this.bodyEncoder = bodyEncoder;
-	}
-
-	public void setEXIBodyDecoder(String className) throws EXIException {
-		try {
-			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
-			Class<?> aClass = classLoader.loadClass(className);
-			Object aObject = aClass.newInstance();
-			if (!EXIBodyDecoder.class.isInstance(aObject)) {
-				throw new EXIException("Class does not implemement "
-						+ EXIBodyDecoder.class);
-			}
-
-			setEXIBodyDecoder((EXIBodyDecoder) aObject);
-
-		} catch (ClassNotFoundException e) {
-			throw new EXIException(e);
-		} catch (InstantiationException e) {
-			throw new EXIException(e);
-		} catch (IllegalAccessException e) {
-			throw new EXIException(e);
-		}
-	}
-
-	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
-			throws EXIException {
-		this.bodyDecoder = bodyDecoder;
-	}
+//	public void setEXIBodyEncoder(String className) throws EXIException {
+//		try {
+//			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
+//			Class<?> aClass = classLoader.loadClass(className);
+//			Object aObject = aClass.newInstance();
+//			if (!EXIBodyEncoder.class.isInstance(aObject)) {
+//				throw new EXIException("Class does not implemement "
+//						+ EXIBodyEncoder.class);
+//			}
+//
+//			setEXIBodyEncoder((EXIBodyEncoder) aObject);
+//
+//		} catch (ClassNotFoundException e) {
+//			throw new EXIException(e);
+//		} catch (InstantiationException e) {
+//			throw new EXIException(e);
+//		} catch (IllegalAccessException e) {
+//			throw new EXIException(e);
+//		}
+//	}
+//
+//	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
+//			throws EXIException {
+//		this.bodyEncoder = bodyEncoder;
+//	}
+//
+//	public void setEXIBodyDecoder(String className) throws EXIException {
+//		try {
+//			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
+//			Class<?> aClass = classLoader.loadClass(className);
+//			Object aObject = aClass.newInstance();
+//			if (!EXIBodyDecoder.class.isInstance(aObject)) {
+//				throw new EXIException("Class does not implemement "
+//						+ EXIBodyDecoder.class);
+//			}
+//
+//			setEXIBodyDecoder((EXIBodyDecoder) aObject);
+//
+//		} catch (ClassNotFoundException e) {
+//			throw new EXIException(e);
+//		} catch (InstantiationException e) {
+//			throw new EXIException(e);
+//		} catch (IllegalAccessException e) {
+//			throw new EXIException(e);
+//		}
+//	}
+//
+//	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
+//			throws EXIException {
+//		this.bodyDecoder = bodyDecoder;
+//	}
 
 	public EXIBodyEncoder createEXIBodyEncoder() throws EXIException {
-		if (bodyEncoder != null) {
-			return bodyEncoder;
-		}
+//		if (bodyEncoder != null) {
+//			return bodyEncoder;
+//		}
 
 		doSanityCheck();
 
@@ -528,9 +528,9 @@ public class DefaultEXIFactory implements EXIFactory {
 	}
 
 	public EXIBodyDecoder createEXIBodyDecoder() throws EXIException {
-		if (bodyDecoder != null) {
-			return bodyDecoder;
-		}
+//		if (bodyDecoder != null) {
+//			return bodyDecoder;
+//		}
 
 		doSanityCheck();
 
