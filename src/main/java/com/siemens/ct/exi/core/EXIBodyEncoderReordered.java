@@ -36,6 +36,7 @@ import java.util.zip.DeflaterOutputStream;
 import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.Constants;
 import com.siemens.ct.exi.EXIFactory;
+import com.siemens.ct.exi.EncodingOptions;
 import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.core.container.ValueAndDatatype;
 import com.siemens.ct.exi.datatype.Datatype;
@@ -148,7 +149,12 @@ public class EXIBodyEncoderReordered extends AbstractEXIBodyEncoder {
 		if (codingMode == CodingMode.COMPRESSION) {
 			// reuse deflater
 			if (deflater == null) {
-				deflater = new Deflater(codingMode.getDeflateLevel(), true);
+				Object o = this.exiFactory.getEncodingOptions().getOptionValue(EncodingOptions.DEFLATE_COMPRESSION_VALUE);
+				int cl = Deflater.DEFAULT_COMPRESSION;
+				if(o != null && o instanceof Integer) {
+					cl = (Integer)o;	
+				}
+				deflater = new Deflater(cl, true);
 			} else {
 				deflater.reset();
 			}

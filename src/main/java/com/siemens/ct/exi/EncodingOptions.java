@@ -23,8 +23,8 @@
 
 package com.siemens.ct.exi;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.siemens.ct.exi.exceptions.UnsupportedOption;
 
@@ -76,12 +76,18 @@ public class EncodingOptions {
 	 * see http://www.w3.org/TR/exi-c14n#WithoutEXIOptions
 	 */
 	public static final String CANONICAL_EXI_WITHOUT_EXI_OPTIONS = "http://www.w3.org/TR/exi-c14n#WithoutEXIOptions";
+	
+	/**
+	 * To set the deflate stream with a specified compression level.
+	 * @see java.util.zip.Deflater#setLevel()
+	 */
+	public static final String DEFLATE_COMPRESSION_VALUE = "DEFLATE_COMPRESSION_VALUE";
 
 	/* contains options and according values */
-	protected Set<String> options;
+	protected Map<String, Object> options;
 
 	protected EncodingOptions() {
-		options = new HashSet<String>();
+		options = new HashMap<String, Object>();
 	}
 
 	/**
@@ -110,28 +116,53 @@ public class EncodingOptions {
 	 * @throws UnsupportedOption if option is not supported
 	 */
 	public void setOption(String key) throws UnsupportedOption {
+		setOption(key, null);
+	}
+	
+	/**
+	 * Enables given option with value.
+	 * 
+	 * <p>
+	 * Note: Some options (e.g. INCLUDE_SCHEMA_ID) will only take effect if the
+	 * EXI options document is set to encode options in general (see
+	 * INCLUDE_OPTIONS).
+	 * </p>
+	 * 
+	 * @param key
+	 *            referring to a specific option
+	 * @param value
+	 *            specific option value
+	 * 
+	 * @throws UnsupportedOption if option is not supported
+	 */
+	public void setOption(String key, Object value) throws UnsupportedOption {
 		if (key.equals(INCLUDE_COOKIE)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(INCLUDE_OPTIONS)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(INCLUDE_SCHEMA_ID)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(RETAIN_ENTITY_REFERENCE)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(INCLUDE_XSI_SCHEMALOCATION)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(INCLUDE_INSIGNIFICANT_XSI_NIL)) {
-			options.add(key);
-			// } else if (key.equals(INCLUDE_INSIGNIFICANT_XSI_TYPE)) {
-			// options.add(key);
+			options.put(key, null);
 		} else if (key.equals(INCLUDE_PROFILE_VALUES)) {
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(CANONICAL_EXI)) {
 			options.remove(CANONICAL_EXI_WITHOUT_EXI_OPTIONS);
-			options.add(key);
+			options.put(key, null);
 		} else if (key.equals(CANONICAL_EXI_WITHOUT_EXI_OPTIONS)) {
 			options.remove(CANONICAL_EXI);
-			options.add(key);
+			options.put(key, null);
+		} else if (key.equals(DEFLATE_COMPRESSION_VALUE)) {
+			if(value != null && value instanceof Integer) {
+				options.put(key, value);
+			} else {
+				throw new UnsupportedOption("EncodingOption '" + key
+						+ "' requires value of type Integer");
+			}
 		} else {
 			throw new UnsupportedOption("EncodingOption '" + key
 					+ "' is unknown!");
@@ -147,7 +178,7 @@ public class EncodingOptions {
 	 * 
 	 */
 	public boolean unsetOption(String key) {
-		return options.remove(key);
+		return options.remove(key) != null;
 	}
 
 	/**
@@ -158,7 +189,18 @@ public class EncodingOptions {
 	 * @return whether option is turned on
 	 */
 	public boolean isOptionEnabled(String key) {
-		return options.contains(key);
+		return options.containsKey(key);
+	}
+	
+	/**
+	 * Returns the specified option value.
+	 * 
+	 * @param key
+	 *            feature
+	 * @return whether option is turned on
+	 */
+	public Object getOptionValue(String key) {
+		return options.get(key);
 	}
 
 	@Override

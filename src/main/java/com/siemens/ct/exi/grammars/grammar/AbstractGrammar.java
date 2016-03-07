@@ -108,7 +108,7 @@ public abstract class AbstractGrammar implements Grammar {
 		if (this.label != null && !this.label.equals("")) {
 			return this.label;
 		} else {
-			return this.getClass().getSimpleName() + "[" + this.hashCode()
+			return this.getClass().getName() + "[" + this.hashCode()
 					+ "]";
 		}
 	}

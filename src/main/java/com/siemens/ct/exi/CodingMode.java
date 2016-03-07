@@ -23,8 +23,6 @@
 
 package com.siemens.ct.exi;
 
-import java.util.zip.Deflater;
-
 /**
  * The alignment option is used to control the alignment of event codes and
  * content items.
@@ -45,7 +43,7 @@ public enum CodingMode {
 	 * Alignment option value bit-packed indicates that the the event codes and
 	 * associated content are packed in bits without any paddings in-between.
 	 */
-	BIT_PACKED(false, false),
+	BIT_PACKED,
 
 	/**
 	 * Alignment option value byte-alignment indicates that the event codes and
@@ -57,46 +55,18 @@ public enum CodingMode {
 	 * data in-place and can make it easier to debug encoded data by allowing
 	 * items on aligned boundaries to be easily located in the stream.
 	 */
-	BYTE_PACKED(false, false),
+	BYTE_PACKED,
 
 	/**
 	 * Alignment option value pre-compression alignment indicates that all steps
 	 * involved in compression are to be done with the exception of the final
 	 * step of applying the DEFLATE algorithm.
 	 */
-	PRE_COMPRESSION(false, true),
+	PRE_COMPRESSION,
 
 	/**
 	 * The compression option is used to increase compactness using additional
 	 * computational resources (DEFLATE algorithm).
 	 */
-	COMPRESSION(true, true);
-
-	private final boolean usesDeflate;
-	private final boolean usesRechanneling;
-
-	private int deflateLevel = Deflater.DEFAULT_COMPRESSION;
-
-	private CodingMode(boolean deflate, boolean rechanneling) {
-		usesDeflate = deflate;
-		usesRechanneling = rechanneling;
-	}
-
-	public boolean usesDeflate() {
-		return usesDeflate;
-	}
-
-	public int getDeflateLevel() {
-		assert (usesDeflate);
-		return deflateLevel;
-	}
-
-	public void setDeflateLevel(int deflateLevel) {
-		assert (usesDeflate);
-		this.deflateLevel = deflateLevel;
-	}
-
-	public boolean usesRechanneling() {
-		return usesRechanneling;
-	}
+	COMPRESSION;
 }

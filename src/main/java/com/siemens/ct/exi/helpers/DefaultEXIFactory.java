@@ -370,7 +370,7 @@ public class DefaultEXIFactory implements EXIFactory {
 
 		// Self-contained elements do not work with re-ordered
 		if (fidelityOptions.isFidelityEnabled(FidelityOptions.FEATURE_SC)
-				&& codingMode.usesRechanneling()) {
+				&& (codingMode == CodingMode.COMPRESSION || codingMode == CodingMode.PRE_COMPRESSION)) {
 			throw new EXIException(
 					"(Pre-)Compression and selfContained elements cannot work together");
 		}
@@ -454,7 +454,7 @@ public class DefaultEXIFactory implements EXIFactory {
 
 		doSanityCheck();
 
-		if (codingMode.usesRechanneling()) {
+		if (codingMode == CodingMode.COMPRESSION || codingMode == CodingMode.PRE_COMPRESSION) {
 			return new EXIBodyEncoderReordered(this);
 		} else {
 			if (fidelityOptions.isFidelityEnabled(FidelityOptions.FEATURE_SC)) {
@@ -534,7 +534,7 @@ public class DefaultEXIFactory implements EXIFactory {
 
 		doSanityCheck();
 
-		if (codingMode.usesRechanneling()) {
+		if (codingMode == CodingMode.COMPRESSION || codingMode == CodingMode.PRE_COMPRESSION) {
 			return new EXIBodyDecoderReordered(this);
 		} else {
 			if (fidelityOptions.isFidelityEnabled(FidelityOptions.FEATURE_SC)) {
