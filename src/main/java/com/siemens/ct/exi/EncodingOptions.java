@@ -79,7 +79,7 @@ public class EncodingOptions {
 	
 	/**
 	 * To set the deflate stream with a specified compression level.
-	 * @see java.util.zip.Deflater#setLevel()
+	 * @see java.util.zip.Deflater#setLevel(int)
 	 */
 	public static final String DEFLATE_COMPRESSION_VALUE = "DEFLATE_COMPRESSION_VALUE";
 
