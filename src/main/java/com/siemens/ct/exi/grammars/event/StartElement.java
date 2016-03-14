@@ -84,12 +84,7 @@ public class StartElement extends AbstractEvent {
 			return true;
 		} else if (obj instanceof StartElement) {
 			StartElement otherSE = (StartElement) obj;
-			return (qnameContext.getQNameID() == otherSE.qnameContext.getQNameID() );
-//			if (qname.equals(otherSE.qname)) {
-//				return grammar.equals(otherSE.grammar);
-//			} else {
-//				return false;
-//			}
+			return qnameContext.equals(otherSE.qnameContext);
 		} else {
 			return false;
 		}

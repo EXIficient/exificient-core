@@ -55,15 +55,6 @@ public class QNameContext {
 	// type grammar
 	SchemaInformedFirstStartTagGrammar typeGrammar;
 
-//	// simple basetype
-//	QNameContext simpleBaseType;
-//	
-//	// simple datatype
-//	Datatype simpleDatatype;
-//	
-//	// simple base datatype
-//	Datatype simpleBaseDatatype;
-
 	public QNameContext(int namespaceUriID, int localNameID, QName qName,
 			int qNameID) {
 		this.namespaceUriID = namespaceUriID;
@@ -160,44 +151,6 @@ public class QNameContext {
 		return this.typeGrammar;
 	}
 
-
-
-//	/**
-//	 * Set simple base-type
-//	 * 
-//	 */
-//	public void setSimpleBaseType(QNameContext simpleBaseType) {
-//		this.simpleBaseType = simpleBaseType;
-//	}
-//	
-//	/**
-//	 * Returns simple base-type
-//	 * 
-//	 * @return base-type
-//	 */
-//	public QNameContext getSimpleBaseType() {
-//		return this.simpleBaseType;
-//	}
-//	
-//	public void setSimpleDatatype(Datatype simpleDatatype) {
-//		this.simpleDatatype = simpleDatatype;
-//	}
-//	
-//	public Datatype getSimpleDatatype() {
-//	return this.simpleDatatype;
-//}
-//	
-//	public void setSimpleBaseDatatype(Datatype simpleBaseDatatype) {
-//		this.simpleBaseDatatype = simpleBaseDatatype;
-//	}
-//	
-//	public Datatype getSimpleBaseDatatype() {
-//		return this.simpleBaseDatatype;
-//	}
-
-	
-	
-
 	public int getNamespaceUriID() {
 		return this.namespaceUriID;
 	}
@@ -219,9 +172,9 @@ public class QNameContext {
 	public final boolean equals(Object o) {
 		if (o instanceof QNameContext) {
 			QNameContext other = (QNameContext) o;
-			// return (other.localNameID == this.localNameID && other
-			//		.getNamespaceUriID() == this.getNamespaceUriID());
-			return (other.qNameID == this.qNameID);
+			 return (other.localNameID == this.localNameID && other
+					.namespaceUriID == this.namespaceUriID);
+			// return (other.qNameID == this.qNameID);
 		}
 		return false;
 	}
