@@ -181,8 +181,8 @@ public class QNameContext {
 
 	@Override
 	public final int hashCode() {
-		// return getNamespaceUriID() ^ localNameID;
-		return qNameID;
+		return namespaceUriID ^ localNameID;
+		// return qNameID;
 	}
 
 }
