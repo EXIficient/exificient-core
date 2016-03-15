@@ -100,23 +100,21 @@ public abstract class AbstractEXIHeader {
 
 		final String ns1 = "http://www.w3.org/XML/1998/namespace";
 		final QNameContext qnc0 = new QNameContext(1, 0,
-				new QName(ns1, "base"), 0);
-		final QNameContext qnc1 = new QNameContext(1, 1, new QName(ns1, "id"),
-				1);
+				new QName(ns1, "base"));
+		final QNameContext qnc1 = new QNameContext(1, 1, new QName(ns1, "id"));
 		final QNameContext qnc2 = new QNameContext(1, 2,
-				new QName(ns1, "lang"), 2);
+				new QName(ns1, "lang"));
 		final QNameContext qnc3 = new QNameContext(1, 3,
-				new QName(ns1, "space"), 3);
+				new QName(ns1, "space"));
 		final QNameContext[] grammarQNames1 = { qnc0, qnc1, qnc2, qnc3 };
 		final String[] grammarPrefixes1 = { "xml" };
 		final GrammarUriContext guc1 = new GrammarUriContext(1, ns1,
 				grammarQNames1, grammarPrefixes1);
 
 		final String ns2 = "http://www.w3.org/2001/XMLSchema-instance";
-		final QNameContext qnc4 = new QNameContext(2, 0, new QName(ns2, "nil"),
-				4);
+		final QNameContext qnc4 = new QNameContext(2, 0, new QName(ns2, "nil"));
 		final QNameContext qnc5 = new QNameContext(2, 1,
-				new QName(ns2, "type"), 5);
+				new QName(ns2, "type"));
 		final QNameContext[] grammarQNames2 = { qnc4, qnc5 };
 		final String[] grammarPrefixes2 = { "xsi" };
 		final GrammarUriContext guc2 = new GrammarUriContext(2, ns2,
@@ -124,97 +122,96 @@ public abstract class AbstractEXIHeader {
 
 		final String ns3 = "http://www.w3.org/2001/XMLSchema";
 		final QNameContext qnc6 = new QNameContext(3, 0, new QName(ns3,
-				"ENTITIES"), 6);
+				"ENTITIES"));
 		final QNameContext qnc7 = new QNameContext(3, 1, new QName(ns3,
-				"ENTITY"), 7);
-		final QNameContext qnc8 = new QNameContext(3, 2, new QName(ns3, "ID"),
-				8);
+				"ENTITY"));
+		final QNameContext qnc8 = new QNameContext(3, 2, new QName(ns3, "ID"));
 		final QNameContext qnc9 = new QNameContext(3, 3,
-				new QName(ns3, "IDREF"), 9);
+				new QName(ns3, "IDREF"));
 		final QNameContext qnc10 = new QNameContext(3, 4, new QName(ns3,
-				"IDREFS"), 10);
+				"IDREFS"));
 		final QNameContext qnc11 = new QNameContext(3, 5, new QName(ns3,
-				"NCName"), 11);
+				"NCName"));
 		final QNameContext qnc12 = new QNameContext(3, 6, new QName(ns3,
-				"NMTOKEN"), 12);
+				"NMTOKEN"));
 		final QNameContext qnc13 = new QNameContext(3, 7, new QName(ns3,
-				"NMTOKENS"), 13);
+				"NMTOKENS"));
 		final QNameContext qnc14 = new QNameContext(3, 8, new QName(ns3,
-				"NOTATION"), 14);
+				"NOTATION"));
 		final QNameContext qnc15 = new QNameContext(3, 9,
-				new QName(ns3, "Name"), 15);
+				new QName(ns3, "Name"));
 		final QNameContext qnc16 = new QNameContext(3, 10, new QName(ns3,
-				"QName"), 16);
+				"QName"));
 		final QNameContext qnc17 = new QNameContext(3, 11, new QName(ns3,
-				"anySimpleType"), 17);
+				"anySimpleType"));
 		final QNameContext qnc18 = new QNameContext(3, 12, new QName(ns3,
-				"anyType"), 18);
+				"anyType"));
 		final QNameContext qnc19 = new QNameContext(3, 13, new QName(ns3,
-				"anyURI"), 19);
+				"anyURI"));
 		final QNameContext qnc20 = new QNameContext(3, 14, new QName(ns3,
-				"base64Binary"), 20);
+				"base64Binary"));
 		final QNameContext qnc21 = new QNameContext(3, 15, new QName(ns3,
-				"boolean"), 21);
+				"boolean"));
 		final QNameContext qnc22 = new QNameContext(3, 16, new QName(ns3,
-				"byte"), 22);
+				"byte"));
 		final QNameContext qnc23 = new QNameContext(3, 17, new QName(ns3,
-				"date"), 23);
+				"date"));
 		final QNameContext qnc24 = new QNameContext(3, 18, new QName(ns3,
-				"dateTime"), 24);
+				"dateTime"));
 		final QNameContext qnc25 = new QNameContext(3, 19, new QName(ns3,
-				"decimal"), 25);
+				"decimal"));
 		final QNameContext qnc26 = new QNameContext(3, 20, new QName(ns3,
-				"double"), 26);
+				"double"));
 		final QNameContext qnc27 = new QNameContext(3, 21, new QName(ns3,
-				"duration"), 27);
+				"duration"));
 		final QNameContext qnc28 = new QNameContext(3, 22, new QName(ns3,
-				"float"), 28);
+				"float"));
 		final QNameContext qnc29 = new QNameContext(3, 23, new QName(ns3,
-				"gDay"), 29);
+				"gDay"));
 		final QNameContext qnc30 = new QNameContext(3, 24, new QName(ns3,
-				"gMonth"), 30);
+				"gMonth"));
 		final QNameContext qnc31 = new QNameContext(3, 25, new QName(ns3,
-				"gMonthDay"), 31);
+				"gMonthDay"));
 		final QNameContext qnc32 = new QNameContext(3, 26, new QName(ns3,
-				"gYear"), 32);
+				"gYear"));
 		final QNameContext qnc33 = new QNameContext(3, 27, new QName(ns3,
-				"gYearMonth"), 33);
+				"gYearMonth"));
 		final QNameContext qnc34 = new QNameContext(3, 28, new QName(ns3,
-				"hexBinary"), 34);
+				"hexBinary"));
 		final QNameContext qnc35 = new QNameContext(3, 29,
-				new QName(ns3, "int"), 35);
+				new QName(ns3, "int"));
 		final QNameContext qnc36 = new QNameContext(3, 30, new QName(ns3,
-				"integer"), 36);
+				"integer"));
 		final QNameContext qnc37 = new QNameContext(3, 31, new QName(ns3,
-				"language"), 37);
+				"language"));
 		final QNameContext qnc38 = new QNameContext(3, 32, new QName(ns3,
-				"long"), 38);
+				"long"));
 		final QNameContext qnc39 = new QNameContext(3, 33, new QName(ns3,
-				"negativeInteger"), 39);
+				"negativeInteger"));
 		final QNameContext qnc40 = new QNameContext(3, 34, new QName(ns3,
-				"nonNegativeInteger"), 40);
+				"nonNegativeInteger"));
 		final QNameContext qnc41 = new QNameContext(3, 35, new QName(ns3,
-				"nonPositiveInteger"), 41);
+				"nonPositiveInteger"));
 		final QNameContext qnc42 = new QNameContext(3, 36, new QName(ns3,
-				"normalizedString"), 42);
+				"normalizedString"));
 		final QNameContext qnc43 = new QNameContext(3, 37, new QName(ns3,
-				"positiveInteger"), 43);
+				"positiveInteger"));
 		final QNameContext qnc44 = new QNameContext(3, 38, new QName(ns3,
-				"short"), 44);
+				"short"));
 		final QNameContext qnc45 = new QNameContext(3, 39, new QName(ns3,
-				"string"), 45);
+				"string"));
 		final QNameContext qnc46 = new QNameContext(3, 40, new QName(ns3,
-				"time"), 46);
+				"time"));
 		final QNameContext qnc47 = new QNameContext(3, 41, new QName(ns3,
-				"token"), 47);
+				"token"));
 		final QNameContext qnc48 = new QNameContext(3, 42, new QName(ns3,
-				"unsignedByte"), 48);
+				"unsignedByte"));
 		final QNameContext qnc49 = new QNameContext(3, 43, new QName(ns3,
-				"unsignedInt"), 49);
+				"unsignedInt"));
 		final QNameContext qnc50 = new QNameContext(3, 44, new QName(ns3,
-				"unsignedLong"), 50);
+				"unsignedLong"));
 		final QNameContext qnc51 = new QNameContext(3, 45, new QName(ns3,
-				"unsignedShort"), 51);
+				"unsignedShort"));
 		final QNameContext[] grammarQNames3 = { qnc6, qnc7, qnc8, qnc9, qnc10,
 				qnc11, qnc12, qnc13, qnc14, qnc15, qnc16, qnc17, qnc18, qnc19,
 				qnc20, qnc21, qnc22, qnc23, qnc24, qnc25, qnc26, qnc27, qnc28,
@@ -227,83 +224,83 @@ public abstract class AbstractEXIHeader {
 
 		final String ns4 = "http://www.w3.org/2009/exi";
 		final QNameContext qnc52 = new QNameContext(4, 0, new QName(ns4,
-				"alignment"), 52);
+				"alignment"));
 		final QNameContext qnc53 = new QNameContext(4, 1, new QName(ns4,
-				"base64Binary"), 53);
+				"base64Binary"));
 		final QNameContext qnc54 = new QNameContext(4, 2, new QName(ns4,
-				"blockSize"), 54);
+				"blockSize"));
 		final QNameContext qnc55 = new QNameContext(4, 3, new QName(ns4,
-				"boolean"), 55);
+				"boolean"));
 		final QNameContext qnc56 = new QNameContext(4, 4,
-				new QName(ns4, "byte"), 56);
+				new QName(ns4, "byte"));
 		final QNameContext qnc57 = new QNameContext(4, 5, new QName(ns4,
-				"comments"), 57);
+				"comments"));
 		final QNameContext qnc58 = new QNameContext(4, 6, new QName(ns4,
-				"common"), 58);
+				"common"));
 		final QNameContext qnc59 = new QNameContext(4, 7, new QName(ns4,
-				"compression"), 59);
+				"compression"));
 		final QNameContext qnc60 = new QNameContext(4, 8, new QName(ns4,
-				"datatypeRepresentationMap"), 60);
+				"datatypeRepresentationMap"));
 		final QNameContext qnc61 = new QNameContext(4, 9,
-				new QName(ns4, "date"), 61);
+				new QName(ns4, "date"));
 		final QNameContext qnc62 = new QNameContext(4, 10, new QName(ns4,
-				"dateTime"), 62);
+				"dateTime"));
 		final QNameContext qnc63 = new QNameContext(4, 11, new QName(ns4,
-				"decimal"), 63);
+				"decimal"));
 		final QNameContext qnc64 = new QNameContext(4, 12, new QName(ns4,
-				"double"), 64);
+				"double"));
 		final QNameContext qnc65 = new QNameContext(4, 13,
-				new QName(ns4, "dtd"), 65);
+				new QName(ns4, "dtd"));
 		final QNameContext qnc66 = new QNameContext(4, 14, new QName(ns4,
-				"fragment"), 66);
+				"fragment"));
 		final QNameContext qnc67 = new QNameContext(4, 15, new QName(ns4,
-				"gDay"), 67);
+				"gDay"));
 		final QNameContext qnc68 = new QNameContext(4, 16, new QName(ns4,
-				"gMonth"), 68);
+				"gMonth"));
 		final QNameContext qnc69 = new QNameContext(4, 17, new QName(ns4,
-				"gMonthDay"), 69);
+				"gMonthDay"));
 		final QNameContext qnc70 = new QNameContext(4, 18, new QName(ns4,
-				"gYear"), 70);
+				"gYear"));
 		final QNameContext qnc71 = new QNameContext(4, 19, new QName(ns4,
-				"gYearMonth"), 71);
+				"gYearMonth"));
 		final QNameContext qnc72 = new QNameContext(4, 20, new QName(ns4,
-				"header"), 72);
+				"header"));
 		final QNameContext qnc73 = new QNameContext(4, 21, new QName(ns4,
-				"hexBinary"), 73);
+				"hexBinary"));
 		final QNameContext qnc74 = new QNameContext(4, 22, new QName(ns4,
-				"ieeeBinary32"), 74);
+				"ieeeBinary32"));
 		final QNameContext qnc75 = new QNameContext(4, 23, new QName(ns4,
-				"ieeeBinary64"), 75);
+				"ieeeBinary64"));
 		final QNameContext qnc76 = new QNameContext(4, 24, new QName(ns4,
-				"integer"), 76);
+				"integer"));
 		final QNameContext qnc77 = new QNameContext(4, 25, new QName(ns4,
-				"lesscommon"), 77);
+				"lesscommon"));
 		final QNameContext qnc78 = new QNameContext(4, 26, new QName(ns4,
-				"lexicalValues"), 78);
+				"lexicalValues"));
 		final QNameContext qnc79 = new QNameContext(4, 27,
-				new QName(ns4, "pis"), 79);
+				new QName(ns4, "pis"));
 		final QNameContext qnc80 = new QNameContext(4, 28, new QName(ns4,
-				"pre-compress"), 80);
+				"pre-compress"));
 		final QNameContext qnc81 = new QNameContext(4, 29, new QName(ns4,
-				"prefixes"), 81);
+				"prefixes"));
 		final QNameContext qnc82 = new QNameContext(4, 30, new QName(ns4,
-				"preserve"), 82);
+				"preserve"));
 		final QNameContext qnc83 = new QNameContext(4, 31, new QName(ns4,
-				"schemaId"), 83);
+				"schemaId"));
 		final QNameContext qnc84 = new QNameContext(4, 32, new QName(ns4,
-				"selfContained"), 84);
+				"selfContained"));
 		final QNameContext qnc85 = new QNameContext(4, 33, new QName(ns4,
-				"strict"), 85);
+				"strict"));
 		final QNameContext qnc86 = new QNameContext(4, 34, new QName(ns4,
-				"string"), 86);
+				"string"));
 		final QNameContext qnc87 = new QNameContext(4, 35, new QName(ns4,
-				"time"), 87);
+				"time"));
 		final QNameContext qnc88 = new QNameContext(4, 36, new QName(ns4,
-				"uncommon"), 88);
+				"uncommon"));
 		final QNameContext qnc89 = new QNameContext(4, 37, new QName(ns4,
-				"valueMaxLength"), 89);
+				"valueMaxLength"));
 		final QNameContext qnc90 = new QNameContext(4, 38, new QName(ns4,
-				"valuePartitionCapacity"), 90);
+				"valuePartitionCapacity"));
 		final QNameContext[] grammarQNames4 = { qnc52, qnc53, qnc54, qnc55,
 				qnc56, qnc57, qnc58, qnc59, qnc60, qnc61, qnc62, qnc63, qnc64,
 				qnc65, qnc66, qnc67, qnc68, qnc69, qnc70, qnc71, qnc72, qnc73,

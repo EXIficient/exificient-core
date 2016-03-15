@@ -42,7 +42,6 @@ public class QNameContext {
 	final int namespaceUriID;
 	final int localNameID;
 	final QName qName;
-	final int qNameID;
 	final String defaultQNameAsString;
 	final String defaultPrefix;
 
@@ -55,8 +54,7 @@ public class QNameContext {
 	// type grammar
 	SchemaInformedFirstStartTagGrammar typeGrammar;
 
-	public QNameContext(int namespaceUriID, int localNameID, QName qName,
-			int qNameID) {
+	public QNameContext(int namespaceUriID, int localNameID, QName qName) {
 		this.namespaceUriID = namespaceUriID;
 		this.localNameID = localNameID;
 		this.qName = qName;
@@ -78,7 +76,6 @@ public class QNameContext {
 			this.defaultPrefix = "ns" + namespaceUriID;
 			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
 		}
-		this.qNameID = qNameID;
 	}
 
 	public QName getQName() {
@@ -112,10 +109,6 @@ public class QNameContext {
 	
 	public String getDefaultPrefix() {
 		return defaultPrefix;
-	}
-
-	public int getQNameID() {
-		return this.qNameID;
 	}
 
 	public int getLocalNameID() {

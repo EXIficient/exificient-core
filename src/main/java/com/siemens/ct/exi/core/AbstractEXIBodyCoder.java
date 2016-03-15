@@ -96,7 +96,6 @@ public abstract class AbstractEXIBodyCoder {
 	protected QNameContext xsiNilContext;
 	
 	protected final int gUris; // number of grammar uris
-	protected int nextQNameID;
 	protected int nextUriID;
 	
 	/** EXI Profile parameters */
@@ -228,7 +227,6 @@ public abstract class AbstractEXIBodyCoder {
 		}
 		
 		// re-set schema-informed grammar IDs
-		nextQNameID = this.grammarContext.getNumberOfGrammarQNameContexts();
 		nextUriID = this.gUris;
 
 		// possible document/fragment grammar
@@ -497,8 +495,7 @@ public abstract class AbstractEXIBodyCoder {
 			}
 			int localNameID = getNumberOfQNames();
 			QName qName = new QName(namespaceUri, localName);
-			int qNameID = nextQNameID++;
-			QNameContext qnc = new QNameContext(namespaceUriID, localNameID, qName, qNameID);
+			QNameContext qnc = new QNameContext(namespaceUriID, localNameID, qName);
 			qnames.add(qnc);
 			
 			return qnc;

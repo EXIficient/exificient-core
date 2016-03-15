@@ -67,7 +67,8 @@ public class SchemaLessGrammars extends AbstractGrammars {
 			for (int i = 0; i < grammarQNames1.length; i++) {
 				grammarQNames1[i] = new QNameContext(namespaceUriID, i,
 						new QName(Constants.XML_NS_URI,
-								Constants.LOCAL_NAMES_XML[i]), qNameID++);
+								Constants.LOCAL_NAMES_XML[i]));
+				qNameID++;
 			}
 			grammarUriContextsX[namespaceUriID] = new GrammarUriContext(
 					namespaceUriID, Constants.XML_NS_URI, grammarQNames1,
@@ -80,7 +81,8 @@ public class SchemaLessGrammars extends AbstractGrammars {
 			for (int i = 0; i < grammarQNames2.length; i++) {
 				grammarQNames2[i] = new QNameContext(namespaceUriID, i,
 						new QName(Constants.XML_SCHEMA_INSTANCE_NS_URI,
-								Constants.LOCAL_NAMES_XSI[i]), qNameID++);
+								Constants.LOCAL_NAMES_XSI[i]));
+				qNameID++;
 			}
 			grammarUriContextsX[namespaceUriID] = new GrammarUriContext(
 					namespaceUriID,
