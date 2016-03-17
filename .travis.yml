@@ -1,5 +1,12 @@
 language: java
 jdk:
-  - oraclejdk8
-  - oraclejdk7
-  - openjdk6
+- oraclejdk8
+- oraclejdk7
+- openjdk6
+env:
+  global:
+  - SONATYPE_USERNAME=daniel_peintner
+  - secure: "V/MtY7NEa1wjYVXrvHpZj9kOxehDaOE+86evKTAZJEBqbmAi6nDU+rCKZ6ODJubsf0n6Y4nW2nC/x+8dSuUSLpQA+BoDozS6Topo60Qg/SCoN/7udnxL56o2EYq7aHLPaLPAEoyrZ1EuSwpg+z5Yb6ngQEzr74EG943LgXh/9iN6RG4jidsXULc7XlBflI0trRH9WnlmqXeiKDQWdER//tXmoFidja8rj+Hps78M5sfyJ93BKEZcFnxO1st+IqRX1qBv8WBhQRtQP/yZKkauRTSk8313JGBn/EUegdHDnRZXwbCAuUQ5qBInyGOAGaGC/0iJLIFWDr/BAQG/1Fo4ESf5VysbR7uR4ZpmNyID1erE/ebo8WK61klZFxiFa02Vj3L/pqWbfaplXVhHes2pC9yS/10J3hpgoNiq9hUfO1FVHB9EBVWVimMKqOVZbIAg/UED70YTZKxCRe2szvMVQXtPu7W7EnKIeEbVB5qZiYEp6Tw3/cl8EpTF0fYQR6jh58UuXaxjvGLzCmwGG4odkHcZOisQCREZolQnKROr0hq26QLZMW4gqXfCISPCwmMxxqGAN9OTAVclsIQpwEvH0rGCmpWnXiUhD5xE8SDdw7SZ7wJAhHA1zABO2ZHpIUCN/TRKLynjXkec5E4njs+BTD1kOyu7azGaf4QJEDO1za0="
+after_success:
+  - mvn deploy --settings settings.xml -DskipTests=true -B
+  
