@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.helpers;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
@@ -115,13 +116,9 @@ public class DefaultEXIFactory implements EXIFactory {
 	protected int maximumNumberOfBuiltInProductions = -1;
 	/* default: false */
 	protected boolean grammarLearningDisabled = false;
-
-	// /* default: no profile */
-	// protected String profile;
-
-//	/* default: use no specify body coder */
-//	protected EXIBodyEncoder bodyEncoder;
-//	protected EXIBodyDecoder bodyDecoder;
+	
+	/* shared strings */
+	protected List<String> sharedStrings;
 	
 	protected static final QNameSort qnameSort = new QNameSort();
 
@@ -364,6 +361,15 @@ public class DefaultEXIFactory implements EXIFactory {
 	public boolean isGrammarLearningDisabled() {
 		return this.grammarLearningDisabled;
 	}
+	
+	public void setSharedStrings(List<String> sharedStrings) {
+		this.sharedStrings = sharedStrings;
+	}
+	
+	public List<String> getSharedStrings() {
+		return this.sharedStrings;
+	}
+	
 
 	// some consistency and sanity checks
 	protected void doSanityCheck() throws EXIException {

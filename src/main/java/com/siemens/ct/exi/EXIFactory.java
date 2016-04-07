@@ -23,6 +23,8 @@
 
 package com.siemens.ct.exi;
 
+import java.util.List;
+
 import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.datatype.strings.StringDecoder;
@@ -378,46 +380,23 @@ public interface EXIFactory extends Cloneable {
 	 * @return whether schema learning is disabled
 	 */
 	public boolean isGrammarLearningDisabled();
-
-//	/**
-//	 * Allows to use another body encoder implementation. The provided class
-//	 * needs to implement the EXIBodyEncoder interface.
-//	 * 
-//	 * @see EXIBodyEncoder
-//	 * @param className class name
-//	 * @throws EXIException EXI exception
-//	 */
-//	public void setEXIBodyEncoder(String className) throws EXIException;
-//
-//	/**
-//	 * Allows to use another body encoder implementation.
-//	 * 
-//	 * @see EXIBodyEncoder
-//	 * @param bodyEncoder body encoder
-//	 * @throws EXIException EXI exception
-//	 */
-//	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
-//			throws EXIException;
-//
-//	/**
-//	 * Allows to use another body decoder implementation. The provided class
-//	 * needs to implement the EXIBodyDecoder interface.
-//	 * 
-//	 * @see EXIBodyDecoder
-//	 * @param className class name
-//	 * @throws EXIException EXI exception
-//	 */
-//	public void setEXIBodyDecoder(String className) throws EXIException;
-//
-//	/**
-//	 * Allows to use another body decoder implementation.
-//	 * 
-//	 * @see EXIBodyDecoder
-//	 * @param bodyDecoder body decoder
-//	 * @throws EXIException EXI exception
-//	 */
-//	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
-//			throws EXIException;
+	
+	
+	/**
+	 * (Experimental) Feature to pre-agree on shared strings.
+	 * 
+	 * @param sharedStrings list of shared strings
+	 */
+	public void setSharedStrings(List<String> sharedStrings);
+	
+	
+	/**
+	 * Return list of shared strings.
+	 * 
+	 * @return null or shared strings if any
+	 */
+	public List<String> getSharedStrings();
+	
 
 	/**
 	 * Returns an <code>EXIBodyEncoder</code>

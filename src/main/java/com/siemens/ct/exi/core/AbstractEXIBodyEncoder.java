@@ -118,6 +118,12 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 		learnedProductions = 0;
 		stringEncoder.clear();
+		if(this.exiFactory.getSharedStrings() != null) {
+			for(String s : this.exiFactory.getSharedStrings()) {
+				stringEncoder.addValue(null, s);
+			}
+		}
+		
 		bChars.clear();
 		isXmlSpacePreserve = false;
 	}

@@ -57,6 +57,7 @@ import com.siemens.ct.exi.util.MethodsBag;
 import com.siemens.ct.exi.util.xml.QNameUtilities;
 import com.siemens.ct.exi.values.BooleanValue;
 import com.siemens.ct.exi.values.QNameValue;
+import com.siemens.ct.exi.values.StringValue;
 import com.siemens.ct.exi.values.Value;
 
 /**
@@ -123,6 +124,11 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		super.initForEachRun();
 
 		stringDecoder.clear();
+		if(this.exiFactory.getSharedStrings() != null) {
+			for(String s : this.exiFactory.getSharedStrings()) {
+				stringDecoder.addValue(null, new StringValue(s));
+			}
+		}
 	}
 	
 
