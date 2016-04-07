@@ -23,6 +23,8 @@
 
 package com.siemens.ct.exi.datatype.strings;
 
+import java.util.List;
+
 import com.siemens.ct.exi.Constants;
 import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.values.StringValue;
@@ -45,4 +47,6 @@ public interface StringCoder {
 	public int getNumberOfStringValues(QNameContext qnc);
 	
 	public void clear();
+	
+	public void setSharedStrings(List<String> sharedStrings);
 }

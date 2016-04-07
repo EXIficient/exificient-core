@@ -135,6 +135,12 @@ public class StringDecoderImpl  extends AbstractStringCoder implements StringDec
 		super.clear();
 		globalValues.clear();
 	}
+	
+	public void setSharedStrings(List<String> sharedStrings) {
+		for(String s : sharedStrings) {
+			this.addValue(null, new StringValue(s));
+		}
+	}
 
 
 }

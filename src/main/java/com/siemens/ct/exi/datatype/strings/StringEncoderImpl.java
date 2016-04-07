@@ -25,6 +25,7 @@ package com.siemens.ct.exi.datatype.strings;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.siemens.ct.exi.context.QNameContext;
@@ -61,7 +62,7 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 
 		if (vc != null) {
 			// hit
-			if (localValuePartitions && vc.context.equals(context)) {
+			if (localValuePartitions && context.equals(vc.context)) {
 				/*
 				 * local value hit ==> is represented as zero (0) encoded as an
 				 * Unsigned Integer followed by the compact identifier of the
@@ -127,6 +128,12 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 	public void clear() {
 		super.clear();
 		stringValues.clear();
+	}
+	
+	public void setSharedStrings(List<String> sharedStrings) {
+		for(String s : sharedStrings) {
+			this.addValue(null, s);
+		}
 	}
 
 	static class ValueContainer {

@@ -125,9 +125,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 
 		stringDecoder.clear();
 		if(this.exiFactory.getSharedStrings() != null) {
-			for(String s : this.exiFactory.getSharedStrings()) {
-				stringDecoder.addValue(null, new StringValue(s));
-			}
+			stringDecoder.setSharedStrings(this.exiFactory.getSharedStrings());
 		}
 	}
 	
