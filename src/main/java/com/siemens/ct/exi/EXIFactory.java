@@ -403,7 +403,7 @@ public interface EXIFactory extends Cloneable {
 	 * 
 	 * @param isNonEvolving whether instead of built-in grammars schema-informed Element Fragment Grammar is used
 	 */
-	public void setUsingNonEvolingGrammars(boolean isNonEvolving);
+	public void setUsingNonEvolvingGrammars(boolean isNonEvolving);
 	
 	
 	/**
@@ -411,7 +411,7 @@ public interface EXIFactory extends Cloneable {
 	 * 
 	 * @return true or false
 	 */
-	public boolean isUsingNonEvolingGrammars();
+	public boolean isUsingNonEvolvingGrammars();
 	
 
 	/**

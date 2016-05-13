@@ -375,12 +375,12 @@ public class DefaultEXIFactory implements EXIFactory {
 	
 
 	@Override
-	public void setUsingNonEvolingGrammars(boolean isNonEvolving) {
+	public void setUsingNonEvolvingGrammars(boolean isNonEvolving) {
 		this.isUsingNonEvolvingGrammrs = isNonEvolving;
 	}
 
 	@Override
-	public boolean isUsingNonEvolingGrammars() {
+	public boolean isUsingNonEvolvingGrammars() {
 		return this.isUsingNonEvolvingGrammrs;
 	}
 

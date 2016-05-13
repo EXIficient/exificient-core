@@ -191,7 +191,7 @@ public abstract class AbstractEXIBodyCoder {
 				// no global runtime grammar yet
 				se = new StartElement(qnc);
 				// TODO which grammar to pick if no schema-information are availa
-				if (grammar.isSchemaInformed() && this.exiFactory.isUsingNonEvolingGrammars()) {
+				if (grammar.isSchemaInformed() && this.exiFactory.isUsingNonEvolvingGrammars()) {
 					SchemaInformedGrammars sig = (SchemaInformedGrammars) grammar;
 					se.setGrammar(sig.getSchemaInformedElementFragmentGrammar());
 				} else {
