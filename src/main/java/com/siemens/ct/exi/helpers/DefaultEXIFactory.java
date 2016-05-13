@@ -120,6 +120,9 @@ public class DefaultEXIFactory implements EXIFactory {
 	/* shared strings */
 	protected List<String> sharedStrings;
 	
+	/* non evolving grammars */
+	protected boolean isUsingNonEvolvingGrammrs;
+	
 	protected static final QNameSort qnameSort = new QNameSort();
 
 	protected DefaultEXIFactory() {
@@ -370,6 +373,17 @@ public class DefaultEXIFactory implements EXIFactory {
 		return this.sharedStrings;
 	}
 	
+
+	@Override
+	public void setUsingNonEvolingGrammars(boolean isNonEvolving) {
+		this.isUsingNonEvolvingGrammrs = isNonEvolving;
+	}
+
+	@Override
+	public boolean isUsingNonEvolingGrammars() {
+		return this.isUsingNonEvolvingGrammrs;
+	}
+
 
 	// some consistency and sanity checks
 	protected void doSanityCheck() throws EXIException {
@@ -779,5 +793,4 @@ public class DefaultEXIFactory implements EXIFactory {
 
 		return sb.toString();
 	}
-
 }

@@ -391,11 +391,27 @@ public interface EXIFactory extends Cloneable {
 	
 	
 	/**
-	 * Return list of shared strings.
+	 * (Experimental) Return list of shared strings.
 	 * 
 	 * @return null or shared strings if any
 	 */
 	public List<String> getSharedStrings();
+	
+	
+	/**
+	 * (Experimental) Feature which dictates that grammar does not grow in any circumstance
+	 * 
+	 * @param isNonEvolving whether instead of built-in grammars schema-informed Element Fragment Grammar is used
+	 */
+	public void setUsingNonEvolingGrammars(boolean isNonEvolving);
+	
+	
+	/**
+	 * (Experimental) Returns whether non-evolving grammars are used
+	 * 
+	 * @return true or false
+	 */
+	public boolean isUsingNonEvolingGrammars();
 	
 
 	/**

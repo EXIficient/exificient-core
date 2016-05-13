@@ -29,6 +29,7 @@ import com.siemens.ct.exi.exceptions.UnsupportedOption;
 import com.siemens.ct.exi.grammars.grammar.Document;
 import com.siemens.ct.exi.grammars.grammar.Fragment;
 import com.siemens.ct.exi.grammars.grammar.Grammar;
+import com.siemens.ct.exi.grammars.grammar.SchemaInformedGrammar;
 
 /**
  * 
@@ -43,13 +44,16 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 	protected boolean builtInXMLSchemaTypesOnly = false;
 
 	protected String schemaId;
+	
+	protected final SchemaInformedGrammar elementFragmentGrammar;
 
 	public SchemaInformedGrammars(GrammarContext grammarContext,
-			Document document, Fragment fragment) {
+			Document document, Fragment fragment, SchemaInformedGrammar elementFragmentGrammar) {
 		super(true, grammarContext);
 		// set document & fragment grammar
 		documentGrammar = document;
 		fragmentGrammar = fragment;
+		this.elementFragmentGrammar = elementFragmentGrammar;
 	}
 
 	public void setBuiltInXMLSchemaTypesOnly(boolean builtInXMLSchemaTypesOnly) {
@@ -81,6 +85,10 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 
 	public Grammar getFragmentGrammar() {
 		return fragmentGrammar;
+	}
+	
+	public SchemaInformedGrammar getSchemaInformedElementFragmentGrammar() {
+		return this.elementFragmentGrammar;
 	}
 
 }

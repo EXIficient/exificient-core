@@ -42,6 +42,7 @@ import com.siemens.ct.exi.datatype.BooleanDatatype;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.exceptions.ErrorHandler;
 import com.siemens.ct.exi.grammars.Grammars;
+import com.siemens.ct.exi.grammars.SchemaInformedGrammars;
 import com.siemens.ct.exi.grammars.event.Attribute;
 import com.siemens.ct.exi.grammars.event.Event;
 import com.siemens.ct.exi.grammars.event.EventType;
@@ -189,7 +190,13 @@ public abstract class AbstractEXIBodyCoder {
 			if(se == null) {
 				// no global runtime grammar yet
 				se = new StartElement(qnc);
-				se.setGrammar(new BuiltInStartTag());
+				// TODO which grammar to pick if no schema-information are availa
+				if (grammar.isSchemaInformed() && this.exiFactory.isUsingNonEvolingGrammars()) {
+					SchemaInformedGrammars sig = (SchemaInformedGrammars) grammar;
+					se.setGrammar(sig.getSchemaInformedElementFragmentGrammar());
+				} else {
+					se.setGrammar(new BuiltInStartTag());
+				}
 				runtimeGlobalElements.put(qnc, se);
 			}
 		}
