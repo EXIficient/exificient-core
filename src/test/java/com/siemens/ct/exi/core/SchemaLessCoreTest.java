@@ -39,8 +39,10 @@ import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.EXIBodyDecoder;
 import com.siemens.ct.exi.EXIBodyEncoder;
 import com.siemens.ct.exi.EXIFactory;
+import com.siemens.ct.exi.EXIStreamEncoder;
 import com.siemens.ct.exi.FidelityOptions;
 import com.siemens.ct.exi.exceptions.EXIException;
+import com.siemens.ct.exi.exceptions.UnsupportedOption;
 import com.siemens.ct.exi.grammars.event.EventType;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 import com.siemens.ct.exi.values.StringValue;
@@ -905,6 +907,54 @@ public class SchemaLessCoreTest extends TestCase {
 
 			assertTrue(decoder.next() == EventType.END_DOCUMENT);
 			decoder.decodeEndDocument();
+		}
+	}
+	
+	public void testFixPreservePrefixesSE1() throws UnsupportedOption {		
+		// assumption: encoder does not report prefixes properly
+		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
+		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
+		
+		/*
+		 *  encode XML to EXI
+		 */
+		try {
+			ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
+			EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
+			EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
+			bodyEncoder.encodeStartDocument();
+			bodyEncoder.encodeStartElement("urn:foo", "root",  null);
+//			bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
+//			bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
+//			bodyEncoder.encodeEndElement();
+//			bodyEncoder.encodeEndDocument();
+			fail("SE prefix not reported and codec should report failure");
+		} catch (Exception e) {
+			// OK
+		}
+	}
+	
+	public void testFixPreservePrefixesAT1() throws UnsupportedOption {		
+		// assumption: encoder does not report prefixes properly
+		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
+		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
+		
+		/*
+		 *  encode XML to EXI
+		 */
+		try {
+			ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
+			EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
+			EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
+			bodyEncoder.encodeStartDocument();
+			bodyEncoder.encodeStartElement("urn:foo", "root",  "foo");
+			bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
+			bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
+//			bodyEncoder.encodeEndElement();
+//			bodyEncoder.encodeEndDocument();
+			fail("AT prefix not reported and codec should report failure");
+		} catch (Exception e) {
+			// OK
 		}
 	}
 
