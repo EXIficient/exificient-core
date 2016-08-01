@@ -292,7 +292,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 	}
 
 	public String getAttributeQNameAsString() {
-		if (this.preservePrefix) {
+		if (this.preservePrefix && this.attributePrefix != null) {
 			return QNameUtilities.getQualifiedName(
 					attributeQNameContext.getLocalName(), this.attributePrefix);
 		} else {
