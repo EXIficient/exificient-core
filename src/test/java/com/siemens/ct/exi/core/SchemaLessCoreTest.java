@@ -39,10 +39,12 @@ import com.siemens.ct.exi.CodingMode;
 import com.siemens.ct.exi.EXIBodyDecoder;
 import com.siemens.ct.exi.EXIBodyEncoder;
 import com.siemens.ct.exi.EXIFactory;
+import com.siemens.ct.exi.EXIStreamDecoder;
 import com.siemens.ct.exi.EXIStreamEncoder;
 import com.siemens.ct.exi.FidelityOptions;
+import com.siemens.ct.exi.context.QNameContext;
+import com.siemens.ct.exi.core.container.NamespaceDeclaration;
 import com.siemens.ct.exi.exceptions.EXIException;
-import com.siemens.ct.exi.exceptions.UnsupportedOption;
 import com.siemens.ct.exi.grammars.event.EventType;
 import com.siemens.ct.exi.helpers.DefaultEXIFactory;
 import com.siemens.ct.exi.values.StringValue;
@@ -910,52 +912,84 @@ public class SchemaLessCoreTest extends TestCase {
 		}
 	}
 	
-	public void testFixPreservePrefixesSE1() throws UnsupportedOption {		
-		// assumption: encoder does not report prefixes properly
+	public void testFixPreservePrefixesSE1() throws EXIException, IOException {		
+		// assumption: encoder does not report prefixes properly (null)
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
 		
 		/*
 		 *  encode XML to EXI
 		 */
-		try {
-			ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
-			EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
-			EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
-			bodyEncoder.encodeStartDocument();
-			bodyEncoder.encodeStartElement("urn:foo", "root",  null);
-//			bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
-//			bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
-//			bodyEncoder.encodeEndElement();
-//			bodyEncoder.encodeEndDocument();
-			fail("SE prefix not reported and codec should report failure");
-		} catch (Exception e) {
-			// OK
-		}
+		ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
+		EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
+		EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
+		bodyEncoder.encodeStartDocument();
+		bodyEncoder.encodeStartElement("urn:foo", "root",  null);
+		bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
+		bodyEncoder.encodeEndElement();
+		bodyEncoder.encodeEndDocument();
+		bodyEncoder.flush();
+		
+		/*
+		 *  decode EXI to XML
+		 */
+		EXIStreamDecoder streamDecoder = exiFactory.createEXIStreamDecoder();
+		EXIBodyDecoder bodyDecoder = streamDecoder.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
+		assertTrue(bodyDecoder.next() == EventType.START_DOCUMENT);
+		bodyDecoder.decodeStartDocument();
+		assertTrue(bodyDecoder.next() == EventType.START_ELEMENT_GENERIC);
+		QNameContext se = bodyDecoder.decodeStartElement();
+		assertTrue(se.getLocalName().equals("root"));
+		assertTrue(bodyDecoder.next() == EventType.NAMESPACE_DECLARATION);
+		NamespaceDeclaration ns = bodyDecoder.decodeNamespaceDeclaration();
+		assertTrue(ns.prefix.equals("foo"));
+		assertTrue(bodyDecoder.getElementPrefix().equals("foo"));
+		assertTrue(bodyDecoder.next() == EventType.END_ELEMENT_UNDECLARED);
+		bodyDecoder.decodeEndElement();
+		assertTrue(bodyDecoder.next() == EventType.END_DOCUMENT);
+		bodyDecoder.decodeEndDocument();
 	}
 	
-	public void testFixPreservePrefixesAT1() throws UnsupportedOption {		
-		// assumption: encoder does not report prefixes properly
+	public void testFixPreservePrefixesAT1() throws EXIException, IOException {		
+		// assumption: encoder does not report prefixes properly (null)
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
 		
 		/*
 		 *  encode XML to EXI
 		 */
-		try {
-			ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
-			EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
-			EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
-			bodyEncoder.encodeStartDocument();
-			bodyEncoder.encodeStartElement("urn:foo", "root",  "foo");
-			bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
-			bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
-//			bodyEncoder.encodeEndElement();
-//			bodyEncoder.encodeEndDocument();
-			fail("AT prefix not reported and codec should report failure");
-		} catch (Exception e) {
-			// OK
-		}
+		ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
+		EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
+		EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
+		bodyEncoder.encodeStartDocument();
+		bodyEncoder.encodeStartElement("urn:foo", "root",  "foo");
+		bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
+		bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
+		bodyEncoder.encodeEndElement();
+		bodyEncoder.encodeEndDocument();
+		bodyEncoder.flush();
+		
+		/*
+		 *  decode EXI to XML
+		 */
+		EXIStreamDecoder streamDecoder = exiFactory.createEXIStreamDecoder();
+		EXIBodyDecoder bodyDecoder = streamDecoder.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
+		assertTrue(bodyDecoder.next() == EventType.START_DOCUMENT);
+		bodyDecoder.decodeStartDocument();
+		assertTrue(bodyDecoder.next() == EventType.START_ELEMENT_GENERIC);
+		QNameContext se = bodyDecoder.decodeStartElement();
+		assertTrue(se.getLocalName().equals("root"));
+		assertTrue(bodyDecoder.next() == EventType.NAMESPACE_DECLARATION);
+		NamespaceDeclaration ns = bodyDecoder.decodeNamespaceDeclaration();
+		assertTrue(ns.prefix.equals("foo"));
+		assertTrue(bodyDecoder.getElementPrefix().equals("foo"));
+		assertTrue(bodyDecoder.next() == EventType.ATTRIBUTE_GENERIC_UNDECLARED);
+		QNameContext at = bodyDecoder.decodeAttribute();
+		assertTrue(at.getLocalName().equals("at1"));
+		assertTrue(bodyDecoder.next() == EventType.END_ELEMENT_UNDECLARED);
+		bodyDecoder.decodeEndElement();
+		assertTrue(bodyDecoder.next() == EventType.END_DOCUMENT);
+		bodyDecoder.decodeEndDocument();
 	}
 
 }

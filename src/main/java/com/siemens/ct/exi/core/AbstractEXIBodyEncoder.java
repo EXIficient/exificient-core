@@ -79,6 +79,9 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	/** prefix of previous start element (relevant for preserving prefixes) */
 	protected String sePrefix = null;
+	
+	/** URI of previous start element (relevant for preserving prefixes) */
+	protected String seUri = null;
 
 	/** Output Channel */
 	protected EncoderChannel channel;
@@ -162,8 +165,9 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	protected void encodeQNamePrefix(QNameContext qnContext, String prefix,
 			EncoderChannel channel) throws IOException, EXIException {
+		
 		if(prefix == null) {
-			throw new EXIException(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
+			throwWarning(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
 		}
 		
 		int namespaceUriID = qnContext.getNamespaceUriID();
@@ -365,6 +369,8 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		checkPendingCharacters(EventType.START_ELEMENT);
 
 		sePrefix = prefix;
+		seUri = uri;
+		
 		Production ei;
 
 		Grammar updContextRule;
@@ -580,8 +586,9 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			// local-element-ns
 			if(sePrefix == null) {
 				// the prefix was not properly reported
-				// TODO try to fix that issue
-				throw new EXIException(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
+				throwWarning(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
+				// try to fix that issue by checking URI
+				channel.encodeBoolean(uri.equals(seUri));
 			} else {
 				channel.encodeBoolean(prefix.equals(sePrefix));
 			}
