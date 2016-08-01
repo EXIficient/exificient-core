@@ -100,6 +100,8 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	/** contains last event type */
 	protected EventType lastEvent;
+	
+	private final String MISUSE_OF_PRESERVE_PREFIXES_ERROR = "A prefix with value null cannot be used in Preserve.Prefixes mode. Report prefix or set your XML reader to do so. e.g., SAX xmlReader.setFeature(\"http://xml.org/sax/features/namespaces\", true); and xmlReader.setFeature(\"http://xml.org/sax/features/namespace-prefixes\", false);";
 
 	public AbstractEXIBodyEncoder(EXIFactory exiFactory) throws EXIException {
 		super(exiFactory);
@@ -159,7 +161,11 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 	}
 
 	protected void encodeQNamePrefix(QNameContext qnContext, String prefix,
-			EncoderChannel channel) throws IOException {
+			EncoderChannel channel) throws IOException, EXIException {
+		if(prefix == null) {
+			throw new EXIException(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
+		}
+		
 		int namespaceUriID = qnContext.getNamespaceUriID();
 
 		if (namespaceUriID == 0) {
@@ -168,7 +174,15 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		} else {
 			RuntimeUriContext ruc = this.getUri(namespaceUriID);
 			int numberOfPrefixes = ruc.getNumberOfPrefixes();
-			if (numberOfPrefixes > 1) {
+			if(numberOfPrefixes == 0) {
+				// If there are no prefixes specified for the
+				// URI of the QName by preceding NS events in the EXI stream,
+				// the prefix is undefined. An undefined prefix is represented
+				// using zero bits (i.e., omitted).
+				// --> requires following NS 
+			} else if (numberOfPrefixes == 1) {
+				// If there is only one prefix, the prefix is implicit
+			} else {
 				int pfxID = ruc.getPrefixID(prefix);
 				if (pfxID == Constants.NOT_FOUND) {
 					// choose *one* prefix which gets modified by
@@ -179,16 +193,6 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 				// overlapping URIs
 				channel.encodeNBitUnsignedInteger(pfxID,
 						MethodsBag.getCodingLength(numberOfPrefixes));
-			} else {
-				/*
-				 * #1# Possibility If there are no prefixes specified for the
-				 * URI of the QName by preceding NS events in the EXI stream,
-				 * the prefix is undefined. An undefined prefix is represented
-				 * using zero bits (i.e., omitted).
-				 * 
-				 * #2# Possibility If there is only one prefix, the prefix is
-				 * implicit
-				 */
 			}
 		}
 	}
@@ -553,6 +557,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		// needed to avoid grammar learning
 		this.encodeAttributeXsiType(type, pfx, true);
 	}
+	
 
 	public void encodeNamespaceDeclaration(String uri, String prefix)
 			throws EXIException, IOException {
@@ -573,7 +578,15 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			encodeNamespacePrefix(euc, prefix, channel);
 
 			// local-element-ns
-			channel.encodeBoolean(prefix.equals(sePrefix));
+			if(sePrefix == null) {
+				// the prefix was not properly reported
+				// TODO try to fix that issue
+				throw new EXIException(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
+			} else {
+				channel.encodeBoolean(prefix.equals(sePrefix));
+			}
+			
+			
 
 			lastEvent = EventType.NAMESPACE_DECLARATION;
 		}
