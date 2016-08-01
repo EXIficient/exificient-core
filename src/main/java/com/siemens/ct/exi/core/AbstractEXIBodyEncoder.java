@@ -570,7 +570,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		declarePrefix(prefix, uri);
 
 		if (preservePrefix) {
-			assert (sePrefix != null);
+			// assert (sePrefix != null); // autofix prefix should kick in
 
 			// event code
 			final Grammar currentGrammar = getCurrentGrammar();
