@@ -49,6 +49,10 @@ public class Document extends AbstractSchemaInformedGrammar {
 		return GrammarType.DOCUMENT;
 	}
 	
+	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
+		return 0;
+	}
+	
 	public String toString() {
 		return "Document" + super.toString();
 	}

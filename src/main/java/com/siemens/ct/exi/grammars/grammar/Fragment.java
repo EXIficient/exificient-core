@@ -49,6 +49,10 @@ public class Fragment extends AbstractSchemaInformedGrammar {
 	public GrammarType getGrammarType() {
 		return GrammarType.FRAGMENT;
 	}
+	
+	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
+		return 0;
+	}
 
 	public String toString() {
 		return "Fragment" + super.toString();
