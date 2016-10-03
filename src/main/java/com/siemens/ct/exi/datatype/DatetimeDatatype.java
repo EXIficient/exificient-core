@@ -104,6 +104,15 @@ public class DatetimeDatatype extends AbstractDatatype {
 			return isValidString(value.toString());
 		}
 	}
+	
+	
+	@Override
+	public void normalize() {
+		// see https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation
+		if(lastValidDatetime != null) {
+			lastValidDatetime = lastValidDatetime.normalize();
+		}
+	}
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException {
