@@ -408,10 +408,7 @@ public class DefaultEXIFactory implements EXIFactory {
 		// canonical EXI (http://www.w3.org/TR/exi-c14n/)
 		if (this.getEncodingOptions().isOptionEnabled(
 				EncodingOptions.CANONICAL_EXI)) {
-			updateFactoryAccordingCanonicalEXI(EncodingOptions.CANONICAL_EXI);
-		} else if (this.getEncodingOptions().isOptionEnabled(
-				EncodingOptions.CANONICAL_EXI_WITHOUT_EXI_OPTIONS)) {
-			updateFactoryAccordingCanonicalEXI(EncodingOptions.CANONICAL_EXI_WITHOUT_EXI_OPTIONS);
+			updateFactoryAccordingCanonicalEXI();
 		}
 	}
 
@@ -491,30 +488,17 @@ public class DefaultEXIFactory implements EXIFactory {
 		return new EXIStreamEncoderImpl(this);
 	}
 
-	protected void updateFactoryAccordingCanonicalEXI(String canonicalOption)
+	protected void updateFactoryAccordingCanonicalEXI()
 			throws UnsupportedOption {
 		// update canonical options according to canonical EXI rules
-		assert (this.getEncodingOptions().isOptionEnabled(canonicalOption));
+		
 		// * A Canonical EXI Header MUST NOT begin with the optional EXI Cookie
 		this.getEncodingOptions().unsetOption(EncodingOptions.INCLUDE_COOKIE);
-		// * Presence Bit for EXI Options to indicate whether the fifth part
-		// of the EXI Header, the EXI Options document, is present or absent.
-		if (this.getEncodingOptions().isOptionEnabled(
-				EncodingOptions.CANONICAL_EXI)) {
-			this.getEncodingOptions()
-					.setOption(EncodingOptions.INCLUDE_OPTIONS);
-		} else {
-			this.getEncodingOptions().unsetOption(
-					EncodingOptions.INCLUDE_OPTIONS);
-		}
 		// * When the alignment option compression is set, pre-compress MUST be
 		// used instead of compression.
 		if (this.getCodingMode() == CodingMode.COMPRESSION) {
 			this.setCodingMode(CodingMode.PRE_COMPRESSION);
 		}
-		// * The element schemaId MUST always be present to indicate which
-		// schema information is used.
-		this.getEncodingOptions().setOption(EncodingOptions.INCLUDE_SCHEMA_ID);
 		// * datatypeRepresentationMap: the tuples are to be sorted
 		// lexicographically according to the schema datatype first by {name}
 		// then by {namespace}

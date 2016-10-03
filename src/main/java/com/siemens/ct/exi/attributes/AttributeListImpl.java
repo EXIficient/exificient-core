@@ -75,9 +75,7 @@ public class AttributeListImpl implements AttributeList {
 		// options
 		isSchemaInformed = exiFactory.getGrammars().isSchemaInformed();
 		isCanonical = exiFactory.getEncodingOptions().isOptionEnabled(
-				EncodingOptions.CANONICAL_EXI)
-				|| exiFactory.getEncodingOptions().isOptionEnabled(
-						EncodingOptions.CANONICAL_EXI_WITHOUT_EXI_OPTIONS);
+				EncodingOptions.CANONICAL_EXI);
 		preserveSchemaLocation = exiFactory.getEncodingOptions()
 				.isOptionEnabled(EncodingOptions.INCLUDE_XSI_SCHEMALOCATION);
 		preservePrefixes = exiFactory.getFidelityOptions().isFidelityEnabled(

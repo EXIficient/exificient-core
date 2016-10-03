@@ -41,22 +41,22 @@ import com.siemens.ct.exi.exceptions.UnsupportedOption;
 
 public class EncodingOptions {
 
-	/** EXI Cookie */
+	/** Include EXI Cookie */
 	public static final String INCLUDE_COOKIE = "INCLUDE_COOKIE";
 
-	/** EXI Options */
+	/** Include EXI Options (or opposite of omitOptionsDocument in Canonical EXI) */
 	public static final String INCLUDE_OPTIONS = "INCLUDE_OPTIONS";
 
-	/** schemaID as part of EXI Options */
+	/** Include schemaID as part of EXI Options */
 	public static final String INCLUDE_SCHEMA_ID = "INCLUDE_SCHEMA_ID";
 
-	/** encode entity references as ER event instead of trying to resolve them */
+	/** Encode entity references as ER event instead of trying to resolve them */
 	public static final String RETAIN_ENTITY_REFERENCE = "KEEP_ENTITY_REFERENCES_UNRESOLVED";
 
-	/** attribute "schemaLocation" and "noNamespaceSchemaLocation" */
+	/** Include attribute "schemaLocation" and "noNamespaceSchemaLocation" */
 	public static final String INCLUDE_XSI_SCHEMALOCATION = "INCLUDE_XSI_SCHEMALOCATION";
 
-	/** Insignificant xsi:nil values e.g., xsi:nil="false" */
+	/** Include Insignificant xsi:nil values e.g., xsi:nil="false" */
 	public static final String INCLUDE_INSIGNIFICANT_XSI_NIL = "INCLUDE_INSIGNIFICANT_XSI_NIL";
 
 	/**
@@ -66,19 +66,23 @@ public class EncodingOptions {
 	public static final String INCLUDE_PROFILE_VALUES = "INCLUDE_PROFILE_VALUES";
 
 	/**
+	 * The utcTime option is used to specify whether Date-Time values must be
+	 * represented using Coordinated Universal Time (UTC, sometimes called
+	 * "Greenwich Mean Time").
+	 */
+	public static final String UTC_TIME = "UTC_TIME";
+
+	/**
 	 * To indicate that the EXI stream should respect the Canonical EXI rules
-	 * see http://www.w3.org/TR/exi-c14n
+	 * @see http://www.w3.org/TR/exi-c14n
+	 * @see INCLUDE_OPTIONS
+	 * @see UTC_TIME
 	 */
 	public static final String CANONICAL_EXI = "http://www.w3.org/TR/exi-c14n";
-	
-	/**
-	 * To indicate that the EXI stream should respect the Canonical EXI rules
-	 * see http://www.w3.org/TR/exi-c14n#WithoutEXIOptions
-	 */
-	public static final String CANONICAL_EXI_WITHOUT_EXI_OPTIONS = "http://www.w3.org/TR/exi-c14n#WithoutEXIOptions";
-	
+
 	/**
 	 * To set the deflate stream with a specified compression level.
+	 * 
 	 * @see java.util.zip.Deflater#setLevel(int)
 	 */
 	public static final String DEFLATE_COMPRESSION_VALUE = "DEFLATE_COMPRESSION_VALUE";
@@ -113,12 +117,13 @@ public class EncodingOptions {
 	 * @param key
 	 *            referring to a specific option
 	 * 
-	 * @throws UnsupportedOption if option is not supported
+	 * @throws UnsupportedOption
+	 *             if option is not supported
 	 */
 	public void setOption(String key) throws UnsupportedOption {
 		setOption(key, null);
 	}
-	
+
 	/**
 	 * Enables given option with value.
 	 * 
@@ -133,7 +138,8 @@ public class EncodingOptions {
 	 * @param value
 	 *            specific option value
 	 * 
-	 * @throws UnsupportedOption if option is not supported
+	 * @throws UnsupportedOption
+	 *             if option is not supported
 	 */
 	public void setOption(String key, Object value) throws UnsupportedOption {
 		if (key.equals(INCLUDE_COOKIE)) {
@@ -151,13 +157,9 @@ public class EncodingOptions {
 		} else if (key.equals(INCLUDE_PROFILE_VALUES)) {
 			options.put(key, null);
 		} else if (key.equals(CANONICAL_EXI)) {
-			options.remove(CANONICAL_EXI_WITHOUT_EXI_OPTIONS);
-			options.put(key, null);
-		} else if (key.equals(CANONICAL_EXI_WITHOUT_EXI_OPTIONS)) {
-			options.remove(CANONICAL_EXI);
 			options.put(key, null);
 		} else if (key.equals(DEFLATE_COMPRESSION_VALUE)) {
-			if(value != null && value instanceof Integer) {
+			if (value != null && value instanceof Integer) {
 				options.put(key, value);
 			} else {
 				throw new UnsupportedOption("EncodingOption '" + key
@@ -191,7 +193,7 @@ public class EncodingOptions {
 	public boolean isOptionEnabled(String key) {
 		return options.containsKey(key);
 	}
-	
+
 	/**
 	 * Returns the specified option value.
 	 * 
