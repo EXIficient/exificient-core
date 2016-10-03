@@ -43,7 +43,7 @@ import com.siemens.ct.exi.util.sort.AttributeSort;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 0.9.6-SNAPSHOT
+ * @version 0.9.7-SNAPSHOT
  */
 
 public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar

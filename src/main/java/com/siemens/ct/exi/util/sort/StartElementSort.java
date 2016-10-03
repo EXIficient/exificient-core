@@ -37,7 +37,7 @@ import com.siemens.ct.exi.grammars.event.StartElement;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 0.9.6-SNAPSHOT
+ * @version 0.9.7-SNAPSHOT
  */
 public class StartElementSort implements Comparator<StartElement> {
 	public int compare(StartElement se1, StartElement se2) {
