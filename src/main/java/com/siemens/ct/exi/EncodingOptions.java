@@ -158,6 +158,8 @@ public class EncodingOptions {
 			options.put(key, null);
 		} else if (key.equals(CANONICAL_EXI)) {
 			options.put(key, null);
+		} else if (key.equals(UTC_TIME)) {
+			options.put(key, null);
 		} else if (key.equals(DEFLATE_COMPRESSION_VALUE)) {
 			if (value != null && value instanceof Integer) {
 				options.put(key, value);
