@@ -916,7 +916,9 @@ public class DateTimeValue extends AbstractValue {
 		int monthDay = month * 32 + day; // Month * 32 + Day
 		time = ((hour * 64) + minutes) * 64 + seconds;// ((Hour * 64) + Minutes)
 														// * 64 + seconds
-		boolean presenceTimezone = true;
+		
+		// TODO add timezone ONLY if timezone was present before
+		boolean presenceTimezone = this.presenceTimezone; // true;
 		int timezone = 0;
 
 		return new DateTimeValue(this.type, year, monthDay, time,

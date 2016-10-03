@@ -620,6 +620,25 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime2Norm.equals(datetime1Norm));
 		assertTrue(datetime1.equals(datetime2Norm));
 	}
+	
+	public void testDatetimeNormalize1() throws IOException {
+		// all the same times, no timezone
+		String s1 = "2015-08-11T24:00:00";
+		// String s2 = "2015-08-12T00:00:00";
+		DateTimeType type = DateTimeType.dateTime;
+		DateTimeValue datetime1 = DateTimeValue.parse(s1, type);
+		// DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
+		assertTrue(datetime1 != null);
+		// assertTrue(datetime2 != null);
+		
+		DateTimeValue datetime1Norm =  datetime1.normalize();
+		// DateTimeValue datetime2Norm =  datetime2.normalize();
+		
+		assertTrue(datetime1Norm.year == 2015);
+		assertTrue(datetime1Norm.monthDay == (8*32 + 12)); // Month * 32 + Day 
+		assertTrue(datetime1Norm.time == 0);  // ((Hour * 64) + Minutes) * 64 + seconds 
+		assertTrue(datetime1Norm.presenceTimezone == false);
+	}
 
 	
 	public void testDatetimeEquals3() throws IOException {
