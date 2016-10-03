@@ -63,6 +63,9 @@ public interface Datatype {
 	 * Encoder
 	 */
 	public boolean isValid(Value value);
+	
+	// Note: isValid MUST be called before and the method MUST return true
+	public void normalize(); // e.g., Canonical DateTime normalization
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException;

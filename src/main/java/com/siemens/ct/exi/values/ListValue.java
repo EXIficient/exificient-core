@@ -23,7 +23,6 @@
 
 package com.siemens.ct.exi.values;
 
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 import com.siemens.ct.exi.Constants;
@@ -54,7 +53,7 @@ public class ListValue extends AbstractValue {
 		return numberOfValues;
 	}
 
-	public Value[] toValues() throws IOException {		
+	public Value[] toValues() {		
 		return values;
 	}
 	

@@ -45,14 +45,25 @@ import com.siemens.ct.exi.values.Value;
 public class TypedTypeEncoder extends AbstractTypeEncoder {
 	
 	protected Datatype lastDatatype;
+	protected final boolean doNormalize;
 
 	public TypedTypeEncoder() throws EXIException {
+		this(false);
+	}
+	
+	public TypedTypeEncoder(boolean doNormalize) throws EXIException {
 		this(null, null);
 	}
 
 	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
 			throws EXIException {
+		this(dtrMapTypes, dtrMapRepresentations, false);
+	}
+	
+	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, boolean doNormalize)
+			throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations);
+		this.doNormalize = doNormalize;
 	}
 
 	public boolean isValid(Datatype datatype, Value value) {
@@ -67,6 +78,9 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException {
+		if(doNormalize) {
+			lastDatatype.normalize();
+		}
 		lastDatatype.writeValue(qnContext, valueChannel, stringEncoder);
 	}
 	

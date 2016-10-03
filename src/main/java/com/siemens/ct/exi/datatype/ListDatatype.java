@@ -86,6 +86,17 @@ public class ListDatatype extends AbstractDatatype {
 			return isValidString(value.toString());
 		}
 	}
+	
+	@Override
+	public void normalize() {
+		if(listValues != null) {
+			Datatype dt = listValues.getListDatatype();
+			for(Value v : listValues.toValues()) {
+				dt.isValid(v);
+				dt.normalize();
+			}
+		}
+	}
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException {

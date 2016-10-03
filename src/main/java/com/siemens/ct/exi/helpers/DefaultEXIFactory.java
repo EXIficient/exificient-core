@@ -598,8 +598,9 @@ public class DefaultEXIFactory implements EXIFactory {
 				typeEncoder = new LexicalTypeEncoder(dtrMapTypes,
 						dtrMapRepresentations);
 			} else {
+				boolean doNormalize = this.getEncodingOptions().isOptionEnabled(EncodingOptions.UTC_TIME);
 				typeEncoder = new TypedTypeEncoder(dtrMapTypes,
-						dtrMapRepresentations);
+						dtrMapRepresentations, doNormalize);
 			}
 
 		} else {
