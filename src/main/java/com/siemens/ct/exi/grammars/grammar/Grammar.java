@@ -61,9 +61,6 @@ public interface Grammar {
 	 * number of events
 	 */
 	public int getNumberOfEvents();
-	
-	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict);
-
 
 	/*
 	 * 

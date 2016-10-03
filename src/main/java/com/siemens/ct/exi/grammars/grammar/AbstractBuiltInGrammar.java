@@ -76,11 +76,6 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		return this;
 	}
 	
-	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
-		// Note: Exception BuiltInDocContent and BuiltInFragmentContent
-		return this.ec1Length;
-	}
-	
 
 	public int getNumberOfEvents() {
 		return containers.size();

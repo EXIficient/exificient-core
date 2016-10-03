@@ -25,7 +25,6 @@ package com.siemens.ct.exi.grammars.grammar;
 
 import com.siemens.ct.exi.grammars.event.EndDocument;
 import com.siemens.ct.exi.grammars.event.StartElement;
-import com.siemens.ct.exi.util.MethodsBag;
 
 /**
  * 
@@ -59,12 +58,6 @@ public class BuiltInFragmentContent extends AbstractBuiltInGrammar {
 	
 	public GrammarType getGrammarType() {
 		return GrammarType.BUILT_IN_FRAGMENT_CONTENT;
-	}
-	
-	@Override
-	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
-		// Note: cannot use variable this.ec1Length because does not have always 2nd level production
-		return MethodsBag.getCodingLength(containers.size() + (withFidelityOptionsOrNonStrict ? 1 : 0));
 	}
 
 	@Override

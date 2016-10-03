@@ -69,10 +69,4 @@ public class BuiltInDocContent extends AbstractBuiltInGrammar {
 		super.addProduction(event, grammar);
 	}
 	
-	@Override
-	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
-		// Note: cannot use variable this.ec1Length because does not have always 2nd level production
-		//return MethodsBag.getCodingLength(containers.size() + (withFidelityOptionsOrNonStrict ? 1 : 0));
-		return withFidelityOptionsOrNonStrict ? 1 : 0;
-	}
 }

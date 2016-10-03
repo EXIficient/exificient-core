@@ -32,6 +32,7 @@ import com.siemens.ct.exi.grammars.grammar.Grammar;
 import com.siemens.ct.exi.grammars.grammar.SchemaInformedFirstStartTagGrammar;
 import com.siemens.ct.exi.grammars.grammar.SchemaInformedGrammar;
 import com.siemens.ct.exi.grammars.grammar.SchemaInformedStartTagGrammar;
+import com.siemens.ct.exi.util.MethodsBag;
 
 /**
  * Some XML applications do not require the entire XML feature set and would
@@ -282,10 +283,6 @@ public class FidelityOptions {
 		return options.toString();
 	}
 	
-//	public boolean hasSecondOrThirdLevel(Grammar grammar) {
-//		return(get2ndLevelCharacteristics(grammar) > 0); //  || get3rdLevelCharacteristics() > 0
-//	}
-	
 	public int get1stLevelEventCodeLength(Grammar grammar){
 		int cl1;
 		
@@ -304,21 +301,21 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_DOC_CONTENT:
 		case BUILT_IN_DOC_CONTENT:
-			cl1 = grammar.get1stLevelEventCodeLength(isDTD || isComment || isPI);
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + ((isDTD || isComment || isPI) ? 1 : 0));
 			break;
 		case SCHEMA_INFORMED_FRAGMENT_CONTENT:
 		case BUILT_IN_FRAGMENT_CONTENT:
-			cl1 = grammar.get1stLevelEventCodeLength(isComment || isPI);
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + ((isComment || isPI) ? 1 : 0));
 			break;
 		/* Schema-informed Element and Type Grammars */
 		case SCHEMA_INFORMED_FIRST_START_TAG_CONTENT:
 		case SCHEMA_INFORMED_START_TAG_CONTENT:
 		case SCHEMA_INFORMED_ELEMENT_CONTENT:
-			cl1 = grammar.get1stLevelEventCodeLength(get2ndLevelCharacteristics(grammar) > 0);
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + (get2ndLevelCharacteristics(grammar) > 0 ? 1 : 0));
 			break;
 		case BUILT_IN_START_TAG_CONTENT:
 		case BUILT_IN_ELEMENT_CONTENT:
-			cl1 = grammar.get1stLevelEventCodeLength(false); // boolean does not matter!
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + 1); // always second level!
 			break;
 		default:
 			cl1 = -1;	

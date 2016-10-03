@@ -93,10 +93,6 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 		return true;
 	}
 
-	public int get1stLevelEventCodeLength(boolean withFidelityOptionsOrNonStrict) {
-		return withFidelityOptionsOrNonStrict ? codeLengthB : codeLengthA;
-	}
-
 	public int getNumberOfDeclaredAttributes() {
 		return numberOfDeclaredAttributes;
 	}
