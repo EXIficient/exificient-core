@@ -56,17 +56,19 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 	// DTR maps
 	protected final QName[] dtrMapTypes;
 	protected final QName[] dtrMapRepresentations;
+	protected final Map<QName, Datatype> dtrMapRepresentationsDatatype;
 	protected Map<QName, Datatype> dtrMap;
 	protected final boolean dtrMapInUse;
 
 	public AbstractTypeCoder() throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public AbstractTypeCoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
+	public AbstractTypeCoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
 		this.dtrMapTypes = dtrMapTypes;
 		this.dtrMapRepresentations = dtrMapRepresentations;
+		this.dtrMapRepresentationsDatatype = dtrMapRepresentationsDatatype;
 
 		if (dtrMapTypes == null) {
 			dtrMapInUse = false;
@@ -361,15 +363,19 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 				}
 			} else {
 				// try to load datatype
-				String className = QNameUtilities.getClassName(new QName(
-						reprUri, reprLocalPart));
-				@SuppressWarnings("rawtypes")
-				Class c = Class.forName(className);
-				Object o = c.newInstance();
-				if (o instanceof Datatype) {
-					datatype = (Datatype) o;
-				} else {
-					throw new Exception("[EXI] no Datatype instance");
+				QName qn = new QName(reprUri, reprLocalPart);
+				Datatype dt = this.dtrMapRepresentationsDatatype.get(qn);
+				if(dt == null) {
+					// final try: load class with this qname
+					String className = QNameUtilities.getClassName(qn);
+					@SuppressWarnings("rawtypes")
+					Class c = Class.forName(className);
+					Object o = c.newInstance();
+					if (o instanceof Datatype) {
+						datatype = (Datatype) o;
+					} else {
+						throw new Exception("[EXI] no Datatype instance");
+					}
 				}
 			}
 

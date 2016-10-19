@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.types;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -45,12 +46,12 @@ import com.siemens.ct.exi.values.Value;
 public class TypedTypeDecoder extends AbstractTypeDecoder {
 
 	public TypedTypeDecoder() throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public TypedTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
+	public TypedTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
-		super(dtrMapTypes, dtrMapRepresentations);
+		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
 
 	public Value readValue(Datatype datatype, QNameContext qnContext,

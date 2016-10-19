@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.types;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -71,12 +72,12 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 			new XSDStringCharacterSet(), null);
 
 	public LexicalTypeDecoder() throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public LexicalTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
+	public LexicalTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
-		super(dtrMapTypes, dtrMapRepresentations);
+		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
 
 	public Value readValue(Datatype datatype, QNameContext qnContext,

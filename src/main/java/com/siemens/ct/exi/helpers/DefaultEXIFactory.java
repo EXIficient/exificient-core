@@ -24,7 +24,9 @@
 package com.siemens.ct.exi.helpers;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -48,6 +50,7 @@ import com.siemens.ct.exi.core.EXIBodyEncoderInOrderSC;
 import com.siemens.ct.exi.core.EXIBodyEncoderReordered;
 import com.siemens.ct.exi.core.EXIStreamDecoderImpl;
 import com.siemens.ct.exi.core.EXIStreamEncoderImpl;
+import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.datatype.strings.BoundedStringDecoderImpl;
 import com.siemens.ct.exi.datatype.strings.BoundedStringEncoderImpl;
 import com.siemens.ct.exi.datatype.strings.StringDecoder;
@@ -95,6 +98,7 @@ public class DefaultEXIFactory implements EXIFactory {
 
 	protected QName[] dtrMapTypes;
 	protected QName[] dtrMapRepresentations;
+	protected Map<QName, Datatype> dtrMapRepresentationsDatatype;
 
 	protected QName[] scElements;
 	protected SelfContainedHandler scHandler;
@@ -214,6 +218,13 @@ public class DefaultEXIFactory implements EXIFactory {
 			this.dtrMapTypes = dtrMapTypes;
 			this.dtrMapRepresentations = dtrMapRepresentations;
 		}
+	}
+	
+	public Datatype registerDatatypeRepresentationMapDatatype(QName dtrMapRepresentation, Datatype datatype) {
+		if(this.dtrMapRepresentationsDatatype == null) {
+			this.dtrMapRepresentationsDatatype = new HashMap<QName, Datatype>();
+		}
+		return this.dtrMapRepresentationsDatatype.put(dtrMapRepresentation, datatype);
 	}
 
 	public QName[] getDatatypeRepresentationMapTypes() {
@@ -596,11 +607,11 @@ public class DefaultEXIFactory implements EXIFactory {
 			if (fidelityOptions
 					.isFidelityEnabled(FidelityOptions.FEATURE_LEXICAL_VALUE)) {
 				typeEncoder = new LexicalTypeEncoder(dtrMapTypes,
-						dtrMapRepresentations);
+						dtrMapRepresentations, dtrMapRepresentationsDatatype);
 			} else {
 				boolean doNormalize = this.getEncodingOptions().isOptionEnabled(EncodingOptions.UTC_TIME);
 				typeEncoder = new TypedTypeEncoder(dtrMapTypes,
-						dtrMapRepresentations, doNormalize);
+						dtrMapRepresentations, dtrMapRepresentationsDatatype, doNormalize);
 			}
 
 		} else {
@@ -634,10 +645,10 @@ public class DefaultEXIFactory implements EXIFactory {
 			if (fidelityOptions
 					.isFidelityEnabled(FidelityOptions.FEATURE_LEXICAL_VALUE)) {
 				typeDecoder = new LexicalTypeDecoder(dtrMapTypes,
-						dtrMapRepresentations);
+						dtrMapRepresentations, dtrMapRepresentationsDatatype);
 			} else {
 				typeDecoder = new TypedTypeDecoder(dtrMapTypes,
-						dtrMapRepresentations);
+						dtrMapRepresentations, dtrMapRepresentationsDatatype);
 			}
 		} else {
 			// strings only

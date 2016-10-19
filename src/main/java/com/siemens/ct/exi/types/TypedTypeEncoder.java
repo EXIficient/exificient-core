@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.types;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -52,17 +53,17 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 	}
 	
 	public TypedTypeEncoder(boolean doNormalize) throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
+	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
-		this(dtrMapTypes, dtrMapRepresentations, false);
+		this(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype, false);
 	}
 	
-	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, boolean doNormalize)
+	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype, boolean doNormalize)
 			throws EXIException {
-		super(dtrMapTypes, dtrMapRepresentations);
+		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 		this.doNormalize = doNormalize;
 	}
 

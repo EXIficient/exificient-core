@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.types;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
@@ -74,12 +75,12 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 	protected Datatype lastDatatype;
 
 	public LexicalTypeEncoder() throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public LexicalTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations)
+	public LexicalTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
-		super(dtrMapTypes, dtrMapRepresentations);
+		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
 
 	public boolean isValid(Datatype datatype, Value value) {

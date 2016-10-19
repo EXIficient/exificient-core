@@ -23,8 +23,11 @@
 
 package com.siemens.ct.exi.types;
 
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 
+import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.exceptions.EXIException;
 
 /**
@@ -39,12 +42,12 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 		TypeDecoder {
 
 	public AbstractTypeDecoder() throws EXIException {
-		this(null, null);
+		this(null, null, null);
 	}
 
 	public AbstractTypeDecoder(QName[] dtrMapTypes,
-			QName[] dtrMapRepresentations) throws EXIException {
-		super(dtrMapTypes, dtrMapRepresentations);
+			QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
+		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
 
 }

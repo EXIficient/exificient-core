@@ -27,6 +27,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.exceptions.EXIException;
@@ -240,6 +241,17 @@ public interface EXIFactory extends Cloneable {
 	public void setDatatypeRepresentationMap(QName[] dtrMapTypes,
 			QName[] dtrMapRepresentations);
 
+	
+	/**
+	 * The DTR map representation may use  built-in String datatypes (e.g., <code>exi:string</code>) or use
+	 * user-defined type representations. This method allows to register the datatype that should be used.
+	 * 
+	 * @param dtrMapRepresentation dtrMap type
+	 * @param Datatype dtrMap datatype
+	 * @return the previous value associated with <code>dtrMapRepresentation</code>, or <code>null</code> if there was no mapping
+	 */
+	public Datatype registerDatatypeRepresentationMapDatatype(QName dtrMapRepresentation, Datatype datatype);
+	
 	/**
 	 * EXI processors MAY provide the capability to specify different built-in
 	 * EXI datatype representations or user-defined datatype representations for
