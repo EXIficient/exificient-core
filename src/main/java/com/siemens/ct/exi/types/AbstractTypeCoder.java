@@ -364,11 +364,10 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			} else {
 				// try to load datatype
 				QName qn = new QName(reprUri, reprLocalPart);
-				Datatype dt = null;
 				if(this.dtrMapRepresentationsDatatype != null) {
-					dt = this.dtrMapRepresentationsDatatype.get(qn);
+					datatype = this.dtrMapRepresentationsDatatype.get(qn);
 				}
-				if(dt == null) {
+				if(datatype == null) {
 					// final try: load class with this qname
 					String className = QNameUtilities.getClassName(qn);
 					@SuppressWarnings("rawtypes")
