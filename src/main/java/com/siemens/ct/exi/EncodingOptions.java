@@ -185,7 +185,10 @@ public class EncodingOptions {
 	 * 
 	 */
 	public boolean unsetOption(String key) {
-		return options.remove(key) != null;
+		// we do have null values --> check for key
+		boolean b = options.containsKey(key);
+		options.remove(key);
+		return b;
 	}
 
 	/**
