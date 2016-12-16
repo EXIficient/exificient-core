@@ -216,32 +216,37 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			// lists
 			if ( dtrDatatype == null && 
 					datatype.getBuiltInType() == BuiltInType.LIST) {
-				
+				ListDatatype ldt = (ListDatatype) datatype;
 				if (dtrMap.containsKey(schemaType)) {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
+				} else if (dtrMap.containsKey(ldt.getListDatatype().getSchemaType().getQName())) {
+					Datatype dt = dtrMap.get(ldt.getListDatatype().getSchemaType().getQName());
+					dtrDatatype = new ListDatatype(dt, datatype.getSchemaType());
+					
+					// dtrDatatype = dtrMap.get(ldt.getListDatatype().getSchemaType().getQName());
 				} else {
 					
-//					Datatype baseDatatype = datatype.getBaseDatatype();
-//					QName schemBaseType = baseDatatype.getSchemaType().getQName();
-//					if(
-//							 baseDatatype.getBuiltInType() == BuiltInType.LIST &&  
-//							dtrMap.containsKey(schemBaseType)) {
-//						dtrDatatype = dtrMap.get(schemBaseType);
-//					} else {
-//						dtrDatatype = datatype;
-//					}
-					
-					
-					ListDatatype ldt = (ListDatatype) datatype;
-					Datatype datatypeList = ldt.getListDatatype();
-					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
-					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
-						dtrDatatype = datatype;
+					Datatype baseDatatype = datatype.getBaseDatatype();
+					QName schemBaseType = baseDatatype.getSchemaType().getQName();
+					if(
+							  baseDatatype.getBuiltInType() == BuiltInType.LIST &&  
+							dtrMap.containsKey(schemBaseType)) {
+						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
-						// update DTR for list datatype
-						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+						dtrDatatype = datatype;
 					}
+					
+					
+//					ListDatatype ldt = (ListDatatype) datatype;
+//					Datatype datatypeList = ldt.getListDatatype();
+//					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
+//					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
+//						dtrDatatype = datatype;
+//					} else {
+//						// update DTR for list datatype
+//						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+//					}
 				}
 				
 //				dtrDatatype = datatype;
