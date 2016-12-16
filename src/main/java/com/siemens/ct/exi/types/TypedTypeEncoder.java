@@ -30,6 +30,7 @@ import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.context.QNameContext;
 import com.siemens.ct.exi.datatype.Datatype;
+import com.siemens.ct.exi.datatype.ListDatatype;
 import com.siemens.ct.exi.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.exceptions.EXIException;
 import com.siemens.ct.exi.io.channel.EncoderChannel;
@@ -70,6 +71,9 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 	public boolean isValid(Datatype datatype, Value value) {
 		if (this.dtrMapInUse) {
 			lastDatatype = this.getDtrDatatype(datatype);
+//			if(lastDatatype.getBuiltInType() != datatype.getBuiltInType()) {
+//				System.out.println("From " + datatype + " --> " + lastDatatype);
+//			}
 		} else {
 			lastDatatype = datatype;
 		}
