@@ -190,6 +190,14 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 				if (dtrMap.containsKey(schemaType)) {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
+				} else {
+					Datatype baseDatatype = datatype.getBaseDatatype();
+					QName schemBaseType = baseDatatype.getSchemaType().getQName();
+					if(baseDatatype.getBuiltInType() == BuiltInType.STRING && ((StringDatatype) baseDatatype).isDerivedByUnion() &&  dtrMap.containsKey(schemBaseType)) {
+						dtrDatatype = dtrMap.get(schemBaseType);
+					} else {
+						dtrDatatype = datatype;
+					}
 				}
 				
 				
