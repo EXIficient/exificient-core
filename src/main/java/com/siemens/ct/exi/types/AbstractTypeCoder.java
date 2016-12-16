@@ -230,13 +230,13 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 				// no mapping yet
 				// dtrDatatype = updateDtrDatatype(qncSchemaType);
 				dtrDatatype = updateDtrDatatype(datatype);
-				// special integer handling
-				if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
-						&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
-								.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
-					dtrDatatype = datatype;
-				}
-				dtrMap.put(qncSchemaType.getQName(), dtrDatatype);
+//				// special integer handling
+//				if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+//						&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
+//								.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
+//					dtrDatatype = datatype;
+//				}
+				// dtrMap.put(qncSchemaType.getQName(), dtrDatatype);
 			}
 		}
 
@@ -299,17 +299,27 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		QNameContext simpleBaseType = baseDatatype.getSchemaType();
 		
 		
-		Datatype dt = dtrMap.get(simpleBaseType.getQName());
+		Datatype dtrDatatype = dtrMap.get(simpleBaseType.getQName());
 		
-		if (dt == null) {
+		if (dtrDatatype == null) {
 			// dt = updateDtrDatatype(simpleBaseType);
 			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
-			dt = updateDtrDatatype(baseDatatype);
+			dtrDatatype = updateDtrDatatype(baseDatatype);
 		}
+		
+		// special integer handling
+		if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+				&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
+						.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
+			dtrDatatype = datatype;
+		}
+		
 		// save new mapping in map
-		dtrMap.put(datatype.getSchemaType().getQName(), dt);
+		dtrMap.put(datatype.getSchemaType().getQName(), dtrDatatype);
+		
 
-		return dt;
+
+		return dtrDatatype;
 	}
 
 	protected Datatype getDatatypeRepresentation(String reprUri,
