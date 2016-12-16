@@ -180,6 +180,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			dtrDatatype = datatype;
 		} else {
 			// check mappings
+			QName schemaType = datatype.getSchemaType().getQName();
 			
 			// unions
 			if ( dtrDatatype == null &&
@@ -200,14 +201,20 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			// lists
 			if ( dtrDatatype == null && 
 					datatype.getBuiltInType() == BuiltInType.LIST) {
-				ListDatatype ldt = (ListDatatype) datatype;
-				Datatype datatypeList = ldt.getListDatatype();
-				Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
-				if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
-					dtrDatatype = datatype;
+				
+				if (dtrMap.containsKey(schemaType)) {
+					// direct DTR mapping
+					dtrDatatype = dtrMap.get(schemaType);
 				} else {
-					// update DTR for list datatype
-					dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+					ListDatatype ldt = (ListDatatype) datatype;
+					Datatype datatypeList = ldt.getListDatatype();
+					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
+					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
+						dtrDatatype = datatype;
+					} else {
+						// update DTR for list datatype
+						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+					}
 				}
 				
 //				dtrDatatype = datatype;
@@ -224,14 +231,19 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			if ( dtrDatatype == null && 
 					datatype.getBuiltInType() == BuiltInType.ENUMERATION) {
 				
-				EnumerationDatatype edt = (EnumerationDatatype) datatype;
-				Datatype datatypeEnum =  edt.getEnumValueDatatype();
-				Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
-				if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
-					dtrDatatype = datatype;
+				if (dtrMap.containsKey(schemaType)) {
+					// direct DTR mapping
+					dtrDatatype = dtrMap.get(schemaType);
 				} else {
-					// update DTR for list datatype
-					dtrDatatype = dtrDatatypeEnum;
+					EnumerationDatatype edt = (EnumerationDatatype) datatype;
+					Datatype datatypeEnum =  edt.getEnumValueDatatype();
+					Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
+					if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
+						dtrDatatype = datatype;
+					} else {
+						// update DTR for list datatype
+						dtrDatatype = dtrDatatypeEnum;
+					}
 				}
 				
 //				dtrDatatype = datatype;
@@ -246,8 +258,8 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			}
 			
 			if (dtrDatatype == null) {
-				QNameContext qncSchemaType = datatype.getSchemaType();
-				QName schemaType = qncSchemaType.getQName();
+				// QNameContext qncSchemaType = datatype.getSchemaType();
+				
 				dtrDatatype = dtrMap.get(schemaType);
 				
 				if (dtrDatatype == null) {
