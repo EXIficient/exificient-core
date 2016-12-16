@@ -36,6 +36,7 @@ import com.siemens.ct.exi.datatype.BooleanDatatype;
 import com.siemens.ct.exi.datatype.Datatype;
 import com.siemens.ct.exi.datatype.DatetimeDatatype;
 import com.siemens.ct.exi.datatype.DecimalDatatype;
+import com.siemens.ct.exi.datatype.EnumerationDatatype;
 import com.siemens.ct.exi.datatype.FloatDatatype;
 import com.siemens.ct.exi.datatype.IntegerDatatype;
 import com.siemens.ct.exi.datatype.ListDatatype;
@@ -222,15 +223,26 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			// enums
 			if ( dtrDatatype == null && 
 					datatype.getBuiltInType() == BuiltInType.ENUMERATION) {
-				dtrDatatype = datatype;
-				// only ancestor types that have enums are of interest
-				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
-				Datatype dtBase = datatype.getBaseDatatype();
-				if (dtBase != null
-						&& dtBase.getBuiltInType() == BuiltInType.ENUMERATION) {
-					// check again
-					dtrDatatype = null;
+				
+				EnumerationDatatype edt = (EnumerationDatatype) datatype;
+				Datatype datatypeEnum =  edt.getEnumValueDatatype();
+				Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
+				if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
+					dtrDatatype = datatype;
+				} else {
+					// update DTR for list datatype
+					dtrDatatype = dtrDatatypeEnum;
 				}
+				
+//				dtrDatatype = datatype;
+//				// only ancestor types that have enums are of interest
+//				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
+//				Datatype dtBase = datatype.getBaseDatatype();
+//				if (dtBase != null
+//						&& dtBase.getBuiltInType() == BuiltInType.ENUMERATION) {
+//					// check again
+//					dtrDatatype = null;
+//				}
 			}
 			
 			if (dtrDatatype == null) {
