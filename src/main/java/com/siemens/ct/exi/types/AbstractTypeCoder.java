@@ -221,15 +221,25 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
 				} else {
-					ListDatatype ldt = (ListDatatype) datatype;
-					Datatype datatypeList = ldt.getListDatatype();
-					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
-					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
-						dtrDatatype = datatype;
+					
+					Datatype baseDatatype = datatype.getBaseDatatype();
+					QName schemBaseType = baseDatatype.getSchemaType().getQName();
+					if(baseDatatype.getBuiltInType() == BuiltInType.LIST &&  dtrMap.containsKey(schemBaseType)) {
+						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
-						// update DTR for list datatype
-						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+						dtrDatatype = datatype;
 					}
+					
+					
+//					ListDatatype ldt = (ListDatatype) datatype;
+//					Datatype datatypeList = ldt.getListDatatype();
+//					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
+//					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
+//						dtrDatatype = datatype;
+//					} else {
+//						// update DTR for list datatype
+//						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
+//					}
 				}
 				
 //				dtrDatatype = datatype;
