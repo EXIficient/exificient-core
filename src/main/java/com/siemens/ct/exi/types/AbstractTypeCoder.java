@@ -186,17 +186,24 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			if ( dtrDatatype == null &&
 					datatype.getBuiltInType() == BuiltInType.STRING
 					&& ((StringDatatype) datatype).isDerivedByUnion()) {
-				dtrDatatype = datatype;
-				// union ancestors of interest
-				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
-				Datatype dtBase = datatype.getBaseDatatype();
-
-				if (dtBase != null
-						&& dtBase.getBuiltInType() == BuiltInType.STRING
-						&& ((StringDatatype) dtBase).isDerivedByUnion()) {
-					// check again
-					dtrDatatype = null;
+				
+				if (dtrMap.containsKey(schemaType)) {
+					// direct DTR mapping
+					dtrDatatype = dtrMap.get(schemaType);
 				}
+				
+				
+//				dtrDatatype = datatype;
+//				// union ancestors of interest
+//				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
+//				Datatype dtBase = datatype.getBaseDatatype();
+//
+//				if (dtBase != null
+//						&& dtBase.getBuiltInType() == BuiltInType.STRING
+//						&& ((StringDatatype) dtBase).isDerivedByUnion()) {
+//					// check again
+//					dtrDatatype = null;
+//				}
 			}
 			// lists
 			if ( dtrDatatype == null && 
