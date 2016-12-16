@@ -39,20 +39,46 @@ import com.siemens.ct.exi.grammars.grammar.SchemaInformedFirstStartTagGrammar;
 
 public class QNameContext {
 	
+	/**
+	 * namespace URI ID
+	 */
 	final int namespaceUriID;
+	/**
+	 * local-name ID
+	 */
 	final int localNameID;
+	/**
+	 * qualified name
+	 */
 	final QName qName;
+	/**
+	 * default qualified name (as String)
+	 */
 	final String defaultQNameAsString;
+	/**
+	 * default prefix (if none specified)
+	 */
 	final String defaultPrefix;
 
-	// global element
+	/**
+	 *  global element
+	 */
 	StartElement grammarGlobalElement;
 
-	// global grammar attribute (if any)
+	/**
+	 *  global grammar attribute (if any)
+	 */
 	Attribute grammarGlobalAttribute;
 	
-	// type grammar
+	/**
+	 *  type grammar
+	 */
 	SchemaInformedFirstStartTagGrammar typeGrammar;
+	
+	/**
+	 *  simply base type for type hierarchy (if any)
+	 */
+	QNameContext simpleBaseType;
 
 	public QNameContext(int namespaceUriID, int localNameID, QName qName) {
 		this.namespaceUriID = namespaceUriID;
@@ -161,6 +187,14 @@ public class QNameContext {
 				+ this.getLocalName();
 	}
 
+	public void setSimpleBaseType(QNameContext simpleBaseType) {
+		this.simpleBaseType = simpleBaseType;
+	}
+	
+	public QNameContext getSimpleBaseType() {
+		return this.simpleBaseType;
+	}
+	
 	@Override
 	public final boolean equals(Object o) {
 		if (o instanceof QNameContext) {

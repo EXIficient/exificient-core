@@ -308,7 +308,8 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
 			dt = updateDtrDatatype(baseDatatype);
 		} else {
-			dtrMap.put(simpleBaseType.getQName(), dt);
+			// dtrMap.put(simpleBaseType.getQName(), dt);
+			dtrMap.put(datatype.getSchemaType().getQName(), dt);
 		}
 
 		return dt;
