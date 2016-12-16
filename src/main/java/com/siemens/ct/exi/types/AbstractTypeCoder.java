@@ -199,17 +199,6 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					// check again
 					dtrDatatype = null;
 				}
-				
-//				QNameContext baseType = qncSchemaType.getSimpleBaseType();
-//				if (baseType != null) {
-//					Datatype dtBase = baseType.getSimpleDatatype();
-//					if (dtBase != null
-//							&& dtBase.getBuiltInType() == BuiltInType.STRING
-//							&& ((StringDatatype) dtBase).isDerivedByUnion()) {
-//						// check again
-//						dtrDatatype = null;
-//					}
-//				}
 			}
 			// lists
 			if (dtrDatatype == null
@@ -223,17 +212,6 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					// check again
 					dtrDatatype = null;
 				}
-				
-//				QNameContext baseType = qncSchemaType.getSimpleBaseType();
-//				if (baseType != null) {
-//					Datatype dtBase = baseType.getSimpleDatatype();
-//					if (dtBase != null
-//							&& dtBase.getBuiltInType() == BuiltInType.LIST) {
-//						// check again
-//						dtrDatatype = null;
-//					}
-//				}
-
 			}
 			// enums
 			if (dtrDatatype == null
@@ -247,16 +225,6 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					// check again
 					dtrDatatype = null;
 				}
-				
-//				QNameContext baseType = qncSchemaType.getSimpleBaseType();
-//				if (baseType != null) {
-//					Datatype dtBase = baseType.getSimpleDatatype();
-//					if (dtBase != null
-//							&& dtBase.getBuiltInType() == BuiltInType.ENUMERATION) {
-//						// check again
-//						dtrDatatype = null;
-//					}
-//				}
 			}
 			if (dtrDatatype == null) {
 				// no mapping yet
@@ -268,6 +236,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 								.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
 					dtrDatatype = datatype;
 				}
+				dtrMap.put(qncSchemaType.getQName(), dtrDatatype);
 			}
 		}
 
@@ -293,7 +262,36 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 	
 	// protected Datatype updateDtrDatatype(QNameContext qncSchemaType) {
 	protected Datatype updateDtrDatatype(Datatype datatype) {
+	// protected Datatype updateDtrDatatype(QNameContext qncSchemaType) {
 		assert (dtrMapInUse);
+		
+//		// QNameContext qncSchemaType = datatype.getSchemaType();
+//		QNameContext qncBase =  qncSchemaType.getSimpleBaseType();
+//		assert(qncSchemaType != null);
+//		
+//		
+////		// special integer handling
+////		if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+////				&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
+////						.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
+////			dtrDatatype = datatype;
+////		}
+//		
+//		Datatype dt = dtrMap.get(qncBase.getQName());
+//		
+//		if (dt == null) {
+//			// dt = updateDtrDatatype(simpleBaseType);
+//			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
+//			dt = updateDtrDatatype(qncBase); //baseDatatype);
+////			dtrMap.put(qncBase.getQName(), dt);
+//		} else {
+//			// save new mapping in map
+////			dtrMap.put(qncSchemaType.getQName(), dt);
+//		}
+//		
+//		return dt;
+		
+		
 		
 		Datatype baseDatatype = datatype.getBaseDatatype();
 		// QNameContext qncSchemaType = datatype.getSchemaType();
@@ -307,10 +305,9 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			// dt = updateDtrDatatype(simpleBaseType);
 			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
 			dt = updateDtrDatatype(baseDatatype);
-		} else {
-			// dtrMap.put(simpleBaseType.getQName(), dt);
-			dtrMap.put(datatype.getSchemaType().getQName(), dt);
 		}
+		// save new mapping in map
+		dtrMap.put(datatype.getSchemaType().getQName(), dt);
 
 		return dt;
 	}
