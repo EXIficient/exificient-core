@@ -75,10 +75,10 @@ public class QNameContext {
 	 */
 	SchemaInformedFirstStartTagGrammar typeGrammar;
 	
-	/**
-	 *  simply base type for type hierarchy (if any)
-	 */
-	QNameContext simpleBaseType;
+//	/**
+//	 *  simply base type for type hierarchy (if any)
+//	 */
+//	QNameContext simpleBaseType;
 
 	public QNameContext(int namespaceUriID, int localNameID, QName qName) {
 		this.namespaceUriID = namespaceUriID;
@@ -187,13 +187,13 @@ public class QNameContext {
 				+ this.getLocalName();
 	}
 
-	public void setSimpleBaseType(QNameContext simpleBaseType) {
-		this.simpleBaseType = simpleBaseType;
-	}
-	
-	public QNameContext getSimpleBaseType() {
-		return this.simpleBaseType;
-	}
+//	public void setSimpleBaseType(QNameContext simpleBaseType) {
+//		this.simpleBaseType = simpleBaseType;
+//	}
+//	
+//	public QNameContext getSimpleBaseType() {
+//		return this.simpleBaseType;
+//	}
 	
 	@Override
 	public final boolean equals(Object o) {
