@@ -235,15 +235,19 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
 				} else {
-					EnumerationDatatype edt = (EnumerationDatatype) datatype;
-					Datatype datatypeEnum =  edt.getEnumValueDatatype();
-					Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
-					if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
-						dtrDatatype = datatype;
-					} else {
-						// update DTR for list datatype
-						dtrDatatype = dtrDatatypeEnum;
-					}
+					Datatype dtrDatatypeBase = getDtrDatatype(datatype.getBaseDatatype());
+					dtrDatatype = dtrDatatypeBase;
+					dtrMap.put(schemaType, dtrDatatype);
+					
+//					EnumerationDatatype edt = (EnumerationDatatype) datatype;
+//					Datatype datatypeEnum =  edt.getEnumValueDatatype();
+//					Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
+//					if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
+//						dtrDatatype = datatype;
+//					} else {
+//						// update DTR for list datatype
+//						dtrDatatype = dtrDatatypeEnum;
+//					}
 				}
 				
 //				dtrDatatype = datatype;
