@@ -224,7 +224,9 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					
 					Datatype baseDatatype = datatype.getBaseDatatype();
 					QName schemBaseType = baseDatatype.getSchemaType().getQName();
-					if(baseDatatype.getBuiltInType() == BuiltInType.LIST &&  dtrMap.containsKey(schemBaseType)) {
+					if(
+							// baseDatatype.getBuiltInType() == BuiltInType.LIST &&  
+							dtrMap.containsKey(schemBaseType)) {
 						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
 						dtrDatatype = datatype;
