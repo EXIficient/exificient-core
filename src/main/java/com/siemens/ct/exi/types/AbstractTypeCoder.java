@@ -308,7 +308,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		}
 		
 		// special integer handling
-		if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+		if ((dtrDatatype.getBuiltInType() == BuiltInType.INTEGER || dtrDatatype.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)
 				&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
 						.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
 			dtrDatatype = datatype;
