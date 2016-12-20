@@ -73,8 +73,7 @@ public class EncodingOptions {
 	public static final String UTC_TIME = "UTC_TIME";
 
 	/**
-	 * To indicate that the EXI stream should respect the Canonical EXI rules
-	 * @see http://www.w3.org/TR/exi-c14n
+	 * To indicate that the EXI stream should respect the Canonical EXI rules (see http://www.w3.org/TR/exi-c14n)
 	 * @see INCLUDE_OPTIONS
 	 * @see UTC_TIME
 	 */

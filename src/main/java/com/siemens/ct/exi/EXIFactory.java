@@ -247,7 +247,7 @@ public interface EXIFactory extends Cloneable {
 	 * user-defined type representations. This method allows to register the datatype that should be used.
 	 * 
 	 * @param dtrMapRepresentation dtrMap type
-	 * @param Datatype dtrMap datatype
+	 * @param datatype dtrMap datatype
 	 * @return the previous value associated with <code>dtrMapRepresentation</code>, or <code>null</code> if there was no mapping
 	 */
 	public Datatype registerDatatypeRepresentationMapDatatype(QName dtrMapRepresentation, Datatype datatype);
