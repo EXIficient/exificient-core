@@ -53,6 +53,10 @@ public interface Datatype {
 	public Datatype getBaseDatatype();
 	public void setBaseDatatype(Datatype baseDatatype);
 	
+	// Extension Extended String: https://www.w3.org/XML/EXI/docs/extendedString/exi-extString.html
+	public void setGrammarEnumeration(EnumDatatype grammarEnumeration);
+	public EnumDatatype getGrammarEnumeration();
+	
 	// whiteSpace
 	public WhiteSpace getWhiteSpace();
 	

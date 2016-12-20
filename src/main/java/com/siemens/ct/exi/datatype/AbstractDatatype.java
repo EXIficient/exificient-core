@@ -45,6 +45,9 @@ public abstract class AbstractDatatype implements Datatype {
 	// base datatype
 	protected Datatype baseDatatype;
 	
+	// grammar enumeration
+	protected EnumDatatype grammarEnumeration;
+	
 	// whiteSpace
 	protected WhiteSpace whiteSpace;
 
@@ -73,6 +76,14 @@ public abstract class AbstractDatatype implements Datatype {
 	
 	public void setBaseDatatype(Datatype baseDatatype) {
 		this.baseDatatype = baseDatatype;
+	}
+	
+	public void setGrammarEnumeration(EnumDatatype grammarEnumeration) {
+		this.grammarEnumeration = grammarEnumeration;
+	}
+	
+	public EnumDatatype getGrammarEnumeration() {
+		return grammarEnumeration;
 	}
 	
 	public WhiteSpace getWhiteSpace() {

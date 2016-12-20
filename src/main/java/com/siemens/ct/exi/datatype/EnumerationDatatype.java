@@ -42,7 +42,7 @@ import com.siemens.ct.exi.values.Value;
  * @version 0.9.7-SNAPSHOT
  */
 
-public class EnumerationDatatype extends AbstractDatatype {
+public class EnumerationDatatype extends AbstractDatatype implements EnumDatatype {
 
 	protected Datatype dtEnumValues;
 	
