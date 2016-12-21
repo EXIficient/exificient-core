@@ -61,5 +61,7 @@ public enum DatatypeID {
 	/** exi:integer */
 	exi_integer,
 	/** exi:string */
-	exi_string
+	exi_string,
+	/** exi:estring */
+	exi_estring
 }

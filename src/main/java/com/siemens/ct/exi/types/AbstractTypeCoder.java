@@ -34,9 +34,10 @@ import com.siemens.ct.exi.datatype.BinaryBase64Datatype;
 import com.siemens.ct.exi.datatype.BinaryHexDatatype;
 import com.siemens.ct.exi.datatype.BooleanDatatype;
 import com.siemens.ct.exi.datatype.Datatype;
+import com.siemens.ct.exi.datatype.DatatypeID;
 import com.siemens.ct.exi.datatype.DatetimeDatatype;
 import com.siemens.ct.exi.datatype.DecimalDatatype;
-import com.siemens.ct.exi.datatype.EnumerationDatatype;
+import com.siemens.ct.exi.datatype.ExtendedStringDatatype;
 import com.siemens.ct.exi.datatype.FloatDatatype;
 import com.siemens.ct.exi.datatype.IntegerDatatype;
 import com.siemens.ct.exi.datatype.ListDatatype;
@@ -318,6 +319,14 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 //					}
 					// dtrMap.put(qncSchemaType.getQName(), dtrDatatype);
 				}
+				
+				// extended string
+				if(dtrDatatype.getDatatypeID() == DatatypeID.exi_estring && datatype.getGrammarEnumeration() != null) {
+					// add grammar strings et cetera
+					ExtendedStringDatatype esdt = (ExtendedStringDatatype) dtrDatatype;
+					esdt.setGrammarStrings(datatype.getGrammarEnumeration());
+				}
+				
 			}
 
 			
@@ -448,6 +457,8 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 					datatype = new IntegerDatatype(null);
 				} else if ("string".equals(reprLocalPart)) {
 					datatype = new StringDatatype(null);
+				} else if ("estring".equals(reprLocalPart)) {
+					datatype = new ExtendedStringDatatype(null);
 				} else {
 					throw new EXIException(
 							"[EXI] Unsupported datatype representation: {"
