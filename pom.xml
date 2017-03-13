@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.siemens.ct.exi</groupId>
   <artifactId>exificient-core</artifactId>
@@ -37,10 +39,10 @@
 
   <scm>
     <connection>scm:git:git://github.com/EXIficient/exificient-core.git</connection>
-	<!--<developerConnection>scm:git:git@github.com:EXIficient/exificient-core.git</developerConnection>-->
-	<developerConnection>scm:git:https://github.com/EXIficient/exificient-core.git</developerConnection>
+    <!--<developerConnection>scm:git:git@github.com:EXIficient/exificient-core.git</developerConnection>-->
+    <developerConnection>scm:git:https://github.com/EXIficient/exificient-core.git</developerConnection>
     <!--<url>https://github.com/EXIficient/exificient-core</url>-->
-	<url>https://github.com/EXIficient/exificient-core.git</url>
+    <url>https://github.com/EXIficient/exificient-core.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -65,7 +67,7 @@
       <version>1.6</version>
       <scope>test</scope>
     </dependency>
-	<!--
+    <!--
     <dependency>
       <groupId>org.codehaus.woodstox</groupId>
       <artifactId>woodstox-core-asl</artifactId>
@@ -112,7 +114,7 @@
         <version>2.4</version>
         <executions>
           <execution>
-          	<id>attach-test</id>
+            <id>attach-test</id>
             <goals>
               <goal>test-jar</goal>
             </goals>
@@ -123,7 +125,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.2.1</version><!--2.3.2-->
+        <version>2.2.1</version>
+        <!--2.3.2-->
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -142,7 +145,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version><!--2.3.2-->
+        <version>2.9.1</version>
+        <!--2.3.2-->
         <configuration>
           <overview>${basedir}/src/main/java/overview.html</overview>
         </configuration>
