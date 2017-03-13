@@ -135,7 +135,7 @@ public class ExtendedStringEncoderImpl implements StringEncoder {
 		this.stringEncoder.setSharedStrings(sharedStrings);
 	}
 
-	@Override
+	// @Override
 	public int getNumberOfStringValues(QNameContext qnc) {
 		return this.stringEncoder.getNumberOfStringValues(qnc);
 	}
