@@ -285,6 +285,61 @@ public class DecimalCoreTest extends AbstractCoreTestCase {
 		assertTrue(s.equals(getByteDecoder().decodeDecimalValue().toString()));
 	}
 	
+	public void testBigDecimal1() throws IOException {
+		BigDecimal bd = new BigDecimal("-1.3");
+		DecimalValue d = DecimalValue.parse(bd);
+		assertTrue(d != null);
+		
+		// Bit
+		EncoderChannel bitEC = getBitEncoder();
+		bitEC.encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		bitEC.flush();
+		String sBit = getBitDecoder().decodeDecimalValue().toString();
+		assertTrue(sBit + "!=" + bd, bd.toString().equals(sBit));
+		// Byte
+		getByteEncoder().encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		assertTrue(bd.toString().equals(getByteDecoder().decodeDecimalValue().toString()));
+	}
+	
+	public void testBigDecimal2() throws IOException {
+		BigDecimal bd = new BigDecimal("1236.087139166666670000000000000000001");
+		DecimalValue d = DecimalValue.parse(bd);
+		assertTrue(d != null);
+		
+		// Bit
+		EncoderChannel bitEC = getBitEncoder();
+		bitEC.encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		bitEC.flush();
+		String sBit = getBitDecoder().decodeDecimalValue().toString();
+		assertTrue(sBit + "!=" + bd, bd.toString().equals(sBit));
+		// Byte
+		getByteEncoder().encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		assertTrue(bd.toString().equals(getByteDecoder().decodeDecimalValue().toString()));
+	}
+	
+	public void testBigDecimal3() throws IOException {
+		String dec = "-65.1203389898098908";
+		BigDecimal bd = new BigDecimal("-65.12033898980989080");
+		DecimalValue d = DecimalValue.parse(bd);
+		assertTrue(d != null);
+		
+		// Bit
+		EncoderChannel bitEC = getBitEncoder();
+		bitEC.encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		bitEC.flush();
+		String sBit = getBitDecoder().decodeDecimalValue().toString();
+		assertTrue(sBit + "!=" + bd, dec.equals(sBit));
+		// Byte
+		getByteEncoder().encodeDecimal(d.isNegative(), d.getIntegral(),
+				d.getRevFractional());
+		assertTrue(dec.equals(getByteDecoder().decodeDecimalValue().toString()));
+	}
+	
 	public void testDecimalEquals() throws IOException {
 		String s1 = "-0.0";
 		String s2 = "+0.0";

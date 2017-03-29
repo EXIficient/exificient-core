@@ -70,6 +70,24 @@ public class DecimalValue extends AbstractValue {
 		return revFractional;
 	}
 	
+	
+	public static DecimalValue parse(BigDecimal decimal) {
+		// e.g, -1.30
+		boolean negative = decimal.signum() == -1;
+		if(negative) {
+			decimal = decimal.negate();	
+		}
+		
+		// Fractional part (e.g, 0.30)
+		BigDecimal fractional = decimal.remainder(BigDecimal.ONE);
+		
+		IntegerValue revFractional =  IntegerValue.parse(reverseString(fractional.toPlainString().substring(2)));
+		
+		// integral part
+		IntegerValue integral = IntegerValue.valueOf(decimal.subtract(fractional).toBigInteger());
+		
+		return new DecimalValue(negative, integral, revFractional);	
+	}
 
 	public static DecimalValue parse(String decimal) {
 		try {
@@ -104,9 +122,8 @@ public class DecimalValue extends AbstractValue {
 						.toString());
 			} else {
 				sIntegral = IntegerValue.parse(decimal.substring(0, decPoint));
-				sRevFractional = IntegerValue.parse(new StringBuilder(decimal
-						.substring(decPoint + 1, decimal.length())).reverse()
-						.toString());
+				sRevFractional = IntegerValue.parse(reverseString(decimal
+								.substring(decPoint + 1, decimal.length())));
 			}
 			if (sIntegral == null || sRevFractional == null) {
 				return null;
@@ -116,7 +133,11 @@ public class DecimalValue extends AbstractValue {
 		} catch (Exception e) {
 			return null;
 		}
-
+	}
+	
+	private static String reverseString(String s) {
+		// TODO look for more efficient way to reverse string
+		return new StringBuilder(s).reverse().toString();
 	}
 
 	public BigDecimal toBigDecimal() {
