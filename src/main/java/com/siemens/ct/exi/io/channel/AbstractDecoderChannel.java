@@ -328,7 +328,6 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 	public DateTimeValue decodeDateTimeValue(DateTimeType type)
 			throws IOException {
 		int year = 0, monthDay = 0, time = 0, fractionalSecs = 0;
-		boolean presenceFractionalSecs = false;
 
 		switch (type) {
 		case gYear: // Year, [Time-Zone]
@@ -347,7 +346,7 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 		case time: // Time, [FractionalSecs], [TimeZone]
 			// e.g. "12:34:56.135"
 			time = decodeNBitUnsignedInteger(DateTimeValue.NUMBER_BITS_TIME);
-			presenceFractionalSecs = decodeBoolean();
+			boolean presenceFractionalSecs = decodeBoolean();
 			fractionalSecs = presenceFractionalSecs ? decodeUnsignedInteger()
 					: 0;
 			break;
@@ -369,7 +368,7 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 				: 0;
 
 		return new DateTimeValue(type, year, monthDay, time,
-				presenceFractionalSecs, fractionalSecs, presenceTimezone,
+				fractionalSecs, presenceTimezone,
 				timeZone);
 	}
 

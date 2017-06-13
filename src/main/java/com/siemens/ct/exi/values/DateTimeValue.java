@@ -73,22 +73,23 @@ public class DateTimeValue extends AbstractValue {
 	int sizeFractionalSecs = -1;
 
 	public DateTimeValue(DateTimeType type, int year, int monthDay, int time,
-			boolean presenceFractionalSecs, int fractionalSecs,
+			int fractionalSecs,
 			boolean presenceTimezone, int timezone) {
-		this(type, year, monthDay, time, presenceFractionalSecs,
+		this(type, year, monthDay, time,
 				fractionalSecs, presenceTimezone, timezone, false);
 	}
 
 	private DateTimeValue(DateTimeType type, int year, int monthDay, int time,
-			boolean presenceFractionalSecs, int fractionalSecs,
+			int fractionalSecs,
 			boolean presenceTimezone, int timezone, boolean normalized) {
 		super(ValueType.DATETIME);
 		this.type = type;
 		this.year = year;
 		this.monthDay = monthDay;
 		this.time = time;
-		this.presenceFractionalSecs = presenceFractionalSecs;
 		this.fractionalSecs = fractionalSecs;
+		// Canonical EXI: Fractional seconds component MUST be omitted if its value is zero
+		this.presenceFractionalSecs = (this.fractionalSecs != 0);
 		this.presenceTimezone = presenceTimezone;
 		this.timezone = timezone;
 		this.normalized = normalized;
@@ -101,7 +102,6 @@ public class DateTimeValue extends AbstractValue {
 		int sYear = 0;
 		int sMonthDay = 0;
 		int sTime = 0;
-		boolean sPresenceFractionalSecs = false;
 		int sFractionalSecs = 0;
 		boolean sPresenceTimezone;
 		int sTimezone;
@@ -139,7 +139,6 @@ public class DateTimeValue extends AbstractValue {
 					int digits = countDigits(sbCal);
 					sFractionalSecs = Integer.parseInt(new StringBuilder(sbCal
 							.substring(0, digits)).reverse().toString());
-					sPresenceFractionalSecs = true;
 					// adjust buffer
 					sbCal.delete(0, digits);
 				}
@@ -214,7 +213,7 @@ public class DateTimeValue extends AbstractValue {
 			}
 
 			return new DateTimeValue(type, sYear, sMonthDay, sTime,
-					sPresenceFractionalSecs, sFractionalSecs,
+					sFractionalSecs,
 					sPresenceTimezone, sTimezone);
 		} catch (RuntimeException e) {
 			return null;
@@ -381,7 +380,7 @@ public class DateTimeValue extends AbstractValue {
 		}
 
 		return new DateTimeValue(type, sYear, sMonthDay, sTime,
-				sPresenceFractionalSecs, sFractionalSecs, sPresenceTimezone,
+				sFractionalSecs, sPresenceTimezone,
 				sTimezone);
 	}
 
@@ -922,7 +921,7 @@ public class DateTimeValue extends AbstractValue {
 		int timezone = 0;
 
 		return new DateTimeValue(this.type, year, monthDay, time,
-				presenceFractionalSecs, fractionalSecs, presenceTimezone,
+				fractionalSecs, presenceTimezone,
 				timezone, true);
 	}
 
