@@ -341,7 +341,6 @@ public class DateTimeValue extends AbstractValue {
 		int sYear = 0;
 		int sMonthDay = 0;
 		int sTime = 0;
-		boolean sPresenceFractionalSecs = false;
 		int sFractionalSecs = 0;
 		boolean sPresenceTimezone = false;
 		int sTimezone;
@@ -361,9 +360,6 @@ public class DateTimeValue extends AbstractValue {
 		case time: // time Time, [FractionalSecs], [TimeZone]
 			sTime = getTime(cal);
 			sFractionalSecs = cal.get(Calendar.MILLISECOND);
-			if (sFractionalSecs != 0) {
-				sPresenceFractionalSecs = true;
-			}
 			break;
 		case gMonth: // gMonth MonthDay, [TimeZone]
 		case gMonthDay: // gMonthDay MonthDay, [TimeZone]
