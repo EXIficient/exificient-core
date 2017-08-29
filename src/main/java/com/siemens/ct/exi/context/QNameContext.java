@@ -42,23 +42,23 @@ public class QNameContext {
 	/**
 	 * namespace URI ID
 	 */
-	final int namespaceUriID;
+	int namespaceUriID;
 	/**
 	 * local-name ID
 	 */
-	final int localNameID;
+	int localNameID;
 	/**
 	 * qualified name
 	 */
-	final QName qName;
+	QName qName;
 	/**
 	 * default qualified name (as String)
 	 */
-	final String defaultQNameAsString;
+	String defaultQNameAsString;
 	/**
 	 * default prefix (if none specified)
 	 */
-	final String defaultPrefix;
+	String defaultPrefix;
 
 	/**
 	 *  global element
@@ -74,38 +74,22 @@ public class QNameContext {
 	 *  type grammar
 	 */
 	SchemaInformedFirstStartTagGrammar typeGrammar;
-	
-//	/**
-//	 *  simply base type for type hierarchy (if any)
-//	 */
-//	QNameContext simpleBaseType;
 
+	public QNameContext() {
+	}
+	
 	public QNameContext(int namespaceUriID, int localNameID, QName qName) {
-		this.namespaceUriID = namespaceUriID;
-		this.localNameID = localNameID;
-		this.qName = qName;
-		switch (namespaceUriID) {
-		case 0:
-			// "" [empty string]
-			this.defaultPrefix = "";
-			this.defaultQNameAsString = this.qName.getLocalPart();
-			break;
-		case 1:
-			this.defaultPrefix = "xml";
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
-			break;
-		case 2:
-			this.defaultPrefix = "xsi";
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
-			break;
-		default:
-			this.defaultPrefix = "ns" + namespaceUriID;
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
-		}
+		setQName(qName);
+		setNamespaceUriID(namespaceUriID);
+		setLocalNameID(localNameID);
 	}
 
 	public QName getQName() {
 		return this.qName;
+	}
+	
+	public void setQName(QName qName) {
+		this.qName = qName;
 	}
 
 	/**
@@ -133,12 +117,24 @@ public class QNameContext {
 		return defaultQNameAsString;
 	}
 	
+	public void setDefaultQNameAsString(String defaultQNameAsString) {
+		this.defaultQNameAsString = defaultQNameAsString;
+	}
+	
 	public String getDefaultPrefix() {
 		return defaultPrefix;
+	}
+	
+	public void setDefaultPrefix(String defaultPrefix) {
+		this.defaultPrefix = defaultPrefix;
 	}
 
 	public int getLocalNameID() {
 		return localNameID;
+	}
+	
+	public void setLocalNameID(int localNameID) {
+		this.localNameID = localNameID;
 	}
 
 	public String getLocalName() {
@@ -173,6 +169,30 @@ public class QNameContext {
 	public int getNamespaceUriID() {
 		return this.namespaceUriID;
 	}
+	
+	public void setNamespaceUriID(int namespaceUriID) {
+		this.namespaceUriID = namespaceUriID;
+		
+		switch (namespaceUriID) {
+		case 0:
+			// "" [empty string]
+			setDefaultPrefix("");
+			setDefaultQNameAsString(this.qName.getLocalPart());
+			break;
+		case 1:
+			setDefaultPrefix("xml");
+			setDefaultQNameAsString(defaultPrefix + ":" + this.qName.getLocalPart());
+			break;
+		case 2:
+			setDefaultPrefix("xsi");
+			setDefaultQNameAsString(defaultPrefix + ":" + this.qName.getLocalPart());
+			break;
+		default:
+			setDefaultPrefix("ns" + namespaceUriID);
+			setDefaultQNameAsString(defaultPrefix + ":" + this.qName.getLocalPart());
+		}
+	}
+
 
 	public String getNamespaceUri() {
 		return this.qName.getNamespaceURI();

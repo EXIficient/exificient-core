@@ -38,34 +38,54 @@ public class GrammarUriContext extends AbstractUriContext {
 	public static String[] EMPTY_PREFIXES = new String[0];
 
 	// grammar local-names
-	final QNameContext[] grammarQNames;
+	QNameContext[] grammarQNames;
 
 	// grammar prefixes
-	final String[] grammarPrefixes;
+	String[] grammarPrefixes;
 	
 	// default prefix
-	final String defaultPrefix;
+	String defaultPrefix;
+	
+	public GrammarUriContext() {
+	}
 
 	public GrammarUriContext(int namespaceUriID, String namespaceUri,
 			QNameContext[] grammarQNames, String[] grammarPrefixes) {
 		super(namespaceUriID, namespaceUri);
-		this.grammarQNames = grammarQNames;
-		this.grammarPrefixes = grammarPrefixes;
+		setGrammarQNames(grammarQNames);
+		setGrammarPrefixes(grammarPrefixes);
+	}
+	
+	@Override
+	public void setNamespaceUriID(int namespaceUriID) {
+		super.setNamespaceUriID(namespaceUriID);
 		
 		switch (namespaceUriID) {
 		case 0:
 			// "" [empty string]
-			this.defaultPrefix = "";
+			setDefaultPrefix("");
 			break;
 		case 1:
-			this.defaultPrefix = "xml";
+			setDefaultPrefix("xml");
 			break;
 		case 2:
-			this.defaultPrefix = "xsi";
+			setDefaultPrefix("xsi");
 			break;
 		default:
-			this.defaultPrefix = "ns" + namespaceUriID;
+			setDefaultPrefix("ns" + namespaceUriID);
 		}
+	}
+	
+	public void setGrammarQNames(QNameContext[] grammarQNames) {
+		this.grammarQNames = grammarQNames;
+	}
+	
+	public void setGrammarPrefixes(String[] grammarPrefixes) {
+		this.grammarPrefixes = grammarPrefixes;
+	}
+	
+	public void setDefaultPrefix(String defaultPrefix) {
+		this.defaultPrefix = defaultPrefix;
 	}
 	
 	public String getDefaultPrefix() {
