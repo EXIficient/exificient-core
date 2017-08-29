@@ -34,13 +34,20 @@ package com.siemens.ct.exi.context;
 
 public class GrammarContext {
 	
-	protected final GrammarUriContext[] grammarUriContexts;
-	protected final int numberofQNamesContexts;
+	protected GrammarUriContext[] grammarUriContexts;
+	protected int numberOfQNamesContexts;
 
+	public GrammarContext() {
+	}
+	
 	public GrammarContext(GrammarUriContext[] grammarUriContexts,
 			int numberofQNamesContexts) {
 		this.grammarUriContexts = grammarUriContexts;
-		this.numberofQNamesContexts = numberofQNamesContexts;
+		setNumberOfGrammarQNameContexts(numberofQNamesContexts);
+	}
+	
+	public void setGrammarUriContexts(GrammarUriContext[] grammarUriContexts) {
+		this.grammarUriContexts = grammarUriContexts;
 	}
 
 	public int getNumberOfGrammarUriContexts() {
@@ -62,6 +69,10 @@ public class GrammarContext {
 	}
 
 	public int getNumberOfGrammarQNameContexts() {
-		return numberofQNamesContexts;
+		return numberOfQNamesContexts;
+	}
+	
+	public void setNumberOfGrammarQNameContexts(int numberOfQNamesContexts) {
+		this.numberOfQNamesContexts = numberOfQNamesContexts;
 	}
 }
