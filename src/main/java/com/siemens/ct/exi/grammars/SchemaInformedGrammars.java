@@ -28,6 +28,7 @@ import com.siemens.ct.exi.context.GrammarContext;
 import com.siemens.ct.exi.exceptions.UnsupportedOption;
 import com.siemens.ct.exi.grammars.grammar.Document;
 import com.siemens.ct.exi.grammars.grammar.Fragment;
+import com.siemens.ct.exi.grammars.grammar.Grammar;
 import com.siemens.ct.exi.grammars.grammar.SchemaInformedGrammar;
 
 /**
@@ -44,18 +45,15 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 
 	protected String schemaId;
 	
-	protected SchemaInformedGrammar elementFragmentGrammar;
+	protected final SchemaInformedGrammar elementFragmentGrammar;
 
-	public SchemaInformedGrammars() {
-	}
-	
 	public SchemaInformedGrammars(GrammarContext grammarContext,
 			Document document, Fragment fragment, SchemaInformedGrammar elementFragmentGrammar) {
 		super(true, grammarContext);
 		// set document & fragment grammar
-		setDocumentGrammar(document);
-		setFragmentGrammar(fragment);
-		setSchemaInformedElementFragmentGrammar(elementFragmentGrammar);
+		documentGrammar = document;
+		fragmentGrammar = fragment;
+		this.elementFragmentGrammar = elementFragmentGrammar;
 	}
 
 	public void setBuiltInXMLSchemaTypesOnly(boolean builtInXMLSchemaTypesOnly) {
@@ -63,7 +61,7 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 		this.schemaId = Constants.EMPTY_STRING;
 	}
 
-	public String getSchemaId() {
+	public final String getSchemaId() {
 		return schemaId;
 	}
 
@@ -84,13 +82,13 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 	public boolean isBuiltInXMLSchemaTypesOnly() {
 		return builtInXMLSchemaTypesOnly;
 	}
+
+	public Grammar getFragmentGrammar() {
+		return fragmentGrammar;
+	}
 	
 	public SchemaInformedGrammar getSchemaInformedElementFragmentGrammar() {
 		return this.elementFragmentGrammar;
-	}
-	
-	public void setSchemaInformedElementFragmentGrammar(SchemaInformedGrammar elementFragmentGrammar) {
-		this.elementFragmentGrammar = elementFragmentGrammar;
 	}
 
 }

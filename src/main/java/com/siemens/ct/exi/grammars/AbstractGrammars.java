@@ -42,49 +42,26 @@ public abstract class AbstractGrammars implements Grammars {
 	protected Grammar documentGrammar;
 	protected Grammar fragmentGrammar;
 
-	private GrammarContext grammarContext;
+	private final GrammarContext grammarContext;
 
-	private boolean isSchemaInformed;
+	private final boolean isSchemaInformed;
 
-	public AbstractGrammars() {
-	}
-	
 	public AbstractGrammars(boolean isSchemaInformed,
 			GrammarContext grammarContext) {
-		setSchemaInformed(isSchemaInformed);
-		setGrammarContext(grammarContext);
+		this.isSchemaInformed = isSchemaInformed;
+		this.grammarContext = grammarContext;
 	}
 
 	public GrammarContext getGrammarContext() {
 		return this.grammarContext;
-	}
-	
-	public void setGrammarContext(GrammarContext grammarContext) {
-		this.grammarContext = grammarContext;
 	}
 
 	public boolean isSchemaInformed() {
 		return isSchemaInformed;
 	}
 	
-	public void setSchemaInformed(boolean isSchemaInformed) {
-		this.isSchemaInformed = isSchemaInformed;
-	}
-	
 	public Grammar getDocumentGrammar() {
 		return documentGrammar;
-	}
-	
-	public void setDocumentGrammar(Grammar documentGrammar) {
-		this.documentGrammar = documentGrammar;
-	}
-
-	public Grammar getFragmentGrammar() {
-		return fragmentGrammar;
-	}
-	
-	public void setFragmentGrammar(Grammar fragmentGrammar) {
-		this.fragmentGrammar = fragmentGrammar;
 	}
 
 }
