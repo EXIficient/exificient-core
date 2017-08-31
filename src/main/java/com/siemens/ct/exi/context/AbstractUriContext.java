@@ -35,31 +35,20 @@ package com.siemens.ct.exi.context;
 public abstract class AbstractUriContext implements UriContext {
 	
 	// namespace
-	int namespaceUriID;
-	String namespaceUri;
+	final int namespaceUriID;
+	final String namespaceUri;
 
-	public AbstractUriContext() {
-	}
-	
 	public AbstractUriContext(int namespaceUriID, String namespaceUri) {
-		setNamespaceUriID(namespaceUriID);
-		setNamespaceUri(namespaceUri);
+		this.namespaceUriID = namespaceUriID;
+		this.namespaceUri = namespaceUri;
 	}
 
-	public int getNamespaceUriID() {
+	public final int getNamespaceUriID() {
 		return namespaceUriID;
 	}
-	
-	public void setNamespaceUriID(int namespaceUriID) {
-		this.namespaceUriID = namespaceUriID;
-	}
 
-	public String getNamespaceUri() {
+	public final String getNamespaceUri() {
 		return namespaceUri;
-	}
-	
-	public void setNamespaceUri(String namespaceUri) {
-		this.namespaceUri = namespaceUri;
 	}
 
 	@Override
