@@ -332,11 +332,8 @@ public class DateTimeValue extends AbstractValue {
 	 * @param cal calendar
 	 * @param type date-time type
 	 * @return date-time value
-	 * 
-	 * @throws IOException IO exception
 	 */
-	public static DateTimeValue parse(Calendar cal, DateTimeType type)
-			throws IOException {
+	public static DateTimeValue parse(Calendar cal, DateTimeType type) {
 
 		int sYear = 0;
 		int sMonthDay = 0;
