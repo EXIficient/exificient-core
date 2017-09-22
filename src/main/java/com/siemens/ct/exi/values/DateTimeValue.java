@@ -413,7 +413,7 @@ public class DateTimeValue extends AbstractValue {
 
 	public Calendar toCalendar() {
 		if (cal == null) {
-			Calendar cal = Calendar.getInstance();
+			cal = Calendar.getInstance();
 			cal.clear();
 
 			switch (type) {
