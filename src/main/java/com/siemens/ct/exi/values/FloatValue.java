@@ -263,7 +263,7 @@ public class FloatValue extends AbstractValue {
 		}
 	}
 
-	public static FloatValue parse(float f) throws IOException {
+	public static FloatValue parse(float f) {
 		int sMantissa, sExponent;
 		// infinity & not a number
 		if (Float.isInfinite(f) || Float.isNaN(f)) {
@@ -295,7 +295,7 @@ public class FloatValue extends AbstractValue {
 		return new FloatValue(sMantissa, sExponent);
 	}
 
-	public static FloatValue parse(double d) throws IOException {
+	public static FloatValue parse(double d) {
 		long sMantissa, sExponent;
 		// infinity & not a number
 		if (Double.isInfinite(d) || Double.isNaN(d)) {
