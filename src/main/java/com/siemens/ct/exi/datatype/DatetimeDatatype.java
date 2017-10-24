@@ -109,7 +109,7 @@ public class DatetimeDatatype extends AbstractDatatype {
 	@Override
 	public void normalize() {
 		// see https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation
-		if(lastValidDatetime != null) {
+		if(lastValidDatetime == null) {
 			lastValidDatetime = lastValidDatetime.normalize();
 		}
 	}
