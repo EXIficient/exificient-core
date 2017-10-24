@@ -718,6 +718,26 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime1.equals(datetime3Norm));
 	}
 	
+	
+	public void testDatetimeEquals6() throws IOException {
+		// all the same times
+		String s1 = "2012-06-30T23:59:60-06:00";
+		String s2 = "2012-07-01T06:00:00Z";
+		DateTimeType type = DateTimeType.dateTime;
+		DateTimeValue datetime1 = DateTimeValue.parse(s1, type);
+		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
+		assertTrue(datetime1 != null);
+		assertTrue(datetime2 != null);
+		
+		DateTimeValue datetime1Norm =  datetime1.normalize();
+		DateTimeValue datetime2Norm =  datetime2.normalize();
+		
+		assertTrue(datetime1.equals(datetime2));
+		assertTrue(datetime2.equals(datetime1Norm));
+		assertTrue(datetime2Norm.equals(datetime1Norm));
+		assertTrue(datetime1.equals(datetime2Norm));
+	}
+	
 	public void testDatetimeFail1() throws IOException {
 		String s = "12:34:XXX";
 		DateTimeType type = DateTimeType.time;

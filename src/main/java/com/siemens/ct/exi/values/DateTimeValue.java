@@ -844,6 +844,15 @@ public class DateTimeValue extends AbstractValue {
 		time -= hour * SECONDS_IN_HOUR;
 		int minutes = time / SECONDS_IN_MINUTE;
 		int seconds = time - minutes * SECONDS_IN_MINUTE;
+		if(seconds > 59) {
+			seconds -= 60; // remove one minute
+			minutes++; // ads one minute
+		}
+		if(minutes > 59) {
+			minutes -= 60; // remove an hour
+			hour++; // add one hour
+		}
+		
 		// timezone, per default 'Z'
 		int tzMinutes = 0;
 		int tzHours = 0;
