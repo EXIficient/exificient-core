@@ -24,6 +24,10 @@
 package com.siemens.ct.exi.context;
 
 
+import com.siemens.ct.exi.grammars.AbstractGrammars;
+
+import java.util.Arrays;
+
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
@@ -63,5 +67,16 @@ public class GrammarContext {
 
 	public int getNumberOfGrammarQNameContexts() {
 		return numberofQNamesContexts;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof GrammarContext)) return false;
+
+		GrammarContext that = (GrammarContext) o;
+
+		if (numberofQNamesContexts != that.numberofQNamesContexts) return false;
+		return Arrays.equals(grammarUriContexts, that.grammarUriContexts);
 	}
 }

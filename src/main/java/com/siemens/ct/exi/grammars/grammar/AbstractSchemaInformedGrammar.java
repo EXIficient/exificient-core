@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.grammars.grammar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.siemens.ct.exi.Constants;
@@ -385,4 +386,19 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 		return containers[eventCode];
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AbstractSchemaInformedGrammar)) return false;
+		if (!super.equals(o)) return false;
+
+		AbstractSchemaInformedGrammar that = (AbstractSchemaInformedGrammar) o;
+
+		if (codeLengthA != that.codeLengthA) return false;
+		if (codeLengthB != that.codeLengthB) return false;
+		if (hasEndElement != that.hasEndElement) return false;
+		if (leastAttributeEventCode != that.leastAttributeEventCode) return false;
+		if (numberOfDeclaredAttributes != that.numberOfDeclaredAttributes) return false;
+		return Arrays.equals(containers, that.containers);
+	}
 }

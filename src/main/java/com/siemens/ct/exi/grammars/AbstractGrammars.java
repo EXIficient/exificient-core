@@ -64,4 +64,18 @@ public abstract class AbstractGrammars implements Grammars {
 		return documentGrammar;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AbstractGrammars)) return false;
+
+		AbstractGrammars that = (AbstractGrammars) o;
+
+		if (isSchemaInformed != that.isSchemaInformed) return false;
+		if (documentGrammar != null ? !documentGrammar.equals(that.documentGrammar) : that.documentGrammar != null)
+			return false;
+		if (fragmentGrammar != null ? !fragmentGrammar.equals(that.fragmentGrammar) : that.fragmentGrammar != null)
+			return false;
+		return grammarContext != null ? grammarContext.equals(that.grammarContext) : that.grammarContext == null;
+	}
 }

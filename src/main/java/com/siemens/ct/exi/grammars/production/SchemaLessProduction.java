@@ -51,4 +51,15 @@ public class SchemaLessProduction extends AbstractProduction {
 
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof SchemaLessProduction)) return false;
+		if (!super.equals(o)) return false;
+
+		SchemaLessProduction that = (SchemaLessProduction) o;
+
+		return father != null ? father.equals(that.father) : that.father == null;
+	}
 }
+
