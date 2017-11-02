@@ -54,6 +54,7 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 		documentGrammar = document;
 		fragmentGrammar = fragment;
 		this.elementFragmentGrammar = elementFragmentGrammar;
+		this.schemaId = Constants.EMPTY_STRING;
 	}
 
 	public void setBuiltInXMLSchemaTypesOnly(boolean builtInXMLSchemaTypesOnly) {
@@ -91,4 +92,16 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 		return this.elementFragmentGrammar;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof SchemaInformedGrammars)) return false;
+		if (!super.equals(o)) return false;
+
+		SchemaInformedGrammars grammars = (SchemaInformedGrammars) o;
+
+		if (builtInXMLSchemaTypesOnly != grammars.builtInXMLSchemaTypesOnly) return false;
+		if (schemaId != null ? !schemaId.equals(grammars.schemaId) : grammars.schemaId != null) return false;
+		return elementFragmentGrammar != null ? elementFragmentGrammar.equals(grammars.elementFragmentGrammar) : grammars.elementFragmentGrammar == null;
+	}
 }

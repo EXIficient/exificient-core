@@ -61,4 +61,16 @@ public abstract class AbstractProduction implements Production {
 	public String toString() {
 		return "[" + eventCode + "] " + event + " -> " + next;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AbstractProduction)) return false;
+
+		AbstractProduction that = (AbstractProduction) o;
+
+		if (eventCode != that.eventCode) return false;
+		//we do not test the equality of the next Grammar here has it would make recursive calls
+		return event != null ? event.equals(that.event) : that.event == null;
+	}
 }

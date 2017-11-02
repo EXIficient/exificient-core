@@ -25,6 +25,8 @@ package com.siemens.ct.exi.context;
 
 import com.siemens.ct.exi.Constants;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
@@ -143,6 +145,19 @@ public class GrammarUriContext extends AbstractUriContext {
 			}
 		}
 		return Constants.NOT_FOUND;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof GrammarUriContext)) return false;
+		if (!super.equals(o)) return false;
+
+		GrammarUriContext that = (GrammarUriContext) o;
+		if (!super.equals(that)) return false;
+		if (!Arrays.equals(grammarQNames, that.grammarQNames)) return false;
+		if (!Arrays.equals(grammarPrefixes, that.grammarPrefixes)) return false;
+		return defaultPrefix != null ? defaultPrefix.equals(that.defaultPrefix) : that.defaultPrefix == null;
 	}
 
 }
