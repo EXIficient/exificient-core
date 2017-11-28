@@ -52,7 +52,7 @@ public abstract class AbstractUriContext implements UriContext {
 	}
 
 	@Override
-	public final boolean equals(Object o) {
+	public boolean equals(Object o) {
 		if (o instanceof AbstractUriContext) {
 			return ((AbstractUriContext) o).namespaceUriID == this.namespaceUriID;
 		}
