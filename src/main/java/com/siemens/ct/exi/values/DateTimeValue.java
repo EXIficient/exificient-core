@@ -84,9 +84,26 @@ public class DateTimeValue extends AbstractValue {
 			boolean presenceTimezone, int timezone, boolean normalized) {
 		super(ValueType.DATETIME);
 		this.type = type;
-		this.year = year;
-		this.monthDay = monthDay;
+		// Time: ((Hour * 64) + Minutes) * 64 + seconds 
+		// Canonical EXI: The Hour value MUST NOT be 24
+		{
+			int hour = time / (64 * 64);
+			if(hour == 24) {
+				time -= hour * (64 * 64);
+				int minute = time / 64;
+				time -= minute * 64; // second
+				
+				// add one day / set hour to zero
+				monthDay++;
+				hour = 0;
+				// adapt time
+				time = ((hour * 64) + minute) * 64 + time; 
+			}
+		}
 		this.time = time;
+		// 
+		this.year = year;
+		this.monthDay = monthDay; // Month * 32 + Day 
 		this.fractionalSecs = fractionalSecs;
 		// Canonical EXI: Fractional seconds component MUST be omitted if its value is zero
 		this.presenceFractionalSecs = (this.fractionalSecs != 0);
@@ -846,7 +863,7 @@ public class DateTimeValue extends AbstractValue {
 		int seconds = time - minutes * SECONDS_IN_MINUTE;
 		if(seconds > 59) {
 			seconds -= 60; // remove one minute
-			minutes++; // ads one minute
+			minutes++; // adds one minute
 		}
 		if(minutes > 59) {
 			minutes -= 60; // remove an hour

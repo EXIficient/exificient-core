@@ -612,6 +612,10 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
 		
+		// canonical EXI without utcTime normalization
+		assertTrue(datetime1.time == 0);
+		assertTrue(datetime1.monthDay == (8*32) + 11 +1); // 	Month * 32 + Day 
+		
 		DateTimeValue datetime1Norm =  datetime1.normalize();
 		DateTimeValue datetime2Norm =  datetime2.normalize();
 		
