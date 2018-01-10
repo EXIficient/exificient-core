@@ -581,7 +581,7 @@ public abstract class AbstractEXIBodyCoder {
 		}
 		
 
-		protected int getNamespaceUriID() {
+		public int getNamespaceUriID() {
 			return this.namespaceUriID;
 		}
 
