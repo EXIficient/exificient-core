@@ -65,7 +65,7 @@ import com.siemens.ct.exi.core.util.xml.QNameUtilities;
 public abstract class AbstractEXIBodyCoder {
 
 	// factory
-	protected final EXIFactory exiFactory;
+	public final EXIFactory exiFactory;
 
 	protected final Grammars grammar;
 	protected final GrammarContext grammarContext;
@@ -258,7 +258,7 @@ public abstract class AbstractEXIBodyCoder {
 		elementContext.nsDeclarations.add(nsDecl);
 	}
 
-	protected final String getURI(String prefix) {
+	public final String getURI(String prefix) {
 		// check all stack items except last one (in reverse order)
 		for (int i = elementContextStackIndex; i > 0; i--) {
 			ElementContext ec = elementContextStack[i];
