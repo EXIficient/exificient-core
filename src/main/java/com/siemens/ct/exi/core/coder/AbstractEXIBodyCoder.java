@@ -258,7 +258,7 @@ public abstract class AbstractEXIBodyCoder {
 		elementContext.nsDeclarations.add(nsDecl);
 	}
 
-	public final String getURI(String prefix) {
+	protected final String getURI(String prefix) {
 		// check all stack items except last one (in reverse order)
 		for (int i = elementContextStackIndex; i > 0; i--) {
 			ElementContext ec = elementContextStack[i];
@@ -350,7 +350,7 @@ public abstract class AbstractEXIBodyCoder {
 		return null;
 	}
 	
-	protected RuntimeUriContext getUri(int namespaceUriID) {
+	public RuntimeUriContext getUri(int namespaceUriID) {
 		assert(namespaceUriID >= 0 && namespaceUriID < nextUriID); // this.getNumberOfUris()
 		return runtimeUris.get(namespaceUriID);	
 
@@ -445,7 +445,7 @@ public abstract class AbstractEXIBodyCoder {
 			}
 		}
 		
-		protected QNameContext getQNameContext(String localName) {
+		public QNameContext getQNameContext(String localName) {
 			QNameContext qnc = null;
 			if(guc != null) {
 				qnc = guc.getQNameContext(localName);
@@ -468,7 +468,7 @@ public abstract class AbstractEXIBodyCoder {
 			return qnc;
 		}
 		
-		protected QNameContext getQNameContext(int localNameID) {
+		public QNameContext getQNameContext(int localNameID) {
 			QNameContext qnc = null;
 			int sub = 0;
 			if(guc != null) {
@@ -485,7 +485,7 @@ public abstract class AbstractEXIBodyCoder {
 			return qnc;
 		}
 		
-		protected int getNumberOfQNames() {
+		public int getNumberOfQNames() {
 			int n = 0;
 			if(guc != null) {
 				n = guc.getNumberOfQNames();

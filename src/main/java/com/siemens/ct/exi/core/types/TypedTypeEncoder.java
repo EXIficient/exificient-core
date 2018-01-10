@@ -46,7 +46,7 @@ import com.siemens.ct.exi.core.values.Value;
 
 public class TypedTypeEncoder extends AbstractTypeEncoder {
 	
-	protected Datatype lastDatatype;
+	public Datatype lastDatatype;
 	protected final boolean doNormalize;
 
 	public TypedTypeEncoder() throws EXIException {

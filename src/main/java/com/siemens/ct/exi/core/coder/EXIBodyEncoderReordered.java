@@ -79,7 +79,7 @@ public class EXIBodyEncoderReordered extends AbstractEXIBodyEncoder {
 	}
 
 	@Override
-	protected void initForEachRun() throws EXIException, IOException {
+	public void initForEachRun() throws EXIException, IOException {
 		super.initForEachRun();
 
 		blockValues = 0;

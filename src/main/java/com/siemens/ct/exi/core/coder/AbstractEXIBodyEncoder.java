@@ -118,7 +118,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 	}
 
 	@Override
-	protected void initForEachRun() throws EXIException, IOException {
+	public void initForEachRun() throws EXIException, IOException {
 		super.initForEachRun();
 
 		learnedProductions = 0;

@@ -76,7 +76,7 @@ public class EXIBodyEncoderInOrderSC extends EXIBodyEncoderInOrder {
 	}
 
 	@Override
-	protected void initForEachRun() throws EXIException, IOException {
+	public void initForEachRun() throws EXIException, IOException {
 		super.initForEachRun();
 
 		// clear possibly remaining encoder
