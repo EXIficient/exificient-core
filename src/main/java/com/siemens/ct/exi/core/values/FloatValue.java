@@ -23,8 +23,6 @@
 
 package com.siemens.ct.exi.core.values;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.Constants;
 
 /**

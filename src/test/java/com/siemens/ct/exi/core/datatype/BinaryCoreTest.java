@@ -25,9 +25,6 @@ package com.siemens.ct.exi.core.datatype;
 
 import java.io.IOException;
 
-import com.siemens.ct.exi.core.datatype.BinaryBase64Datatype;
-import com.siemens.ct.exi.core.datatype.BinaryHexDatatype;
-import com.siemens.ct.exi.core.datatype.Datatype;
 import com.siemens.ct.exi.core.io.channel.DecoderChannel;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.values.BinaryBase64Value;

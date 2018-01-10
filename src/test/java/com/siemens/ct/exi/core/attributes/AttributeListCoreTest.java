@@ -27,8 +27,6 @@ import org.custommonkey.xmlunit.XMLTestCase;
 
 import com.siemens.ct.exi.core.Constants;
 import com.siemens.ct.exi.core.EXIFactory;
-import com.siemens.ct.exi.core.attributes.AttributeFactory;
-import com.siemens.ct.exi.core.attributes.AttributeList;
 import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.siemens.ct.exi.core.helpers.DefaultEXIFactory;
 

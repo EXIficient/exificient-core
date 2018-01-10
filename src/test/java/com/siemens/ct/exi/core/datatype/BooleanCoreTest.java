@@ -25,9 +25,6 @@ package com.siemens.ct.exi.core.datatype;
 import java.io.IOException;
 
 import com.siemens.ct.exi.core.Constants;
-import com.siemens.ct.exi.core.datatype.BooleanDatatype;
-import com.siemens.ct.exi.core.datatype.BooleanFacetDatatype;
-import com.siemens.ct.exi.core.datatype.Datatype;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.values.BooleanValue;
 import com.siemens.ct.exi.core.values.StringValue;

@@ -30,7 +30,6 @@ import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.core.context.QNameContext;
 import com.siemens.ct.exi.core.datatype.Datatype;
-import com.siemens.ct.exi.core.datatype.ListDatatype;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;

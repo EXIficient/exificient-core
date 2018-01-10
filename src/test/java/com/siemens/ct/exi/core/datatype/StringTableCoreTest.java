@@ -36,7 +36,6 @@ import org.junit.Test;
 import com.siemens.ct.exi.core.Constants;
 import com.siemens.ct.exi.core.EXIFactory;
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.Datatype;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.core.exceptions.EXIException;

@@ -24,8 +24,6 @@
 package com.siemens.ct.exi.core.context;
 
 
-import com.siemens.ct.exi.core.grammars.AbstractGrammars;
-
 import java.util.Arrays;
 
 /**

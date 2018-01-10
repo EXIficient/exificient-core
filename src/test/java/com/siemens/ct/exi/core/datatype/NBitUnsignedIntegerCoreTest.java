@@ -25,8 +25,6 @@ package com.siemens.ct.exi.core.datatype;
 
 import java.io.IOException;
 
-import com.siemens.ct.exi.core.datatype.Datatype;
-import com.siemens.ct.exi.core.datatype.NBitUnsignedIntegerDatatype;
 import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.siemens.ct.exi.core.io.channel.DecoderChannel;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;

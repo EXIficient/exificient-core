@@ -36,15 +36,8 @@ import com.siemens.ct.exi.core.datatype.IntegerDatatype;
 import com.siemens.ct.exi.core.datatype.NBitUnsignedIntegerDatatype;
 import com.siemens.ct.exi.core.datatype.UnsignedIntegerDatatype;
 import com.siemens.ct.exi.core.exceptions.EXIException;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
-import com.siemens.ct.exi.core.types.TypeEncoder;
-import com.siemens.ct.exi.core.types.TypedTypeEncoder;
-import com.siemens.ct.exi.core.values.BinaryBase64Value;
-import com.siemens.ct.exi.core.values.BinaryHexValue;
 import com.siemens.ct.exi.core.values.IntegerValue;
 import com.siemens.ct.exi.core.values.StringValue;
-import com.siemens.ct.exi.core.values.Value;
 
 public class TypeCoreTest extends TestCase {
 

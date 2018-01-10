@@ -23,9 +23,9 @@
 
 package com.siemens.ct.exi.core.context;
 
-import com.siemens.ct.exi.core.Constants;
-
 import java.util.Arrays;
+
+import com.siemens.ct.exi.core.Constants;
 
 /**
  * 

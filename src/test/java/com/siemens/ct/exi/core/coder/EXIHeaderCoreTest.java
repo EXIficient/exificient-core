@@ -36,8 +36,6 @@ import com.siemens.ct.exi.core.Constants;
 import com.siemens.ct.exi.core.EXIFactory;
 import com.siemens.ct.exi.core.EncodingOptions;
 import com.siemens.ct.exi.core.FidelityOptions;
-import com.siemens.ct.exi.core.coder.EXIHeaderDecoder;
-import com.siemens.ct.exi.core.coder.EXIHeaderEncoder;
 import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.siemens.ct.exi.core.helpers.DefaultEXIFactory;
 import com.siemens.ct.exi.core.io.channel.BitDecoderChannel;
