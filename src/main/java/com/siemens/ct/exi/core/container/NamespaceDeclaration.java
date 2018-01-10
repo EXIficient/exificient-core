@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.container;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 0.9.7-SNAPSHOT
+ * @version 1.0.0-SNAPSHOT
  */
 
 public class NamespaceDeclaration {

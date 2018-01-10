@@ -23,8 +23,8 @@
 
 package com.siemens.ct.exi.core.container;
 
-import com.siemens.ct.exi.datatype.Datatype;
-import com.siemens.ct.exi.values.Value;
+import com.siemens.ct.exi.core.datatype.Datatype;
+import com.siemens.ct.exi.core.values.Value;
 
 public class ValueAndDatatype {
 	public final Value value;
