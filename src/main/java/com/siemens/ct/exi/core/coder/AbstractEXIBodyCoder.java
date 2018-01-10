@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2016 Siemens AG
+ * Copyright (c) 2007-2018 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -335,11 +335,11 @@ public abstract class AbstractEXIBodyCoder {
 		return ruc;
 	}
 	
-	protected int getNumberOfUris() {
+	public int getNumberOfUris() {
 		return nextUriID;
 	}
 	
-	protected RuntimeUriContext getUri(String namespaceUri) {
+	public RuntimeUriContext getUri(String namespaceUri) {
 		for(int i=0; i<nextUriID && i<runtimeUris.size(); i++) {
 			RuntimeUriContext ruc = runtimeUris.get(i);
 			if(ruc.namespaceUri.equals(namespaceUri)) {
@@ -366,7 +366,7 @@ public abstract class AbstractEXIBodyCoder {
 		// System.err.println(message);
 	}
 
-	final class ElementContext {
+	public final class ElementContext {
 		private String prefix;
 		private String sqname;
 		Grammar gr; // may be modified while coding
@@ -408,7 +408,7 @@ public abstract class AbstractEXIBodyCoder {
 		}
 	}
 	
-	final class RuntimeUriContext
+	public final class RuntimeUriContext
 //	implements UriContext
 	{
 		final int namespaceUriID;

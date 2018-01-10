@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2016 Siemens AG
+ * Copyright (c) 2007-2018 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -94,7 +94,7 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 	}
 
 	@Override
-	protected void initForEachRun() throws EXIException, IOException {
+	public void initForEachRun() throws EXIException, IOException {
 		super.initForEachRun();
 
 		nextEvent = null;
