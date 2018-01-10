@@ -509,7 +509,7 @@ public abstract class AbstractEXIBodyCoder {
 		}
 		
 		
-		protected int getNumberOfPrefixes() {
+		public int getNumberOfPrefixes() {
 			int pfs = 0;
 			if(guc != null) {
 				pfs = guc.getNumberOfPrefixes();
@@ -554,7 +554,7 @@ public abstract class AbstractEXIBodyCoder {
 			return id;
 		}
 		
-		protected String getPrefix(int prefixID) {
+		public String getPrefix(int prefixID) {
 			String pfx = null;
 			int sub = 0;
 			if(guc != null) {
@@ -572,11 +572,11 @@ public abstract class AbstractEXIBodyCoder {
 			return pfx;
 		}
 
-		protected void setNamespaceUri(String namespaceUri) {
+		public void setNamespaceUri(String namespaceUri) {
 			this.namespaceUri = namespaceUri;
 		}
 		
-		protected String getNamespaceUri() {
+		public String getNamespaceUri() {
 			return this.namespaceUri;
 		}
 		

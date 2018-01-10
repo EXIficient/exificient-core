@@ -72,7 +72,7 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 			new XSDStringCharacterSet(), null);
 
 	protected Value lastValue;
-	protected Datatype lastDatatype;
+	public Datatype lastDatatype;
 
 	public LexicalTypeEncoder() throws EXIException {
 		this(null, null, null);
