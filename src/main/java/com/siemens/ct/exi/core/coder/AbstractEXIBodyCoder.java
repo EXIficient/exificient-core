@@ -373,7 +373,7 @@ public abstract class AbstractEXIBodyCoder {
 		List<NamespaceDeclaration> nsDeclarations; // prefix declarations
 		private Boolean isXmlSpacePreserve;
 
-		final QNameContext qnameContext;
+		public final QNameContext qnameContext;
 
 		public ElementContext(QNameContext qnameContext, Grammar gr) {
 			this.qnameContext = qnameContext;
