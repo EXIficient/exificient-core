@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2016 Siemens AG
+ * Copyright (c) 2007-2018 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,8 +23,8 @@
 
 package com.siemens.ct.exi.core.container;
 
-import com.siemens.ct.exi.datatype.Datatype;
-import com.siemens.ct.exi.values.Value;
+import com.siemens.ct.exi.core.datatype.Datatype;
+import com.siemens.ct.exi.core.values.Value;
 
 public class ValueAndDatatype {
 	public final Value value;
