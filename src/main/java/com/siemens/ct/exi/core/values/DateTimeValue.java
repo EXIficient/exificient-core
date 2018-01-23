@@ -97,6 +97,20 @@ public class DateTimeValue extends AbstractValue {
 				hour = 0;
 				// adapt time
 				time = ((hour * 64) + minute) * 64 + time; 
+				
+				// month & day
+				// e.g., 1999-12-31T24:00:00Z --> 2000-01-01T00:00:00Z
+				int month = monthDay / MONTH_MULTIPLICATOR;
+				int day = monthDay - (month * MONTH_MULTIPLICATOR);
+				
+				if(month == 13) {
+					year++;
+					month = 1;
+					day = 1;
+					monthDay = month * 32 + day ;
+				}
+				
+				
 			}
 		}
 		this.time = time;
@@ -860,14 +874,17 @@ public class DateTimeValue extends AbstractValue {
 		time -= hour * SECONDS_IN_HOUR;
 		int minutes = time / SECONDS_IN_MINUTE;
 		int seconds = time - minutes * SECONDS_IN_MINUTE;
-		if(seconds > 59) {
-			seconds -= 60; // remove one minute
-			minutes++; // adds one minute
-		}
-		if(minutes > 59) {
-			minutes -= 60; // remove an hour
-			hour++; // add one hour
-		}
+		
+		// start Algorithm with not touching seconds to support leap-seconds
+		// https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#adding-durations-to-dateTimes
+//		if(seconds > 59) {
+//			seconds -= 60; // remove one minute
+//			minutes++; // adds one minute
+//		}
+//		if(minutes > 59) {
+//			minutes -= 60; // remove an hour
+//			hour++; // add one hour
+//		}
 		
 		// timezone, per default 'Z'
 		int tzMinutes = 0;
@@ -881,7 +898,7 @@ public class DateTimeValue extends AbstractValue {
 		}
 
 		
-		// start Algorithm
+
 		final int negate = -1;
 
 		// Minutes temp := S[minute] + D[minute] + carry E[minute] :=

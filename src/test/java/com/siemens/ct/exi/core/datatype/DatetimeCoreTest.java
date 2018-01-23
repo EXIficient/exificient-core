@@ -724,7 +724,31 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 	
 	
 	public void testDatetimeEquals6() throws IOException {
-		// all the same times
+		String s1 = "1999-12-31T24:00:00Z";
+		String s2 = "2000-01-01T00:00:00Z";
+		DateTimeType type = DateTimeType.dateTime;
+		DateTimeValue datetime1 = DateTimeValue.parse(s1, type);
+		
+		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
+		assertTrue(datetime1 != null);
+		assertTrue(datetime2 != null);
+		
+		DateTimeValue datetime1Norm =  datetime1.normalize();
+		// "the hour value MUST not be 24"
+		assertTrue(datetime1Norm.year == 2000);
+		assertTrue(datetime1Norm.monthDay == (1 * 32 + 1));
+		assertTrue(datetime1Norm.time == 0); // time==98304 --> hour == 24
+		DateTimeValue datetime2Norm =  datetime2.normalize();
+		
+		assertTrue(datetime1.equals(datetime2));
+		assertTrue(datetime2.equals(datetime1Norm));
+		assertTrue(datetime2Norm.equals(datetime1Norm));
+		assertTrue(datetime1.equals(datetime2Norm));
+	}
+	
+	
+	public void testDatetimeNotEquals1() throws IOException {
+		// not the same times w.r.t. leap second
 		String s1 = "2012-06-30T23:59:60-06:00";
 		String s2 = "2012-07-01T06:00:00Z";
 		DateTimeType type = DateTimeType.dateTime;
@@ -736,10 +760,10 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		DateTimeValue datetime1Norm =  datetime1.normalize();
 		DateTimeValue datetime2Norm =  datetime2.normalize();
 		
-		assertTrue(datetime1.equals(datetime2));
-		assertTrue(datetime2.equals(datetime1Norm));
-		assertTrue(datetime2Norm.equals(datetime1Norm));
-		assertTrue(datetime1.equals(datetime2Norm));
+		assertFalse(datetime1.equals(datetime2));
+		assertFalse(datetime2.equals(datetime1Norm));
+		assertFalse(datetime2Norm.equals(datetime1Norm));
+		assertFalse(datetime1.equals(datetime2Norm));
 	}
 	
 	public void testDatetimeFail1() throws IOException {
