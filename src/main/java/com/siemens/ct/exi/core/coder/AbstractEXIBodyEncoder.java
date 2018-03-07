@@ -842,7 +842,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			}
 
 			// as string
-			typeEncoder.isValid(BuiltIn.DEFAULT_DATATYPE, type);
+			typeEncoder.isValid(BuiltIn.getDefaultDatatype(), type);
 			typeEncoder.writeValue(getXsiTypeContext(), channel, stringEncoder);
 
 			RuntimeUriContext uc = getUri(qnameURI);
@@ -965,7 +965,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 					encodeQNamePrefix(getXsiNilContext(), pfx, channel);
 				}
 
-				Datatype datatype = BuiltIn.DEFAULT_DATATYPE;
+				Datatype datatype = BuiltIn.getDefaultDatatype();
 				isTypeValid(datatype, nil);
 				this.writeValue(getXsiTypeContext());
 			}
@@ -1020,7 +1020,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 				int eventCode3 = ei.getEventCode()
 						- sig.getLeastAttributeEventCode();
 				encodeSchemaInvalidAttributeEventCode(eventCode3);
-				isTypeValid(BuiltIn.DEFAULT_DATATYPE, value);
+				isTypeValid(BuiltIn.getDefaultDatatype(), value);
 			}
 			next = ei.getNextGrammar();
 		} else {
@@ -1085,7 +1085,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 					SchemaInformedGrammar sig = (SchemaInformedGrammar) currentGrammar;
 					encodeSchemaInvalidAttributeEventCode(sig
 							.getNumberOfDeclaredAttributes());
-					isTypeValid(BuiltIn.DEFAULT_DATATYPE, value);
+					isTypeValid(BuiltIn.getDefaultDatatype(), value);
 				}
 
 				if (ei == null
@@ -1106,7 +1106,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			} else {
 				// no schema-informed grammar --> default datatype in any case
 				// NO global attribute --> default datatype
-				isTypeValid(BuiltIn.DEFAULT_DATATYPE, value);
+				isTypeValid(BuiltIn.getDefaultDatatype(), value);
 
 				if (ei == null) {
 					// Undeclared AT(*), 2nd level
@@ -1586,7 +1586,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 				// encode EventCode
 				encode1stLevelEventCode(ei.getEventCode());
 				// encode schema-invalid content as string
-				isTypeValid(BuiltIn.DEFAULT_DATATYPE, chars);
+				isTypeValid(BuiltIn.getDefaultDatatype(), chars);
 				writeValue(getElementContext().qnameContext);
 				// update current rule
 				updateCurrentRule(ei.getNextGrammar());
@@ -1640,7 +1640,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 					}
 
 					// content as string
-					isTypeValid(BuiltIn.DEFAULT_DATATYPE, chars);
+					isTypeValid(BuiltIn.getDefaultDatatype(), chars);
 					writeValue(getElementContext().qnameContext);
 					// update current rule
 					updateCurrentRule(updContextRule);

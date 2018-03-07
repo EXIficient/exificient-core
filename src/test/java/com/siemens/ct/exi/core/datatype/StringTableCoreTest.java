@@ -76,17 +76,17 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 															// StringTypeEncoder();
 		BitEncoderChannel bec = new BitEncoderChannel(baos);
 
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val1));
 		tes.writeValue(qncContext, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val2));
 		tes.writeValue(qncContext, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val1));
 		tes.writeValue(qncContext, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncContext, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncContext, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncContext, bec, stringEncoder);
 
 		bec.flush();
@@ -106,22 +106,22 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncContext, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncContext, bdc,
 						stringDecoder).toString().equals(val3));
 	}
 
@@ -160,17 +160,17 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 
 		BitEncoderChannel bec = new BitEncoderChannel(baos);
 
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val1));
 		tes.writeValue(qncC1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val2));
 		tes.writeValue(qncC3, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val1));
 		tes.writeValue(qncC2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncC3, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncC1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(val3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(val3));
 		tes.writeValue(qncC3, bec, stringEncoder);
 
 		bec.flush();
@@ -190,22 +190,22 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc, stringDecoder)
 				.toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC3, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
 				.toString().equals(val2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC2, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC2, bdc, stringDecoder)
 				.toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC3, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
 				.toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc, stringDecoder)
 				.toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncC3, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
 				.toString().equals(val3));
 	}
 
@@ -253,25 +253,25 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 
 		BitEncoderChannel bec = new BitEncoderChannel(baos);
 
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(atCh1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(atCh1));
 		tes.writeValue(qncCa1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch1));
 		tes.writeValue(qncCexx1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCexx2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCex2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch3));
 		tes.writeValue(qncCex3, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(atCh2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(atCh2));
 		tes.writeValue(qncCa1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch1));
 		tes.writeValue(qncCexx1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCexx2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCex2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch3));
 		tes.writeValue(qncCex2, bec, stringEncoder);
 
 		bec.flush();
@@ -291,34 +291,34 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCa1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
 				.toString().equals(atCh1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx1, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex3, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex3, bdc,
 						stringDecoder).toString().equals(ch3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCa1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
 				.toString().equals(atCh2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx1, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch3));
 	}
 
@@ -346,7 +346,7 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 		// int valuePartitionCapacity =
 		// Constants.DEFAULT_VALUE_PARTITON_CAPACITY;
 
-		Datatype dt = BuiltIn.DEFAULT_DATATYPE;
+		Datatype dt = BuiltIn.getDefaultDatatype();
 
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.setValueMaxLength(valueMaxLength);
@@ -443,7 +443,7 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 		// GrammarContext grammarContext =
 		// exiFactory.getGrammars().getGrammarContext();
 
-		Datatype dt = BuiltIn.DEFAULT_DATATYPE;
+		Datatype dt = BuiltIn.getDefaultDatatype();
 		/*
 		 * Encode
 		 */
@@ -569,25 +569,25 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 
 		BitEncoderChannel bec = new BitEncoderChannel(baos);
 
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(atCh1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(atCh1));
 		tes.writeValue(qncCa1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch1));
 		tes.writeValue(qncCexx1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCexx2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCex2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch3));
 		tes.writeValue(qncCex3, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(atCh2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(atCh2));
 		tes.writeValue(qncCa1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch1));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch1));
 		tes.writeValue(qncCexx1, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCexx2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch2));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch2));
 		tes.writeValue(qncCex2, bec, stringEncoder);
-		tes.isValid(BuiltIn.DEFAULT_DATATYPE, new StringValue(ch3));
+		tes.isValid(BuiltIn.getDefaultDatatype(), new StringValue(ch3));
 		tes.writeValue(qncCex2, bec, stringEncoder);
 
 		bec.flush();
@@ -608,34 +608,34 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCa1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
 				.toString().equals(atCh1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx1, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex3, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex3, bdc,
 						stringDecoder).toString().equals(ch3));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCa1, bdc, stringDecoder)
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
 				.toString().equals(atCh2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx1, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCexx2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCexx2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch2));
 		assertTrue(ddl
-				.readValue(BuiltIn.DEFAULT_DATATYPE, qncCex2, bdc,
+				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch3));
 	}
 

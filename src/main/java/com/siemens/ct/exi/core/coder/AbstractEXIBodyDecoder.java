@@ -580,7 +580,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		// read xsi:type content
 		if (this.preserveLexicalValues) {
 			// assert(preservePrefix); // Note: requirement
-			attributeValue = typeDecoder.readValue(BuiltIn.DEFAULT_DATATYPE,
+			attributeValue = typeDecoder.readValue(BuiltIn.getDefaultDatatype(),
 					getXsiTypeContext(), channel,
 					stringDecoder);
 			String sType = attributeValue.toString();

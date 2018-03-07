@@ -325,7 +325,7 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 			xsiPrefixes.add(attributePrefix);
 		} else {
 			// global attribute or default datatype
-			Datatype dt = BuiltIn.DEFAULT_DATATYPE;
+			Datatype dt = BuiltIn.getDefaultDatatype();
 
 			if (getCurrentGrammar().isSchemaInformed()
 					&& attributeQNameContext.getGlobalAttribute() != null) {
@@ -431,13 +431,13 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 				decodeAttributeStructure();
 				addQNameEntry(new QNameEntry(attributeQNameContext,
 						attributePrefix));
-				incrementValues(attributeQNameContext, BuiltIn.DEFAULT_DATATYPE);
+				incrementValues(attributeQNameContext, BuiltIn.getDefaultDatatype());
 				break;
 			case ATTRIBUTE_ANY_INVALID_VALUE:
 				decodeAttributeAnyInvalidValueStructure();
 				addQNameEntry(new QNameEntry(attributeQNameContext,
 						attributePrefix));
-				incrementValues(attributeQNameContext, BuiltIn.DEFAULT_DATATYPE);
+				incrementValues(attributeQNameContext, BuiltIn.getDefaultDatatype());
 				break;
 			case ATTRIBUTE_NS:
 				decodeAttributeNSStructure();
@@ -462,13 +462,13 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 			case CHARACTERS_GENERIC:
 				decodeCharactersGenericStructure();
 				qnc = getElementContext().qnameContext;
-				incrementValues(qnc, BuiltIn.DEFAULT_DATATYPE);
+				incrementValues(qnc, BuiltIn.getDefaultDatatype());
 				addQNameEntry(new QNameEntry(qnc, null));
 				break;
 			case CHARACTERS_GENERIC_UNDECLARED:
 				decodeCharactersGenericUndeclaredStructure();
 				qnc = getElementContext().qnameContext;
-				incrementValues(qnc, BuiltIn.DEFAULT_DATATYPE);
+				incrementValues(qnc, BuiltIn.getDefaultDatatype());
 				addQNameEntry(new QNameEntry(qnc, null));
 				break;
 			case END_ELEMENT:

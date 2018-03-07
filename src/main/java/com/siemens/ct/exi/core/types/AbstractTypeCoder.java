@@ -176,7 +176,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		assert (dtrMapInUse);
 
 		Datatype dtrDatatype = null;
-		if (datatype == BuiltIn.DEFAULT_DATATYPE) {
+		if (datatype.equals(BuiltIn.getDefaultDatatype())) { // datatype == BuiltIn.DEFAULT_DATATYPE
 			// e.g., untyped values are encoded always as String
 			dtrDatatype = datatype;
 		} else {

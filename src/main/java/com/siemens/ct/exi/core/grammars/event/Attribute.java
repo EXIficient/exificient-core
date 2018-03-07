@@ -49,7 +49,7 @@ public class Attribute extends AbstractDatatypeEvent {
 	}
 	
 	public Attribute(QNameContext qnc) {
-		this(qnc, BuiltIn.DEFAULT_DATATYPE);
+		this(qnc, BuiltIn.getDefaultDatatype());
 	}
 	
 	public QNameContext getQNameContext() {

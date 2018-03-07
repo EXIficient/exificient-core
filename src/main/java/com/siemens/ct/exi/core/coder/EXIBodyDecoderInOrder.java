@@ -199,11 +199,11 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 					.getLocalNameID() && getCurrentGrammar().isSchemaInformed()) {
 				decodeAttributeXsiNilStructure();
 			} else {
-				readAttributeContent(BuiltIn.DEFAULT_DATATYPE);
+				readAttributeContent(BuiltIn.getDefaultDatatype());
 			}
 		} else {
 			// Attribute globalAT;
-			Datatype dt = BuiltIn.DEFAULT_DATATYPE;
+			Datatype dt = BuiltIn.getDefaultDatatype();
 
 			if (getCurrentGrammar().isSchemaInformed()
 					&& attributeQNameContext.getGlobalAttribute() != null) {
@@ -239,11 +239,11 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 		case ATTRIBUTE_INVALID_VALUE:
 			decodeAttributeStructure();
 			// Note: attribute content datatype is not the right one (invalid)
-			readAttributeContent(BuiltIn.DEFAULT_DATATYPE);
+			readAttributeContent(BuiltIn.getDefaultDatatype());
 			break;
 		case ATTRIBUTE_ANY_INVALID_VALUE:
 			decodeAttributeAnyInvalidValueStructure();
-			readAttributeContent(BuiltIn.DEFAULT_DATATYPE);
+			readAttributeContent(BuiltIn.getDefaultDatatype());
 			break;
 		default:
 			throw new EXIException("Invalid decode state: "
@@ -261,11 +261,11 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 			break;
 		case CHARACTERS_GENERIC:
 			decodeCharactersGenericStructure();
-			dt = BuiltIn.DEFAULT_DATATYPE;
+			dt = BuiltIn.getDefaultDatatype();
 			break;
 		case CHARACTERS_GENERIC_UNDECLARED:
 			decodeCharactersGenericUndeclaredStructure();
-			dt = BuiltIn.DEFAULT_DATATYPE;
+			dt = BuiltIn.getDefaultDatatype();
 			break;
 		default:
 			throw new EXIException("Invalid decode state: "
