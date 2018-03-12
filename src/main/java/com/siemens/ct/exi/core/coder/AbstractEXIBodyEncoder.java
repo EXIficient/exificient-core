@@ -919,7 +919,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 								stringEncoder);
 					} else {
 						// typed
-						channel.encodeBoolean(validNil);
+						channel.encodeBoolean(validNilValue);
 //						booleanDatatype.writeValue(null, channel, stringEncoder);
 					}
 
@@ -951,7 +951,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 									stringEncoder);
 						} else {
 							// typed
-							channel.encodeBoolean(validNil);
+							channel.encodeBoolean(validNilValue);
 							// booleanDatatype.writeValue(null, channel, stringEncoder);
 						}
 
