@@ -102,12 +102,12 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 		valueChannel.encodeNBitUnsignedInteger(lastValidIndex, codingLength);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		int index = valueChannel.decodeNBitUnsignedInteger(codingLength);
-		assert (index >= 0 && index < enumValues.length);
-		return enumValues[index];
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		int index = valueChannel.decodeNBitUnsignedInteger(codingLength);
+//		assert (index >= 0 && index < enumValues.length);
+//		return enumValues[index];
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

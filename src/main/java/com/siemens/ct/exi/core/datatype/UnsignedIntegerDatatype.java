@@ -77,8 +77,8 @@ public class UnsignedIntegerDatatype extends AbstractDatatype {
 		valueChannel.encodeUnsignedIntegerValue(lastUnsignedInteger);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeUnsignedIntegerValue();
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeUnsignedIntegerValue();
+//	}
 }

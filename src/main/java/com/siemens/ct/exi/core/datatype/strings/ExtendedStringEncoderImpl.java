@@ -140,4 +140,9 @@ public class ExtendedStringEncoderImpl implements StringEncoder {
 		return this.stringEncoder.getNumberOfStringValues(qnc);
 	}
 
+	public boolean isLocalValuePartitions() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

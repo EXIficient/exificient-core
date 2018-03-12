@@ -77,8 +77,8 @@ public class BooleanDatatype extends AbstractDatatype {
 		valueChannel.encodeBoolean(bool.toBoolean());
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeBooleanValue();
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeBooleanValue();
+//	}
 }

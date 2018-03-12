@@ -73,8 +73,8 @@ public class FloatDatatype extends AbstractDatatype {
 		valueChannel.encodeFloat(lastValidFloat);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeFloatValue();
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeFloatValue();
+//	}
 }

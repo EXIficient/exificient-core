@@ -74,10 +74,10 @@ public interface Datatype {
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException;
 
-	/*
-	 * Decoder
-	 */
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException;
+//	/*
+//	 * Decoder
+//	 */
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException;
 	
 }

@@ -40,6 +40,8 @@ import com.siemens.ct.exi.core.types.BuiltInType;
 import com.siemens.ct.exi.core.types.DateTimeType;
 import com.siemens.ct.exi.core.types.TypeDecoder;
 import com.siemens.ct.exi.core.types.TypeEncoder;
+import com.siemens.ct.exi.core.types.TypedTypeDecoder;
+import com.siemens.ct.exi.core.types.TypedTypeEncoder;
 import com.siemens.ct.exi.core.values.IntegerValue;
 import com.siemens.ct.exi.core.values.ListValue;
 import com.siemens.ct.exi.core.values.StringValue;
@@ -52,8 +54,9 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		super(testName);
 	}
 
-	public void testListInteger1() throws IOException {
+	public void testListInteger1() throws IOException, EXIException {
 		StringValue s = new StringValue("100 34 56 -23 1567");
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		ListDatatype ldtInteger = new ListDatatype(new IntegerDatatype(null),
 				null);
 
@@ -65,7 +68,7 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		ldtInteger.writeValue(null, bitEC, null);
 		bitEC.flush();
 		DecoderChannel dc = getBitDecoder();
-		Value v1 = ldtInteger.readValue(null, dc, null);
+		Value v1 = typeDecoder.readValue(ldtInteger, null, dc, null); // ldtInteger.readValue(null, dc, null);
 		assertTrue(v1.getValueType() == ValueType.LIST);
 		ListValue lv1 = (ListValue) v1;
 		assertTrue(s.equals(lv1.toString()));
@@ -73,7 +76,7 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		// Byte
 		EncoderChannel byteEC = getByteEncoder();
 		ldtInteger.writeValue(null, byteEC, null);
-		Value v2 = ldtInteger.readValue(null, getByteDecoder(), null);
+		Value v2 = typeDecoder.readValue(ldtInteger, null, getByteDecoder(), null); // ldtInteger.readValue(null, getByteDecoder(), null);
 		assertTrue(v2.getValueType() == ValueType.LIST);
 		ListValue lv2 = (ListValue) v2;
 		assertTrue(s.equals(lv2.toString()));
@@ -153,11 +156,12 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		assertTrue(s.equals(v2.toString()));
 	}
 
-	public void testListNBit1() throws IOException {
+	public void testListNBit1() throws IOException, EXIException {
 		StringValue s = new StringValue("+1 0 127 -127");
 		String sRes = "1 0 127 -127";
 		IntegerValue min = IntegerValue.valueOf(-128);
 		IntegerValue max = IntegerValue.valueOf(127);
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		ListDatatype ldtInteger = new ListDatatype(
 				new NBitUnsignedIntegerDatatype(min, max, null), null);
 
@@ -168,7 +172,7 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		ldtInteger.writeValue(null, bitEC, null);
 		bitEC.flush();
-		Value v1 = ldtInteger.readValue(null, getBitDecoder(), null);
+		Value v1 = typeDecoder.readValue(ldtInteger, null, getBitDecoder(), null); // ldtInteger.readValue(null, getBitDecoder(), null);
 		assertTrue(v1.getValueType() == ValueType.LIST);
 		ListValue lv1 = (ListValue) v1;
 		assertTrue(sRes.equals(lv1.toString()));
@@ -176,7 +180,7 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		// Byte
 		EncoderChannel byteEC = getByteEncoder();
 		ldtInteger.writeValue(null, byteEC, null);
-		Value v2 = ldtInteger.readValue(null, getByteDecoder(), null);
+		Value v2 = typeDecoder.readValue(ldtInteger, null, getByteDecoder(), null); // ldtInteger.readValue(null, getByteDecoder(), null);
 		assertTrue(v2.getValueType() == ValueType.LIST);
 		ListValue lv2 = (ListValue) v2;
 		assertTrue(sRes.equals(lv2.toString()));

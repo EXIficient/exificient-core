@@ -75,6 +75,9 @@ public enum BuiltInType {
 
 	/** Restricted character set string */
 	RCS_STRING,
+	
+	/** Experimental (https://www.w3.org/XML/EXI/docs/extendedString/exi-extString.html) */
+	EXTENDED_STRING,
 
 	/** Enumeration */
 	ENUMERATION,

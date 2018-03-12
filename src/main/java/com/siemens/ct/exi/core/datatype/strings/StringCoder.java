@@ -49,4 +49,6 @@ public interface StringCoder {
 	public void clear();
 	
 	public void setSharedStrings(List<String> sharedStrings);
+	
+	public boolean isLocalValuePartitions();
 }

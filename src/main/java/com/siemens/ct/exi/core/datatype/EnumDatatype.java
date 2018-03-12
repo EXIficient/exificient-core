@@ -23,6 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
+import com.siemens.ct.exi.core.values.Value;
+
 
 /**
  * 
@@ -33,5 +35,11 @@ package com.siemens.ct.exi.core.datatype;
  */
 
 public interface EnumDatatype extends Datatype {
+	
+	public int getCodingLength();
+	
+	public int getEnumerationSize();
+	
+	public Value getEnumValue(int i);
 	
 }

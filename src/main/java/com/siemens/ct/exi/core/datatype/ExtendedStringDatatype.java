@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.ExtendedStringDecoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.ExtendedStringEncoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoderImpl;
@@ -62,7 +61,7 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 	
 	public ExtendedStringDatatype(QNameContext schemaType, WhiteSpace whiteSpace) {
 //		this(schemaType, false);
-		super(BuiltInType.STRING, schemaType);
+		super(BuiltInType.EXTENDED_STRING, schemaType);
 		
 		/* default whiteSpace facet for string is preserve */
 		this.whiteSpace = whiteSpace;
@@ -74,6 +73,10 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 	
 	public void setGrammarStrings(EnumDatatype grammarStrings) {
 		this.grammarStrings = grammarStrings;
+	}
+	
+	public EnumDatatype getGrammarStrings() {
+		return this.grammarStrings;
 	}
 
 	public DatatypeID getDatatypeID() {
@@ -102,12 +105,12 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 		ese.writeValue(qnContext, valueChannel, this.lastValue);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		ExtendedStringDecoderImpl ese = new ExtendedStringDecoderImpl((StringDecoderImpl) stringDecoder);
-		ese.setGrammarStrings(this.grammarStrings);
-		
-		return ese.readValue(qnContext, valueChannel);
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		ExtendedStringDecoderImpl ese = new ExtendedStringDecoderImpl((StringDecoderImpl) stringDecoder);
+//		ese.setGrammarStrings(this.grammarStrings);
+//		
+//		return ese.readValue(qnContext, valueChannel);
+//	}
 }
 

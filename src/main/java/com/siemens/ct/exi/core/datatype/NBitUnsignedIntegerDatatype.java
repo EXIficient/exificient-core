@@ -113,12 +113,12 @@ public class NBitUnsignedIntegerDatatype extends AbstractDatatype {
 				numberOfBits4Range);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		IntegerValue iv = valueChannel
-				.decodeNBitUnsignedIntegerValue(numberOfBits4Range);
-		return iv.add(lowerBound);
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		IntegerValue iv = valueChannel
+//				.decodeNBitUnsignedIntegerValue(numberOfBits4Range);
+//		return iv.add(lowerBound);
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

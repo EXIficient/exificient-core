@@ -81,9 +81,9 @@ public class StringDatatype extends AbstractDatatype {
 		stringEncoder.writeValue(qnContext, valueChannel, lastValue);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return stringDecoder.readValue(qnContext, valueChannel);
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return stringDecoder.readValue(qnContext, valueChannel);
+//	}
 }
 

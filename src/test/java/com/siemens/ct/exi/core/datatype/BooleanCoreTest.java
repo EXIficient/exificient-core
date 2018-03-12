@@ -25,7 +25,10 @@ package com.siemens.ct.exi.core.datatype;
 import java.io.IOException;
 
 import com.siemens.ct.exi.core.Constants;
+import com.siemens.ct.exi.core.exceptions.EXIException;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;
+import com.siemens.ct.exi.core.types.TypeDecoder;
+import com.siemens.ct.exi.core.types.TypedTypeDecoder;
 import com.siemens.ct.exi.core.values.BooleanValue;
 import com.siemens.ct.exi.core.values.StringValue;
 import com.siemens.ct.exi.core.values.Value;
@@ -36,9 +39,10 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		super(testName);
 	}
 
-	public void testBoolean0() throws IOException {
+	public void testBoolean0() throws IOException, EXIException {
 		StringValue s = new StringValue("0");
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -47,17 +51,18 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		Value val1 = bool.readValue(null, getBitDecoder(), null);
+		Value val1 = typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(Constants.DECODED_BOOLEAN_FALSE.equals(val1.toString()));
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		Value val2 = bool.readValue(null, getBitDecoder(), null);
+		Value val2 = typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(Constants.DECODED_BOOLEAN_FALSE.equals(val2.toString()));
 	}
 
-	public void testBoolean1() throws IOException {
+	public void testBoolean1() throws IOException, EXIException {
 		StringValue s = new StringValue("1");
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -66,18 +71,19 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		Value val1 = bool.readValue(null, getBitDecoder(), null);
+		Value val1 = typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(Constants.DECODED_BOOLEAN_TRUE.equals(val1.toString()));
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		Value val2 = bool.readValue(null, getBitDecoder(), null);
+		Value val2 = typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(Constants.DECODED_BOOLEAN_TRUE.equals(val2.toString()));
 	}
 
-	public void testBooleanFalse() throws IOException {
+	public void testBooleanFalse() throws IOException, EXIException {
 		StringValue s = new StringValue("false");
 		boolean v = false;
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -86,20 +92,19 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		BooleanValue val1 = (BooleanValue) bool.readValue(null,
-				getBitDecoder(), null);
+		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(v == val1.toBoolean());
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		BooleanValue val2 = (BooleanValue) bool.readValue(null,
-				getBitDecoder(), null);
+		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(v == val2.toBoolean());
 	}
 
-	public void testBooleanTrue() throws IOException {
+	public void testBooleanTrue() throws IOException, EXIException {
 		StringValue s = new StringValue("true");
 		boolean v = true;
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -108,19 +113,18 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		BooleanValue val1 = (BooleanValue) bool.readValue(null,
-				getBitDecoder(), null);
+		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(v == val1.toBoolean());
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		BooleanValue val2 = (BooleanValue) bool.readValue(null,
-				getBitDecoder(), null);
+		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(v == val2.toBoolean());
 	}
 
-	public void testBooleanFalsePatternFalse() throws IOException {
+	public void testBooleanFalsePatternFalse() throws IOException, EXIException {
 		StringValue s = new StringValue("false");
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanFacetDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -129,17 +133,18 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		Value val1 = bool.readValue(null, getBitDecoder(), null);
+		Value val1 = typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(s.equals(val1.toString()));
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		Value val2 = bool.readValue(null, getByteDecoder(), null);
+		Value val2 = typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(s.equals(val2.toString()));
 	}
 
-	public void testBooleanTruePatternFalse() throws IOException {
+	public void testBooleanTruePatternFalse() throws IOException, EXIException {
 		StringValue s = new StringValue("true");
 
+		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		Datatype bool = new BooleanFacetDatatype(null);
 		boolean valid = bool.isValid(s);
 		assertTrue(valid);
@@ -148,11 +153,11 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		bool.writeValue(null, bitEC, null);
 		bitEC.flush();
-		Value val1 = bool.readValue(null, getBitDecoder(), null);
+		Value val1 = typeDecoder.readValue(bool, null, getBitDecoder(), null);
 		assertTrue(s.equals(val1.toString()));
 		// Byte
 		bool.writeValue(null, getByteEncoder(), null);
-		Value val2 = bool.readValue(null, getByteDecoder(), null);
+		Value val2 = typeDecoder.readValue(bool, null, getByteDecoder(), null);
 		assertTrue(s.equals(val2.toString()));
 	}
 

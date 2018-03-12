@@ -73,8 +73,8 @@ public class IntegerDatatype extends AbstractDatatype {
 		valueChannel.encodeIntegerValue(lastInteger);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeIntegerValue();
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeIntegerValue();
+//	}
 }

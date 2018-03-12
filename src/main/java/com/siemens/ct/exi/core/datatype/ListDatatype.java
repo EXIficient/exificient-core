@@ -116,20 +116,20 @@ public class ListDatatype extends AbstractDatatype {
 		}
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-
-		int len = valueChannel.decodeUnsignedInteger();
-		
-		Value[]  values = new Value[len];
-		for (int i = 0; i < len; i++) {
-			values[i] = listDatatype.readValue(qnContext, valueChannel,
-					stringDecoder);
-		}
-		Value retVal = new ListValue(values, listDatatype);
-
-		return retVal;
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//
+//		int len = valueChannel.decodeUnsignedInteger();
+//		
+//		Value[]  values = new Value[len];
+//		for (int i = 0; i < len; i++) {
+//			values[i] = listDatatype.readValue(qnContext, valueChannel,
+//					stringDecoder);
+//		}
+//		Value retVal = new ListValue(values, listDatatype);
+//
+//		return retVal;
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

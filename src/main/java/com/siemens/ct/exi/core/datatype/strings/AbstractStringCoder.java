@@ -52,6 +52,11 @@ public abstract class AbstractStringCoder implements StringCoder {
 		localValues = new HashMap<QNameContext, List<StringValue>>(initialQNameLists);
 	}
 	
+	
+	public boolean isLocalValuePartitions() {
+		return localValuePartitions;
+	}
+	
 	public int getNumberOfStringValues(QNameContext qnc) {
 		int n = 0;
 		List<StringValue> lvs = localValues.get(qnc);

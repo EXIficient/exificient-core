@@ -119,10 +119,10 @@ public class DatetimeDatatype extends AbstractDatatype {
 		valueChannel.encodeDateTime(lastValidDatetime);
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeDateTimeValue(datetimeType);
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeDateTimeValue(datetimeType);
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

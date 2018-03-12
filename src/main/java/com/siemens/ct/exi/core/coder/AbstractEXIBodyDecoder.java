@@ -543,8 +543,8 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 					stringDecoder);
 		} else {
 			// as Boolean
-			attributeValue = booleanDatatype.readValue(null, channel,
-					stringDecoder);
+			attributeValue = channel.decodeBooleanValue();
+			// attributeValue = booleanDatatype.readValue(null, channel, stringDecoder);
 		}
 
 		boolean xsiNil;

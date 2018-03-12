@@ -86,20 +86,14 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 		if (this.dtrMapInUse) {
 			datatype = this.getDtrDatatype(datatype);
 		}
-
-		Value val;
+		
 		switch (datatype.getDatatypeID()) {
 		case exi_base64Binary:
-			val = rcsBase64Binary.readValue(qnContext, valueChannel,
-					stringDecoder);
-			break;
+			return readRCSValue(rcsBase64Binary, qnContext, valueChannel, stringDecoder);
 		case exi_hexBinary:
-			val = rcsHexBinary
-					.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsHexBinary, qnContext, valueChannel, stringDecoder);
 		case exi_boolean:
-			val = rcsBoolean.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsBoolean, qnContext, valueChannel, stringDecoder);
 		case exi_dateTime:
 		case exi_time:
 		case exi_date:
@@ -108,27 +102,18 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 		case exi_gMonthDay:
 		case exi_gDay:
 		case exi_gMonth:
-			val = rcsDateTime.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsDateTime, qnContext, valueChannel, stringDecoder);
 		case exi_decimal:
-			val = rcsDecimal.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsDecimal, qnContext, valueChannel, stringDecoder);
 		case exi_double:
-			val = rcsDouble.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsDouble, qnContext, valueChannel, stringDecoder);
 		case exi_integer:
-			val = rcsInteger.readValue(qnContext, valueChannel, stringDecoder);
-			break;
+			return readRCSValue(rcsInteger, qnContext, valueChannel, stringDecoder);
 		case exi_string:
 			// exi:string no restricted character set
-			val = stringDecoder.readValue(qnContext, valueChannel);
-			// val = rcsString.readValue(qnContext, valueChannel,
-			// stringDecoder);
-			break;
+			return stringDecoder.readValue(qnContext, valueChannel);
 		default:
 			throw new UnsupportedOperationException();
 		}
-
-		return val;
 	}
 }

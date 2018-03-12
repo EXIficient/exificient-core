@@ -97,9 +97,9 @@ public class BooleanFacetDatatype extends AbstractDatatype {
 	
 	
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		int booleanID = valueChannel.decodeNBitUnsignedInteger(2);
-		return BooleanValue.getBooleanValue(booleanID);
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		int booleanID = valueChannel.decodeNBitUnsignedInteger(2);
+//		return BooleanValue.getBooleanValue(booleanID);
+//	}
 }

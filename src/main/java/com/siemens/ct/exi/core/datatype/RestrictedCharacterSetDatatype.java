@@ -121,62 +121,62 @@ public class RestrictedCharacterSetDatatype extends AbstractDatatype {
 		}
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-
-		StringValue value;
-
-		int i = valueChannel.decodeUnsignedInteger();
-
-		if (i == 0) {
-			// local value partition
-			value = stringDecoder.readValueLocalHit(qnContext, valueChannel);
-		} else if (i == 1) {
-			// found in global value partition
-			value = stringDecoder.readValueGlobalHit(valueChannel);
-		} else {
-			// not found in global value (and local value) partition
-			// ==> restricted character string literal is encoded as a String
-			// with the length incremented by two.
-			int L = i - 2;
-
-			/*
-			 * If length L is greater than zero the string S is added
-			 */
-			if (L > 0) {
-				// number of bits
-				int numberOfBits = rcs.getCodingLength();
-				int size = rcs.size();
-
-				char[] cValue = new char[L];
-				value = new StringValue(cValue);
-
-				for (int k = 0; k < L; k++) {
-					int code = valueChannel
-							.decodeNBitUnsignedInteger(numberOfBits);
-					int codePoint;
-					if (code == size) {
-						// deviation
-						codePoint = valueChannel.decodeUnsignedInteger();
-					} else {
-						codePoint = rcs.getCodePoint(code);
-					}
-
-					Character.toChars(codePoint, cValue, k);
-				}
-
-				// After encoding the string value, it is added to both the
-				// associated "local" value string table partition and the
-				// global
-				// value string table partition.
-				stringDecoder.addValue(qnContext, value);
-			} else {
-				value = StringCoder.EMPTY_STRING_VALUE;
-			}
-		}
-
-		return value;
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//
+//		StringValue value;
+//
+//		int i = valueChannel.decodeUnsignedInteger();
+//
+//		if (i == 0) {
+//			// local value partition
+//			value = stringDecoder.readValueLocalHit(qnContext, valueChannel);
+//		} else if (i == 1) {
+//			// found in global value partition
+//			value = stringDecoder.readValueGlobalHit(valueChannel);
+//		} else {
+//			// not found in global value (and local value) partition
+//			// ==> restricted character string literal is encoded as a String
+//			// with the length incremented by two.
+//			int L = i - 2;
+//
+//			/*
+//			 * If length L is greater than zero the string S is added
+//			 */
+//			if (L > 0) {
+//				// number of bits
+//				int numberOfBits = rcs.getCodingLength();
+//				int size = rcs.size();
+//
+//				char[] cValue = new char[L];
+//				value = new StringValue(cValue);
+//
+//				for (int k = 0; k < L; k++) {
+//					int code = valueChannel
+//							.decodeNBitUnsignedInteger(numberOfBits);
+//					int codePoint;
+//					if (code == size) {
+//						// deviation
+//						codePoint = valueChannel.decodeUnsignedInteger();
+//					} else {
+//						codePoint = rcs.getCodePoint(code);
+//					}
+//
+//					Character.toChars(codePoint, cValue, k);
+//				}
+//
+//				// After encoding the string value, it is added to both the
+//				// associated "local" value string table partition and the
+//				// global
+//				// value string table partition.
+//				stringDecoder.addValue(qnContext, value);
+//			} else {
+//				value = StringCoder.EMPTY_STRING_VALUE;
+//			}
+//		}
+//
+//		return value;
+//	}
 	
 	@Override
 	public boolean equals(Object o) {

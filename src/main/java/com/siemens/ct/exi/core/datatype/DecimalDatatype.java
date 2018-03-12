@@ -81,8 +81,8 @@ public class DecimalDatatype extends AbstractDatatype {
 				lastValidDecimal.getRevFractional());
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return valueChannel.decodeDecimalValue();
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return valueChannel.decodeDecimalValue();
+//	}
 }

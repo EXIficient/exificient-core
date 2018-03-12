@@ -60,9 +60,9 @@ public class BinaryBase64Datatype extends AbstractBinaryDatatype {
 		}
 	}
 
-	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-			StringDecoder stringDecoder) throws IOException {
-		return new BinaryBase64Value(valueChannel.decodeBinary());
-	}
+//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
+//			StringDecoder stringDecoder) throws IOException {
+//		return new BinaryBase64Value(valueChannel.decodeBinary());
+//	}
 
 }
