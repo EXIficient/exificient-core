@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.ExtendedStringEncoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
@@ -91,19 +90,19 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 //	public boolean isDerivedByUnion() {
 //		return isDerivedByUnion;
 //	}
+//
+//	public boolean isValid(Value value) {
+//		lastValue = value.toString();
+//		return true;
+//	}
 
-	public boolean isValid(Value value) {
-		lastValue = value.toString();
-		return true;
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		ExtendedStringEncoderImpl ese = new ExtendedStringEncoderImpl((StringEncoderImpl) stringEncoder);
-		ese.setGrammarStrings(this.grammarStrings);
-		
-		ese.writeValue(qnContext, valueChannel, this.lastValue);
-	}
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		ExtendedStringEncoderImpl ese = new ExtendedStringEncoderImpl((StringEncoderImpl) stringEncoder);
+//		ese.setGrammarStrings(this.grammarStrings);
+//		
+//		ese.writeValue(qnContext, valueChannel, this.lastValue);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

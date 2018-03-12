@@ -96,18 +96,19 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException {
+		String lastValueString = lastValue.toString();
 		switch (lastDatatype.getDatatypeID()) {
 		case exi_base64Binary:
-			rcsBase64Binary.isValid(lastValue);
-			rcsBase64Binary.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsBase64Binary, lastValue);
+			writeRCSValue(rcsBase64Binary, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_hexBinary:
-			rcsHexBinary.isValid(lastValue);
-			rcsHexBinary.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsHexBinary, lastValue);
+			writeRCSValue(rcsHexBinary, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_boolean:
-			rcsBoolean.isValid(lastValue);
-			rcsBoolean.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsBoolean, lastValue);
+			writeRCSValue(rcsBoolean, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_dateTime:
 		case exi_time:
@@ -117,20 +118,20 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 		case exi_gMonthDay:
 		case exi_gDay:
 		case exi_gMonth:
-			rcsDateTime.isValid(lastValue);
-			rcsDateTime.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsDateTime, lastValue);
+			writeRCSValue(rcsDateTime, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_decimal:
-			rcsDecimal.isValid(lastValue);
-			rcsDecimal.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsDecimal, lastValue);
+			writeRCSValue(rcsDecimal, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_double:
-			rcsDouble.isValid(lastValue);
-			rcsDouble.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsDouble, lastValue);
+			writeRCSValue(rcsDouble, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_integer:
-			rcsInteger.isValid(lastValue);
-			rcsInteger.writeValue(qnContext, valueChannel, stringEncoder);
+			isValid(rcsInteger, lastValue);
+			writeRCSValue(rcsInteger, qnContext, valueChannel, stringEncoder, lastValueString);
 			break;
 		case exi_string:
 			// exi:string no restricted character set

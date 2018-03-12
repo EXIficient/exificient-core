@@ -81,37 +81,37 @@ public class NBitUnsignedIntegerDatatype extends AbstractDatatype {
 		return numberOfBits4Range;
 	}
 
-	protected boolean isValidString(String value) {
-		validValue = IntegerValue.parse(value);
+//	protected boolean isValidString(String value) {
+//		validValue = IntegerValue.parse(value);
+//
+//		if (validValue == null) {
+//			return false;
+//		} else {
+//			return checkBounds();
+//		}
+//	}
 
-		if (validValue == null) {
-			return false;
-		} else {
-			return checkBounds();
-		}
-	}
-
-	public boolean isValid(Value value) {
-		if (value instanceof IntegerValue) {
-			validValue = ((IntegerValue) value);
-			return checkBounds();
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-
-	// check lower & upper bound
-	protected boolean checkBounds() {
-		return (validValue.compareTo(lowerBound) >= 0 && validValue
-				.compareTo(upperBound) <= 0);
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		IntegerValue iv = validValue.subtract(lowerBound);
-		valueChannel.encodeNBitUnsignedInteger(iv.intValue(),
-				numberOfBits4Range);
-	}
+//	public boolean isValid(Value value) {
+//		if (value instanceof IntegerValue) {
+//			validValue = ((IntegerValue) value);
+//			return checkBounds();
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//
+//	// check lower & upper bound
+//	protected boolean checkBounds() {
+//		return (validValue.compareTo(lowerBound) >= 0 && validValue
+//				.compareTo(upperBound) <= 0);
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		IntegerValue iv = validValue.subtract(lowerBound);
+//		valueChannel.encodeNBitUnsignedInteger(iv.intValue(),
+//				numberOfBits4Range);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

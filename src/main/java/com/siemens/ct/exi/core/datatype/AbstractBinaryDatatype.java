@@ -49,19 +49,19 @@ public abstract class AbstractBinaryDatatype extends AbstractDatatype {
 		assert (binaryType == BuiltInType.BINARY_BASE64 || binaryType == BuiltInType.BINARY_HEX);
 	}
 
-	abstract protected boolean isValidString(String value);
-
-	public boolean isValid(Value value) {
-		if (value instanceof AbstractBinaryValue) {
-			bytes = ((AbstractBinaryValue) value).toBytes();
-			return true;
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeBinary(bytes);
-	}
+//	abstract protected boolean isValidString(String value);
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof AbstractBinaryValue) {
+//			bytes = ((AbstractBinaryValue) value).toBytes();
+//			return true;
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeBinary(bytes);
+//	}
 }

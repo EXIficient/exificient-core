@@ -66,8 +66,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		this(null, null, null);
 	}
 
-	public AbstractTypeCoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
-			throws EXIException {
+	public AbstractTypeCoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
 		this.dtrMapTypes = dtrMapTypes;
 		this.dtrMapRepresentations = dtrMapRepresentations;
 		this.dtrMapRepresentationsDatatype = dtrMapRepresentationsDatatype;
@@ -415,8 +414,7 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		return dtrDatatype;
 	}
 
-	protected Datatype getDatatypeRepresentation(String reprUri,
-			String reprLocalPart) throws EXIException {
+	protected Datatype getDatatypeRepresentation(String reprUri, String reprLocalPart) throws EXIException {
 		assert (dtrMapInUse);
 
 		try {

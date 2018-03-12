@@ -27,6 +27,9 @@ import java.util.StringTokenizer;
 
 import com.siemens.ct.exi.core.Constants;
 import com.siemens.ct.exi.core.datatype.Datatype;
+import com.siemens.ct.exi.core.exceptions.EXIException;
+import com.siemens.ct.exi.core.types.TypeEncoder;
+import com.siemens.ct.exi.core.types.TypedTypeEncoder;
 
 /**
  * 
@@ -99,10 +102,15 @@ public class ListValue extends AbstractValue {
 		int index = 0;
 		while (st.hasMoreTokens()) {
 			Value nextToken = new StringValue(st.nextToken());
-			if (listDatatype.isValid(nextToken)) {
-				values[index++] = nextToken;
-			} else {
-				// invalid --> abort process
+			try {
+				TypeEncoder typeEncoder = new TypedTypeEncoder();
+				if (typeEncoder.isValid(listDatatype, nextToken)) {
+					values[index++] = nextToken;
+				} else {
+					// invalid --> abort process
+					return null;
+				}
+			} catch (EXIException e) {
 				return null;
 			}
 		}

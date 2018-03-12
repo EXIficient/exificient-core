@@ -54,28 +54,28 @@ public class BooleanDatatype extends AbstractDatatype {
 		return DatatypeID.exi_boolean;
 	}
 
-	public boolean isValidString(String value) {
-		bool = BooleanValue.parse(value);
-		return (bool != null);
-	}
-
-	public boolean isValid(Value value) {
-		if (value instanceof BooleanValue) {
-			bool = (BooleanValue) value;
-			return true;
-		} else {
-			return isValidString(value.toString());
-		}
-	}
+//	public boolean isValidString(String value) {
+//		bool = BooleanValue.parse(value);
+//		return (bool != null);
+//	}
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof BooleanValue) {
+//			bool = (BooleanValue) value;
+//			return true;
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
 
 	public boolean getBoolean() {
 		return bool.toBoolean();
 	}
 
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeBoolean(bool.toBoolean());
-	}
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeBoolean(bool.toBoolean());
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

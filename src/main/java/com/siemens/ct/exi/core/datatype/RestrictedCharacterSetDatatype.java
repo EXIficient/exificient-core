@@ -71,55 +71,55 @@ public class RestrictedCharacterSetDatatype extends AbstractDatatype {
 		return DatatypeID.exi_string;
 	}
 
-	public boolean isValid(Value value) {
-		// Note: no validity check needed since any char-sequence can be encoded
-		// due to fallback mechanism
-		lastValidValue = value.toString();
-		return true;
-	}
+//	public boolean isValid(Value value) {
+//		// Note: no validity check needed since any char-sequence can be encoded
+//		// due to fallback mechanism
+//		lastValidValue = value.toString();
+//		return true;
+//	}
 	
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		if (stringEncoder.isStringHit(lastValidValue)) {
-			stringEncoder.writeValue(qnContext, valueChannel, lastValidValue);
-		} else {
-			// NO local or global value hit
-			// string-table miss ==> restricted character
-			// string literal is encoded as a String with the length
-			// incremented by two.
-			final int L = lastValidValue.length();
-
-			valueChannel.encodeUnsignedInteger(L + 2);
-
-			/*
-			 * If length L is greater than zero the string S is added
-			 */
-			if (L > 0) {
-				// number of bits
-				int numberOfBits = rcs.getCodingLength();
-
-				for (int i = 0; i < L; i++) {
-					int codePoint = lastValidValue.codePointAt(i);
-					int code = rcs.getCode(codePoint);
-					if (code == Constants.NOT_FOUND) {
-						// indicate deviation
-						valueChannel.encodeNBitUnsignedInteger(rcs.size(),
-								numberOfBits);
-
-						valueChannel.encodeUnsignedInteger(codePoint);
-					} else {
-						valueChannel.encodeNBitUnsignedInteger(code,
-								numberOfBits);
-					}
-				}
-
-				// After encoding the string value, it is added to both the
-				// associated "local" value string table partition and the
-				// global value string table partition.
-				stringEncoder.addValue(qnContext, lastValidValue);
-			}
-		}
-	}
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		if (stringEncoder.isStringHit(lastValidValue)) {
+//			stringEncoder.writeValue(qnContext, valueChannel, lastValidValue);
+//		} else {
+//			// NO local or global value hit
+//			// string-table miss ==> restricted character
+//			// string literal is encoded as a String with the length
+//			// incremented by two.
+//			final int L = lastValidValue.length();
+//
+//			valueChannel.encodeUnsignedInteger(L + 2);
+//
+//			/*
+//			 * If length L is greater than zero the string S is added
+//			 */
+//			if (L > 0) {
+//				// number of bits
+//				int numberOfBits = rcs.getCodingLength();
+//
+//				for (int i = 0; i < L; i++) {
+//					int codePoint = lastValidValue.codePointAt(i);
+//					int code = rcs.getCode(codePoint);
+//					if (code == Constants.NOT_FOUND) {
+//						// indicate deviation
+//						valueChannel.encodeNBitUnsignedInteger(rcs.size(),
+//								numberOfBits);
+//
+//						valueChannel.encodeUnsignedInteger(codePoint);
+//					} else {
+//						valueChannel.encodeNBitUnsignedInteger(code,
+//								numberOfBits);
+//					}
+//				}
+//
+//				// After encoding the string value, it is added to both the
+//				// associated "local" value string table partition and the
+//				// global value string table partition.
+//				stringEncoder.addValue(qnContext, lastValidValue);
+//			}
+//		}
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

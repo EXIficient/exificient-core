@@ -32,8 +32,10 @@ package com.siemens.ct.exi.core.datatype.strings;
  */
 
 import java.io.IOException;
+import java.util.Map;
 
 import com.siemens.ct.exi.core.context.QNameContext;
+import com.siemens.ct.exi.core.datatype.strings.StringEncoderImpl.ValueContainer;
 import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 
 public interface StringEncoder extends StringCoder {
@@ -44,4 +46,8 @@ public interface StringEncoder extends StringCoder {
 			throws IOException;
 
 	public boolean isStringHit(String value) throws IOException;
+	
+	public ValueContainer getValueContainer(String value);
+	public int getValueContainerSize();
+
 }

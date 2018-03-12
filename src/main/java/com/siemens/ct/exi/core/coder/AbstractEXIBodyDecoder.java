@@ -547,15 +547,23 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 			// attributeValue = booleanDatatype.readValue(null, channel, stringDecoder);
 		}
 
-		boolean xsiNil;
+		boolean xsiNil = false;
 
 		if (attributeValue instanceof BooleanValue) {
 			BooleanValue bv = (BooleanValue) attributeValue;
 			xsiNil = bv.toBoolean();
 		} else {
 			// parse string value again (lexical value mode)
-			booleanDatatype.isValid(attributeValue);
-			xsiNil = booleanDatatype.getBoolean();
+			if (attributeValue instanceof BooleanValue) {
+				xsiNil = ((BooleanValue)attributeValue).toBoolean();
+			} else {
+				BooleanValue bv = BooleanValue.parse(attributeValue.toString());
+				if(bv != null) {
+					xsiNil = bv.toBoolean();
+				}
+			}
+			// booleanDatatype.isValid(attributeValue);
+			// xsiNil = booleanDatatype.getBoolean();
 		}
 
 		final Grammar currentGrammar = getCurrentGrammar();

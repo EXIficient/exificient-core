@@ -79,28 +79,28 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 		return codingLength;
 	}
 
-	public boolean isValid(Value value) {
-		int index = 0;
-		while (index < enumValues.length) {
-			if (enumValues[index].equals(value)) {
-				lastValidIndex = index;
-				return true;
-			}
-			index++;
-		}
-
-		return false;
-	}
+//	public boolean isValid(Value value) {
+//		int index = 0;
+//		while (index < enumValues.length) {
+//			if (enumValues[index].equals(value)) {
+//				lastValidIndex = index;
+//				return true;
+//			}
+//			index++;
+//		}
+//
+//		return false;
+//	}
 
 	public Value getEnumValue(int i) {
 		assert (i >= 0 && i < enumValues.length);
 		return enumValues[i];
 	}
 
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeNBitUnsignedInteger(lastValidIndex, codingLength);
-	}
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeNBitUnsignedInteger(lastValidIndex, codingLength);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

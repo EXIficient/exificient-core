@@ -59,6 +59,7 @@ import com.siemens.ct.exi.core.types.BuiltIn;
 import com.siemens.ct.exi.core.types.TypeEncoder;
 import com.siemens.ct.exi.core.util.MethodsBag;
 import com.siemens.ct.exi.core.util.xml.QNameUtilities;
+import com.siemens.ct.exi.core.values.BooleanValue;
 import com.siemens.ct.exi.core.values.QNameValue;
 import com.siemens.ct.exi.core.values.StringValue;
 import com.siemens.ct.exi.core.values.Value;
@@ -875,11 +876,24 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		if (currentGrammar.isSchemaInformed()) {
 			SchemaInformedGrammar siCurrentRule = (SchemaInformedGrammar) currentGrammar;
 
-			if (booleanDatatype.isValid(nil)) {
+			boolean validNil = false;
+			boolean validNilValue = false;
+			if (nil instanceof BooleanValue) {
+				validNil = true;
+				validNilValue = ((BooleanValue)nil).toBoolean();
+			} else {
+				BooleanValue bv = BooleanValue.parse(nil.toString());
+				if(bv != null) {
+					validNil = true;
+					validNilValue = bv.toBoolean();
+				}
+			}
+			
+			if (validNil) { // booleanDatatype.isValid(nil)) {
 
 				// Note: in some cases we can simply skip the xsi:nil event
 				if (!preserveLexicalValues
-						&& !booleanDatatype.getBoolean()
+						&& !validNilValue //  !booleanDatatype.getBoolean()
 						&& !this.encodingOptions
 								.isOptionEnabled(EncodingOptions.INCLUDE_INSIGNIFICANT_XSI_NIL)) {
 					return;
@@ -905,11 +919,11 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 								stringEncoder);
 					} else {
 						// typed
-						booleanDatatype
-								.writeValue(null, channel, stringEncoder);
+						channel.encodeBoolean(validNil);
+//						booleanDatatype.writeValue(null, channel, stringEncoder);
 					}
 
-					if (booleanDatatype.getBoolean()) { // jump to typeEmpty
+					if (validNilValue) { // jump to typeEmpty
 						// update current rule
 						updateCurrentRule(((SchemaInformedFirstStartTagGrammar) siCurrentRule)
 								.getTypeEmpty());
@@ -937,11 +951,11 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 									stringEncoder);
 						} else {
 							// typed
-							booleanDatatype.writeValue(null, channel,
-									stringEncoder);
+							channel.encodeBoolean(validNil);
+							// booleanDatatype.writeValue(null, channel, stringEncoder);
 						}
 
-						if (booleanDatatype.getBoolean()) { // jump to typeEmpty
+						if (validNilValue) { // jump to typeEmpty
 							// update current rule
 							updateCurrentRule(((SchemaInformedFirstStartTagGrammar) siCurrentRule)
 									.getTypeEmpty());

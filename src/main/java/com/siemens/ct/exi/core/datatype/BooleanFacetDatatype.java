@@ -46,7 +46,7 @@ import com.siemens.ct.exi.core.values.Value;
 public class BooleanFacetDatatype extends AbstractDatatype {
 
 	private int lastValidBooleanID;
-	private boolean lastValidBoolean;
+//	private boolean lastValidBoolean;
 
 	public BooleanFacetDatatype(QNameContext schemaType) {
 		super(BuiltInType.BOOLEAN_FACET, schemaType);
@@ -56,44 +56,44 @@ public class BooleanFacetDatatype extends AbstractDatatype {
 		return DatatypeID.exi_boolean;
 	}
 
-	protected boolean isValidString(String value) {
-		value = value.trim();
-		boolean retValue = true;
-
-		if (value.equals(Constants.XSD_BOOLEAN_FALSE)) {
-			lastValidBooleanID = 0;
-			lastValidBoolean = false;
-		} else if (value.equals(Constants.XSD_BOOLEAN_0)) {
-			lastValidBooleanID = 1;
-			lastValidBoolean = false;
-		} else if (value.equals(Constants.XSD_BOOLEAN_TRUE)) {
-			lastValidBooleanID = 2;
-			lastValidBoolean = true;
-		} else if (value.equals(Constants.XSD_BOOLEAN_1)) {
-			lastValidBooleanID = 3;
-			lastValidBoolean = true;
-		} else {
-			retValue = false;
-		}
-
-		return retValue;
-	}
-
-	public boolean isValid(Value value) {
-		if (value instanceof BooleanValue) {
-			lastValidBoolean = ((BooleanValue) value).toBoolean();
-			// TODO not fully correct
-			lastValidBooleanID = lastValidBoolean ? 2 : 0;
-			return true;
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeNBitUnsignedInteger(lastValidBooleanID, 2);
-	}
+//	protected boolean isValidString(String value) {
+//		value = value.trim();
+//		boolean retValue = true;
+//
+//		if (value.equals(Constants.XSD_BOOLEAN_FALSE)) {
+//			lastValidBooleanID = 0;
+//			lastValidBoolean = false;
+//		} else if (value.equals(Constants.XSD_BOOLEAN_0)) {
+//			lastValidBooleanID = 1;
+//			lastValidBoolean = false;
+//		} else if (value.equals(Constants.XSD_BOOLEAN_TRUE)) {
+//			lastValidBooleanID = 2;
+//			lastValidBoolean = true;
+//		} else if (value.equals(Constants.XSD_BOOLEAN_1)) {
+//			lastValidBooleanID = 3;
+//			lastValidBoolean = true;
+//		} else {
+//			retValue = false;
+//		}
+//
+//		return retValue;
+//	}
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof BooleanValue) {
+//			lastValidBoolean = ((BooleanValue) value).toBoolean();
+//			// TODO not fully correct
+//			lastValidBooleanID = lastValidBoolean ? 2 : 0;
+//			return true;
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeNBitUnsignedInteger(lastValidBooleanID, 2);
+//	}
 	
 	
 

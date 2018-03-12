@@ -54,24 +54,24 @@ public class IntegerDatatype extends AbstractDatatype {
 		return DatatypeID.exi_integer;
 	}
 
-	protected boolean isValidString(String value) {
-		lastInteger = IntegerValue.parse(value);
-		return (lastInteger != null);
-	}
-
-	public boolean isValid(Value value) {
-		if (value instanceof IntegerValue) {
-			lastInteger = ((IntegerValue) value);
-			return true;
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeIntegerValue(lastInteger);
-	}
+//	protected boolean isValidString(String value) {
+//		lastInteger = IntegerValue.parse(value);
+//		return (lastInteger != null);
+//	}
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof IntegerValue) {
+//			lastInteger = ((IntegerValue) value);
+//			return true;
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeIntegerValue(lastInteger);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

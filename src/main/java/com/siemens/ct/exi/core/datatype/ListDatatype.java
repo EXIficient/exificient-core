@@ -66,55 +66,55 @@ public class ListDatatype extends AbstractDatatype {
 		return listDatatype;
 	}
 
-	protected boolean isValidString(String value) {
-		listValues = ListValue.parse(value, listDatatype);
-		return listValues != null;
-	}
+//	protected boolean isValidString(String value) {
+//		listValues = ListValue.parse(value, listDatatype);
+//		return listValues != null;
+//	}
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof ListValue) {
+//			ListValue lv = (ListValue) value;
+//			if (this.listDatatype.getBuiltInType() == lv.getListDatatype()
+//					.getBuiltInType()) {
+//				this.listValues = lv;
+//				return true;
+//			} else {
+//				listValues = null;
+//				return false;
+//			}
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//	
+//	@Override
+//	public void normalize() {
+//		if(listValues != null) {
+//			Datatype dt = listValues.getListDatatype();
+//			for(Value v : listValues.toValues()) {
+//				dt.isValid(v);
+//				dt.normalize();
+//			}
+//		}
+//	}
 
-	public boolean isValid(Value value) {
-		if (value instanceof ListValue) {
-			ListValue lv = (ListValue) value;
-			if (this.listDatatype.getBuiltInType() == lv.getListDatatype()
-					.getBuiltInType()) {
-				this.listValues = lv;
-				return true;
-			} else {
-				listValues = null;
-				return false;
-			}
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-	
-	@Override
-	public void normalize() {
-		if(listValues != null) {
-			Datatype dt = listValues.getListDatatype();
-			for(Value v : listValues.toValues()) {
-				dt.isValid(v);
-				dt.normalize();
-			}
-		}
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-
-		// length prefixed sequence of values
-		Value[] values = listValues.toValues();
-		valueChannel.encodeUnsignedInteger(values.length);
-
-		// iterate over all tokens
-		for (int i = 0; i < values.length; i++) {
-			Value v = values[i];
-			boolean valid = listDatatype.isValid(v);
-			if (!valid) {
-				throw new RuntimeException("ListValue is not valid, " + v);
-			}
-			listDatatype.writeValue(qnContext, valueChannel, stringEncoder);
-		}
-	}
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//
+//		// length prefixed sequence of values
+//		Value[] values = listValues.toValues();
+//		valueChannel.encodeUnsignedInteger(values.length);
+//
+//		// iterate over all tokens
+//		for (int i = 0; i < values.length; i++) {
+//			Value v = values[i];
+//			boolean valid = listDatatype.isValid(v);
+//			if (!valid) {
+//				throw new RuntimeException("ListValue is not valid, " + v);
+//			}
+//			listDatatype.writeValue(qnContext, valueChannel, stringEncoder);
+//		}
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

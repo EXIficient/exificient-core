@@ -54,24 +54,24 @@ public class FloatDatatype extends AbstractDatatype {
 		return DatatypeID.exi_double;
 	}
 
-	protected boolean isValidString(String value) {
-		lastValidFloat = FloatValue.parse(value);
-		return (lastValidFloat != null);
-	}
-
-	public boolean isValid(Value value) {
-		if (value instanceof FloatValue) {
-			lastValidFloat = ((FloatValue) value);
-			return true;
-		} else {
-			return isValidString(value.toString());
-		}
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		valueChannel.encodeFloat(lastValidFloat);
-	}
+//	protected boolean isValidString(String value) {
+//		lastValidFloat = FloatValue.parse(value);
+//		return (lastValidFloat != null);
+//	}
+//
+//	public boolean isValid(Value value) {
+//		if (value instanceof FloatValue) {
+//			lastValidFloat = ((FloatValue) value);
+//			return true;
+//		} else {
+//			return isValidString(value.toString());
+//		}
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		valueChannel.encodeFloat(lastValidFloat);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

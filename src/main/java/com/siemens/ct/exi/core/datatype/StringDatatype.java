@@ -71,15 +71,15 @@ public class StringDatatype extends AbstractDatatype {
 		return isDerivedByUnion;
 	}
 
-	public boolean isValid(Value value) {
-		lastValue = value.toString();
-		return true;
-	}
-
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder) throws IOException {
-		stringEncoder.writeValue(qnContext, valueChannel, lastValue);
-	}
+//	public boolean isValid(Value value) {
+//		lastValue = value.toString();
+//		return true;
+//	}
+//
+//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+//			StringEncoder stringEncoder) throws IOException {
+//		stringEncoder.writeValue(qnContext, valueChannel, lastValue);
+//	}
 
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {

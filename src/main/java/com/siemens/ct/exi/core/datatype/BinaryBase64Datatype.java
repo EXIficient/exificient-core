@@ -50,16 +50,16 @@ public class BinaryBase64Datatype extends AbstractBinaryDatatype {
 		return DatatypeID.exi_base64Binary;
 	}
 
-	protected boolean isValidString(String value) {
-		BinaryBase64Value bv = BinaryBase64Value.parse(value);
-		if (bv == null) {
-			return false;
-		} else {
-			bytes = bv.toBytes();
-			return true;
-		}
-	}
-
+//	protected boolean isValidString(String value) {
+//		BinaryBase64Value bv = BinaryBase64Value.parse(value);
+//		if (bv == null) {
+//			return false;
+//		} else {
+//			bytes = bv.toBytes();
+//			return true;
+//		}
+//	}
+//
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {
 //		return new BinaryBase64Value(valueChannel.decodeBinary());

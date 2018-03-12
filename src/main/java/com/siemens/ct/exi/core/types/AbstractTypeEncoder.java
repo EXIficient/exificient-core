@@ -23,12 +23,19 @@
 
 package com.siemens.ct.exi.core.types;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import com.siemens.ct.exi.core.Constants;
+import com.siemens.ct.exi.core.context.QNameContext;
 import com.siemens.ct.exi.core.datatype.Datatype;
+import com.siemens.ct.exi.core.datatype.RestrictedCharacterSetDatatype;
+import com.siemens.ct.exi.core.datatype.charset.RestrictedCharacterSet;
+import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
 import com.siemens.ct.exi.core.exceptions.EXIException;
+import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 
 /**
  * 
@@ -48,6 +55,52 @@ public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
 	public AbstractTypeEncoder(QName[] dtrMapTypes,
 			QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
+	}
+	
+	
+	protected void writeRCSValue(RestrictedCharacterSetDatatype rcsDT, QNameContext qnContext, EncoderChannel valueChannel,
+			StringEncoder stringEncoder, String lastValidValue) throws IOException {
+		if (stringEncoder.isStringHit(lastValidValue)) {
+			stringEncoder.writeValue(qnContext, valueChannel, lastValidValue);
+		} else {
+			// NO local or global value hit
+			// string-table miss ==> restricted character
+			// string literal is encoded as a String with the length
+			// incremented by two.
+			final int L = lastValidValue.length();
+
+			valueChannel.encodeUnsignedInteger(L + 2);
+
+			RestrictedCharacterSet rcs = rcsDT.getRestrictedCharacterSet();
+			
+			/*
+			 * If length L is greater than zero the string S is added
+			 */
+			if (L > 0) {
+				// number of bits
+				int numberOfBits = rcs.getCodingLength();
+
+				for (int i = 0; i < L; i++) {
+					int codePoint = lastValidValue.codePointAt(i);
+					int code = rcs.getCode(codePoint);
+					if (code == Constants.NOT_FOUND) {
+						// indicate deviation
+						valueChannel.encodeNBitUnsignedInteger(rcs.size(),
+								numberOfBits);
+
+						valueChannel.encodeUnsignedInteger(codePoint);
+					} else {
+						valueChannel.encodeNBitUnsignedInteger(code,
+								numberOfBits);
+					}
+				}
+
+				// After encoding the string value, it is added to both the
+				// associated "local" value string table partition and the
+				// global value string table partition.
+				stringEncoder.addValue(qnContext, lastValidValue);
+			}
+		}
 	}
 
 }

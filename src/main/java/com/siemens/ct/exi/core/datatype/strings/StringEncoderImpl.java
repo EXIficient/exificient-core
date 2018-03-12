@@ -104,6 +104,14 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 		}
 
 	}
+	
+	public ValueContainer getValueContainer(String value) {
+		return this.stringValues.get(value);
+	}
+	
+	public int getValueContainerSize() {
+		return stringValues.size();
+	}
 
 	// Restricted char set
 	public boolean isStringHit(String value) throws IOException {
@@ -136,7 +144,7 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 		}
 	}
 
-	static class ValueContainer {
+	public static class ValueContainer {
 
 		public final String value;
 		public final QNameContext context;

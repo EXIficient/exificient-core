@@ -50,17 +50,17 @@ public class BinaryHexDatatype extends AbstractBinaryDatatype {
 		return DatatypeID.exi_hexBinary;
 	}
 
-	protected boolean isValidString(String value) {
-		value = value.trim();
-		BinaryHexValue bv = BinaryHexValue.parse(value);
-		if (bv == null) {
-			return false;
-		} else {
-			bytes = bv.toBytes();
-			return true;
-		}
-	}
-
+//	protected boolean isValidString(String value) {
+//		value = value.trim();
+//		BinaryHexValue bv = BinaryHexValue.parse(value);
+//		if (bv == null) {
+//			return false;
+//		} else {
+//			bytes = bv.toBytes();
+//			return true;
+//		}
+//	}
+//
 //	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
 //			StringDecoder stringDecoder) throws IOException {
 //		return new BinaryHexValue(valueChannel.decodeBinary());
