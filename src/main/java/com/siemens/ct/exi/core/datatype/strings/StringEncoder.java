@@ -32,7 +32,6 @@ package com.siemens.ct.exi.core.datatype.strings;
  */
 
 import java.io.IOException;
-import java.util.Map;
 
 import com.siemens.ct.exi.core.context.QNameContext;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoderImpl.ValueContainer;

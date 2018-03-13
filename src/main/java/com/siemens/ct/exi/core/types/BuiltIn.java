@@ -113,10 +113,8 @@ public class BuiltIn {
 	 */
 	public static final QName DEFAULT_VALUE_NAME = XSD_STRING;
 	
-	// public static final Datatype DEFAULT_DATATYPE = new StringDatatype(new QNameContext(-1, -1, new QName("")));
+	private static final Datatype DEFAULT_DATATYPE = new StringDatatype(new QNameContext(-1, -1, new QName("")));
 	public static Datatype getDefaultDatatype() {
-		// for threading (parallel tasks) it needs to be a unique one
-		// TODO reconsider once isValid and encodeValue is settled
-		return new StringDatatype(new QNameContext(-1, -1, new QName("")));
+		return DEFAULT_DATATYPE;
 	}
 }
