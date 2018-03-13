@@ -23,15 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -44,8 +37,6 @@ import com.siemens.ct.exi.core.values.Value;
 public class StringDatatype extends AbstractDatatype {
 
 	protected final boolean isDerivedByUnion;
-
-	protected String lastValue;
 
 	public StringDatatype(QNameContext schemaType) {
 		// default whiteSpace facet for string is preserve
@@ -70,20 +61,6 @@ public class StringDatatype extends AbstractDatatype {
 	public boolean isDerivedByUnion() {
 		return isDerivedByUnion;
 	}
-
-//	public boolean isValid(Value value) {
-//		lastValue = value.toString();
-//		return true;
-//	}
-//
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		stringEncoder.writeValue(qnContext, valueChannel, lastValue);
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		return stringDecoder.readValue(qnContext, valueChannel);
-//	}
+	
 }
 

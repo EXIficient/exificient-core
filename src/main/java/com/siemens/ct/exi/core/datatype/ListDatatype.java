@@ -23,16 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.ListValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -45,8 +37,6 @@ import com.siemens.ct.exi.core.values.Value;
 public class ListDatatype extends AbstractDatatype {
 
 	private Datatype listDatatype;
-
-	ListValue listValues;
 
 	public ListDatatype(Datatype listDatatype, QNameContext schemaType) {
 		super(BuiltInType.LIST, schemaType);
@@ -65,71 +55,6 @@ public class ListDatatype extends AbstractDatatype {
 	public Datatype getListDatatype() {
 		return listDatatype;
 	}
-
-//	protected boolean isValidString(String value) {
-//		listValues = ListValue.parse(value, listDatatype);
-//		return listValues != null;
-//	}
-//
-//	public boolean isValid(Value value) {
-//		if (value instanceof ListValue) {
-//			ListValue lv = (ListValue) value;
-//			if (this.listDatatype.getBuiltInType() == lv.getListDatatype()
-//					.getBuiltInType()) {
-//				this.listValues = lv;
-//				return true;
-//			} else {
-//				listValues = null;
-//				return false;
-//			}
-//		} else {
-//			return isValidString(value.toString());
-//		}
-//	}
-//	
-//	@Override
-//	public void normalize() {
-//		if(listValues != null) {
-//			Datatype dt = listValues.getListDatatype();
-//			for(Value v : listValues.toValues()) {
-//				dt.isValid(v);
-//				dt.normalize();
-//			}
-//		}
-//	}
-
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//
-//		// length prefixed sequence of values
-//		Value[] values = listValues.toValues();
-//		valueChannel.encodeUnsignedInteger(values.length);
-//
-//		// iterate over all tokens
-//		for (int i = 0; i < values.length; i++) {
-//			Value v = values[i];
-//			boolean valid = listDatatype.isValid(v);
-//			if (!valid) {
-//				throw new RuntimeException("ListValue is not valid, " + v);
-//			}
-//			listDatatype.writeValue(qnContext, valueChannel, stringEncoder);
-//		}
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//
-//		int len = valueChannel.decodeUnsignedInteger();
-//		
-//		Value[]  values = new Value[len];
-//		for (int i = 0; i < len; i++) {
-//			values[i] = listDatatype.readValue(qnContext, valueChannel,
-//					stringDecoder);
-//		}
-//		Value retVal = new ListValue(values, listDatatype);
-//
-//		return retVal;
-//	}
 	
 	@Override
 	public boolean equals(Object o) {

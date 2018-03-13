@@ -23,17 +23,10 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
 import com.siemens.ct.exi.core.util.MethodsBag;
 import com.siemens.ct.exi.core.values.IntegerValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 

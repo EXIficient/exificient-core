@@ -86,19 +86,19 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 	}
 
 	
-	protected byte[] bytes;
-	protected BooleanValue bool;
-	protected int lastValidBooleanID;
-	protected boolean lastValidBoolean;
-	protected DecimalValue lastValidDecimal;
-	protected FloatValue lastValidFloat;
-	protected IntegerValue validValue;
+	protected byte[] lastBytes;
+	protected BooleanValue lastBool;
+	protected int lastBooleanID;
+	protected boolean lastBoolean;
+	protected DecimalValue lastDecimal;
+	protected FloatValue lastFloat;
+	protected IntegerValue lastNBitInteger;
 	protected IntegerValue lastUnsignedInteger;
 	protected IntegerValue lastInteger;
-	protected DateTimeValue lastValidDatetime;
-	protected String lastValue;
-	protected int lastValidIndex;
-	protected ListValue listValues;
+	protected DateTimeValue lastDatetime;
+	protected String lastString;
+	protected int lastEnumIndex;
+	protected ListValue lastListValues;
 	
 	public boolean isValid(Datatype datatype, Value value) {
 		if (this.dtrMapInUse && datatype.getBuiltInType() != BuiltInType.EXTENDED_STRING) {
@@ -111,37 +111,37 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		case BINARY_BASE64:
 		case BINARY_HEX:
 			if (value instanceof AbstractBinaryValue) {
-				bytes = ((AbstractBinaryValue) value).toBytes();
+				lastBytes = ((AbstractBinaryValue) value).toBytes();
 				return true;
 			} else {
 				return isValidString(value.toString());
 			}
 		case BOOLEAN:
 			if (value instanceof BooleanValue) {
-				bool = (BooleanValue) value;
+				lastBool = (BooleanValue) value;
 				return true;
 			} else {
 				return isValidString(value.toString());
 			}
 		case BOOLEAN_FACET:
 			if (value instanceof BooleanValue) {
-				lastValidBoolean = ((BooleanValue) value).toBoolean();
+				lastBoolean = ((BooleanValue) value).toBoolean();
 				// TODO not fully correct
-				lastValidBooleanID = lastValidBoolean ? 2 : 0;
+				lastBooleanID = lastBoolean ? 2 : 0;
 				return true;
 			} else {
 				return isValidString(value.toString());
 			}
 		case DECIMAL:
 			if (value instanceof DecimalValue) {
-				lastValidDecimal = ((DecimalValue) value);
+				lastDecimal = ((DecimalValue) value);
 				return true;
 			} else {
 				return isValidString(value.toString());
 			}
 		case FLOAT:
 			if (value instanceof FloatValue) {
-				lastValidFloat = ((FloatValue) value);
+				lastFloat = ((FloatValue) value);
 				return true;
 			} else {
 				return isValidString(value.toString());
@@ -149,8 +149,8 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		case NBIT_UNSIGNED_INTEGER:
 			NBitUnsignedIntegerDatatype nbitDT = (NBitUnsignedIntegerDatatype) lastDatatype;
 			if (value instanceof IntegerValue) {
-				validValue = ((IntegerValue) value);
-				return (validValue.compareTo(nbitDT.getLowerBound()) >= 0 && validValue
+				lastNBitInteger = ((IntegerValue) value);
+				return (lastNBitInteger.compareTo(nbitDT.getLowerBound()) >= 0 && lastNBitInteger
 						.compareTo(nbitDT.getUpperBound()) <= 0);
 				// return checkBounds();
 			} else {
@@ -173,28 +173,28 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			
 		case DATETIME:
 			if (value instanceof DateTimeValue) {
-				lastValidDatetime = ((DateTimeValue) value);
+				lastDatetime = ((DateTimeValue) value);
 				return true;
 			} else {
 				return isValidString(value.toString());
 			}
 		case STRING:
-			lastValue = value.toString();
+			lastString = value.toString();
 			return true;
 		case RCS_STRING:
 			// Note: no validity check needed since any char-sequence can be encoded
 			// due to fallback mechanism
-			lastValue = value.toString();
+			lastString = value.toString();
 			return true;
 		case EXTENDED_STRING:
-			lastValue = value.toString();
+			lastString = value.toString();
 			return true;
 		case ENUMERATION:
 			EnumerationDatatype enumDT = (EnumerationDatatype) lastDatatype;
 			int index = 0;
 			while (index < enumDT.getEnumerationSize()) {
 				if (enumDT.getEnumValue(index).equals(value)) {
-					lastValidIndex = index;
+					lastEnumIndex = index;
 					return true;
 				}
 				index++;
@@ -206,10 +206,10 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 				ListValue lv = (ListValue) value;
 				if (listDT.getListDatatype().getBuiltInType() == lv.getListDatatype()
 						.getBuiltInType()) {
-					this.listValues = lv;
+					this.lastListValues = lv;
 					return true;
 				} else {
-					listValues = null;
+					lastListValues = null;
 					return false;
 				}
 			} else {
@@ -241,7 +241,7 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			if (bvb == null) {
 				return false;
 			} else {
-				bytes = bvb.toBytes();
+				lastBytes = bvb.toBytes();
 				return true;
 			}
 		case BINARY_HEX:
@@ -250,46 +250,46 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			if (bvh == null) {
 				return false;
 			} else {
-				bytes = bvh.toBytes();
+				lastBytes = bvh.toBytes();
 				return true;
 			}
 		case BOOLEAN:
-			bool = BooleanValue.parse(value);
-			return (bool != null);
+			lastBool = BooleanValue.parse(value);
+			return (lastBool != null);
 		case BOOLEAN_FACET:
 			value = value.trim();
 			boolean retValue = true;
 
 			if (value.equals(Constants.XSD_BOOLEAN_FALSE)) {
-				lastValidBooleanID = 0;
-				lastValidBoolean = false;
+				lastBooleanID = 0;
+				lastBoolean = false;
 			} else if (value.equals(Constants.XSD_BOOLEAN_0)) {
-				lastValidBooleanID = 1;
-				lastValidBoolean = false;
+				lastBooleanID = 1;
+				lastBoolean = false;
 			} else if (value.equals(Constants.XSD_BOOLEAN_TRUE)) {
-				lastValidBooleanID = 2;
-				lastValidBoolean = true;
+				lastBooleanID = 2;
+				lastBoolean = true;
 			} else if (value.equals(Constants.XSD_BOOLEAN_1)) {
-				lastValidBooleanID = 3;
-				lastValidBoolean = true;
+				lastBooleanID = 3;
+				lastBoolean = true;
 			} else {
 				retValue = false;
 			}
 
 			return retValue;
 		case DECIMAL:
-			lastValidDecimal = DecimalValue.parse(value);
-			return (lastValidDecimal != null);
+			lastDecimal = DecimalValue.parse(value);
+			return (lastDecimal != null);
 		case FLOAT:
-			lastValidFloat = FloatValue.parse(value);
-			return (lastValidFloat != null);
+			lastFloat = FloatValue.parse(value);
+			return (lastFloat != null);
 		case NBIT_UNSIGNED_INTEGER:
-			validValue = IntegerValue.parse(value);
-			if (validValue == null) {
+			lastNBitInteger = IntegerValue.parse(value);
+			if (lastNBitInteger == null) {
 				return false;
 			} else {
 				NBitUnsignedIntegerDatatype nbitDT = (NBitUnsignedIntegerDatatype) lastDatatype;
-				return (validValue.compareTo(nbitDT.getLowerBound()) >= 0 && validValue
+				return (lastNBitInteger.compareTo(nbitDT.getLowerBound()) >= 0 && lastNBitInteger
 						.compareTo(nbitDT.getUpperBound()) <= 0);
 				// return checkBounds();
 			}
@@ -305,12 +305,12 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			return (lastInteger != null);
 		case DATETIME:
 			DatetimeDatatype datetimeDT = (DatetimeDatatype) lastDatatype;
-			lastValidDatetime = DateTimeValue.parse(value, datetimeDT.getDatetimeType());
-			return (lastValidDatetime != null);
+			lastDatetime = DateTimeValue.parse(value, datetimeDT.getDatetimeType());
+			return (lastDatetime != null);
 		case LIST:
 			ListDatatype listDT = (ListDatatype) lastDatatype;
-			listValues = ListValue.parse(value, listDT.getListDatatype());
-			return listValues != null;
+			lastListValues = ListValue.parse(value, listDT.getListDatatype());
+			return lastListValues != null;
 		default:
 			return false;
 		}
@@ -321,14 +321,14 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		switch(datatype.getBuiltInType()) {
 		case DATETIME:
 			// see https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation
-			if(lastValidDatetime != null) {
-				lastValidDatetime = lastValidDatetime.normalize();
+			if(lastDatetime != null) {
+				lastDatetime = lastDatetime.normalize();
 			}
 			break;
 		case LIST:
-			if(listValues != null) {
-				Datatype dt = listValues.getListDatatype();
-				for(Value v : listValues.toValues()) {
+			if(lastListValues != null) {
+				Datatype dt = lastListValues.getListDatatype();
+				for(Value v : lastListValues.toValues()) {
 					isValid(dt, v);
 					normalize(dt);
 				}
@@ -349,25 +349,25 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		switch(lastDatatype.getBuiltInType()) {
 		case BINARY_BASE64:
 		case BINARY_HEX:
-			valueChannel.encodeBinary(bytes);
+			valueChannel.encodeBinary(lastBytes);
 			break;
 		case BOOLEAN:
-			valueChannel.encodeBoolean(bool.toBoolean());
+			valueChannel.encodeBoolean(lastBool.toBoolean());
 			break;
 		case BOOLEAN_FACET:
-			valueChannel.encodeNBitUnsignedInteger(lastValidBooleanID, 2);
+			valueChannel.encodeNBitUnsignedInteger(lastBooleanID, 2);
 			break;
 		case DECIMAL:
-			valueChannel.encodeDecimal(lastValidDecimal.isNegative(),
-					lastValidDecimal.getIntegral(),
-					lastValidDecimal.getRevFractional());
+			valueChannel.encodeDecimal(lastDecimal.isNegative(),
+					lastDecimal.getIntegral(),
+					lastDecimal.getRevFractional());
 			break;
 		case FLOAT:
-			valueChannel.encodeFloat(lastValidFloat);
+			valueChannel.encodeFloat(lastFloat);
 			break;
 		case NBIT_UNSIGNED_INTEGER:
 			NBitUnsignedIntegerDatatype nbitDT = (NBitUnsignedIntegerDatatype) lastDatatype;
-			IntegerValue iv = validValue.subtract(nbitDT.getLowerBound());
+			IntegerValue iv = lastNBitInteger.subtract(nbitDT.getLowerBound());
 			valueChannel.encodeNBitUnsignedInteger(iv.intValue(), nbitDT.getNumberOfBits());
 			break;
 		case UNSIGNED_INTEGER:
@@ -377,30 +377,30 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			valueChannel.encodeIntegerValue(lastInteger);
 			break;
 		case DATETIME:
-			valueChannel.encodeDateTime(lastValidDatetime);
+			valueChannel.encodeDateTime(lastDatetime);
 			break;
 		case STRING:
-			stringEncoder.writeValue(qnContext, valueChannel, lastValue);
+			stringEncoder.writeValue(qnContext, valueChannel, lastString);
 			break;
 		case RCS_STRING:
 			RestrictedCharacterSetDatatype rcsDT = (RestrictedCharacterSetDatatype) lastDatatype;
 			writeRCSValue(rcsDT, qnContext, valueChannel,
-					stringEncoder, lastValue);
+					stringEncoder, lastString);
 			break;
 		case EXTENDED_STRING:
 			ExtendedStringDatatype esDT = (ExtendedStringDatatype) lastDatatype;
-			writeExtendedValue(esDT, qnContext, valueChannel, stringEncoder, lastValue);
+			writeExtendedValue(esDT, qnContext, valueChannel, stringEncoder, lastString);
 			break;
 		case ENUMERATION:
 			EnumerationDatatype enumDT = (EnumerationDatatype) lastDatatype;
-			valueChannel.encodeNBitUnsignedInteger(lastValidIndex, enumDT.getCodingLength());
+			valueChannel.encodeNBitUnsignedInteger(lastEnumIndex, enumDT.getCodingLength());
 			break;
 		case LIST:
 			ListDatatype listDT = (ListDatatype) lastDatatype;
 			Datatype listDatatype = listDT.getListDatatype();
 			
 			// length prefixed sequence of values
-			Value[] values = listValues.toValues();
+			Value[] values = lastListValues.toValues();
 			valueChannel.encodeUnsignedInteger(values.length);
 
 			// iterate over all tokens

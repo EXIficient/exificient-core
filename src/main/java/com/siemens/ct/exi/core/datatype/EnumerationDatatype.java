@@ -23,13 +23,7 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
 import com.siemens.ct.exi.core.util.MethodsBag;
 import com.siemens.ct.exi.core.values.Value;
@@ -48,7 +42,6 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 	
 	protected int codingLength;
 	protected Value[] enumValues;
-	protected int lastValidIndex;
 
 	public EnumerationDatatype(Value[] enumValues, Datatype dtEnumValues,
 			QNameContext schemaType) {
@@ -79,35 +72,11 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 		return codingLength;
 	}
 
-//	public boolean isValid(Value value) {
-//		int index = 0;
-//		while (index < enumValues.length) {
-//			if (enumValues[index].equals(value)) {
-//				lastValidIndex = index;
-//				return true;
-//			}
-//			index++;
-//		}
-//
-//		return false;
-//	}
 
 	public Value getEnumValue(int i) {
 		assert (i >= 0 && i < enumValues.length);
 		return enumValues[i];
 	}
-
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		valueChannel.encodeNBitUnsignedInteger(lastValidIndex, codingLength);
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		int index = valueChannel.decodeNBitUnsignedInteger(codingLength);
-//		assert (index >= 0 && index < enumValues.length);
-//		return enumValues[index];
-//	}
 	
 	@Override
 	public boolean equals(Object o) {

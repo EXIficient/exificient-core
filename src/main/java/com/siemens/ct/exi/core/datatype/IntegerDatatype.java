@@ -23,16 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.IntegerValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -43,9 +35,7 @@ import com.siemens.ct.exi.core.values.Value;
  */
 
 public class IntegerDatatype extends AbstractDatatype {
-
-	private IntegerValue lastInteger;
-
+	
 	public IntegerDatatype(QNameContext schemaType) {
 		super(BuiltInType.INTEGER, schemaType);
 	}
@@ -53,28 +43,5 @@ public class IntegerDatatype extends AbstractDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_integer;
 	}
-
-//	protected boolean isValidString(String value) {
-//		lastInteger = IntegerValue.parse(value);
-//		return (lastInteger != null);
-//	}
-//
-//	public boolean isValid(Value value) {
-//		if (value instanceof IntegerValue) {
-//			lastInteger = ((IntegerValue) value);
-//			return true;
-//		} else {
-//			return isValidString(value.toString());
-//		}
-//	}
-//
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		valueChannel.encodeIntegerValue(lastInteger);
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		return valueChannel.decodeIntegerValue();
-//	}
+	
 }

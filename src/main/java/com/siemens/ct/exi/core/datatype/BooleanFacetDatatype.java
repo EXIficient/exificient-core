@@ -23,17 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
-import com.siemens.ct.exi.core.Constants;
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.BooleanValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -45,9 +36,6 @@ import com.siemens.ct.exi.core.values.Value;
 
 public class BooleanFacetDatatype extends AbstractDatatype {
 
-	private int lastValidBooleanID;
-//	private boolean lastValidBoolean;
-
 	public BooleanFacetDatatype(QNameContext schemaType) {
 		super(BuiltInType.BOOLEAN_FACET, schemaType);
 	}
@@ -55,51 +43,5 @@ public class BooleanFacetDatatype extends AbstractDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_boolean;
 	}
-
-//	protected boolean isValidString(String value) {
-//		value = value.trim();
-//		boolean retValue = true;
-//
-//		if (value.equals(Constants.XSD_BOOLEAN_FALSE)) {
-//			lastValidBooleanID = 0;
-//			lastValidBoolean = false;
-//		} else if (value.equals(Constants.XSD_BOOLEAN_0)) {
-//			lastValidBooleanID = 1;
-//			lastValidBoolean = false;
-//		} else if (value.equals(Constants.XSD_BOOLEAN_TRUE)) {
-//			lastValidBooleanID = 2;
-//			lastValidBoolean = true;
-//		} else if (value.equals(Constants.XSD_BOOLEAN_1)) {
-//			lastValidBooleanID = 3;
-//			lastValidBoolean = true;
-//		} else {
-//			retValue = false;
-//		}
-//
-//		return retValue;
-//	}
-//
-//	public boolean isValid(Value value) {
-//		if (value instanceof BooleanValue) {
-//			lastValidBoolean = ((BooleanValue) value).toBoolean();
-//			// TODO not fully correct
-//			lastValidBooleanID = lastValidBoolean ? 2 : 0;
-//			return true;
-//		} else {
-//			return isValidString(value.toString());
-//		}
-//	}
-//
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		valueChannel.encodeNBitUnsignedInteger(lastValidBooleanID, 2);
-//	}
 	
-	
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		int booleanID = valueChannel.decodeNBitUnsignedInteger(2);
-//		return BooleanValue.getBooleanValue(booleanID);
-//	}
 }

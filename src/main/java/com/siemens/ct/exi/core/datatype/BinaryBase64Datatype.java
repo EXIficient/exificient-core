@@ -23,14 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.BinaryBase64Value;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -49,20 +43,5 @@ public class BinaryBase64Datatype extends AbstractBinaryDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_base64Binary;
 	}
-
-//	protected boolean isValidString(String value) {
-//		BinaryBase64Value bv = BinaryBase64Value.parse(value);
-//		if (bv == null) {
-//			return false;
-//		} else {
-//			bytes = bv.toBytes();
-//			return true;
-//		}
-//	}
-//
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		return new BinaryBase64Value(valueChannel.decodeBinary());
-//	}
-
+	
 }

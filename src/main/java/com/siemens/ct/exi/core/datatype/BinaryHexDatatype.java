@@ -23,14 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.BinaryHexValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -49,21 +43,5 @@ public class BinaryHexDatatype extends AbstractBinaryDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_hexBinary;
 	}
-
-//	protected boolean isValidString(String value) {
-//		value = value.trim();
-//		BinaryHexValue bv = BinaryHexValue.parse(value);
-//		if (bv == null) {
-//			return false;
-//		} else {
-//			bytes = bv.toBytes();
-//			return true;
-//		}
-//	}
-//
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		return new BinaryHexValue(valueChannel.decodeBinary());
-//	}
-
+	
 }

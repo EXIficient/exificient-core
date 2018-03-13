@@ -23,18 +23,10 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoderImpl;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoderImpl;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -45,8 +37,6 @@ import com.siemens.ct.exi.core.values.Value;
  */
 
 public class ExtendedStringDatatype extends AbstractDatatype {
-
-//	protected final boolean isDerivedByUnion;
 
 	protected String lastValue;
 	
@@ -59,7 +49,6 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 	}
 	
 	public ExtendedStringDatatype(QNameContext schemaType, WhiteSpace whiteSpace) {
-//		this(schemaType, false);
 		super(BuiltInType.EXTENDED_STRING, schemaType);
 		
 		/* default whiteSpace facet for string is preserve */
@@ -81,35 +70,6 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_estring;
 	}
-
-//	public ExtendedStringDatatype(QNameContext schemaType, boolean isDerivedByUnion) {
-//		super(BuiltInType.STRING, schemaType);
-//		this.isDerivedByUnion = isDerivedByUnion;
-//	}
-//
-//	public boolean isDerivedByUnion() {
-//		return isDerivedByUnion;
-//	}
-//
-//	public boolean isValid(Value value) {
-//		lastValue = value.toString();
-//		return true;
-//	}
-
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		ExtendedStringEncoderImpl ese = new ExtendedStringEncoderImpl((StringEncoderImpl) stringEncoder);
-//		ese.setGrammarStrings(this.grammarStrings);
-//		
-//		ese.writeValue(qnContext, valueChannel, this.lastValue);
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		ExtendedStringDecoderImpl ese = new ExtendedStringDecoderImpl((StringDecoderImpl) stringDecoder);
-//		ese.setGrammarStrings(this.grammarStrings);
-//		
-//		return ese.readValue(qnContext, valueChannel);
-//	}
+	
 }
 

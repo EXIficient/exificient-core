@@ -111,7 +111,4 @@ public abstract class AbstractDatatype implements Datatype {
 		return builtInType.toString();
 	}
 	
-	public void normalize() {
-		// in general no value normalization needed
-	}
 }

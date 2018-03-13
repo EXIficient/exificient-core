@@ -37,7 +37,6 @@ import com.siemens.ct.exi.core.datatype.ExtendedStringDatatype;
 import com.siemens.ct.exi.core.datatype.ListDatatype;
 import com.siemens.ct.exi.core.datatype.NBitUnsignedIntegerDatatype;
 import com.siemens.ct.exi.core.datatype.RestrictedCharacterSetDatatype;
-import com.siemens.ct.exi.core.datatype.charset.RestrictedCharacterSet;
 import com.siemens.ct.exi.core.datatype.strings.StringCoder;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
 import com.siemens.ct.exi.core.exceptions.EXIException;

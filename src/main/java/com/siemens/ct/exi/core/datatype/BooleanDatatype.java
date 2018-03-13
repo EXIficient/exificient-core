@@ -23,16 +23,8 @@
 
 package com.siemens.ct.exi.core.datatype;
 
-import java.io.IOException;
-
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.strings.StringDecoder;
-import com.siemens.ct.exi.core.datatype.strings.StringEncoder;
-import com.siemens.ct.exi.core.io.channel.DecoderChannel;
-import com.siemens.ct.exi.core.io.channel.EncoderChannel;
 import com.siemens.ct.exi.core.types.BuiltInType;
-import com.siemens.ct.exi.core.values.BooleanValue;
-import com.siemens.ct.exi.core.values.Value;
 
 /**
  * 
@@ -44,8 +36,6 @@ import com.siemens.ct.exi.core.values.Value;
 
 public class BooleanDatatype extends AbstractDatatype {
 
-	protected BooleanValue bool;
-
 	public BooleanDatatype(QNameContext schemaType) {
 		super(BuiltInType.BOOLEAN, schemaType);
 	}
@@ -53,32 +43,5 @@ public class BooleanDatatype extends AbstractDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_boolean;
 	}
-
-//	public boolean isValidString(String value) {
-//		bool = BooleanValue.parse(value);
-//		return (bool != null);
-//	}
-//
-//	public boolean isValid(Value value) {
-//		if (value instanceof BooleanValue) {
-//			bool = (BooleanValue) value;
-//			return true;
-//		} else {
-//			return isValidString(value.toString());
-//		}
-//	}
-
-	public boolean getBoolean() {
-		return bool.toBoolean();
-	}
-
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		valueChannel.encodeBoolean(bool.toBoolean());
-//	}
-
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		return valueChannel.decodeBooleanValue();
-//	}
+	
 }
