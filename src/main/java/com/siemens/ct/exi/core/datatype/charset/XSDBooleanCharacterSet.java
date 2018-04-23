@@ -32,7 +32,7 @@ import com.siemens.ct.exi.core.util.xml.XMLWhitespace;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.0-SNAPSHOT
+ * @version 1.0.0
  */
 
 public class XSDBooleanCharacterSet extends AbstractRestrictedCharacterSet {

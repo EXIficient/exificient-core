@@ -33,7 +33,7 @@ import java.io.InputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.0-SNAPSHOT
+ * @version 1.0.0
  */
 
 final public class BitInputStream {
