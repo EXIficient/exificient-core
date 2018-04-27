@@ -50,7 +50,7 @@ import com.siemens.ct.exi.core.util.xml.QNameUtilities;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.0
+ * @version 1.0.1-SNAPSHOT
  */
 
 public abstract class AbstractTypeCoder implements TypeCoder {

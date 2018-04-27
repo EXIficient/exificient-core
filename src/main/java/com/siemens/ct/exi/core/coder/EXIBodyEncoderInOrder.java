@@ -40,7 +40,7 @@ import com.siemens.ct.exi.core.io.channel.EncoderChannel;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.0
+ * @version 1.0.1-SNAPSHOT
  */
 
 public class EXIBodyEncoderInOrder extends AbstractEXIBodyEncoder {
