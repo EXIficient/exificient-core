@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.grammars.grammar.SchemaInformedGrammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class SchemaInformedGrammars extends AbstractGrammars {
@@ -44,11 +43,12 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 	protected boolean builtInXMLSchemaTypesOnly = false;
 
 	protected String schemaId;
-	
+
 	protected final SchemaInformedGrammar elementFragmentGrammar;
 
 	public SchemaInformedGrammars(GrammarContext grammarContext,
-			Document document, Fragment fragment, SchemaInformedGrammar elementFragmentGrammar) {
+			Document document, Fragment fragment,
+			SchemaInformedGrammar elementFragmentGrammar) {
 		super(true, grammarContext);
 		// set document & fragment grammar
 		documentGrammar = document;
@@ -87,21 +87,29 @@ public class SchemaInformedGrammars extends AbstractGrammars {
 	public Grammar getFragmentGrammar() {
 		return fragmentGrammar;
 	}
-	
+
 	public SchemaInformedGrammar getSchemaInformedElementFragmentGrammar() {
 		return this.elementFragmentGrammar;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof SchemaInformedGrammars)) return false;
-		if (!super.equals(o)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof SchemaInformedGrammars))
+			return false;
+		if (!super.equals(o))
+			return false;
 
 		SchemaInformedGrammars grammars = (SchemaInformedGrammars) o;
 
-		if (builtInXMLSchemaTypesOnly != grammars.builtInXMLSchemaTypesOnly) return false;
-		if (schemaId != null ? !schemaId.equals(grammars.schemaId) : grammars.schemaId != null) return false;
-		return elementFragmentGrammar != null ? elementFragmentGrammar.equals(grammars.elementFragmentGrammar) : grammars.elementFragmentGrammar == null;
+		if (builtInXMLSchemaTypesOnly != grammars.builtInXMLSchemaTypesOnly)
+			return false;
+		if (schemaId != null ? !schemaId.equals(grammars.schemaId)
+				: grammars.schemaId != null)
+			return false;
+		return elementFragmentGrammar != null ? elementFragmentGrammar
+				.equals(grammars.elementFragmentGrammar)
+				: grammars.elementFragmentGrammar == null;
 	}
 }

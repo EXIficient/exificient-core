@@ -59,7 +59,6 @@ import com.siemens.ct.exi.core.util.xml.QNameUtilities;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractEXIBodyCoder {
@@ -88,30 +87,30 @@ public abstract class AbstractEXIBodyCoder {
 
 	// runtime global elements
 	protected Map<QNameContext, StartElement> runtimeGlobalElements;
-	
+
 	// runtime uris & names et cetera
 	List<RuntimeUriContext> runtimeUris;
-	
+
 	// Xsi qname contexts
 	protected QNameContext xsiTypeContext;
 	protected QNameContext xsiNilContext;
-	
+
 	protected final int gUris; // number of grammar uris
 	protected int nextUriID;
-	
+
 	/** EXI Profile parameters */
 	protected final boolean limitGrammarLearning;
 	protected final int maxBuiltInElementGrammars;
 	protected final int maxBuiltInProductions;
 	protected int learnedProductions;
 
-	
 	public AbstractEXIBodyCoder(EXIFactory exiFactory) throws EXIException {
 		this.exiFactory = exiFactory;
 
 		this.grammar = exiFactory.getGrammars();
 		this.grammarContext = this.grammar.getGrammarContext();
-		this.nextUriID = this.gUris = grammarContext.getNumberOfGrammarUriContexts();
+		this.nextUriID = this.gUris = grammarContext
+				.getNumberOfGrammarUriContexts();
 		this.fidelityOptions = exiFactory.getFidelityOptions();
 
 		// preserve prefixes
@@ -127,18 +126,21 @@ public abstract class AbstractEXIBodyCoder {
 		// init once (runtime lists et cetera)
 		runtimeGlobalElements = new HashMap<QNameContext, StartElement>();
 		runtimeUris = new ArrayList<RuntimeUriContext>();
-		for(int i=0; i< this.gUris; i++) {
-			this.runtimeUris.add(new RuntimeUriContext(this.grammarContext.getGrammarUriContext(i)));
+		for (int i = 0; i < this.gUris; i++) {
+			this.runtimeUris.add(new RuntimeUriContext(this.grammarContext
+					.getGrammarUriContext(i)));
 		}
 		elementContextStack = new ElementContext[INITIAL_STACK_SIZE];
 
 		// Boolean datatype
 		booleanDatatype = new BooleanDatatype(null);
-		
+
 		// EXI Profile: fine-grained grammar learning
-		if(this.grammar.isSchemaInformed()) {
-			maxBuiltInElementGrammars = this.exiFactory.getMaximumNumberOfBuiltInElementGrammars();
-			maxBuiltInProductions = this.exiFactory.getMaximumNumberOfBuiltInProductions();	
+		if (this.grammar.isSchemaInformed()) {
+			maxBuiltInElementGrammars = this.exiFactory
+					.getMaximumNumberOfBuiltInElementGrammars();
+			maxBuiltInProductions = this.exiFactory
+					.getMaximumNumberOfBuiltInProductions();
 			limitGrammarLearning = (maxBuiltInElementGrammars >= 0 || maxBuiltInProductions >= 0);
 		} else {
 			maxBuiltInElementGrammars = -1;
@@ -148,50 +150,53 @@ public abstract class AbstractEXIBodyCoder {
 	}
 
 	protected QNameContext getXsiTypeContext() {
-		if(xsiTypeContext == null) {
-			xsiTypeContext = grammarContext.getGrammarUriContext(2).getQNameContext(1);	
+		if (xsiTypeContext == null) {
+			xsiTypeContext = grammarContext.getGrammarUriContext(2)
+					.getQNameContext(1);
 		}
 		return xsiTypeContext;
-		
+
 	}
 
 	protected QNameContext getXsiNilContext() {
-		if(xsiNilContext == null) {
-			xsiNilContext = grammarContext.getGrammarUriContext(2).getQNameContext(0);	
+		if (xsiNilContext == null) {
+			xsiNilContext = grammarContext.getGrammarUriContext(2)
+					.getQNameContext(0);
 		}
 		return xsiNilContext;
 	}
-	
+
 	protected final boolean isBuiltInStartTagGrammarWithAtXsiTypeOnly(Grammar g) {
 		boolean ret = false;
-		if ( g.getNumberOfEvents() == 1) {
+		if (g.getNumberOfEvents() == 1) {
 			Production p0 = g.getProduction(0);
 			Event ev0 = p0.getEvent();
-			if(ev0.isEventType(EventType.ATTRIBUTE)) {
+			if (ev0.isEventType(EventType.ATTRIBUTE)) {
 				Attribute at = (Attribute) ev0;
 				QNameContext qn0 = at.getQNameContext();
-				if(qn0.getNamespaceUriID() == 2 && qn0.getLocalNameID() == 1) {
+				if (qn0.getNamespaceUriID() == 2 && qn0.getLocalNameID() == 1) {
 					// AT type cast only
 					ret = true;
 				}
 			}
 		}
-		
+
 		return ret;
 	}
-	
-	
+
 	protected final StartElement getGlobalStartElement(QNameContext qnc) {
 		StartElement se = qnc.getGlobalStartElement();
-		if(se == null) {
+		if (se == null) {
 			// no global StartElement stemming from schema-informed grammars
 			// --> check for previous runtime SE
 			se = runtimeGlobalElements.get(qnc);
-			if(se == null) {
+			if (se == null) {
 				// no global runtime grammar yet
 				se = new StartElement(qnc);
-				// TODO which grammar to pick if no schema-information are availa
-				if (grammar.isSchemaInformed() && this.exiFactory.isUsingNonEvolvingGrammars()) {
+				// TODO which grammar to pick if no schema-information are
+				// availa
+				if (grammar.isSchemaInformed()
+						&& this.exiFactory.isUsingNonEvolvingGrammars()) {
 					SchemaInformedGrammars sig = (SchemaInformedGrammars) grammar;
 					se.setGrammar(sig.getSchemaInformedElementFragmentGrammar());
 				} else {
@@ -200,10 +205,10 @@ public abstract class AbstractEXIBodyCoder {
 				runtimeGlobalElements.put(qnc, se);
 			}
 		}
-		
+
 		return se;
 	}
-	
+
 	protected final Grammar getCurrentGrammar() {
 		return this.elementContext.gr;
 	}
@@ -229,10 +234,10 @@ public abstract class AbstractEXIBodyCoder {
 
 		// clear runtime data
 		this.runtimeGlobalElements.clear();
-		for(int i=0; i<nextUriID; i++) {
+		for (int i = 0; i < nextUriID; i++) {
 			this.runtimeUris.get(i).clear();
 		}
-		
+
 		// re-set schema-informed grammar IDs
 		nextUriID = this.gUris;
 
@@ -316,8 +321,7 @@ public abstract class AbstractEXIBodyCoder {
 
 		return poppedEC;
 	}
-	
-	
+
 	protected RuntimeUriContext addUri(String uri) {
 		RuntimeUriContext ruc;
 		int uriID = nextUriID++;
@@ -328,33 +332,32 @@ public abstract class AbstractEXIBodyCoder {
 			ruc.setNamespaceUri(uri);
 		} else {
 			// create new uri entry
-			ruc = new RuntimeUriContext(uriID, uri); 
+			ruc = new RuntimeUriContext(uriID, uri);
 			this.runtimeUris.add(ruc);
 		}
-		
+
 		return ruc;
 	}
-	
+
 	public int getNumberOfUris() {
 		return nextUriID;
 	}
-	
+
 	public RuntimeUriContext getUri(String namespaceUri) {
-		for(int i=0; i<nextUriID && i<runtimeUris.size(); i++) {
+		for (int i = 0; i < nextUriID && i < runtimeUris.size(); i++) {
 			RuntimeUriContext ruc = runtimeUris.get(i);
-			if(ruc.namespaceUri.equals(namespaceUri)) {
+			if (ruc.namespaceUri.equals(namespaceUri)) {
 				return ruc;
 			}
 		}
-		
+
 		return null;
 	}
-	
-	public RuntimeUriContext getUri(int namespaceUriID) {
-		assert(namespaceUriID >= 0 && namespaceUriID < nextUriID); // this.getNumberOfUris()
-		return runtimeUris.get(namespaceUriID);	
 
-		
+	public RuntimeUriContext getUri(int namespaceUriID) {
+		assert (namespaceUriID >= 0 && namespaceUriID < nextUriID); // this.getNumberOfUris()
+		return runtimeUris.get(namespaceUriID);
+
 	}
 
 	/*
@@ -399,193 +402,193 @@ public abstract class AbstractEXIBodyCoder {
 		String getPrefix() {
 			return this.prefix;
 		}
-		
+
 		void setXmlSpacePreserve(Boolean isXmlSpacePreserve) {
 			this.isXmlSpacePreserve = isXmlSpacePreserve;
 		}
+
 		Boolean isXmlSpacePreserve() {
 			return this.isXmlSpacePreserve;
 		}
 	}
-	
+
 	public final class RuntimeUriContext
-//	implements UriContext
+	// implements UriContext
 	{
 		final int namespaceUriID;
 		private String namespaceUri; // may be modified in subsequent runs
 		final GrammarUriContext guc; // null if not present
-		
+
 		List<QNameContext> qnames;
 		List<String> prefixes;
-		
+
 		public RuntimeUriContext(int namespaceUriID, String namespaceUri) {
 			this(null, namespaceUriID, namespaceUri);
 		}
-		
+
 		public RuntimeUriContext(GrammarUriContext guc) {
 			this(guc, guc.getNamespaceUriID(), guc.getNamespaceUri());
 		}
-		
-		private RuntimeUriContext(GrammarUriContext guc, int namespaceUriID, String namespaceUri) {
+
+		private RuntimeUriContext(GrammarUriContext guc, int namespaceUriID,
+				String namespaceUri) {
 			this.guc = guc;
 			this.namespaceUriID = namespaceUriID;
 			this.namespaceUri = namespaceUri;
 		}
-		
+
 		protected void clear() {
-			if(guc == null) {
-				namespaceUri = null;	
+			if (guc == null) {
+				namespaceUri = null;
 			}
 			// Note: re-use existing lists for subsequent runs
-			if(qnames != null && qnames.size() > 0) {
+			if (qnames != null && qnames.size() > 0) {
 				qnames.clear();
 			}
-			if(preservePrefix && prefixes != null && prefixes.size() > 0) {
+			if (preservePrefix && prefixes != null && prefixes.size() > 0) {
 				prefixes.clear();
 			}
 		}
-		
+
 		public QNameContext getQNameContext(String localName) {
 			QNameContext qnc = null;
-			if(guc != null) {
+			if (guc != null) {
 				qnc = guc.getQNameContext(localName);
 			}
 			if (qnc == null) {
 				// check runtime qnames
-				if(qnames != null && qnames.size() != 0) {
+				if (qnames != null && qnames.size() != 0) {
 					// Idea: recent entries more likely?
-					for(int i=qnames.size()-1; i>=0; i--) {
+					for (int i = qnames.size() - 1; i >= 0; i--) {
 						qnc = qnames.get(i);
-						if(qnc.getLocalName().equals(localName)) {
+						if (qnc.getLocalName().equals(localName)) {
 							return qnc;
 						}
 					}
 					qnc = null; // none found
 				}
-				
+
 			}
-			
+
 			return qnc;
 		}
-		
+
 		public QNameContext getQNameContext(int localNameID) {
 			QNameContext qnc = null;
 			int sub = 0;
-			if(guc != null) {
+			if (guc != null) {
 				qnc = guc.getQNameContext(localNameID);
 				sub = guc.getNumberOfQNames();
 			}
 			if (qnc == null) {
 				// check runtime qnames
 				localNameID -= sub;
-				assert(localNameID >= 0 && localNameID <qnames.size());
+				assert (localNameID >= 0 && localNameID < qnames.size());
 				qnc = qnames.get(localNameID);
 			}
-			
+
 			return qnc;
 		}
-		
+
 		public int getNumberOfQNames() {
 			int n = 0;
-			if(guc != null) {
+			if (guc != null) {
 				n = guc.getNumberOfQNames();
 			}
-			if(qnames != null) {
+			if (qnames != null) {
 				n += qnames.size();
 			}
 			return n;
 		}
-		
+
 		protected QNameContext addQNameContext(String localName) {
-			if(qnames == null) {
+			if (qnames == null) {
 				qnames = new ArrayList<QNameContext>();
 			}
 			int localNameID = getNumberOfQNames();
 			QName qName = new QName(namespaceUri, localName);
-			QNameContext qnc = new QNameContext(namespaceUriID, localNameID, qName);
+			QNameContext qnc = new QNameContext(namespaceUriID, localNameID,
+					qName);
 			qnames.add(qnc);
-			
+
 			return qnc;
 		}
-		
-		
+
 		public int getNumberOfPrefixes() {
 			int pfs = 0;
-			if(guc != null) {
+			if (guc != null) {
 				pfs = guc.getNumberOfPrefixes();
 			}
-			
-			if(prefixes != null) {
-				assert(preservePrefix);
+
+			if (prefixes != null) {
+				assert (preservePrefix);
 				pfs += prefixes.size();
 			}
-			
+
 			return pfs;
 		}
-		
+
 		protected void addPrefix(String prefix) {
-			assert(preservePrefix);
-			
-			if(prefixes == null) {
+			assert (preservePrefix);
+
+			if (prefixes == null) {
 				prefixes = new ArrayList<String>();
 			}
 			prefixes.add(prefix);
 		}
-		
+
 		protected int getPrefixID(String prefix) {
-			assert(preservePrefix);
-			
+			assert (preservePrefix);
+
 			int id = Constants.NOT_FOUND;
 			int sub = 0;
-			if(guc != null) {
+			if (guc != null) {
 				id = guc.getPrefixID(prefix);
 				sub = guc.getNumberOfPrefixes();
 			}
-			if(id == Constants.NOT_FOUND) {
-				if(prefixes != null && prefixes.size() != 0) {
-					for(int i = 0; i<prefixes.size(); i++) {
-						if ( prefixes.get(i).equals(prefix)) {
+			if (id == Constants.NOT_FOUND) {
+				if (prefixes != null && prefixes.size() != 0) {
+					for (int i = 0; i < prefixes.size(); i++) {
+						if (prefixes.get(i).equals(prefix)) {
 							return i + sub;
 						}
-					}					
+					}
 				}
 			}
-			
+
 			return id;
 		}
-		
+
 		public String getPrefix(int prefixID) {
 			String pfx = null;
 			int sub = 0;
-			if(guc != null) {
+			if (guc != null) {
 				pfx = guc.getPrefix(prefixID);
 				sub = guc.getNumberOfPrefixes();
 			}
-			if(pfx == null) {
-				assert(preservePrefix);
-				assert(this.prefixes != null);
+			if (pfx == null) {
+				assert (preservePrefix);
+				assert (this.prefixes != null);
 				prefixID -= sub;
-				assert(prefixID >= 0 && prefixID<prefixes.size());
+				assert (prefixID >= 0 && prefixID < prefixes.size());
 				pfx = prefixes.get(prefixID);
 			}
-			
+
 			return pfx;
 		}
 
 		public void setNamespaceUri(String namespaceUri) {
 			this.namespaceUri = namespaceUri;
 		}
-		
+
 		public String getNamespaceUri() {
 			return this.namespaceUri;
 		}
-		
 
 		public int getNamespaceUriID() {
 			return this.namespaceUriID;
 		}
 
-		
 	}
-	
+
 }

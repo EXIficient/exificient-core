@@ -38,7 +38,6 @@ import com.siemens.ct.exi.core.types.BuiltIn;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractBuiltInContent extends AbstractBuiltInGrammar {
@@ -50,7 +49,7 @@ public abstract class AbstractBuiltInContent extends AbstractBuiltInGrammar {
 		optionsStartTag = new HashMap<FidelityOptions, List<EventType>>();
 		optionsChildContent = new HashMap<FidelityOptions, List<EventType>>();
 	}
-	
+
 	protected boolean learnedCH = false;
 
 	protected static List<EventType> get2ndLevelEventsStartTagItems(
@@ -102,7 +101,7 @@ public abstract class AbstractBuiltInContent extends AbstractBuiltInGrammar {
 
 		return optionsChildContent.get(fidelityOptions);
 	}
-	
+
 	@Override
 	public void learnCharacters() {
 		/*
@@ -110,10 +109,10 @@ public abstract class AbstractBuiltInContent extends AbstractBuiltInGrammar {
 		 * the current element grammar create one add the production created
 		 */
 		if (!learnedCH) {
-			addProduction(new Characters(BuiltIn.getDefaultDatatype()), getElementContentGrammar()); // BuiltIn.DEFAULT_VALUE_NAME,
+			addProduction(new Characters(BuiltIn.getDefaultDatatype()),
+					getElementContentGrammar()); // BuiltIn.DEFAULT_VALUE_NAME,
 			learnedCH = true;
 		}
 	}
-
 
 }

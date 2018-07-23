@@ -34,20 +34,17 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface StringDecoder extends StringCoder {
 
-	public void addValue(QNameContext qnContext,
-			StringValue value);
+	public void addValue(QNameContext qnContext, StringValue value);
 
-	public StringValue readValue(
-			QNameContext qnContext, DecoderChannel channel) throws IOException;
-
-	public StringValue readValueLocalHit(
-			QNameContext qnContext, DecoderChannel valueChannel)
+	public StringValue readValue(QNameContext qnContext, DecoderChannel channel)
 			throws IOException;
+
+	public StringValue readValueLocalHit(QNameContext qnContext,
+			DecoderChannel valueChannel) throws IOException;
 
 	public StringValue readValueGlobalHit(DecoderChannel valueChannel)
 			throws IOException;

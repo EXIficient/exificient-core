@@ -28,25 +28,17 @@ package com.siemens.ct.exi.core.grammars.grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public enum GrammarType {
-	/* Root grammars*/
-	DOCUMENT,
-	FRAGMENT,
-	DOC_END,
+	/* Root grammars */
+	DOCUMENT, FRAGMENT, DOC_END,
 	/* Schema-informed Document and Fragment Grammars */
-	SCHEMA_INFORMED_DOC_CONTENT,
-	SCHEMA_INFORMED_FRAGMENT_CONTENT,
+	SCHEMA_INFORMED_DOC_CONTENT, SCHEMA_INFORMED_FRAGMENT_CONTENT,
 	/* Schema-informed Element and Type Grammars */
-	SCHEMA_INFORMED_FIRST_START_TAG_CONTENT,
-	SCHEMA_INFORMED_START_TAG_CONTENT,
-	SCHEMA_INFORMED_ELEMENT_CONTENT,
+	SCHEMA_INFORMED_FIRST_START_TAG_CONTENT, SCHEMA_INFORMED_START_TAG_CONTENT, SCHEMA_INFORMED_ELEMENT_CONTENT,
 	/* Built-in Document and Fragment Grammars */
-	BUILT_IN_DOC_CONTENT,
-	BUILT_IN_FRAGMENT_CONTENT,
+	BUILT_IN_DOC_CONTENT, BUILT_IN_FRAGMENT_CONTENT,
 	/* Built-in Element Grammars */
-	BUILT_IN_START_TAG_CONTENT,
-	BUILT_IN_ELEMENT_CONTENT,
+	BUILT_IN_START_TAG_CONTENT, BUILT_IN_ELEMENT_CONTENT,
 }

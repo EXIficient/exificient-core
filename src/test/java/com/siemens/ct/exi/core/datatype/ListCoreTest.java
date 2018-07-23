@@ -61,8 +61,6 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		ListDatatype ldtInteger = new ListDatatype(new IntegerDatatype(null),
 				null);
 
-
-
 		// Bit
 		{
 			EncoderChannel bitEC = getBitEncoder();
@@ -77,14 +75,14 @@ public class ListCoreTest extends AbstractCoreTestCase {
 			assertTrue(s.equals(lv1.toString()));
 		}
 
-
 		// Byte
 		{
 			EncoderChannel byteEC = getByteEncoder();
 			boolean valid = typeEncoder.isValid(ldtInteger, s);
 			assertTrue(valid);
 			typeEncoder.writeValue(null, byteEC, null);
-			Value v2 = typeDecoder.readValue(ldtInteger, null, getByteDecoder(), null); 
+			Value v2 = typeDecoder.readValue(ldtInteger, null,
+					getByteDecoder(), null);
 			assertTrue(v2.getValueType() == ValueType.LIST);
 			ListValue lv2 = (ListValue) v2;
 			assertTrue(s.equals(lv2.toString()));
@@ -103,29 +101,31 @@ public class ListCoreTest extends AbstractCoreTestCase {
 
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.setFidelityOptions(FidelityOptions.createAll());
-//		exiFactory.setGrammars(GrammarFactory.newInstance().createXSDTypesOnlyGrammars());
-		
-		StringEncoder stringEncoder = exiFactory.createStringEncoder(); 
+		// exiFactory.setGrammars(GrammarFactory.newInstance().createXSDTypesOnlyGrammars());
+
+		StringEncoder stringEncoder = exiFactory.createStringEncoder();
 		StringDecoder stringDecoder = exiFactory.createStringDecoder();
 		QName context = new QName("", "intList");
 		QNameContext qncContext = new QNameContext(0, 0, context);
-		
+
 		TypeEncoder te = exiFactory.createTypeEncoder();
 		TypeDecoder td = exiFactory.createTypeDecoder();
-		
+
 		// Bit
 		EncoderChannel bitEC = getBitEncoder();
 		te.isValid(ldtInteger, s);
 		te.writeValue(qncContext, bitEC, stringEncoder);
 		bitEC.flush();
-		Value v1 = td.readValue(ldtInteger, qncContext, getBitDecoder(), stringDecoder);
+		Value v1 = td.readValue(ldtInteger, qncContext, getBitDecoder(),
+				stringDecoder);
 		assertTrue(s.equals(v1.toString()));
 
 		// Byte
 		EncoderChannel byteEC = getByteEncoder();
 		te.isValid(ldtInteger, s);
 		te.writeValue(qncContext, byteEC, stringEncoder);
-		Value v2 = td.readValue(ldtInteger, qncContext, getByteDecoder(), stringDecoder);
+		Value v2 = td.readValue(ldtInteger, qncContext, getByteDecoder(),
+				stringDecoder);
 		assertTrue(s.equals(v2.toString()));
 	}
 
@@ -136,34 +136,36 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		ListDatatype ldtInteger = new ListDatatype(new IntegerDatatype(null),
 				null);
 
-//		boolean valid = ldtInteger.isValid(s);
-//		assertTrue(valid);
+		// boolean valid = ldtInteger.isValid(s);
+		// assertTrue(valid);
 
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
 		exiFactory.setFidelityOptions(FidelityOptions.createAll());
-//		exiFactory.setGrammars(GrammarFactory.newInstance().createXSDTypesOnlyGrammars());
-		
-		StringEncoder stringEncoder = exiFactory.createStringEncoder(); 
+		// exiFactory.setGrammars(GrammarFactory.newInstance().createXSDTypesOnlyGrammars());
+
+		StringEncoder stringEncoder = exiFactory.createStringEncoder();
 		StringDecoder stringDecoder = exiFactory.createStringDecoder();
 		QName context = new QName("", "intList");
 		QNameContext qncContext = new QNameContext(0, 0, context);
-		
+
 		TypeEncoder te = exiFactory.createTypeEncoder();
 		TypeDecoder td = exiFactory.createTypeDecoder();
-		
+
 		// Bit
 		EncoderChannel bitEC = getBitEncoder();
 		te.isValid(ldtInteger, s);
 		te.writeValue(qncContext, bitEC, stringEncoder);
 		bitEC.flush();
-		Value v1 = td.readValue(ldtInteger, qncContext, getBitDecoder(), stringDecoder);
+		Value v1 = td.readValue(ldtInteger, qncContext, getBitDecoder(),
+				stringDecoder);
 		assertTrue(s.equals(v1.toString()));
 
 		// Byte
 		EncoderChannel byteEC = getByteEncoder();
 		te.isValid(ldtInteger, s);
 		te.writeValue(qncContext, byteEC, stringEncoder);
-		Value v2 = td.readValue(ldtInteger, qncContext, getByteDecoder(), stringDecoder);
+		Value v2 = td.readValue(ldtInteger, qncContext, getByteDecoder(),
+				stringDecoder);
 		assertTrue(s.equals(v2.toString()));
 	}
 
@@ -177,7 +179,6 @@ public class ListCoreTest extends AbstractCoreTestCase {
 		ListDatatype ldtInteger = new ListDatatype(
 				new NBitUnsignedIntegerDatatype(min, max, null), null);
 
-
 		// Bit
 		{
 			EncoderChannel bitEC = getBitEncoder();
@@ -185,12 +186,12 @@ public class ListCoreTest extends AbstractCoreTestCase {
 			assertTrue(valid);
 			typeEncoder.writeValue(null, bitEC, null);
 			bitEC.flush();
-			Value v1 = typeDecoder.readValue(ldtInteger, null, getBitDecoder(), null); // ldtInteger.readValue(null, getBitDecoder(), null);
+			Value v1 = typeDecoder.readValue(ldtInteger, null, getBitDecoder(),
+					null); // ldtInteger.readValue(null, getBitDecoder(), null);
 			assertTrue(v1.getValueType() == ValueType.LIST);
 			ListValue lv1 = (ListValue) v1;
 			assertTrue(sRes.equals(lv1.toString()));
 		}
-
 
 		// Byte
 		{
@@ -198,7 +199,9 @@ public class ListCoreTest extends AbstractCoreTestCase {
 			boolean valid = typeEncoder.isValid(ldtInteger, s);
 			assertTrue(valid);
 			typeEncoder.writeValue(null, byteEC, null);
-			Value v2 = typeDecoder.readValue(ldtInteger, null, getByteDecoder(), null); // ldtInteger.readValue(null, getByteDecoder(), null);
+			Value v2 = typeDecoder.readValue(ldtInteger, null,
+					getByteDecoder(), null); // ldtInteger.readValue(null,
+												// getByteDecoder(), null);
 			assertTrue(v2.getValueType() == ValueType.LIST);
 			ListValue lv2 = (ListValue) v2;
 			assertTrue(sRes.equals(lv2.toString()));
@@ -207,28 +210,31 @@ public class ListCoreTest extends AbstractCoreTestCase {
 	}
 
 	public void testListGMonthDayUnion1() throws IOException, EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ " <xs:simpleType name='gMonthDay'>"
-//				+ "  <xs:restriction base='xs:gMonthDay'>"
-//				+ "   <xs:enumeration value='--01-01'/>"
-//				+ "   <xs:enumeration value='--05-01'/>"
-//				+ "   <xs:enumeration value='--05-08'/>"
-//				+ "   <xs:enumeration value='--07-14'/>"
-//				+ "   <xs:enumeration value='--08-15'/>"
-//				+ "   <xs:enumeration value='--11-01'/>"
-//				+ "   <xs:enumeration value='--11-11'/>"
-//				+ "   <xs:enumeration value='--12-25'/>"
-//				+ "  </xs:restriction>"
-//				+ " </xs:simpleType>"
-//				+ ""
-//				+ "  <xs:simpleType name='List'>"
-//				+ "    <xs:list itemType='gMonthDay'/>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
-//
-//		Datatype dt = DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
-//				"List", "");
-		Datatype dt = new ListDatatype(new DatetimeDatatype(DateTimeType.gMonthDay, null), null);
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + " <xs:simpleType name='gMonthDay'>"
+		// + "  <xs:restriction base='xs:gMonthDay'>"
+		// + "   <xs:enumeration value='--01-01'/>"
+		// + "   <xs:enumeration value='--05-01'/>"
+		// + "   <xs:enumeration value='--05-08'/>"
+		// + "   <xs:enumeration value='--07-14'/>"
+		// + "   <xs:enumeration value='--08-15'/>"
+		// + "   <xs:enumeration value='--11-01'/>"
+		// + "   <xs:enumeration value='--11-11'/>"
+		// + "   <xs:enumeration value='--12-25'/>"
+		// + "  </xs:restriction>"
+		// + " </xs:simpleType>"
+		// + ""
+		// + "  <xs:simpleType name='List'>"
+		// + "    <xs:list itemType='gMonthDay'/>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
+		//
+		// Datatype dt =
+		// DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
+		// "List", "");
+		Datatype dt = new ListDatatype(new DatetimeDatatype(
+				DateTimeType.gMonthDay, null), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
 
 		assertTrue(dt.getBuiltInType() == BuiltInType.LIST);
@@ -241,23 +247,25 @@ public class ListCoreTest extends AbstractCoreTestCase {
 	}
 
 	public void testListEnum1() throws IOException, EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ " <xs:simpleType name='listOfIDsEnum'>"
-//				+ "  <xs:restriction>"
-//				+ "    <xs:simpleType>"
-//				+ "      <xs:list>"
-//				+ "        <xs:simpleType>"
-//				+ "          <xs:restriction base='xs:ID'/>"
-//				+ "        </xs:simpleType>"
-//				+ "      </xs:list>"
-//				+ "    </xs:simpleType>"
-//				+ "    <xs:enumeration value='AB BC CD'/>"
-//				+ "    <xs:enumeration value='EF FG GH'/>"
-//				+ "    <xs:enumeration value='IJ JK KL'/>"
-//				+ "  </xs:restriction>" + "  </xs:simpleType>" + "</xs:schema>";
-//
-//		Datatype dt = DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
-//				"listOfIDsEnum", "");
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + " <xs:simpleType name='listOfIDsEnum'>"
+		// + "  <xs:restriction>"
+		// + "    <xs:simpleType>"
+		// + "      <xs:list>"
+		// + "        <xs:simpleType>"
+		// + "          <xs:restriction base='xs:ID'/>"
+		// + "        </xs:simpleType>"
+		// + "      </xs:list>"
+		// + "    </xs:simpleType>"
+		// + "    <xs:enumeration value='AB BC CD'/>"
+		// + "    <xs:enumeration value='EF FG GH'/>"
+		// + "    <xs:enumeration value='IJ JK KL'/>"
+		// + "  </xs:restriction>" + "  </xs:simpleType>" + "</xs:schema>";
+		//
+		// Datatype dt =
+		// DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
+		// "listOfIDsEnum", "");
 		Datatype dt = new ListDatatype(new StringDatatype(null), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
 
@@ -274,24 +282,26 @@ public class ListCoreTest extends AbstractCoreTestCase {
 	}
 
 	public void testListEnum2() throws IOException, EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ " <xs:simpleType name='listOfIntsEnum'>"
-//				+ "  <xs:restriction>"
-//				+ "    <xs:simpleType>"
-//				+ "      <xs:list>"
-//				+ "        <xs:simpleType>"
-//				+ "          <xs:restriction base='xs:int'/>"
-//				+ "        </xs:simpleType>"
-//				+ "      </xs:list>"
-//				+ "    </xs:simpleType>"
-//				+ "    <xs:enumeration value='1 2 3'/>"
-//				+ "    <xs:enumeration value='4 5 6'/>"
-//				+ "    <xs:enumeration value='7 8 9'/>"
-//				+ "  </xs:restriction>"
-//				+ "  </xs:simpleType>" + "</xs:schema>";
-//
-//		Datatype dt = DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
-//				"listOfIntsEnum", "");
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + " <xs:simpleType name='listOfIntsEnum'>"
+		// + "  <xs:restriction>"
+		// + "    <xs:simpleType>"
+		// + "      <xs:list>"
+		// + "        <xs:simpleType>"
+		// + "          <xs:restriction base='xs:int'/>"
+		// + "        </xs:simpleType>"
+		// + "      </xs:list>"
+		// + "    </xs:simpleType>"
+		// + "    <xs:enumeration value='1 2 3'/>"
+		// + "    <xs:enumeration value='4 5 6'/>"
+		// + "    <xs:enumeration value='7 8 9'/>"
+		// + "  </xs:restriction>"
+		// + "  </xs:simpleType>" + "</xs:schema>";
+		//
+		// Datatype dt =
+		// DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
+		// "listOfIntsEnum", "");
 		Datatype dt = new ListDatatype(new IntegerDatatype(null), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
 
@@ -308,37 +318,41 @@ public class ListCoreTest extends AbstractCoreTestCase {
 	}
 
 	public void testListFloat1() throws IOException, EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ "  <xs:simpleType name='List'>"
-//				+ "    <xs:list itemType='xs:float'/>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
-//
-//		Datatype dt = DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
-//				"List", "");
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + "  <xs:simpleType name='List'>"
+		// + "    <xs:list itemType='xs:float'/>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
+		//
+		// Datatype dt =
+		// DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
+		// "List", "");
 		Datatype dt = new ListDatatype(new FloatDatatype(null), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
 
 		assertTrue(dt.getBuiltInType() == BuiltInType.LIST);
 		// EnumerationDatatype enumDt = (EnumerationDatatype) dt;
 
-		assertTrue(typeEncoder.isValid(dt, new StringValue("  1e4 -10000 5.234e-2   ")));
+		assertTrue(typeEncoder.isValid(dt, new StringValue(
+				"  1e4 -10000 5.234e-2   ")));
 
 		assertFalse(typeEncoder.isValid(dt, new StringValue("bla")));
 	}
 
 	public void testListFloat2() throws IOException, EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ "  <xs:simpleType name='List'>"
-//				+ "    <xs:list itemType='xs:float'/>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + "  <xs:simpleType name='List'>"
+		// + "    <xs:list itemType='xs:float'/>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
 
 		Datatype dt = new ListDatatype(new FloatDatatype(null), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
-				
-//				DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
-//				"List", "");
+
+		// DatatypeMappingTest.getSimpleDatatypeFor(schemaAsString,
+		// "List", "");
 
 		assertTrue(dt.getBuiltInType() == BuiltInType.LIST);
 		// EnumerationDatatype enumDt = (EnumerationDatatype) dt;

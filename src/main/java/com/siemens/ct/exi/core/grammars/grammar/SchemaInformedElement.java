@@ -23,13 +23,11 @@
 
 package com.siemens.ct.exi.core.grammars.grammar;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -43,7 +41,8 @@ package com.siemens.ct.exi.core.grammars.grammar;
  * n.(m+3).1
  */
 
-public class SchemaInformedElement extends AbstractSchemaInformedContent implements Cloneable {
+public class SchemaInformedElement extends AbstractSchemaInformedContent
+		implements Cloneable {
 
 	public GrammarType getGrammarType() {
 		return GrammarType.SCHEMA_INFORMED_ELEMENT_CONTENT;

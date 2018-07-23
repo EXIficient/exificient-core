@@ -59,8 +59,8 @@ public class AttributeListCoreTest extends XMLTestCase {
 
 		al.addAttribute("", "y", "y", "bla");
 		al.addAttribute("", "x", "x", "bla");
-		al.addAttribute(Constants.XML_SCHEMA_INSTANCE_NS_URI, "nil",
-				"xsi", "false ");
+		al.addAttribute(Constants.XML_SCHEMA_INSTANCE_NS_URI, "nil", "xsi",
+				"false ");
 
 		assertTrue(al.getNumberOfAttributes() == 2);
 		assertTrue(al.hasXsiNil() == true);

@@ -32,11 +32,10 @@ import java.io.OutputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BitOutputStream extends OutputStream {
-	
+
 	public final static int BITS_IN_BYTE = 8;
 
 	/**
@@ -54,16 +53,17 @@ public class BitOutputStream extends OutputStream {
 	 * Underlying output stream to which bits and bytes are written.
 	 */
 	private OutputStream ostream;
-	
+
 	/**
-	 * Fully-written bytes 
+	 * Fully-written bytes
 	 */
 	protected int len;
 
 	/**
 	 * Constructs an instance of this class.
 	 * 
-	 * @param ostream output stream
+	 * @param ostream
+	 *            output stream
 	 */
 	public BitOutputStream(OutputStream ostream) {
 		this.ostream = ostream;
@@ -78,7 +78,7 @@ public class BitOutputStream extends OutputStream {
 	public OutputStream getUnderlyingOutputStream() {
 		return ostream;
 	}
-	
+
 	/**
 	 * Returns the number of bytes written.
 	 * 
@@ -91,7 +91,8 @@ public class BitOutputStream extends OutputStream {
 	/**
 	 * If buffer is full, write it out and reset internal state.
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	protected void flushBuffer() throws IOException {
 		if (capacity == 0) {
@@ -136,7 +137,8 @@ public class BitOutputStream extends OutputStream {
 	 * If there are some unwritten bits, pad them if necessary and write them
 	 * out.
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void align() throws IOException {
 		if (capacity < BITS_IN_BYTE) {
@@ -150,7 +152,8 @@ public class BitOutputStream extends OutputStream {
 	/**
 	 * Write a single bit 0.
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void writeBit0() throws IOException {
 		buffer <<= 1;
@@ -161,7 +164,8 @@ public class BitOutputStream extends OutputStream {
 	/**
 	 * Write a single bit 1.
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void writeBit1() throws IOException {
 		buffer = (buffer << 1) | 0x1;
@@ -173,8 +177,10 @@ public class BitOutputStream extends OutputStream {
 	 * Write the least significant bit of parameter b into the internal buffer,
 	 * flushing it if necessary.
 	 * 
-	 * @param b bit
-	 * @throws IOException IO exception
+	 * @param b
+	 *            bit
+	 * @throws IOException
+	 *             IO exception
 	 */
 	protected void writeBit(int b) throws IOException {
 		buffer = (buffer << 1) | (b & 0x1);
@@ -186,9 +192,12 @@ public class BitOutputStream extends OutputStream {
 	 * Write the n least significant bits of parameter b starting with the most
 	 * significant, i.e. from left to right.
 	 * 
-	 * @param b bits
-	 * @param n number of bits
-	 * @throws IOException IO exception
+	 * @param b
+	 *            bits
+	 * @param n
+	 *            number of bits
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void writeBits(int b, int n) throws IOException {
 		if (n <= capacity) {
@@ -226,8 +235,10 @@ public class BitOutputStream extends OutputStream {
 	 * Ignore current buffer, and write a byte directly to the underlying
 	 * stream.
 	 * 
-	 * @param b byte
-	 * @throws IOException IO exception
+	 * @param b
+	 *            byte
+	 * @throws IOException
+	 *             IO exception
 	 */
 	protected void writeDirectByte(int b) throws IOException {
 		ostream.write(b);
@@ -238,10 +249,14 @@ public class BitOutputStream extends OutputStream {
 	 * Ignore current buffer, and write a sequence of bytes directly to the
 	 * underlying stream.
 	 * 
-	 * @param b byte array
-	 * @param off byte array offset
-	 * @param len byte array length
-	 * @throws IOException IO exception
+	 * @param b
+	 *            byte array
+	 * @param off
+	 *            byte array offset
+	 * @param len
+	 *            byte array length
+	 * @throws IOException
+	 *             IO exception
 	 */
 	protected void writeDirectBytes(byte[] b, int off, int len)
 			throws IOException {

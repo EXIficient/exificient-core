@@ -30,15 +30,14 @@ import com.siemens.ct.exi.core.grammars.event.Event;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface SchemaInformedGrammar extends Grammar {
 
 	public void addTerminalProduction(Event event);
-	
+
 	public int getNumberOfDeclaredAttributes();
-	
+
 	public int getLeastAttributeEventCode();
 
 	/*
@@ -52,7 +51,5 @@ public interface SchemaInformedGrammar extends Grammar {
 	 * clones schema-informed rule
 	 */
 	public SchemaInformedGrammar duplicate();
-	
-	
 
 }

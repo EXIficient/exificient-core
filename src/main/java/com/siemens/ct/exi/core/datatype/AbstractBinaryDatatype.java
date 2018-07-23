@@ -31,14 +31,14 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractBinaryDatatype extends AbstractDatatype {
 
-	public AbstractBinaryDatatype(BuiltInType binaryType, QNameContext schemaType) {
+	public AbstractBinaryDatatype(BuiltInType binaryType,
+			QNameContext schemaType) {
 		super(binaryType, schemaType);
 		assert (binaryType == BuiltInType.BINARY_BASE64 || binaryType == BuiltInType.BINARY_HEX);
 	}
-	
+
 }

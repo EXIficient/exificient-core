@@ -569,7 +569,7 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(s.equals(getByteDecoder().decodeDateTimeValue(type)
 				.toString()));
 	}
-	
+
 	public void testDatetimeEquals1() throws IOException {
 		// all the same times
 		String s1 = "2015-08-11T23:00:00+09:00";
@@ -585,12 +585,12 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime2 != null);
 		assertTrue(datetime3 != null);
 		assertTrue(datetime4 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		DateTimeValue datetime3Norm =  datetime3.normalize();
-		DateTimeValue datetime4Norm =  datetime4.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+		DateTimeValue datetime3Norm = datetime3.normalize();
+		DateTimeValue datetime4Norm = datetime4.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime2.equals(datetime3));
 		assertTrue(datetime3.equals(datetime4));
@@ -599,9 +599,9 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime2Norm.equals(datetime3));
 		assertTrue(datetime3Norm.equals(datetime4));
 		assertTrue(datetime4Norm.equals(datetime1));
-		
+
 	}
-	
+
 	public void testDatetimeEquals2() throws IOException {
 		// all the same times
 		String s1 = "2015-08-11T24:00:00-07:30";
@@ -611,20 +611,20 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
-		
+
 		// canonical EXI without utcTime normalization
 		assertTrue(datetime1.time == 0);
-		assertTrue(datetime1.monthDay == (8*32) + 11 +1); // 	Month * 32 + Day 
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		
+		assertTrue(datetime1.monthDay == (8 * 32) + 11 + 1); // Month * 32 + Day
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime2.equals(datetime1Norm));
 		assertTrue(datetime2Norm.equals(datetime1Norm));
 		assertTrue(datetime1.equals(datetime2Norm));
 	}
-	
+
 	public void testDatetimeNormalize1() throws IOException {
 		// all the same times, no timezone
 		String s1 = "2015-08-11T24:00:00";
@@ -634,17 +634,17 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		// DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
 		assertTrue(datetime1 != null);
 		// assertTrue(datetime2 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		// DateTimeValue datetime2Norm =  datetime2.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		// DateTimeValue datetime2Norm = datetime2.normalize();
+
 		assertTrue(datetime1Norm.year == 2015);
-		assertTrue(datetime1Norm.monthDay == (8*32 + 12)); // Month * 32 + Day 
-		assertTrue(datetime1Norm.time == 0);  // ((Hour * 64) + Minutes) * 64 + seconds 
+		assertTrue(datetime1Norm.monthDay == (8 * 32 + 12)); // Month * 32 + Day
+		assertTrue(datetime1Norm.time == 0); // ((Hour * 64) + Minutes) * 64 +
+												// seconds
 		assertTrue(datetime1Norm.presenceTimezone == false);
 	}
 
-	
 	public void testDatetimeEquals3() throws IOException {
 		// all the same times
 		String s1 = "2015-08-11T16:00:00-08:00";
@@ -660,12 +660,12 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime2 != null);
 		assertTrue(datetime3 != null);
 		assertTrue(datetime4 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		DateTimeValue datetime3Norm =  datetime3.normalize();
-		DateTimeValue datetime4Norm =  datetime4.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+		DateTimeValue datetime3Norm = datetime3.normalize();
+		DateTimeValue datetime4Norm = datetime4.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime2.equals(datetime3));
 		assertTrue(datetime3.equals(datetime4));
@@ -675,7 +675,7 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime3Norm.equals(datetime4));
 		assertTrue(datetime4Norm.equals(datetime1));
 	}
-	
+
 	public void testDatetimeEquals4() throws IOException {
 		// all the same times
 		String s1 = "2000-03-04T23:00:00+03:00";
@@ -685,17 +685,16 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime2.equals(datetime1Norm));
 		assertTrue(datetime2Norm.equals(datetime1Norm));
 		assertTrue(datetime1.equals(datetime2Norm));
 	}
-	
-	
+
 	public void testDatetimeEquals5() throws IOException {
 		// all the same times
 		String s1 = "2012-02-28T20:00:00-08:00";
@@ -708,11 +707,11 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
 		assertTrue(datetime3 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		DateTimeValue datetime3Norm =  datetime3.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+		DateTimeValue datetime3Norm = datetime3.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime1.equals(datetime3));
 		assertTrue(datetime3.equals(datetime2));
@@ -721,32 +720,30 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		assertTrue(datetime1.equals(datetime2Norm));
 		assertTrue(datetime1.equals(datetime3Norm));
 	}
-	
-	
+
 	public void testDatetimeEquals6() throws IOException {
 		String s1 = "1999-12-31T24:00:00Z";
 		String s2 = "2000-01-01T00:00:00Z";
 		DateTimeType type = DateTimeType.dateTime;
 		DateTimeValue datetime1 = DateTimeValue.parse(s1, type);
-		
+
 		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
 		// "the hour value MUST not be 24"
 		assertTrue(datetime1Norm.year == 2000);
 		assertTrue(datetime1Norm.monthDay == (1 * 32 + 1));
 		assertTrue(datetime1Norm.time == 0); // time==98304 --> hour == 24
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		
+		DateTimeValue datetime2Norm = datetime2.normalize();
+
 		assertTrue(datetime1.equals(datetime2));
 		assertTrue(datetime2.equals(datetime1Norm));
 		assertTrue(datetime2Norm.equals(datetime1Norm));
 		assertTrue(datetime1.equals(datetime2Norm));
 	}
-	
-	
+
 	public void testDatetimeNotEquals1() throws IOException {
 		// not the same times w.r.t. leap second
 		String s1 = "2012-06-30T23:59:60-06:00";
@@ -756,16 +753,16 @@ public class DatetimeCoreTest extends AbstractCoreTestCase {
 		DateTimeValue datetime2 = DateTimeValue.parse(s2, type);
 		assertTrue(datetime1 != null);
 		assertTrue(datetime2 != null);
-		
-		DateTimeValue datetime1Norm =  datetime1.normalize();
-		DateTimeValue datetime2Norm =  datetime2.normalize();
-		
+
+		DateTimeValue datetime1Norm = datetime1.normalize();
+		DateTimeValue datetime2Norm = datetime2.normalize();
+
 		assertFalse(datetime1.equals(datetime2));
 		assertFalse(datetime2.equals(datetime1Norm));
 		assertFalse(datetime2Norm.equals(datetime1Norm));
 		assertFalse(datetime1.equals(datetime2Norm));
 	}
-	
+
 	public void testDatetimeFail1() throws IOException {
 		String s = "12:34:XXX";
 		DateTimeType type = DateTimeType.time;

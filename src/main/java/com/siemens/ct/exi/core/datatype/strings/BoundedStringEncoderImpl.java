@@ -33,7 +33,6 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BoundedStringEncoderImpl extends StringEncoderImpl {
@@ -50,8 +49,8 @@ public class BoundedStringEncoderImpl extends StringEncoderImpl {
 	/* globalID mapping: index -> string value */
 	protected ValueContainer[] globalIdMapping;
 
-	public BoundedStringEncoderImpl(boolean localValuePartitions, int valueMaxLength,
-			int valuePartitionCapacity) {
+	public BoundedStringEncoderImpl(boolean localValuePartitions,
+			int valueMaxLength, int valuePartitionCapacity) {
 		super(localValuePartitions);
 		this.valueMaxLength = valueMaxLength;
 		this.valuePartitionCapacity = valuePartitionCapacity;
@@ -105,14 +104,14 @@ public class BoundedStringEncoderImpl extends StringEncoderImpl {
 
 					// free local
 					this.freeStringValue(vcFree.context, vcFree.localValueID);
-					
+
 					// remove global
 					stringValues.remove(vcFree.value);
 				}
 
 				// add global
 				stringValues.put(value, vc);
-				
+
 				// add local
 				this.addLocalValue(context, new StringValue(value));
 
@@ -120,13 +119,13 @@ public class BoundedStringEncoderImpl extends StringEncoderImpl {
 			}
 		}
 	}
-	
+
 	protected void freeStringValue(QNameContext qnc, int localValueID) {
-		if(this.localValuePartitions) {
-			 assert(localValues.get(qnc) != null);
+		if (this.localValuePartitions) {
+			assert (localValues.get(qnc) != null);
 			List<StringValue> lvs = this.localValues.get(qnc);
-			assert(localValueID < lvs.size());
-			assert(lvs.get(localValueID) != null);
+			assert (localValueID < lvs.size());
+			assert (lvs.get(localValueID) != null);
 			lvs.set(localValueID, null);
 		}
 	}

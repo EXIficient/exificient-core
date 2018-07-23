@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DecimalValue extends AbstractValue {
@@ -40,9 +39,9 @@ public class DecimalValue extends AbstractValue {
 	protected final boolean negative;
 	protected final IntegerValue integral;
 	protected final IntegerValue revFractional;
-	
+
 	protected BigDecimal bd;
-	
+
 	/* Helper for building strings */
 	protected StringBuilder sbHelper;
 
@@ -50,14 +49,15 @@ public class DecimalValue extends AbstractValue {
 			IntegerValue revFractional) {
 		super(ValueType.DECIMAL);
 		// normalize "-0.0" to "0.0"
-		if (negative && IntegerValue.ZERO.equals(integral) && IntegerValue.ZERO.equals(revFractional) ) {
+		if (negative && IntegerValue.ZERO.equals(integral)
+				&& IntegerValue.ZERO.equals(revFractional)) {
 			negative = false;
 		}
 		this.negative = negative;
 		this.integral = integral;
 		this.revFractional = revFractional;
 	}
-	
+
 	public boolean isNegative() {
 		return negative;
 	}
@@ -65,28 +65,29 @@ public class DecimalValue extends AbstractValue {
 	public IntegerValue getIntegral() {
 		return integral;
 	}
-	
+
 	public IntegerValue getRevFractional() {
 		return revFractional;
 	}
-	
-	
+
 	public static DecimalValue parse(BigDecimal decimal) {
 		// e.g, -1.30
 		boolean negative = decimal.signum() == -1;
-		if(negative) {
-			decimal = decimal.negate();	
+		if (negative) {
+			decimal = decimal.negate();
 		}
-		
+
 		// Fractional part (e.g, 0.30)
 		BigDecimal fractional = decimal.remainder(BigDecimal.ONE);
-		
-		IntegerValue revFractional =  IntegerValue.parse(reverseString(fractional.toPlainString().substring(2)));
-		
+
+		IntegerValue revFractional = IntegerValue
+				.parse(reverseString(fractional.toPlainString().substring(2)));
+
 		// integral part
-		IntegerValue integral = IntegerValue.valueOf(decimal.subtract(fractional).toBigInteger());
-		
-		return new DecimalValue(negative, integral, revFractional);	
+		IntegerValue integral = IntegerValue.valueOf(decimal.subtract(
+				fractional).toBigInteger());
+
+		return new DecimalValue(negative, integral, revFractional);
 	}
 
 	public static DecimalValue parse(String decimal) {
@@ -123,7 +124,7 @@ public class DecimalValue extends AbstractValue {
 			} else {
 				sIntegral = IntegerValue.parse(decimal.substring(0, decPoint));
 				sRevFractional = IntegerValue.parse(reverseString(decimal
-								.substring(decPoint + 1, decimal.length())));
+						.substring(decPoint + 1, decimal.length())));
 			}
 			if (sIntegral == null || sRevFractional == null) {
 				return null;
@@ -134,7 +135,7 @@ public class DecimalValue extends AbstractValue {
 			return null;
 		}
 	}
-	
+
 	private static String reverseString(String s) {
 		// TODO look for more efficient way to reverse string
 		return new StringBuilder(s).reverse().toString();
@@ -178,17 +179,17 @@ public class DecimalValue extends AbstractValue {
 			break;
 		case BIG:
 			// TODO look for a more suitable way, big integer
-			if(sbHelper == null) {
+			if (sbHelper == null) {
 				sbHelper = new StringBuilder(revFractional.bval.toString());
 			} else {
 				sbHelper.setLength(0);
 				sbHelper.append(revFractional.bval.toString());
 			}
 			sbHelper = sbHelper.reverse();
-			
+
 			int len = sbHelper.length();
 			sbHelper.getChars(0, len, cbuffer, offset);
-			
+
 			break;
 		default:
 			/* ERROR */
@@ -198,7 +199,7 @@ public class DecimalValue extends AbstractValue {
 
 		// return cbuffer;
 	}
-	
+
 	private final boolean _equals(DecimalValue o) {
 		return (negative == o.negative && integral.equals(o.integral) && revFractional
 				.equals(o.revFractional));
@@ -216,10 +217,11 @@ public class DecimalValue extends AbstractValue {
 			return dv == null ? false : _equals(dv);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return (negative ? 1 : 0) ^ integral.hashCode() ^ revFractional.hashCode();
+		return (negative ? 1 : 0) ^ integral.hashCode()
+				^ revFractional.hashCode();
 	}
 
 }

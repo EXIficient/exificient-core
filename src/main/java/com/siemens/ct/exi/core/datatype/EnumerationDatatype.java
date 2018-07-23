@@ -33,13 +33,13 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
-public class EnumerationDatatype extends AbstractDatatype implements EnumDatatype {
+public class EnumerationDatatype extends AbstractDatatype implements
+		EnumDatatype {
 
 	protected Datatype dtEnumValues;
-	
+
 	protected int codingLength;
 	protected Value[] enumValues;
 
@@ -47,19 +47,21 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 			QNameContext schemaType) {
 		super(BuiltInType.ENUMERATION, schemaType);
 
-		if(dtEnumValues.getBuiltInType() != BuiltInType.QNAME && dtEnumValues.getBuiltInType() != BuiltInType.ENUMERATION) {
+		if (dtEnumValues.getBuiltInType() != BuiltInType.QNAME
+				&& dtEnumValues.getBuiltInType() != BuiltInType.ENUMERATION) {
 			this.dtEnumValues = dtEnumValues;
 			this.enumValues = enumValues;
 			this.codingLength = MethodsBag.getCodingLength(enumValues.length);
 		} else {
-			throw new RuntimeException("Enumeration type values can't be of type Enumeration or QName");
+			throw new RuntimeException(
+					"Enumeration type values can't be of type Enumeration or QName");
 		}
 	}
-	
+
 	public Datatype getEnumValueDatatype() {
 		return dtEnumValues;
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return dtEnumValues.getDatatypeID();
 	}
@@ -72,19 +74,19 @@ public class EnumerationDatatype extends AbstractDatatype implements EnumDatatyp
 		return codingLength;
 	}
 
-
 	public Value getEnumValue(int i) {
 		assert (i >= 0 && i < enumValues.length);
 		return enumValues[i];
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(super.equals(o) && o instanceof EnumerationDatatype ) {
+		if (super.equals(o) && o instanceof EnumerationDatatype) {
 			EnumerationDatatype e = (EnumerationDatatype) o;
-			if(this.dtEnumValues.equals(e.dtEnumValues) && this.enumValues.length == e.enumValues.length ) {
-				for(int i=0; i<this.enumValues.length; i++) {
-					if(!this.enumValues[i].equals(e.enumValues[i])) {
+			if (this.dtEnumValues.equals(e.dtEnumValues)
+					&& this.enumValues.length == e.enumValues.length) {
+				for (int i = 0; i < this.enumValues.length; i++) {
+					if (!this.enumValues[i].equals(e.enumValues[i])) {
 						return false;
 					}
 				}

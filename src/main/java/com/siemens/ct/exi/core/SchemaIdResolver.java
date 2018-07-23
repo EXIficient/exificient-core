@@ -49,7 +49,6 @@ import com.siemens.ct.exi.core.grammars.Grammars;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface SchemaIdResolver {
@@ -57,9 +56,11 @@ public interface SchemaIdResolver {
 	/**
 	 * Resolves schemaId to an actual grammar representation.
 	 * 
-	 * @param schemaId schemaId
+	 * @param schemaId
+	 *            schemaId
 	 * @return Grammars grammars
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 */
 	public Grammars resolveSchemaId(String schemaId) throws EXIException;
 

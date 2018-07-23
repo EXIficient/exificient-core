@@ -23,7 +23,6 @@
 
 package com.siemens.ct.exi.core.values;
 
-
 /**
  * Value is a container concept encapsulating value items, e.g. String Values
  * but also Integers, Floats etc.
@@ -31,7 +30,6 @@ package com.siemens.ct.exi.core.values;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface Value {
@@ -47,24 +45,27 @@ public interface Value {
 	 */
 	public ValueType getValueType();
 
-	
 	/**
 	 * Returns character array containing the values represented as String
 	 * representation for XML.
-	 * <p>Please consider using getCharacters(char[] cbuffer, int offset).</p>
+	 * <p>
+	 * Please consider using getCharacters(char[] cbuffer, int offset).
+	 * </p>
 	 * 
 	 * @return string representation of value
 	 */
 	public char[] getCharacters();
-	
+
 	/**
 	 * Fills character array with the value represented as String
 	 * 
-	 * @param cbuffer character buffer
-	 * @param offset character buffer offset
+	 * @param cbuffer
+	 *            character buffer
+	 * @param offset
+	 *            character buffer offset
 	 */
 	public void getCharacters(char[] cbuffer, int offset);
-	
+
 	/**
 	 * Length of string representation
 	 * 
@@ -76,8 +77,10 @@ public interface Value {
 	 * Returns string representation by making use of the passed character
 	 * array.
 	 * 
-	 * @param cbuffer character buffer
-	 * @param offset character buffer offset
+	 * @param cbuffer
+	 *            character buffer
+	 * @param offset
+	 *            character buffer offset
 	 * @return String representation
 	 */
 	public String toString(char[] cbuffer, int offset);
@@ -91,6 +94,5 @@ public interface Value {
 	 */
 	@Override
 	public String toString();
-	
 
 }

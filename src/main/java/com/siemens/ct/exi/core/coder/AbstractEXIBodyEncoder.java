@@ -70,7 +70,6 @@ import com.siemens.ct.exi.core.values.ValueType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
@@ -80,7 +79,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	/** prefix of previous start element (relevant for preserving prefixes) */
 	protected String sePrefix = null;
-	
+
 	/** URI of previous start element (relevant for preserving prefixes) */
 	protected String seUri = null;
 
@@ -104,7 +103,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	/** contains last event type */
 	protected EventType lastEvent;
-	
+
 	private final String MISUSE_OF_PRESERVE_PREFIXES_ERROR = "A prefix with value null cannot be used in Preserve.Prefixes mode. Report prefix or set your XML reader to do so. e.g., SAX xmlReader.setFeature(\"http://xml.org/sax/features/namespaces\", true); and xmlReader.setFeature(\"http://xml.org/sax/features/namespace-prefixes\", false);";
 
 	public AbstractEXIBodyEncoder(EXIFactory exiFactory) throws EXIException {
@@ -124,10 +123,10 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 		learnedProductions = 0;
 		stringEncoder.clear();
-		if(this.exiFactory.getSharedStrings() != null) {
+		if (this.exiFactory.getSharedStrings() != null) {
 			stringEncoder.setSharedStrings(this.exiFactory.getSharedStrings());
 		}
-		
+
 		bChars.clear();
 		isXmlSpacePreserve = false;
 	}
@@ -166,11 +165,11 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 	protected void encodeQNamePrefix(QNameContext qnContext, String prefix,
 			EncoderChannel channel) throws IOException, EXIException {
-		
-		if(prefix == null) {
+
+		if (prefix == null) {
 			throwWarning(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
 		}
-		
+
 		int namespaceUriID = qnContext.getNamespaceUriID();
 
 		if (namespaceUriID == 0) {
@@ -179,12 +178,12 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		} else {
 			RuntimeUriContext ruc = this.getUri(namespaceUriID);
 			int numberOfPrefixes = ruc.getNumberOfPrefixes();
-			if(numberOfPrefixes == 0) {
+			if (numberOfPrefixes == 0) {
 				// If there are no prefixes specified for the
 				// URI of the QName by preceding NS events in the EXI stream,
 				// the prefix is undefined. An undefined prefix is represented
 				// using zero bits (i.e., omitted).
-				// --> requires following NS 
+				// --> requires following NS
 			} else if (numberOfPrefixes == 1) {
 				// If there is only one prefix, the prefix is implicit
 			} else {
@@ -371,7 +370,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 
 		sePrefix = prefix;
 		seUri = uri;
-		
+
 		Production ei;
 
 		Grammar updContextRule;
@@ -554,8 +553,8 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			if (pfx == null) {
 				// no prefixes for XSD haven been declared so far
 				pfx = "xsdP";
-				this.encodeNamespaceDeclaration(
-						Constants.XML_SCHEMA_NS_URI, pfx);
+				this.encodeNamespaceDeclaration(Constants.XML_SCHEMA_NS_URI,
+						pfx);
 			}
 		}
 		QNameValue type = new QNameValue(Constants.XML_SCHEMA_NS_URI,
@@ -564,7 +563,6 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 		// needed to avoid grammar learning
 		this.encodeAttributeXsiType(type, pfx, true);
 	}
-	
 
 	public void encodeNamespaceDeclaration(String uri, String prefix)
 			throws EXIException, IOException {
@@ -585,7 +583,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			encodeNamespacePrefix(euc, prefix, channel);
 
 			// local-element-ns
-			if(sePrefix == null) {
+			if (sePrefix == null) {
 				// the prefix was not properly reported
 				throwWarning(MISUSE_OF_PRESERVE_PREFIXES_ERROR);
 				// try to fix that issue by checking URI
@@ -593,8 +591,6 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			} else {
 				channel.encodeBoolean(prefix.equals(sePrefix));
 			}
-			
-			
 
 			lastEvent = EventType.NAMESPACE_DECLARATION;
 		}
@@ -635,8 +631,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 					this.insertXsiTypeAnyType();
 					currentGrammar = getCurrentGrammar();
 					// encode 1st level EventCode
-					ei = currentGrammar
-							.getProduction(EventType.END_ELEMENT);
+					ei = currentGrammar.getProduction(EventType.END_ELEMENT);
 					assert (ei != null);
 					encode1stLevelEventCode(ei.getEventCode());
 					break;
@@ -880,20 +875,19 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			boolean validNilValue = false;
 			if (nil instanceof BooleanValue) {
 				validNil = true;
-				validNilValue = ((BooleanValue)nil).toBoolean();
+				validNilValue = ((BooleanValue) nil).toBoolean();
 			} else {
 				BooleanValue bv = BooleanValue.parse(nil.toString());
-				if(bv != null) {
+				if (bv != null) {
 					validNil = true;
 					validNilValue = bv.toBoolean();
 				}
 			}
-			
+
 			if (validNil) { // booleanDatatype.isValid(nil)) {
 
 				// Note: in some cases we can simply skip the xsi:nil event
-				if (!preserveLexicalValues
-						&& !validNilValue //  !booleanDatatype.getBoolean()
+				if (!preserveLexicalValues && !validNilValue // !booleanDatatype.getBoolean()
 						&& !this.encodingOptions
 								.isOptionEnabled(EncodingOptions.INCLUDE_INSIGNIFICANT_XSI_NIL)) {
 					return;
@@ -920,7 +914,8 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 					} else {
 						// typed
 						channel.encodeBoolean(validNilValue);
-//						booleanDatatype.writeValue(null, channel, stringEncoder);
+						// booleanDatatype.writeValue(null, channel,
+						// stringEncoder);
 					}
 
 					if (validNilValue) { // jump to typeEmpty
@@ -935,8 +930,7 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 						encode1stLevelEventCode(ei.getEventCode());
 						// qname & prefix
 						RuntimeUriContext euc = encodeUri(
-								Constants.XML_SCHEMA_INSTANCE_NS_URI,
-								channel);
+								Constants.XML_SCHEMA_INSTANCE_NS_URI, channel);
 						encodeLocalName(Constants.XSI_NIL, euc, channel);
 						if (this.preservePrefix) {
 							encodeQNamePrefix(getXsiNilContext(), pfx, channel);
@@ -952,7 +946,8 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 						} else {
 							// typed
 							channel.encodeBoolean(validNilValue);
-							// booleanDatatype.writeValue(null, channel, stringEncoder);
+							// booleanDatatype.writeValue(null, channel,
+							// stringEncoder);
 						}
 
 						if (validNilValue) { // jump to typeEmpty

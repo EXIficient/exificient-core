@@ -53,7 +53,6 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EXIHeaderEncoder extends AbstractEXIHeader {
@@ -192,8 +191,7 @@ public class EXIHeaderEncoder extends AbstractEXIHeader {
 								.getMaximumNumberOfBuiltInProductions());
 
 						QNameValue qnv = new QNameValue(
-								Constants.XML_SCHEMA_NS_URI, "decimal",
-								null);
+								Constants.XML_SCHEMA_NS_URI, "decimal", null);
 						encoder.encodeAttributeXsiType(qnv, null);
 						DecimalValue dv = new DecimalValue(negative, integral,
 								revFractional);

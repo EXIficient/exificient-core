@@ -35,7 +35,6 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DateTimeValue extends AbstractValue {
@@ -72,53 +71,52 @@ public class DateTimeValue extends AbstractValue {
 	int sizeFractionalSecs = -1;
 
 	public DateTimeValue(DateTimeType type, int year, int monthDay, int time,
-			int fractionalSecs,
-			boolean presenceTimezone, int timezone) {
-		this(type, year, monthDay, time,
-				fractionalSecs, presenceTimezone, timezone, false);
+			int fractionalSecs, boolean presenceTimezone, int timezone) {
+		this(type, year, monthDay, time, fractionalSecs, presenceTimezone,
+				timezone, false);
 	}
 
 	private DateTimeValue(DateTimeType type, int year, int monthDay, int time,
-			int fractionalSecs,
-			boolean presenceTimezone, int timezone, boolean normalized) {
+			int fractionalSecs, boolean presenceTimezone, int timezone,
+			boolean normalized) {
 		super(ValueType.DATETIME);
 		this.type = type;
-		// Time: ((Hour * 64) + Minutes) * 64 + seconds 
+		// Time: ((Hour * 64) + Minutes) * 64 + seconds
 		// Canonical EXI: The Hour value MUST NOT be 24
 		{
 			int hour = time / (64 * 64);
-			if(hour == 24) {
+			if (hour == 24) {
 				time -= hour * (64 * 64);
 				int minute = time / 64;
 				time -= minute * 64; // second
-				
+
 				// add one day / set hour to zero
 				monthDay++;
 				hour = 0;
 				// adapt time
-				time = ((hour * 64) + minute) * 64 + time; 
-				
+				time = ((hour * 64) + minute) * 64 + time;
+
 				// month & day
 				// e.g., 1999-12-31T24:00:00Z --> 2000-01-01T00:00:00Z
 				int month = monthDay / MONTH_MULTIPLICATOR;
 				int day = monthDay - (month * MONTH_MULTIPLICATOR);
-				
-				if(month == 13) {
+
+				if (month == 13) {
 					year++;
 					month = 1;
 					day = 1;
-					monthDay = month * 32 + day ;
+					monthDay = month * 32 + day;
 				}
-				
-				
+
 			}
 		}
 		this.time = time;
-		// 
+		//
 		this.year = year;
-		this.monthDay = monthDay; // Month * 32 + Day 
+		this.monthDay = monthDay; // Month * 32 + Day
 		this.fractionalSecs = fractionalSecs;
-		// Canonical EXI: Fractional seconds component MUST be omitted if its value is zero
+		// Canonical EXI: Fractional seconds component MUST be omitted if its
+		// value is zero
 		this.presenceFractionalSecs = (this.fractionalSecs != 0);
 		this.presenceTimezone = presenceTimezone;
 		this.timezone = timezone;
@@ -243,8 +241,7 @@ public class DateTimeValue extends AbstractValue {
 			}
 
 			return new DateTimeValue(type, sYear, sMonthDay, sTime,
-					sFractionalSecs,
-					sPresenceTimezone, sTimezone);
+					sFractionalSecs, sPresenceTimezone, sTimezone);
 		} catch (RuntimeException e) {
 			return null;
 		} catch (XMLParsingException e) {
@@ -359,8 +356,10 @@ public class DateTimeValue extends AbstractValue {
 	 * Encode Date-Time as a sequence of values representing the individual
 	 * components of the Date-Time.
 	 * 
-	 * @param cal calendar
-	 * @param type date-time type
+	 * @param cal
+	 *            calendar
+	 * @param type
+	 *            date-time type
 	 * @return date-time value
 	 */
 	public static DateTimeValue parse(Calendar cal, DateTimeType type) {
@@ -403,15 +402,15 @@ public class DateTimeValue extends AbstractValue {
 		}
 
 		return new DateTimeValue(type, sYear, sMonthDay, sTime,
-				sFractionalSecs, sPresenceTimezone,
-				sTimezone);
+				sFractionalSecs, sPresenceTimezone, sTimezone);
 	}
 
 	/**
 	 * Returns monthDay representation defined in the EXI format (Month * 32 +
 	 * Day)
 	 * 
-	 * @param cal calendar 
+	 * @param cal
+	 *            calendar
 	 * @return monthDay
 	 */
 	public static int getMonthDay(Calendar cal) {
@@ -426,7 +425,8 @@ public class DateTimeValue extends AbstractValue {
 	 * Returns time representation defined in the EXI format ((Hour * 64) +
 	 * Minutes) * 64 + seconds
 	 * 
-	 * @param cal calendar 
+	 * @param cal
+	 *            calendar
 	 * @return time representation
 	 */
 	public static int getTime(Calendar cal) {
@@ -480,8 +480,10 @@ public class DateTimeValue extends AbstractValue {
 	 * Sets month and day of the given calendar making use of of the monthDay
 	 * representation defined in EXI format
 	 * 
-	 * @param monthDay monthDay
-	 * @param cal calendar
+	 * @param monthDay
+	 *            monthDay
+	 * @param cal
+	 *            calendar
 	 */
 	protected static void setMonthDay(int monthDay, Calendar cal) {
 		// monthDay = month * 32 + day;
@@ -495,8 +497,10 @@ public class DateTimeValue extends AbstractValue {
 	 * Sets hour, minute and second of the given calendar making use of of the
 	 * time representation defined in EXI format
 	 * 
-	 * @param time time
-	 * @param cal calendar
+	 * @param time
+	 *            time
+	 * @param cal
+	 *            calendar
 	 */
 	protected static void setTime(int time, Calendar cal) {
 		// ((Hour * 64) + Minutes) * 64 + seconds
@@ -512,7 +516,8 @@ public class DateTimeValue extends AbstractValue {
 	/**
 	 * Returns time-zone in minutes offset
 	 * 
-	 * @param cal calendar
+	 * @param cal
+	 *            calendar
 	 * @return time-zone in minutes offset
 	 */
 	protected static int getTimeZoneInMinutesOffset(Calendar cal) {
@@ -523,7 +528,8 @@ public class DateTimeValue extends AbstractValue {
 	/**
 	 * Returns time-zone offset in millisecs according to the given minutes
 	 * 
-	 * @param minutes minutes
+	 * @param minutes
+	 *            minutes
 	 * @return time-zone offset in millisecs
 	 */
 	protected static int getTimeZoneInMillisecs(int minutes) {
@@ -874,18 +880,18 @@ public class DateTimeValue extends AbstractValue {
 		time -= hour * SECONDS_IN_HOUR;
 		int minutes = time / SECONDS_IN_MINUTE;
 		int seconds = time - minutes * SECONDS_IN_MINUTE;
-		
+
 		// start Algorithm with not touching seconds to support leap-seconds
 		// https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#adding-durations-to-dateTimes
-//		if(seconds > 59) {
-//			seconds -= 60; // remove one minute
-//			minutes++; // adds one minute
-//		}
-//		if(minutes > 59) {
-//			minutes -= 60; // remove an hour
-//			hour++; // add one hour
-//		}
-		
+		// if(seconds > 59) {
+		// seconds -= 60; // remove one minute
+		// minutes++; // adds one minute
+		// }
+		// if(minutes > 59) {
+		// minutes -= 60; // remove an hour
+		// hour++; // add one hour
+		// }
+
 		// timezone, per default 'Z'
 		int tzMinutes = 0;
 		int tzHours = 0;
@@ -896,8 +902,6 @@ public class DateTimeValue extends AbstractValue {
 			// minutes
 			tzMinutes = tz - (tzHours * 64);
 		}
-
-		
 
 		final int negate = -1;
 
@@ -950,16 +954,14 @@ public class DateTimeValue extends AbstractValue {
 		int monthDay = month * 32 + day; // Month * 32 + Day
 		time = ((hour * 64) + minutes) * 64 + seconds;// ((Hour * 64) + Minutes)
 														// * 64 + seconds
-		
+
 		// TODO add timezone ONLY if timezone was present before
 		boolean presenceTimezone = this.presenceTimezone; // true;
 		int timezone = 0;
 
 		return new DateTimeValue(this.type, year, monthDay, time,
-				fractionalSecs, presenceTimezone,
-				timezone, true);
+				fractionalSecs, presenceTimezone, timezone, true);
 	}
-
 
 	//
 	// help function described in W3C PR Schema [E Adding durations to
@@ -989,7 +991,7 @@ public class DateTimeValue extends AbstractValue {
 	// dateTimes]
 	//
 	protected int modulo(int a, int low, int high) {
-		// modulo(a - low, high - low) + low 
+		// modulo(a - low, high - low) + low
 		return modulo(a - low, high - low) + low;
 	}
 

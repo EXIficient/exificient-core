@@ -33,7 +33,6 @@ import com.siemens.ct.exi.core.values.IntegerValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class NBitUnsignedIntegerDatatype extends AbstractDatatype {
@@ -57,7 +56,7 @@ public class NBitUnsignedIntegerDatatype extends AbstractDatatype {
 		IntegerValue diff = upperBound.subtract(lowerBound);
 		numberOfBits4Range = MethodsBag.getCodingLength(diff.intValue() + 1);
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_integer;
 	}
@@ -74,50 +73,53 @@ public class NBitUnsignedIntegerDatatype extends AbstractDatatype {
 		return numberOfBits4Range;
 	}
 
-//	protected boolean isValidString(String value) {
-//		validValue = IntegerValue.parse(value);
-//
-//		if (validValue == null) {
-//			return false;
-//		} else {
-//			return checkBounds();
-//		}
-//	}
+	// protected boolean isValidString(String value) {
+	// validValue = IntegerValue.parse(value);
+	//
+	// if (validValue == null) {
+	// return false;
+	// } else {
+	// return checkBounds();
+	// }
+	// }
 
-//	public boolean isValid(Value value) {
-//		if (value instanceof IntegerValue) {
-//			validValue = ((IntegerValue) value);
-//			return checkBounds();
-//		} else {
-//			return isValidString(value.toString());
-//		}
-//	}
-//
-//	// check lower & upper bound
-//	protected boolean checkBounds() {
-//		return (validValue.compareTo(lowerBound) >= 0 && validValue
-//				.compareTo(upperBound) <= 0);
-//	}
-//
-//	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
-//			StringEncoder stringEncoder) throws IOException {
-//		IntegerValue iv = validValue.subtract(lowerBound);
-//		valueChannel.encodeNBitUnsignedInteger(iv.intValue(),
-//				numberOfBits4Range);
-//	}
+	// public boolean isValid(Value value) {
+	// if (value instanceof IntegerValue) {
+	// validValue = ((IntegerValue) value);
+	// return checkBounds();
+	// } else {
+	// return isValidString(value.toString());
+	// }
+	// }
+	//
+	// // check lower & upper bound
+	// protected boolean checkBounds() {
+	// return (validValue.compareTo(lowerBound) >= 0 && validValue
+	// .compareTo(upperBound) <= 0);
+	// }
+	//
+	// public void writeValue(QNameContext qnContext, EncoderChannel
+	// valueChannel,
+	// StringEncoder stringEncoder) throws IOException {
+	// IntegerValue iv = validValue.subtract(lowerBound);
+	// valueChannel.encodeNBitUnsignedInteger(iv.intValue(),
+	// numberOfBits4Range);
+	// }
 
-//	public Value readValue(QNameContext qnContext, DecoderChannel valueChannel,
-//			StringDecoder stringDecoder) throws IOException {
-//		IntegerValue iv = valueChannel
-//				.decodeNBitUnsignedIntegerValue(numberOfBits4Range);
-//		return iv.add(lowerBound);
-//	}
-	
+	// public Value readValue(QNameContext qnContext, DecoderChannel
+	// valueChannel,
+	// StringDecoder stringDecoder) throws IOException {
+	// IntegerValue iv = valueChannel
+	// .decodeNBitUnsignedIntegerValue(numberOfBits4Range);
+	// return iv.add(lowerBound);
+	// }
+
 	@Override
 	public boolean equals(Object o) {
-		if(super.equals(o) && o instanceof NBitUnsignedIntegerDatatype ) {
+		if (super.equals(o) && o instanceof NBitUnsignedIntegerDatatype) {
 			NBitUnsignedIntegerDatatype nb = (NBitUnsignedIntegerDatatype) o;
-			return (this.lowerBound.equals(nb.lowerBound) && this.upperBound.equals(nb.upperBound));
+			return (this.lowerBound.equals(nb.lowerBound) && this.upperBound
+					.equals(nb.upperBound));
 		}
 		return false;
 	}

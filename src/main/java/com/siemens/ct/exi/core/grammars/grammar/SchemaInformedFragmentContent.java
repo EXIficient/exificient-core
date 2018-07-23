@@ -23,13 +23,11 @@
 
 package com.siemens.ct.exi.core.grammars.grammar;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -40,7 +38,8 @@ package com.siemens.ct.exi.core.grammars.grammar;
  * FragmentContent (n+1).1.0 PI FragmentContent (n+1).1.1
  */
 
-public class SchemaInformedFragmentContent extends AbstractSchemaInformedGrammar {
+public class SchemaInformedFragmentContent extends
+		AbstractSchemaInformedGrammar {
 
 	public SchemaInformedFragmentContent() {
 		super();
@@ -50,7 +49,7 @@ public class SchemaInformedFragmentContent extends AbstractSchemaInformedGrammar
 		this();
 		setLabel(label);
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.SCHEMA_INFORMED_FRAGMENT_CONTENT;
 	}

@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface Grammars {
@@ -69,7 +68,8 @@ public interface Grammars {
 	 * them (null and empty string).
 	 * </p>
 	 * 
-	 * @param schemaId schemaId
+	 * @param schemaId
+	 *            schemaId
 	 * @throws UnsupportedOption
 	 *             if schemaId does not respect EXI restrictions (e.g.,
 	 *             schema-less grammars: schemaId == null)
@@ -92,7 +92,7 @@ public interface Grammars {
 
 	public Grammar getFragmentGrammar();
 
-//	public Grammar getUrTypeGrammar();
+	// public Grammar getUrTypeGrammar();
 
 	public GrammarContext getGrammarContext();
 }

@@ -37,24 +37,28 @@ import com.siemens.ct.exi.core.Constants;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class QNameSort implements Comparator<QName> {
 
 	public int compare(QName q1, QName q2) {
-			return compare(q1.getNamespaceURI(), q1.getLocalPart(),
-					q2.getNamespaceURI(), q2.getLocalPart());
+		return compare(q1.getNamespaceURI(), q1.getLocalPart(),
+				q2.getNamespaceURI(), q2.getLocalPart());
 	}
-	
+
 	/**
 	 * Sort lexicographically by qname local-name, then by qname uri
 	 * 
-	 * @param ns1 qname1 namespace
-	 * @param ln1 qname1 local-name
-	 * @param ns2 qname2 namespace
-	 * @param ln2 qname2 local-name
-	 * @return a negative integer, zero, or a positive integer as the first qname is less than, equal to, or greater than the second.
+	 * @param ns1
+	 *            qname1 namespace
+	 * @param ln1
+	 *            qname1 local-name
+	 * @param ns2
+	 *            qname2 namespace
+	 * @param ln2
+	 *            qname2 local-name
+	 * @return a negative integer, zero, or a positive integer as the first
+	 *         qname is less than, equal to, or greater than the second.
 	 */
 	public static int compare(String ns1, String ln1, String ns2, String ln2) {
 		if (ns1 == null) {

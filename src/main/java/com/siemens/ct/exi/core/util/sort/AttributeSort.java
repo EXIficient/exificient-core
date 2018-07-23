@@ -37,13 +37,12 @@ import com.siemens.ct.exi.core.grammars.event.Attribute;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 public class AttributeSort implements Comparator<Attribute> {
 	public int compare(Attribute a1, Attribute a2) {
 		final QName q1 = a1.getQName();
 		final QName q2 = a2.getQName();
-		return QNameSort.compare(q1.getNamespaceURI(), q1.getLocalPart(), q2.getNamespaceURI(),
-				q2.getLocalPart());
+		return QNameSort.compare(q1.getNamespaceURI(), q1.getLocalPart(),
+				q2.getNamespaceURI(), q2.getLocalPart());
 	}
 }

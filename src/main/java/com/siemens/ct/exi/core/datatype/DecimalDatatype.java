@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.values.DecimalValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DecimalDatatype extends AbstractDatatype {
@@ -42,9 +41,9 @@ public class DecimalDatatype extends AbstractDatatype {
 	public DecimalDatatype(QNameContext schemaType) {
 		super(BuiltInType.DECIMAL, schemaType);
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_decimal;
 	}
-	
+
 }

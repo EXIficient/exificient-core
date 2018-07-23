@@ -27,7 +27,8 @@ package com.siemens.ct.exi.core.grammars.event;
  * <p>
  * EventTypes used to represent XML information items in EXI (see <a
  * href="http://www.w3.org/TR/exi/#eventCodeAssignment"> EXI Event Code
- * Assignment</a>).</p>
+ * Assignment</a>).
+ * </p>
  * 
  * <p>
  * Sort all productions with G i, j on the left hand side in the following
@@ -51,7 +52,6 @@ package com.siemens.ct.exi.core.grammars.event;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 // DO NOT CHANGE ORDER!!

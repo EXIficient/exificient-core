@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface TypeEncoder extends TypeCoder {
@@ -44,19 +43,25 @@ public interface TypeEncoder extends TypeCoder {
 	/**
 	 * Checks whether given value is valid according to the datatype.
 	 * 
-	 * @param datatype datatype
-	 * @param value value
+	 * @param datatype
+	 *            datatype
+	 * @param value
+	 *            value
 	 * @return boolean value indicating whether passed value is valid
 	 */
 	public boolean isValid(Datatype datatype, Value value);
 
 	/**
 	 * Writes previously checked valid value to channel.
-	 *  
-	 * @param qnContext context
-	 * @param valueChannel encoder value channel
-	 * @param stringEncoder string encoder
-	 * @throws IOException IO exception
+	 * 
+	 * @param qnContext
+	 *            context
+	 * @param valueChannel
+	 *            encoder value channel
+	 * @param stringEncoder
+	 *            string encoder
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException;

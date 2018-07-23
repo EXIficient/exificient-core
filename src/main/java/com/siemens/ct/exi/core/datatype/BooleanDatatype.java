@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BooleanDatatype extends AbstractDatatype {
@@ -39,9 +38,9 @@ public class BooleanDatatype extends AbstractDatatype {
 	public BooleanDatatype(QNameContext schemaType) {
 		super(BuiltInType.BOOLEAN, schemaType);
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_boolean;
 	}
-	
+
 }

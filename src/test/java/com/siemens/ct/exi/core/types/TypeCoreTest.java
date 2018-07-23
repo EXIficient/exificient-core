@@ -46,80 +46,88 @@ public class TypeCoreTest extends TestCase {
 	}
 
 	public void testInteger1() throws IOException, EXIException {
-		
+
 		TypeEncoder te = new TypedTypeEncoder();
-		
-		QNameContext qnc = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "integer"));
+
+		QNameContext qnc = new QNameContext(-1, -1, new QName(
+				Constants.XML_SCHEMA_NS_URI, "integer"));
 		Datatype dt = new IntegerDatatype(qnc);
-		
+
 		assertTrue(te.isValid(dt, new StringValue("1231")));
 		assertTrue(te.isValid(dt, new StringValue("-331")));
-		assertFalse(te.isValid(dt, new StringValue("xxx")));		
-	}
-	
-	public void testUnsignedInteger1() throws IOException, EXIException {
-		
-		TypeEncoder te = new TypedTypeEncoder();
-		
-		QNameContext qnc = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "unsignedInt"));
-		Datatype dt = new UnsignedIntegerDatatype(qnc);
-		
-		assertTrue(te.isValid(dt, new StringValue("1231")));
-		assertFalse(te.isValid(dt, new StringValue("-331")));
-		assertFalse(te.isValid(dt, new StringValue("xxx")));		
+		assertFalse(te.isValid(dt, new StringValue("xxx")));
 	}
 
-	
-	public void testNBitUnsignedInteger1() throws IOException, EXIException {
-		
+	public void testUnsignedInteger1() throws IOException, EXIException {
+
 		TypeEncoder te = new TypedTypeEncoder();
-		
-		QNameContext qnc = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "unsignedByte"));
-		Datatype dt = new NBitUnsignedIntegerDatatype(IntegerValue.valueOf(0), IntegerValue.valueOf(255), qnc);
-		
+
+		QNameContext qnc = new QNameContext(-1, -1, new QName(
+				Constants.XML_SCHEMA_NS_URI, "unsignedInt"));
+		Datatype dt = new UnsignedIntegerDatatype(qnc);
+
+		assertTrue(te.isValid(dt, new StringValue("1231")));
+		assertFalse(te.isValid(dt, new StringValue("-331")));
+		assertFalse(te.isValid(dt, new StringValue("xxx")));
+	}
+
+	public void testNBitUnsignedInteger1() throws IOException, EXIException {
+
+		TypeEncoder te = new TypedTypeEncoder();
+
+		QNameContext qnc = new QNameContext(-1, -1, new QName(
+				Constants.XML_SCHEMA_NS_URI, "unsignedByte"));
+		Datatype dt = new NBitUnsignedIntegerDatatype(IntegerValue.valueOf(0),
+				IntegerValue.valueOf(255), qnc);
+
 		assertTrue(te.isValid(dt, new StringValue("12")));
 		assertFalse(te.isValid(dt, new StringValue("-3")));
-		assertFalse(te.isValid(dt, new StringValue("xxx")));		
+		assertFalse(te.isValid(dt, new StringValue("xxx")));
 	}
-	
+
 	public void testNBitUnsignedInteger2() throws IOException, EXIException {
-		
+
 		TypeEncoder te = new TypedTypeEncoder();
-		
-		QNameContext qnc = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "byte"));
-		Datatype dt = new NBitUnsignedIntegerDatatype(IntegerValue.valueOf(-128), IntegerValue.valueOf(127), qnc);
-		
+
+		QNameContext qnc = new QNameContext(-1, -1, new QName(
+				Constants.XML_SCHEMA_NS_URI, "byte"));
+		Datatype dt = new NBitUnsignedIntegerDatatype(
+				IntegerValue.valueOf(-128), IntegerValue.valueOf(127), qnc);
+
 		assertTrue(te.isValid(dt, new StringValue("12")));
 		assertTrue(te.isValid(dt, new StringValue("-3")));
-		assertFalse(te.isValid(dt, new StringValue("200")));	
-		assertFalse(te.isValid(dt, new StringValue("xxx")));		
+		assertFalse(te.isValid(dt, new StringValue("200")));
+		assertFalse(te.isValid(dt, new StringValue("xxx")));
 	}
-	
-	
+
 	public void testDTRInteger1() throws IOException, EXIException {
-		
+
 		/* DTR Map */
 		QName type = new QName(Constants.XML_SCHEMA_NS_URI, "integer");
 		QName representation = new QName(Constants.W3C_EXI_NS_URI, "integer");
 		QName[] dtrMapTypes = { type };
 		QName[] dtrMapRepresentations = { representation };
-		TypeEncoder te = new TypedTypeEncoder(dtrMapTypes, dtrMapRepresentations, null);
-		
-		QNameContext qncByte = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "byte"));
-		Datatype dt = new NBitUnsignedIntegerDatatype(IntegerValue.valueOf(-128), IntegerValue.valueOf(127), qncByte);
+		TypeEncoder te = new TypedTypeEncoder(dtrMapTypes,
+				dtrMapRepresentations, null);
+
+		QNameContext qncByte = new QNameContext(-1, -1, new QName(
+				Constants.XML_SCHEMA_NS_URI, "byte"));
+		Datatype dt = new NBitUnsignedIntegerDatatype(
+				IntegerValue.valueOf(-128), IntegerValue.valueOf(127), qncByte);
 		// fake base type to integer and skip short, int, long etc
-//		QNameContext qncInteger = new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "integer"));
-//		qncByte.setSimpleBaseType(qncInteger);
-//		dt.setBaseDatatype(new IntegerDatatype(qncInteger));
-		 dt.setBaseDatatype(new IntegerDatatype(new QNameContext(-1, -1, new QName(Constants.XML_SCHEMA_NS_URI, "integer"))));
-		
+		// QNameContext qncInteger = new QNameContext(-1, -1, new
+		// QName(Constants.XML_SCHEMA_NS_URI, "integer"));
+		// qncByte.setSimpleBaseType(qncInteger);
+		// dt.setBaseDatatype(new IntegerDatatype(qncInteger));
+		dt.setBaseDatatype(new IntegerDatatype(new QNameContext(-1, -1,
+				new QName(Constants.XML_SCHEMA_NS_URI, "integer"))));
+
 		// should allow ONLY byte integer
 		assertTrue(te.isValid(dt, new StringValue("12")));
 		assertTrue(te.isValid(dt, new StringValue("-23")));
 		assertFalse(te.isValid(dt, new StringValue("12999")));
 		assertFalse(te.isValid(dt, new StringValue("-33113")));
-		assertFalse(te.isValid(dt, new StringValue("xxx")));		
+		assertFalse(te.isValid(dt, new StringValue("xxx")));
 	}
-	
 
 }

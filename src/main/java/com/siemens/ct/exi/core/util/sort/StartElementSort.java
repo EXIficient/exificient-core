@@ -37,13 +37,12 @@ import com.siemens.ct.exi.core.grammars.event.StartElement;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 public class StartElementSort implements Comparator<StartElement> {
 	public int compare(StartElement se1, StartElement se2) {
 		final QName q1 = se1.getQName();
 		final QName q2 = se2.getQName();
-		return QNameSort.compare(q1.getNamespaceURI(), q1.getLocalPart(), q2.getNamespaceURI(),
-				q2.getLocalPart());
+		return QNameSort.compare(q1.getNamespaceURI(), q1.getLocalPart(),
+				q2.getNamespaceURI(), q2.getLocalPart());
 	}
 }

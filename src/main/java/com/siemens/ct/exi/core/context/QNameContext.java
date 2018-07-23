@@ -34,11 +34,10 @@ import com.siemens.ct.exi.core.grammars.grammar.SchemaInformedFirstStartTagGramm
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class QNameContext {
-	
+
 	/**
 	 * namespace URI ID
 	 */
@@ -61,24 +60,24 @@ public class QNameContext {
 	final String defaultPrefix;
 
 	/**
-	 *  global element
+	 * global element
 	 */
 	StartElement grammarGlobalElement;
 
 	/**
-	 *  global grammar attribute (if any)
+	 * global grammar attribute (if any)
 	 */
 	Attribute grammarGlobalAttribute;
-	
+
 	/**
-	 *  type grammar
+	 * type grammar
 	 */
 	SchemaInformedFirstStartTagGrammar typeGrammar;
-	
-//	/**
-//	 *  simply base type for type hierarchy (if any)
-//	 */
-//	QNameContext simpleBaseType;
+
+	// /**
+	// * simply base type for type hierarchy (if any)
+	// */
+	// QNameContext simpleBaseType;
 
 	public QNameContext(int namespaceUriID, int localNameID, QName qName) {
 		this.namespaceUriID = namespaceUriID;
@@ -92,15 +91,18 @@ public class QNameContext {
 			break;
 		case 1:
 			this.defaultPrefix = "xml";
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
+			this.defaultQNameAsString = defaultPrefix + ":"
+					+ this.qName.getLocalPart();
 			break;
 		case 2:
 			this.defaultPrefix = "xsi";
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
+			this.defaultQNameAsString = defaultPrefix + ":"
+					+ this.qName.getLocalPart();
 			break;
 		default:
 			this.defaultPrefix = "ns" + namespaceUriID;
-			this.defaultQNameAsString = defaultPrefix + ":" + this.qName.getLocalPart();
+			this.defaultQNameAsString = defaultPrefix + ":"
+					+ this.qName.getLocalPart();
 		}
 	}
 
@@ -132,7 +134,7 @@ public class QNameContext {
 	public String getDefaultQNameAsString() {
 		return defaultQNameAsString;
 	}
-	
+
 	public String getDefaultPrefix() {
 		return defaultPrefix;
 	}
@@ -144,11 +146,11 @@ public class QNameContext {
 	public String getLocalName() {
 		return qName.getLocalPart();
 	}
-	
+
 	public void setGlobalStartElement(StartElement grammarGlobalElement) {
 		this.grammarGlobalElement = grammarGlobalElement;
 	}
-	
+
 	public StartElement getGlobalStartElement() {
 		return grammarGlobalElement;
 	}
@@ -160,7 +162,7 @@ public class QNameContext {
 	public Attribute getGlobalAttribute() {
 		return grammarGlobalAttribute;
 	}
-	
+
 	public void setTypeGrammar(SchemaInformedFirstStartTagGrammar typeGrammar) {
 		this.typeGrammar = typeGrammar;
 	}
@@ -187,20 +189,19 @@ public class QNameContext {
 				+ this.getLocalName();
 	}
 
-//	public void setSimpleBaseType(QNameContext simpleBaseType) {
-//		this.simpleBaseType = simpleBaseType;
-//	}
-//	
-//	public QNameContext getSimpleBaseType() {
-//		return this.simpleBaseType;
-//	}
-	
+	// public void setSimpleBaseType(QNameContext simpleBaseType) {
+	// this.simpleBaseType = simpleBaseType;
+	// }
+	//
+	// public QNameContext getSimpleBaseType() {
+	// return this.simpleBaseType;
+	// }
+
 	@Override
 	public final boolean equals(Object o) {
 		if (o instanceof QNameContext) {
 			QNameContext other = (QNameContext) o;
-			 return (other.localNameID == this.localNameID && other
-					.namespaceUriID == this.namespaceUriID);
+			return (other.localNameID == this.localNameID && other.namespaceUriID == this.namespaceUriID);
 			// return (other.qNameID == this.qNameID);
 		}
 		return false;

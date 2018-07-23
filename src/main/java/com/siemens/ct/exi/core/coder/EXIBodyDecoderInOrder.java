@@ -48,7 +48,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
@@ -59,7 +58,7 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 
 	public void setInputStream(InputStream is) throws EXIException, IOException {
 		updateInputStream(is);
-		
+
 		initForEachRun();
 	}
 
@@ -69,8 +68,9 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 
 		initForEachRun();
 	}
-	
-	public void updateInputStream(InputStream is) throws EXIException, IOException {
+
+	public void updateInputStream(InputStream is) throws EXIException,
+			IOException {
 		CodingMode codingMode = exiFactory.getCodingMode();
 
 		// setup data-stream only
@@ -83,7 +83,7 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 			updateInputChannel(new ByteDecoderChannel(is));
 		}
 	}
-	
+
 	public void updateInputChannel(DecoderChannel decoderChannel)
 			throws EXIException, IOException {
 		this.channel = decoderChannel;
@@ -190,13 +190,13 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 	}
 
 	protected void readAttributeContent() throws IOException, EXIException {
-		if (attributeQNameContext.getNamespaceUriID() == getXsiTypeContext().getNamespaceUriID()) {
+		if (attributeQNameContext.getNamespaceUriID() == getXsiTypeContext()
+				.getNamespaceUriID()) {
 			int localNameID = attributeQNameContext.getLocalNameID();
-			if (localNameID == getXsiTypeContext()
-					.getLocalNameID()) {
+			if (localNameID == getXsiTypeContext().getLocalNameID()) {
 				decodeAttributeXsiTypeStructure();
-			} else if (localNameID == getXsiTypeContext()
-					.getLocalNameID() && getCurrentGrammar().isSchemaInformed()) {
+			} else if (localNameID == getXsiTypeContext().getLocalNameID()
+					&& getCurrentGrammar().isSchemaInformed()) {
 				decodeAttributeXsiNilStructure();
 			} else {
 				readAttributeContent(BuiltIn.getDefaultDatatype());
@@ -276,7 +276,7 @@ public class EXIBodyDecoderInOrder extends AbstractEXIBodyDecoder {
 		return typeDecoder.readValue(dt, getElementContext().qnameContext,
 				channel, stringDecoder);
 	}
-	
+
 	public char[] decodeEntityReference() throws EXIException, IOException {
 		return decodeEntityReferenceStructure();
 	}

@@ -28,7 +28,6 @@ package com.siemens.ct.exi.core.container;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class NamespaceDeclaration {
@@ -49,7 +48,7 @@ public class NamespaceDeclaration {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return namespaceURI.hashCode() ^ prefix.hashCode();

@@ -42,7 +42,6 @@ import com.siemens.ct.exi.core.helpers.DefaultEXIFactory;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractEXIHeader {
@@ -78,7 +77,7 @@ public abstract class AbstractEXIHeader {
 	public static final int FORMAT_VERSION_CONTINUE_VALUE = 15;
 
 	protected EXIFactory headerFactory;
-	
+
 	protected EXIFactory getHeaderFactory() throws EXIException {
 		if (headerFactory == null) {
 			headerFactory = DefaultEXIFactory.newInstance();
@@ -88,7 +87,7 @@ public abstract class AbstractEXIHeader {
 
 		return headerFactory;
 	}
-	
+
 	static class EXIOptionsHeaderGrammars implements Grammars {
 
 		/* BEGIN GrammarContext ----- */
@@ -99,11 +98,9 @@ public abstract class AbstractEXIHeader {
 				grammarQNames0, grammarPrefixes0);
 
 		final String ns1 = "http://www.w3.org/XML/1998/namespace";
-		final QNameContext qnc0 = new QNameContext(1, 0,
-				new QName(ns1, "base"));
+		final QNameContext qnc0 = new QNameContext(1, 0, new QName(ns1, "base"));
 		final QNameContext qnc1 = new QNameContext(1, 1, new QName(ns1, "id"));
-		final QNameContext qnc2 = new QNameContext(1, 2,
-				new QName(ns1, "lang"));
+		final QNameContext qnc2 = new QNameContext(1, 2, new QName(ns1, "lang"));
 		final QNameContext qnc3 = new QNameContext(1, 3,
 				new QName(ns1, "space"));
 		final QNameContext[] grammarQNames1 = { qnc0, qnc1, qnc2, qnc3 };
@@ -113,8 +110,7 @@ public abstract class AbstractEXIHeader {
 
 		final String ns2 = "http://www.w3.org/2001/XMLSchema-instance";
 		final QNameContext qnc4 = new QNameContext(2, 0, new QName(ns2, "nil"));
-		final QNameContext qnc5 = new QNameContext(2, 1,
-				new QName(ns2, "type"));
+		final QNameContext qnc5 = new QNameContext(2, 1, new QName(ns2, "type"));
 		final QNameContext[] grammarQNames2 = { qnc4, qnc5 };
 		final String[] grammarPrefixes2 = { "xsi" };
 		final GrammarUriContext guc2 = new GrammarUriContext(2, ns2,
@@ -478,111 +474,114 @@ public abstract class AbstractEXIHeader {
 
 			/* BEGIN Grammar Events ----- */
 			g0.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartDocument(), g1);
+					new com.siemens.ct.exi.core.grammars.event.StartDocument(),
+					g1);
 			g1.addProduction(globalSE72, g38);
 			g1.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.StartElementGeneric(),
 					g38);
 			g2.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc77,
-							g3), g29);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc77, g3), g29);
 			g2.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc58,
-							g30), g36);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc58, g30), g36);
 			g2.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc85,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc85, g6), g8);
 			g2.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g3.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc88,
-							g4), g20);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc88, g4), g20);
 			g3.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc82,
-							g21), g27);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc82, g21), g27);
 			g3.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc54,
-							g12), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc54, g12), g8);
 			g3.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g4.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc52,
-							g5), g10);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc52, g5), g10);
 			g4.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc84,
-							g6), g11);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc84, g6), g11);
 			g4.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc89,
-							g12), g14);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc89, g12), g14);
 			g4.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g15);
 			g4.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g4.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.StartElementGeneric(),
 					g19);
 			g4.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g5.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc56,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc56, g6), g8);
 			g5.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc80,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc80, g6), g8);
 			g6.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g8.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g9.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc56,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc56, g6), g8);
 			g9.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc80,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc80, g6), g8);
 			g10.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc84,
-							g6), g11);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc84, g6), g11);
 			g10.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc89,
-							g12), g14);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc89, g12), g14);
 			g10.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g15);
 			g10.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g10.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g11.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc89,
-							g12), g14);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc89, g12), g14);
 			g11.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g15);
 			g11.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g11.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
-			g12.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.UnsignedIntegerDatatype(
-							qnc49)), g8);
-			g13.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.UnsignedIntegerDatatype(
-							qnc49)), g8);
+			g12.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.UnsignedIntegerDatatype(
+									qnc49)), g8);
+			g13.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.UnsignedIntegerDatatype(
+									qnc49)), g8);
 			g14.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g15);
 			g14.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g14.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g15.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g15.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g16.addProduction(
@@ -595,257 +594,264 @@ public abstract class AbstractEXIHeader {
 					new com.siemens.ct.exi.core.grammars.event.StartElementGeneric(),
 					g17);
 			g19.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc52,
-							g5), g10);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc52, g5), g10);
 			g19.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc84,
-							g6), g11);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc84, g6), g11);
 			g19.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc89,
-							g12), g14);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc89, g12), g14);
 			g19.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g15);
 			g19.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g15);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g15);
 			g19.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.StartElementGeneric(),
 					g19);
 			g19.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g20.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc82,
-							g21), g27);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc82, g21), g27);
 			g20.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc54,
-							g12), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc54, g12), g8);
 			g20.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g21.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc65,
-							g6), g22);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc65, g6), g22);
 			g21.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc81,
-							g6), g23);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc81, g6), g23);
 			g21.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc78,
-							g6), g24);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc78, g6), g24);
 			g21.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g25);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g25);
 			g21.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g21.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g22.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc81,
-							g6), g23);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc81, g6), g23);
 			g22.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc78,
-							g6), g24);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc78, g6), g24);
 			g22.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g25);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g25);
 			g22.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g22.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g23.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc78,
-							g6), g24);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc78, g6), g24);
 			g23.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g25);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g25);
 			g23.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g23.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g24.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g25);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g25);
 			g24.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g24.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g25.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g25.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g26.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc65,
-							g6), g22);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc65, g6), g22);
 			g26.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc81,
-							g6), g23);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc81, g6), g23);
 			g26.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc78,
-							g6), g24);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc78, g6), g24);
 			g26.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g25);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g25);
 			g26.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g8);
 			g26.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g27.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc54,
-							g12), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc54, g12), g8);
 			g27.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g28.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc88,
-							g4), g20);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc88, g4), g20);
 			g28.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc82,
-							g21), g27);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc82, g21), g27);
 			g28.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc54,
-							g12), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc54, g12), g8);
 			g28.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g29.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc58,
-							g30), g36);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc58, g30), g36);
 			g29.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc85,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc85, g6), g8);
 			g29.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g30.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc59,
-							g6), g31);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc59, g6), g31);
 			g30.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc66,
-							g6), g32);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc66, g6), g32);
 			g30.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc83,
-							g33), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc83, g33), g8);
 			g30.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g31.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc66,
-							g6), g32);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc66, g6), g32);
 			g31.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc83,
-							g33), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc83, g33), g8);
 			g31.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g32.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc83,
-							g33), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc83, g33), g8);
 			g32.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
-			g33.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.StringDatatype(qnc45)), g8);
-			g34.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.StringDatatype(qnc45)), g8);
+			g33.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.StringDatatype(
+									qnc45)), g8);
+			g34.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.StringDatatype(
+									qnc45)), g8);
 			g35.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc59,
-							g6), g31);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc59, g6), g31);
 			g35.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc66,
-							g6), g32);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc66, g6), g32);
 			g35.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc83,
-							g33), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc83, g33), g8);
 			g35.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g36.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc85,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc85, g6), g8);
 			g36.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g37.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc77,
-							g3), g29);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc77, g3), g29);
 			g37.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc58,
-							g30), g36);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc58, g30), g36);
 			g37.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc85,
-							g6), g8);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc85, g6), g8);
 			g37.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.EndElement(), g7);
 			g38.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.EndDocument(), g7);
+					new com.siemens.ct.exi.core.grammars.event.EndDocument(),
+					g7);
 			g39.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartDocument(), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartDocument(),
+					g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc52,
-							g5), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc52, g5), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc54,
-							g12), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc54, g12), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc56,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc56, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc57,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc57, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc58,
-							g30), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc58, g30), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc59,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc59, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc60,
-							g16), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc60, g16), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc65,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc65, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc66,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc66, g6), g40);
 			g40.addProduction(globalSE72, g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc77,
-							g3), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc77, g3), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc78,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc78, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc79,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc79, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc80,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc80, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc81,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc81, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc82,
-							g21), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc82, g21), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc83,
-							g33), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc83, g33), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc84,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc84, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc85,
-							g6), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc85, g6), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc88,
-							g4), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc88, g4), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc89,
-							g12), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc89, g12), g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.StartElement(qnc90,
-							g12), g40);
+					new com.siemens.ct.exi.core.grammars.event.StartElement(
+							qnc90, g12), g40);
 			g40.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.StartElementGeneric(),
 					g40);
 			g40.addProduction(
-					new com.siemens.ct.exi.core.grammars.event.EndDocument(), g7);
+					new com.siemens.ct.exi.core.grammars.event.EndDocument(),
+					g7);
 			g41.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.ListDatatype(
@@ -856,8 +862,10 @@ public abstract class AbstractEXIHeader {
 							new com.siemens.ct.exi.core.datatype.ListDatatype(
 									new com.siemens.ct.exi.core.datatype.StringDatatype(
 											qnc7), qnc6)), g8);
-			g43.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.StringDatatype(qnc7)), g8);
+			g43.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.StringDatatype(
+									qnc7)), g8);
 			g44.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.AttributeGeneric(),
 					g44);
@@ -885,10 +893,14 @@ public abstract class AbstractEXIHeader {
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.BinaryBase64Datatype(
 									qnc20)), g8);
-			g48.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.BooleanDatatype(qnc21)), g8);
-			g49.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.BooleanDatatype(qnc21)), g8);
+			g48.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.BooleanDatatype(
+									qnc21)), g8);
+			g49.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.BooleanDatatype(
+									qnc21)), g8);
 			g50.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.NBitUnsignedIntegerDatatype(
@@ -913,22 +925,32 @@ public abstract class AbstractEXIHeader {
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
 									com.siemens.ct.exi.core.types.DateTimeType.date,
 									qnc23)), g8);
-			g54.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.dateTime,
-							qnc24)), g8);
-			g55.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.dateTime,
-							qnc24)), g8);
-			g56.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DecimalDatatype(qnc25)), g8);
-			g57.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DecimalDatatype(qnc25)), g8);
-			g58.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.FloatDatatype(qnc26)), g8);
-			g59.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.FloatDatatype(qnc26)), g8);
+			g54.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.dateTime,
+									qnc24)), g8);
+			g55.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.dateTime,
+									qnc24)), g8);
+			g56.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DecimalDatatype(
+									qnc25)), g8);
+			g57.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DecimalDatatype(
+									qnc25)), g8);
+			g58.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.FloatDatatype(
+									qnc26)), g8);
+			g59.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.FloatDatatype(
+									qnc26)), g8);
 			g60.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
@@ -949,14 +971,16 @@ public abstract class AbstractEXIHeader {
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
 									com.siemens.ct.exi.core.types.DateTimeType.gMonth,
 									qnc30)), g8);
-			g64.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.gMonthDay,
-							qnc31)), g8);
-			g65.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.gMonthDay,
-							qnc31)), g8);
+			g64.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.gMonthDay,
+									qnc31)), g8);
+			g65.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.gMonthDay,
+									qnc31)), g8);
 			g66.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
@@ -967,24 +991,32 @@ public abstract class AbstractEXIHeader {
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
 									com.siemens.ct.exi.core.types.DateTimeType.gYear,
 									qnc32)), g8);
-			g68.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.gYearMonth,
-							qnc33)), g8);
-			g69.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
-							com.siemens.ct.exi.core.types.DateTimeType.gYearMonth,
-							qnc33)), g8);
-			g70.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.BinaryHexDatatype(qnc34)),
-					g8);
-			g71.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.BinaryHexDatatype(qnc34)),
-					g8);
-			g72.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.IntegerDatatype(qnc35)), g8);
-			g73.addProduction(new com.siemens.ct.exi.core.grammars.event.Characters(
-					new com.siemens.ct.exi.core.datatype.IntegerDatatype(qnc35)), g8);
+			g68.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.gYearMonth,
+									qnc33)), g8);
+			g69.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(
+									com.siemens.ct.exi.core.types.DateTimeType.gYearMonth,
+									qnc33)), g8);
+			g70.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.BinaryHexDatatype(
+									qnc34)), g8);
+			g71.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.BinaryHexDatatype(
+									qnc34)), g8);
+			g72.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.IntegerDatatype(
+									qnc35)), g8);
+			g73.addProduction(
+					new com.siemens.ct.exi.core.grammars.event.Characters(
+							new com.siemens.ct.exi.core.datatype.IntegerDatatype(
+									qnc35)), g8);
 			g74.addProduction(
 					new com.siemens.ct.exi.core.grammars.event.Characters(
 							new com.siemens.ct.exi.core.datatype.DatetimeDatatype(

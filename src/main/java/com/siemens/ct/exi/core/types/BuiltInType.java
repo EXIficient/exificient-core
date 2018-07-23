@@ -36,7 +36,6 @@ package com.siemens.ct.exi.core.types;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public enum BuiltInType {
@@ -75,8 +74,11 @@ public enum BuiltInType {
 
 	/** Restricted character set string */
 	RCS_STRING,
-	
-	/** Experimental (https://www.w3.org/XML/EXI/docs/extendedString/exi-extString.html) */
+
+	/**
+	 * Experimental
+	 * (https://www.w3.org/XML/EXI/docs/extendedString/exi-extString.html)
+	 */
 	EXTENDED_STRING,
 
 	/** Enumeration */

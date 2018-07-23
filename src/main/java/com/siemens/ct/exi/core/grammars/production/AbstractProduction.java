@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractProduction implements Production {
@@ -47,15 +46,14 @@ public abstract class AbstractProduction implements Production {
 	}
 
 	abstract public int getEventCode();
-	
+
 	public Event getEvent() {
 		return event;
 	}
-	
+
 	public Grammar getNextGrammar() {
 		return next;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -64,13 +62,17 @@ public abstract class AbstractProduction implements Production {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof AbstractProduction)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof AbstractProduction))
+			return false;
 
 		AbstractProduction that = (AbstractProduction) o;
 
-		if (eventCode != that.eventCode) return false;
-		//we do not test the equality of the next Grammar here has it would make recursive calls
+		if (eventCode != that.eventCode)
+			return false;
+		// we do not test the equality of the next Grammar here has it would
+		// make recursive calls
 		return event != null ? event.equals(that.event) : that.event == null;
 	}
 }

@@ -37,7 +37,6 @@ import com.siemens.ct.exi.core.values.IntegerValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface DecoderChannel {
@@ -45,7 +44,8 @@ public interface DecoderChannel {
 	 * Decodes a single byte
 	 * 
 	 * @return a byte as int
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public int decode() throws IOException;
 
@@ -53,24 +53,29 @@ public interface DecoderChannel {
 	 * Align to next byte-aligned boundary in the stream if it is not already at
 	 * such a boundary
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void align() throws IOException;
 
 	/**
 	 * Skips over and discards <code>n</code> bytes of data from this channel.
 	 * 
-	 * @param n number of bytes to skip
-	 * @throws IOException IO exception
+	 * @param n
+	 *            number of bytes to skip
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void skip(long n) throws IOException;
 
 	/**
 	 * Decodes and returns an n-bit unsigned integer.
 	 * 
-	 * @param n number of bits
+	 * @param n
+	 *            number of bits
 	 * @return nbit value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public int decodeNBitUnsignedInteger(int n) throws IOException;
 
@@ -82,7 +87,8 @@ public interface DecoderChannel {
 	 * (byte) 0, and the value true is represented by the bit (byte) 1.
 	 * 
 	 * @return boolean value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public boolean decodeBoolean() throws IOException;
 
@@ -92,7 +98,8 @@ public interface DecoderChannel {
 	 * Decode a binary value as a length-prefixed sequence of octets.
 	 * 
 	 * @return binary data
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public byte[] decodeBinary() throws IOException;
 
@@ -102,7 +109,8 @@ public interface DecoderChannel {
 	 * that are represented as UTF-16 surrogate pairs in Java.
 	 * 
 	 * @return characters
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public char[] decodeString() throws IOException;
 
@@ -114,7 +122,8 @@ public interface DecoderChannel {
 	 * @param length
 	 *            Length of the character sequence to read.
 	 * @return The character sequence
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public char[] decodeStringOnly(int length) throws IOException;
 
@@ -125,7 +134,8 @@ public interface DecoderChannel {
 	 * store the integer's value.
 	 * 
 	 * @return unsigned integer
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public int decodeUnsignedInteger() throws IOException;
 
@@ -136,9 +146,10 @@ public interface DecoderChannel {
 	 * sequence of octets. The most significant bit of the last octet is set to
 	 * zero to indicate sequence termination. Only seven bits per octet are used
 	 * to store the integer's value.
-	 *
+	 * 
 	 * @return integer value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public IntegerValue decodeIntegerValue() throws IOException;
 
@@ -151,7 +162,8 @@ public interface DecoderChannel {
 	 * the decimal with the digits in reverse order to preserve leading zeros.
 	 * 
 	 * @return decimal value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public DecimalValue decodeDecimalValue() throws IOException;
 
@@ -161,7 +173,8 @@ public interface DecoderChannel {
 	 * Integer represents the 10-based exponent of the floating point number
 	 * 
 	 * @return float value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public FloatValue decodeFloatValue() throws IOException;
 
@@ -169,9 +182,11 @@ public interface DecoderChannel {
 	 * Decode Date-Time as sequence of values representing the individual
 	 * components of the Date-Time.
 	 * 
-	 * @param type date-Time type
+	 * @param type
+	 *            date-Time type
 	 * @return date-time value
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public DateTimeValue decodeDateTimeValue(DateTimeType type)
 			throws IOException;

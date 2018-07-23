@@ -43,7 +43,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface EXIBodyDecoder {
@@ -52,9 +51,12 @@ public interface EXIBodyDecoder {
 	 * Sets the input stream and resets all internal states
 	 * 
 	 * @see #updateInputStream(InputStream)
-	 * @param is input stream
-	 * @throws EXIException EXI exception 
-	 * @throws IOException IO exception
+	 * @param is
+	 *            input stream
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void setInputStream(InputStream is) throws EXIException, IOException;
 
@@ -62,58 +64,73 @@ public interface EXIBodyDecoder {
 	 * Sets input channel and resets all internal states
 	 * 
 	 * @see #updateInputChannel(DecoderChannel)
-	 * @param channel decoder channel 
-	 * @throws EXIException EXI exception 
-	 * @throws IOException IO exception
+	 * @param channel
+	 *            decoder channel
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void setInputChannel(DecoderChannel channel) throws EXIException,
 			IOException;
-	
+
 	/**
 	 * Updates input stream and does not reset internal states.
 	 * 
 	 * @see #setInputStream(InputStream)
-	 * @param is input stream
-	 * @throws EXIException EXI exception 
-	 * @throws IOException IO exception
+	 * @param is
+	 *            input stream
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
-	public void updateInputStream(InputStream is) throws EXIException, IOException;
-	
+	public void updateInputStream(InputStream is) throws EXIException,
+			IOException;
+
 	/**
 	 * Updates input channel and and does not reset internal states.
 	 * 
 	 * @see #setInputChannel(DecoderChannel)
-	 * @param channel decoder channel
-	 * @throws EXIException EXI exception 
-	 * @throws IOException IO exception
+	 * @param channel
+	 *            decoder channel
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void updateInputChannel(DecoderChannel channel) throws EXIException,
 			IOException;
-	
 
 	/**
 	 * Reports the next available EXI event-type or <code>null</code> if no more
 	 * EXI event is available.
 	 * 
 	 * @return <code>EventType</code> for next EXI event
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public EventType next() throws EXIException, IOException;
 
 	/**
 	 * Indicates the beginning of a set of XML events
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void decodeStartDocument() throws EXIException, IOException;
 
 	/**
 	 * Indicates the end of a set of XML events
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void decodeEndDocument() throws EXIException, IOException;
 
@@ -126,8 +143,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>QNameContext</code> for qualified name
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public QNameContext decodeStartElement() throws EXIException, IOException;
 
@@ -158,8 +177,10 @@ public interface EXIBodyDecoder {
 	/**
 	 * Reads EXI a self-contained start element.
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void decodeStartSelfContainedFragment() throws EXIException,
 			IOException;
@@ -169,8 +190,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>QNameContext</code> for qualified name
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public QNameContext decodeEndElement() throws EXIException, IOException;
 
@@ -179,28 +202,36 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return xsi:nil qname
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
-	public QNameContext decodeAttributeXsiNil() throws EXIException, IOException;
+	public QNameContext decodeAttributeXsiNil() throws EXIException,
+			IOException;
 
 	/**
 	 * Parses xsi:type attribute
 	 * 
 	 * @return <code>QNameContext</code> for qualified name
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
-	public QNameContext decodeAttributeXsiType() throws EXIException, IOException;
+	public QNameContext decodeAttributeXsiType() throws EXIException,
+			IOException;
 
 	/**
 	 * Parses attribute and returns qualified name.
 	 * 
 	 * @return <code>QNameContext</code> for qname
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public QNameContext decodeAttribute() throws EXIException, IOException;
 
@@ -236,8 +267,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>NamespaceDeclaration</code> ns declaration
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public NamespaceDeclaration decodeNamespaceDeclaration()
 			throws EXIException, IOException;
@@ -254,8 +287,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>Value</code> for XML characters item
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public Value decodeCharacters() throws EXIException, IOException;
 
@@ -264,8 +299,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>DocType</code> for DOCTYPE information items
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public DocType decodeDocType() throws EXIException, IOException;
 
@@ -274,8 +311,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>String</code> for ER name
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public char[] decodeEntityReference() throws EXIException, IOException;
 
@@ -284,8 +323,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>String</code> for comment text
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public char[] decodeComment() throws EXIException, IOException;
 
@@ -294,8 +335,10 @@ public interface EXIBodyDecoder {
 	 * 
 	 * @return <code>String</code> for PI target and data
 	 * 
-	 * @throws EXIException EXI exception
-	 * @throws IOException IO exception
+	 * @throws EXIException
+	 *             EXI exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public ProcessingInstruction decodeProcessingInstruction()
 			throws EXIException, IOException;

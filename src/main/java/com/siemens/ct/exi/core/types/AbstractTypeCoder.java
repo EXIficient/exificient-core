@@ -50,7 +50,6 @@ import com.siemens.ct.exi.core.util.xml.QNameUtilities;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractTypeCoder implements TypeCoder {
@@ -66,7 +65,10 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		this(null, null, null);
 	}
 
-	public AbstractTypeCoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
+	public AbstractTypeCoder(QName[] dtrMapTypes,
+			QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
+			throws EXIException {
 		this.dtrMapTypes = dtrMapTypes;
 		this.dtrMapRepresentations = dtrMapRepresentations;
 		this.dtrMapRepresentationsDatatype = dtrMapRepresentationsDatatype;
@@ -175,246 +177,256 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 		assert (dtrMapInUse);
 
 		Datatype dtrDatatype = null;
-		if (datatype.equals(BuiltIn.getDefaultDatatype())) { // datatype == BuiltIn.DEFAULT_DATATYPE
+		if (datatype.equals(BuiltIn.getDefaultDatatype())) { // datatype ==
+																// BuiltIn.DEFAULT_DATATYPE
 			// e.g., untyped values are encoded always as String
 			dtrDatatype = datatype;
 		} else {
 			// check mappings
 			QName schemaType = datatype.getSchemaType().getQName();
-			
+
 			// unions
-			if ( dtrDatatype == null &&
-					datatype.getBuiltInType() == BuiltInType.STRING
+			if (dtrDatatype == null
+					&& datatype.getBuiltInType() == BuiltInType.STRING
 					&& ((StringDatatype) datatype).isDerivedByUnion()) {
-				
+
 				if (dtrMap.containsKey(schemaType)) {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
 				} else {
 					Datatype baseDatatype = datatype.getBaseDatatype();
-					QName schemBaseType = baseDatatype.getSchemaType().getQName();
-					if(baseDatatype.getBuiltInType() == BuiltInType.STRING && ((StringDatatype) baseDatatype).isDerivedByUnion() &&  dtrMap.containsKey(schemBaseType)) {
+					QName schemBaseType = baseDatatype.getSchemaType()
+							.getQName();
+					if (baseDatatype.getBuiltInType() == BuiltInType.STRING
+							&& ((StringDatatype) baseDatatype)
+									.isDerivedByUnion()
+							&& dtrMap.containsKey(schemBaseType)) {
 						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
 						dtrDatatype = datatype;
 					}
 				}
-				
-				
-//				dtrDatatype = datatype;
-//				// union ancestors of interest
-//				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
-//				Datatype dtBase = datatype.getBaseDatatype();
-//
-//				if (dtBase != null
-//						&& dtBase.getBuiltInType() == BuiltInType.STRING
-//						&& ((StringDatatype) dtBase).isDerivedByUnion()) {
-//					// check again
-//					dtrDatatype = null;
-//				}
+
+				// dtrDatatype = datatype;
+				// // union ancestors of interest
+				// // Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
+				// Datatype dtBase = datatype.getBaseDatatype();
+				//
+				// if (dtBase != null
+				// && dtBase.getBuiltInType() == BuiltInType.STRING
+				// && ((StringDatatype) dtBase).isDerivedByUnion()) {
+				// // check again
+				// dtrDatatype = null;
+				// }
 			}
 			// lists
-			if ( dtrDatatype == null && 
-					datatype.getBuiltInType() == BuiltInType.LIST) {
+			if (dtrDatatype == null
+					&& datatype.getBuiltInType() == BuiltInType.LIST) {
 				ListDatatype ldt = (ListDatatype) datatype;
 				if (dtrMap.containsKey(schemaType)) {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
-				} else if (dtrMap.containsKey(ldt.getListDatatype().getSchemaType().getQName())) {
-					Datatype dt = dtrMap.get(ldt.getListDatatype().getSchemaType().getQName());
+				} else if (dtrMap.containsKey(ldt.getListDatatype()
+						.getSchemaType().getQName())) {
+					Datatype dt = dtrMap.get(ldt.getListDatatype()
+							.getSchemaType().getQName());
 					dtrDatatype = new ListDatatype(dt, datatype.getSchemaType());
-					
-					// dtrDatatype = dtrMap.get(ldt.getListDatatype().getSchemaType().getQName());
+
+					// dtrDatatype =
+					// dtrMap.get(ldt.getListDatatype().getSchemaType().getQName());
 				} else {
-					
+
 					Datatype baseDatatype = datatype.getBaseDatatype();
-					QName schemBaseType = baseDatatype.getSchemaType().getQName();
-					if(
-							  baseDatatype.getBuiltInType() == BuiltInType.LIST &&  
-							dtrMap.containsKey(schemBaseType)) {
+					QName schemBaseType = baseDatatype.getSchemaType()
+							.getQName();
+					if (baseDatatype.getBuiltInType() == BuiltInType.LIST
+							&& dtrMap.containsKey(schemBaseType)) {
 						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
 						dtrDatatype = datatype;
 					}
-					
-					
-//					ListDatatype ldt = (ListDatatype) datatype;
-//					Datatype datatypeList = ldt.getListDatatype();
-//					Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
-//					if(datatypeList.getBuiltInType() == dtrDatatypeList.getBuiltInType()) {
-//						dtrDatatype = datatype;
-//					} else {
-//						// update DTR for list datatype
-//						dtrDatatype = new ListDatatype(dtrDatatypeList, ldt.getSchemaType());
-//					}
+
+					// ListDatatype ldt = (ListDatatype) datatype;
+					// Datatype datatypeList = ldt.getListDatatype();
+					// Datatype dtrDatatypeList = getDtrDatatype(datatypeList);
+					// if(datatypeList.getBuiltInType() ==
+					// dtrDatatypeList.getBuiltInType()) {
+					// dtrDatatype = datatype;
+					// } else {
+					// // update DTR for list datatype
+					// dtrDatatype = new ListDatatype(dtrDatatypeList,
+					// ldt.getSchemaType());
+					// }
 				}
-				
-//				dtrDatatype = datatype;
-//				// list ancestors of interest
-//				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
-//				Datatype dtBase = datatype.getBaseDatatype();
-//				if (dtBase != null
-//						&& dtBase.getBuiltInType() == BuiltInType.LIST) {
-//					// check again
-//					dtrDatatype = null;
-//				}
+
+				// dtrDatatype = datatype;
+				// // list ancestors of interest
+				// // Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
+				// Datatype dtBase = datatype.getBaseDatatype();
+				// if (dtBase != null
+				// && dtBase.getBuiltInType() == BuiltInType.LIST) {
+				// // check again
+				// dtrDatatype = null;
+				// }
 			}
 			// enums
-			if ( dtrDatatype == null && 
-					datatype.getBuiltInType() == BuiltInType.ENUMERATION) {
-				
+			if (dtrDatatype == null
+					&& datatype.getBuiltInType() == BuiltInType.ENUMERATION) {
+
 				if (dtrMap.containsKey(schemaType)) {
 					// direct DTR mapping
 					dtrDatatype = dtrMap.get(schemaType);
 				} else {
 					Datatype baseDatatype = datatype.getBaseDatatype();
-					QName schemBaseType = baseDatatype.getSchemaType().getQName();
-					if(baseDatatype.getBuiltInType() == BuiltInType.ENUMERATION &&  dtrMap.containsKey(schemBaseType)) {
+					QName schemBaseType = baseDatatype.getSchemaType()
+							.getQName();
+					if (baseDatatype.getBuiltInType() == BuiltInType.ENUMERATION
+							&& dtrMap.containsKey(schemBaseType)) {
 						dtrDatatype = dtrMap.get(schemBaseType);
 					} else {
 						dtrDatatype = datatype;
 					}
-					
-//					Datatype dtrDatatypeBase = getDtrDatatype(datatype.getBaseDatatype());
-//					dtrDatatype = dtrDatatypeBase;
-//					dtrMap.put(schemaType, dtrDatatype);
-					
-//					EnumerationDatatype edt = (EnumerationDatatype) datatype;
-//					Datatype datatypeEnum =  edt.getEnumValueDatatype();
-//					Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
-//					if(datatypeEnum.getBuiltInType() == dtrDatatypeEnum.getBuiltInType()) {
-//						dtrDatatype = datatype;
-//					} else {
-//						// update DTR for list datatype
-//						dtrDatatype = dtrDatatypeEnum;
-//					}
+
+					// Datatype dtrDatatypeBase =
+					// getDtrDatatype(datatype.getBaseDatatype());
+					// dtrDatatype = dtrDatatypeBase;
+					// dtrMap.put(schemaType, dtrDatatype);
+
+					// EnumerationDatatype edt = (EnumerationDatatype) datatype;
+					// Datatype datatypeEnum = edt.getEnumValueDatatype();
+					// Datatype dtrDatatypeEnum = getDtrDatatype(datatypeEnum);
+					// if(datatypeEnum.getBuiltInType() ==
+					// dtrDatatypeEnum.getBuiltInType()) {
+					// dtrDatatype = datatype;
+					// } else {
+					// // update DTR for list datatype
+					// dtrDatatype = dtrDatatypeEnum;
+					// }
 				}
-				
-//				dtrDatatype = datatype;
-//				// only ancestor types that have enums are of interest
-//				// Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
-//				Datatype dtBase = datatype.getBaseDatatype();
-//				if (dtBase != null
-//						&& dtBase.getBuiltInType() == BuiltInType.ENUMERATION) {
-//					// check again
-//					dtrDatatype = null;
-//				}
+
+				// dtrDatatype = datatype;
+				// // only ancestor types that have enums are of interest
+				// // Datatype dtBase = qncSchemaType.getSimpleBaseDatatype();
+				// Datatype dtBase = datatype.getBaseDatatype();
+				// if (dtBase != null
+				// && dtBase.getBuiltInType() == BuiltInType.ENUMERATION) {
+				// // check again
+				// dtrDatatype = null;
+				// }
 			}
-			
+
 			if (dtrDatatype == null) {
 				// QNameContext qncSchemaType = datatype.getSchemaType();
-				
+
 				dtrDatatype = dtrMap.get(schemaType);
-				
+
 				if (dtrDatatype == null) {
 					// no mapping yet
 					// dtrDatatype = updateDtrDatatype(qncSchemaType);
 					dtrDatatype = updateDtrDatatype(datatype);
-//					// special integer handling
-//					if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
-//							&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
-//									.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
-//						dtrDatatype = datatype;
-//					}
+					// // special integer handling
+					// if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+					// && (datatype.getBuiltInType() ==
+					// BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
+					// .getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
+					// dtrDatatype = datatype;
+					// }
 					// dtrMap.put(qncSchemaType.getQName(), dtrDatatype);
 				}
-				
+
 				// extended string
-				if(dtrDatatype.getDatatypeID() == DatatypeID.exi_estring && datatype.getGrammarEnumeration() != null) {
+				if (dtrDatatype.getDatatypeID() == DatatypeID.exi_estring
+						&& datatype.getGrammarEnumeration() != null) {
 					// add grammar strings et cetera
 					ExtendedStringDatatype esdt = (ExtendedStringDatatype) dtrDatatype;
 					esdt.setGrammarStrings(datatype.getGrammarEnumeration());
 				}
-				
-			}
 
-			
+			}
 
 		}
 
-//		// list item types
-//		assert (dtrDatatype != null);
-//		if (dtrDatatype.getBuiltInType() == BuiltInType.LIST) {
-//			Datatype prev = dtrDatatype;
-//			ListDatatype ldt = (ListDatatype) dtrDatatype;
-//			Datatype dtList = ldt.getListDatatype();
-//			dtrDatatype = this.getDtrDatatype(dtList);
-//			if (dtrDatatype != dtList) {
-//				// update item codec
-//				dtrDatatype = new ListDatatype(dtrDatatype, ldt.getSchemaType());
-//			} else {
-//				dtrDatatype = prev;
-//			}
-//
-//		}
+		// // list item types
+		// assert (dtrDatatype != null);
+		// if (dtrDatatype.getBuiltInType() == BuiltInType.LIST) {
+		// Datatype prev = dtrDatatype;
+		// ListDatatype ldt = (ListDatatype) dtrDatatype;
+		// Datatype dtList = ldt.getListDatatype();
+		// dtrDatatype = this.getDtrDatatype(dtList);
+		// if (dtrDatatype != dtList) {
+		// // update item codec
+		// dtrDatatype = new ListDatatype(dtrDatatype, ldt.getSchemaType());
+		// } else {
+		// dtrDatatype = prev;
+		// }
+		//
+		// }
 
 		return dtrDatatype;
 	}
 
-	
 	// protected Datatype updateDtrDatatype(QNameContext qncSchemaType) {
 	protected Datatype updateDtrDatatype(Datatype datatype) {
-	// protected Datatype updateDtrDatatype(QNameContext qncSchemaType) {
+		// protected Datatype updateDtrDatatype(QNameContext qncSchemaType) {
 		assert (dtrMapInUse);
-		
-//		// QNameContext qncSchemaType = datatype.getSchemaType();
-//		QNameContext qncBase =  qncSchemaType.getSimpleBaseType();
-//		assert(qncSchemaType != null);
-//		
-//		
-////		// special integer handling
-////		if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
-////				&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
-////						.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
-////			dtrDatatype = datatype;
-////		}
-//		
-//		Datatype dt = dtrMap.get(qncBase.getQName());
-//		
-//		if (dt == null) {
-//			// dt = updateDtrDatatype(simpleBaseType);
-//			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
-//			dt = updateDtrDatatype(qncBase); //baseDatatype);
-////			dtrMap.put(qncBase.getQName(), dt);
-//		} else {
-//			// save new mapping in map
-////			dtrMap.put(qncSchemaType.getQName(), dt);
-//		}
-//		
-//		return dt;
-		
-		
-		
+
+		// // QNameContext qncSchemaType = datatype.getSchemaType();
+		// QNameContext qncBase = qncSchemaType.getSimpleBaseType();
+		// assert(qncSchemaType != null);
+		//
+		//
+		// // // special integer handling
+		// // if (dtrDatatype.getBuiltInType() == BuiltInType.INTEGER
+		// // && (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER
+		// || datatype
+		// // .getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
+		// // dtrDatatype = datatype;
+		// // }
+		//
+		// Datatype dt = dtrMap.get(qncBase.getQName());
+		//
+		// if (dt == null) {
+		// // dt = updateDtrDatatype(simpleBaseType);
+		// // dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
+		// dt = updateDtrDatatype(qncBase); //baseDatatype);
+		// // dtrMap.put(qncBase.getQName(), dt);
+		// } else {
+		// // save new mapping in map
+		// // dtrMap.put(qncSchemaType.getQName(), dt);
+		// }
+		//
+		// return dt;
+
 		Datatype baseDatatype = datatype.getBaseDatatype();
 		// QNameContext qncSchemaType = datatype.getSchemaType();
-		// QNameContext simpleBaseType = qncSchemaType.getSimpleBaseDatatype().getSchemaType();
+		// QNameContext simpleBaseType =
+		// qncSchemaType.getSimpleBaseDatatype().getSchemaType();
 		QNameContext simpleBaseType = baseDatatype.getSchemaType();
-		
-		
+
 		Datatype dtrDatatype = dtrMap.get(simpleBaseType.getQName());
-		
+
 		if (dtrDatatype == null) {
 			// dt = updateDtrDatatype(simpleBaseType);
 			// dt = updateDtrDatatype(qncSchemaType.getSimpleBaseDatatype());
 			dtrDatatype = updateDtrDatatype(baseDatatype);
 		}
-		
+
 		// special integer handling
-		if ((dtrDatatype.getBuiltInType() == BuiltInType.INTEGER || dtrDatatype.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)
+		if ((dtrDatatype.getBuiltInType() == BuiltInType.INTEGER || dtrDatatype
+				.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)
 				&& (datatype.getBuiltInType() == BuiltInType.NBIT_UNSIGNED_INTEGER || datatype
 						.getBuiltInType() == BuiltInType.UNSIGNED_INTEGER)) {
 			dtrDatatype = datatype;
 		}
-		
+
 		// save new mapping in map
 		dtrMap.put(datatype.getSchemaType().getQName(), dtrDatatype);
-		
-
 
 		return dtrDatatype;
 	}
 
-	protected Datatype getDatatypeRepresentation(String reprUri, String reprLocalPart) throws EXIException {
+	protected Datatype getDatatypeRepresentation(String reprUri,
+			String reprLocalPart) throws EXIException {
 		assert (dtrMapInUse);
 
 		try {
@@ -465,10 +477,10 @@ public abstract class AbstractTypeCoder implements TypeCoder {
 			} else {
 				// try to load datatype
 				QName qn = new QName(reprUri, reprLocalPart);
-				if(this.dtrMapRepresentationsDatatype != null) {
+				if (this.dtrMapRepresentationsDatatype != null) {
 					datatype = this.dtrMapRepresentationsDatatype.get(qn);
 				}
-				if(datatype == null) {
+				if (datatype == null) {
 					// final try: load class with this qname
 					String className = QNameUtilities.getClassName(qn);
 					@SuppressWarnings("rawtypes")

@@ -36,41 +36,41 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractStringCoder implements StringCoder {
 
 	// indicate whether local value partitions are used
 	protected final boolean localValuePartitions;
-	
+
 	// strings (local)
 	protected Map<QNameContext, List<StringValue>> localValues;
-	
-	public AbstractStringCoder(boolean localValuePartitions, int initialQNameLists) {
+
+	public AbstractStringCoder(boolean localValuePartitions,
+			int initialQNameLists) {
 		this.localValuePartitions = localValuePartitions;
-		localValues = new HashMap<QNameContext, List<StringValue>>(initialQNameLists);
+		localValues = new HashMap<QNameContext, List<StringValue>>(
+				initialQNameLists);
 	}
-	
-	
+
 	public boolean isLocalValuePartitions() {
 		return localValuePartitions;
 	}
-	
+
 	public int getNumberOfStringValues(QNameContext qnc) {
 		int n = 0;
 		List<StringValue> lvs = localValues.get(qnc);
-		if(lvs != null) {
+		if (lvs != null) {
 			n = lvs.size();
 		}
-		
+
 		return n;
 	}
-	
+
 	protected void addLocalValue(QNameContext qnc, StringValue value) {
-		if(localValuePartitions) {
+		if (localValuePartitions) {
 			List<StringValue> lvs = this.localValues.get(qnc);
-			if(lvs == null) {
+			if (lvs == null) {
 				lvs = new ArrayList<StringValue>();
 				localValues.put(qnc, lvs);
 			}
@@ -80,9 +80,9 @@ public abstract class AbstractStringCoder implements StringCoder {
 
 	public void clear() {
 		// local context
-		if(localValuePartitions) {
+		if (localValuePartitions) {
 			// free strings only, not destroy lists itself
-			for(List<StringValue> lvs : this.localValues.values()) {
+			for (List<StringValue> lvs : this.localValues.values()) {
 				lvs.clear();
 			}
 		}

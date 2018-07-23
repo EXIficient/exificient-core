@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BoundedStringDecoderImpl extends StringDecoderImpl {
@@ -72,8 +71,7 @@ public class BoundedStringDecoderImpl extends StringDecoderImpl {
 	}
 
 	@Override
-	public void addValue(QNameContext context,
-			StringValue value) {
+	public void addValue(QNameContext context, StringValue value) {
 		// first: check "valueMaxLength"
 		if (valueMaxLength < 0 || value.getCharactersLength() <= valueMaxLength) {
 			// next: check "valuePartitionCapacity"
@@ -109,9 +107,9 @@ public class BoundedStringDecoderImpl extends StringDecoderImpl {
 					Value prev = globalValues.set(globalID, value);
 					if (prev != null) {
 						// free memory
-						if(localValuePartitions) {
+						if (localValuePartitions) {
 							LocalIDMap lvsFree = localIdMapping[globalID];
-							assert (lvsFree != null);	
+							assert (lvsFree != null);
 						}
 					}
 				} else {
@@ -119,12 +117,13 @@ public class BoundedStringDecoderImpl extends StringDecoderImpl {
 					globalValues.add(value);
 				}
 
-				if(localValuePartitions) {
+				if (localValuePartitions) {
 					// update local ID mapping
-					localIdMapping[globalID] = new LocalIDMap(getNumberOfStringValues(context), context);
+					localIdMapping[globalID] = new LocalIDMap(
+							getNumberOfStringValues(context), context);
 
 					// local value
-					addLocalValue(context, value);					
+					addLocalValue(context, value);
 				}
 			}
 		}

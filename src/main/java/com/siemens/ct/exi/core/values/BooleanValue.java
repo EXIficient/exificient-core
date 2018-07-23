@@ -30,16 +30,14 @@ import com.siemens.ct.exi.core.Constants;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BooleanValue extends AbstractValue {
 
 	public static final BooleanValue BOOLEAN_VALUE_FALSE = new BooleanValue(
 			false);
-	public static final BooleanValue BOOLEAN_VALUE_TRUE = new BooleanValue(
-			true);
-	
+	public static final BooleanValue BOOLEAN_VALUE_TRUE = new BooleanValue(true);
+
 	public static final BooleanValue BOOLEAN_VALUE_0 = new BooleanValue(0);
 	public static final BooleanValue BOOLEAN_VALUE_1 = new BooleanValue(1);
 	public static final BooleanValue BOOLEAN_VALUE_2 = new BooleanValue(2);
@@ -61,9 +59,10 @@ public class BooleanValue extends AbstractValue {
 			sValue = Constants.DECODED_BOOLEAN_FALSE;
 		}
 	}
-	
+
 	public static BooleanValue getBooleanValue(boolean bool) {
-		return bool ? BooleanValue.BOOLEAN_VALUE_TRUE : BooleanValue.BOOLEAN_VALUE_FALSE;
+		return bool ? BooleanValue.BOOLEAN_VALUE_TRUE
+				: BooleanValue.BOOLEAN_VALUE_FALSE;
 	}
 
 	private BooleanValue(int boolID) {
@@ -91,10 +90,11 @@ public class BooleanValue extends AbstractValue {
 			break;
 		default:
 			throw new RuntimeException(
-					"Error while creating boolean pattern facet with boolID==" + boolID);
+					"Error while creating boolean pattern facet with boolID=="
+							+ boolID);
 		}
 	}
-	
+
 	public static BooleanValue getBooleanValue(int boolID) {
 		BooleanValue bv;
 		switch (boolID) {
@@ -112,9 +112,10 @@ public class BooleanValue extends AbstractValue {
 			break;
 		default:
 			throw new RuntimeException(
-					"Error while creating boolean pattern facet with boolID==" + boolID);
+					"Error while creating boolean pattern facet with boolID=="
+							+ boolID);
 		}
-		
+
 		return bv;
 	}
 
@@ -138,7 +139,7 @@ public class BooleanValue extends AbstractValue {
 	public int getCharactersLength() {
 		return characters.length;
 	}
-	
+
 	public char[] getCharacters() {
 		return characters;
 	}
@@ -147,7 +148,7 @@ public class BooleanValue extends AbstractValue {
 		// not optimal, need to copy char data
 		System.arraycopy(characters, 0, cbuffer, offset, characters.length);
 	}
-	
+
 	@Override
 	public String toString() {
 		return sValue;
@@ -158,11 +159,10 @@ public class BooleanValue extends AbstractValue {
 		return sValue;
 	}
 
-	
 	private final boolean _equals(BooleanValue o) {
 		return (bool == ((BooleanValue) o).bool);
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -175,7 +175,7 @@ public class BooleanValue extends AbstractValue {
 			return bv == null ? false : _equals(bv);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return bool ? 1 : 0;

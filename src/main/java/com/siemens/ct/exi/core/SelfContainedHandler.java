@@ -33,20 +33,24 @@ import com.siemens.ct.exi.core.io.channel.EncoderChannel;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface SelfContainedHandler {
 
 	/**
-	 * Receive notification of SC element. 
+	 * Receive notification of SC element.
 	 * 
-	 * @param uri namespaceURI of of SC element
-	 * @param localName local-name of SC element
-	 * @param channel encoder channel
+	 * @param uri
+	 *            namespaceURI of of SC element
+	 * @param localName
+	 *            local-name of SC element
+	 * @param channel
+	 *            encoder channel
 	 * 
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 */
-	public void scElement(String uri, String localName, EncoderChannel channel) throws EXIException;
+	public void scElement(String uri, String localName, EncoderChannel channel)
+			throws EXIException;
 
 }

@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.exceptions.ErrorHandler;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 public class DefaultErrorHandler implements ErrorHandler {
 

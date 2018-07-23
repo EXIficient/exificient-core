@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.Constants;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class GrammarUriContext extends AbstractUriContext {
@@ -44,7 +43,7 @@ public class GrammarUriContext extends AbstractUriContext {
 
 	// grammar prefixes
 	final String[] grammarPrefixes;
-	
+
 	// default prefix
 	final String defaultPrefix;
 
@@ -53,7 +52,7 @@ public class GrammarUriContext extends AbstractUriContext {
 		super(namespaceUriID, namespaceUri);
 		this.grammarQNames = grammarQNames;
 		this.grammarPrefixes = grammarPrefixes;
-		
+
 		switch (namespaceUriID) {
 		case 0:
 			// "" [empty string]
@@ -69,7 +68,7 @@ public class GrammarUriContext extends AbstractUriContext {
 			this.defaultPrefix = "ns" + namespaceUriID;
 		}
 	}
-	
+
 	public String getDefaultPrefix() {
 		return defaultPrefix;
 	}
@@ -149,15 +148,22 @@ public class GrammarUriContext extends AbstractUriContext {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof GrammarUriContext)) return false;
-		if (!super.equals(o)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof GrammarUriContext))
+			return false;
+		if (!super.equals(o))
+			return false;
 
 		GrammarUriContext that = (GrammarUriContext) o;
-		if (!super.equals(that)) return false;
-		if (!Arrays.equals(grammarQNames, that.grammarQNames)) return false;
-		if (!Arrays.equals(grammarPrefixes, that.grammarPrefixes)) return false;
-		return defaultPrefix != null ? defaultPrefix.equals(that.defaultPrefix) : that.defaultPrefix == null;
+		if (!super.equals(that))
+			return false;
+		if (!Arrays.equals(grammarQNames, that.grammarQNames))
+			return false;
+		if (!Arrays.equals(grammarPrefixes, that.grammarPrefixes))
+			return false;
+		return defaultPrefix != null ? defaultPrefix.equals(that.defaultPrefix)
+				: that.defaultPrefix == null;
 	}
 
 }

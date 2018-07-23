@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class SchemaLessProduction extends AbstractProduction {
@@ -53,13 +52,16 @@ public class SchemaLessProduction extends AbstractProduction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof SchemaLessProduction)) return false;
-		if (!super.equals(o)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof SchemaLessProduction))
+			return false;
+		if (!super.equals(o))
+			return false;
 
 		SchemaLessProduction that = (SchemaLessProduction) o;
 
-		return father != null ? father.equals(that.father) : that.father == null;
+		return father != null ? father.equals(that.father)
+				: that.father == null;
 	}
 }
-

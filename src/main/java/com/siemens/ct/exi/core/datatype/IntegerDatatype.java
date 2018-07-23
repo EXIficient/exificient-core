@@ -31,17 +31,16 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class IntegerDatatype extends AbstractDatatype {
-	
+
 	public IntegerDatatype(QNameContext schemaType) {
 		super(BuiltInType.INTEGER, schemaType);
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_integer;
 	}
-	
+
 }

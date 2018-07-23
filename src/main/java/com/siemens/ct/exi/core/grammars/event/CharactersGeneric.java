@@ -30,7 +30,6 @@ import com.siemens.ct.exi.core.types.BuiltIn;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class CharactersGeneric extends AbstractDatatypeEvent {

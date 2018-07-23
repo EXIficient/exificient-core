@@ -25,21 +25,19 @@ package com.siemens.ct.exi.core.datatype;
 
 import com.siemens.ct.exi.core.values.Value;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface EnumDatatype extends Datatype {
-	
+
 	public int getCodingLength();
-	
+
 	public int getEnumerationSize();
-	
+
 	public Value getEnumValue(int i);
-	
+
 }

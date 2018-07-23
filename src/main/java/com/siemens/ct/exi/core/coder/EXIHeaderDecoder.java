@@ -60,7 +60,6 @@ import com.siemens.ct.exi.core.values.ValueType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EXIHeaderDecoder extends AbstractEXIHeader {
@@ -68,7 +67,7 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 	protected QNameContext lastSE;
 
 	protected boolean dtrSection;
-//	protected boolean emptyExiP;
+	// protected boolean emptyExiP;
 	protected List<QName> dtrMapTypes = new ArrayList<QName>();
 	protected List<QName> dtrMapRepresentations = new ArrayList<QName>();
 
@@ -78,8 +77,8 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 	protected void clear() {
 		lastSE = null;
 
-//		emptyExiP = true;
-		
+		// emptyExiP = true;
+
 		dtrSection = false;
 		dtrMapTypes.clear();
 		dtrMapRepresentations.clear();
@@ -161,30 +160,34 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 
 	}
 
-	public EXIFactory readEXIOptions(DecoderChannel decoderChannel, EXIFactory noOptionsFactory) throws EXIException, IOException {
+	public EXIFactory readEXIOptions(DecoderChannel decoderChannel,
+			EXIFactory noOptionsFactory) throws EXIException, IOException {
 		EXIBodyDecoderInOrder decoder = (EXIBodyDecoderInOrder) getHeaderFactory()
 				.createEXIBodyDecoder();
 		decoder.setInputChannel(decoderChannel);
 
 		// schemaId = null;
 		// schemaIdSet = false;
-		
-//		// clone factory
-//		EXIFactory exiOptionsFactory = noOptionsFactory.clone();
+
+		// // clone factory
+		// EXIFactory exiOptionsFactory = noOptionsFactory.clone();
 
 		EXIFactory exiOptionsFactory = DefaultEXIFactory.newInstance();
 		// re-use important settings
-		exiOptionsFactory.setSchemaIdResolver(noOptionsFactory.getSchemaIdResolver());
-		exiOptionsFactory.setDecodingOptions(noOptionsFactory.getDecodingOptions());
+		exiOptionsFactory.setSchemaIdResolver(noOptionsFactory
+				.getSchemaIdResolver());
+		exiOptionsFactory.setDecodingOptions(noOptionsFactory
+				.getDecodingOptions());
 		// re-use schema knowledge
 		exiOptionsFactory.setGrammars(noOptionsFactory.getGrammars());
-		
-//		// STRICT is special, there is no NON STRICT flag --> per default set to
-//		// non strict
-//		if (exiOptionsFactory.getFidelityOptions().isStrict()) {
-//			exiOptionsFactory.getFidelityOptions().setFidelity(
-//					FidelityOptions.FEATURE_STRICT, false);
-//		}
+
+		// // STRICT is special, there is no NON STRICT flag --> per default set
+		// to
+		// // non strict
+		// if (exiOptionsFactory.getFidelityOptions().isStrict()) {
+		// exiOptionsFactory.getFidelityOptions().setFidelity(
+		// FidelityOptions.FEATURE_STRICT, false);
+		// }
 
 		clear();
 
@@ -312,10 +315,10 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 
 			if (DATATYPE_REPRESENTATION_MAP.equals(localName)) {
 				dtrSection = false;
-//			} else if (PROFILE.equals(localName) && this.emptyExiP) {
-//				f.setLocalValuePartitions(false);
-//				f.setMaximumNumberOfBuiltInElementGrammars(0);
-//				f.setMaximumNumberOfBuiltInProductions(0);
+				// } else if (PROFILE.equals(localName) && this.emptyExiP) {
+				// f.setLocalValuePartitions(false);
+				// f.setMaximumNumberOfBuiltInElementGrammars(0);
+				// f.setMaximumNumberOfBuiltInProductions(0);
 			}
 		}
 	}
@@ -362,53 +365,60 @@ public class EXIHeaderDecoder extends AbstractEXIHeader {
 						+ localName);
 			}
 		} else if (SCHEMA_ID.equals(localName)) {
-			if(f.getDecodingOptions().isOptionEnabled(DecodingOptions.IGNORE_SCHEMA_ID)) {
+			if (f.getDecodingOptions().isOptionEnabled(
+					DecodingOptions.IGNORE_SCHEMA_ID)) {
 				// don't do anything
 			} else {
 				String schemaId = value.toString();
 
-				
-				assert(schemaId != null);
+				assert (schemaId != null);
 				SchemaIdResolver sir = f.getSchemaIdResolver();
-				if(sir != null) {
+				if (sir != null) {
 					f.setGrammars(sir.resolveSchemaId(schemaId));
 				} else {
-//					// default --> try to find GrammarFactory
-//					// com.siemens.ct.exi.GrammarFactory
-//					try {
-//						Class<?> cls  = this.getClass().getClassLoader().loadClass("com.siemens.ct.exi.GrammarFactory");
-//						// no parameter for static newInstance method
-//						Class<?> noparams[] = {};
-//						cls.getDeclaredMethods();
-//						java.lang.reflect.Method methodGF = cls.getDeclaredMethod("newInstance", noparams);
-//						Object grammarFactory = methodGF.invoke(null);
-//						
-//						Grammars grs;
-//						if(schemaId.length() == 0) {
-//							// call the createXSDTypesOnlyGrammars method
-//							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createXSDTypesOnlyGrammars");
-//							grs = (Grammars) method.invoke(grammarFactory);
-//						} else {
-//							// call the createGrammars method, pass schemaId as String parameter
-//							Class<?>[] paramString = new Class[1];	
-//							paramString[0] = String.class;
-//							java.lang.reflect.Method method = grammarFactory.getClass().getDeclaredMethod("createGrammars", paramString);
-//							grs = (Grammars) method.invoke(grammarFactory, schemaId);
-//						}
-//						f.setGrammars(grs);
-//					} catch (Exception e) {
-						throw new EXIException("EXI Header povides schemaId '"+ schemaId + "'. No schemaIdResolver set!");
-//					}
+					// // default --> try to find GrammarFactory
+					// // com.siemens.ct.exi.GrammarFactory
+					// try {
+					// Class<?> cls =
+					// this.getClass().getClassLoader().loadClass("com.siemens.ct.exi.GrammarFactory");
+					// // no parameter for static newInstance method
+					// Class<?> noparams[] = {};
+					// cls.getDeclaredMethods();
+					// java.lang.reflect.Method methodGF =
+					// cls.getDeclaredMethod("newInstance", noparams);
+					// Object grammarFactory = methodGF.invoke(null);
+					//
+					// Grammars grs;
+					// if(schemaId.length() == 0) {
+					// // call the createXSDTypesOnlyGrammars method
+					// java.lang.reflect.Method method =
+					// grammarFactory.getClass().getDeclaredMethod("createXSDTypesOnlyGrammars");
+					// grs = (Grammars) method.invoke(grammarFactory);
+					// } else {
+					// // call the createGrammars method, pass schemaId as
+					// String parameter
+					// Class<?>[] paramString = new Class[1];
+					// paramString[0] = String.class;
+					// java.lang.reflect.Method method =
+					// grammarFactory.getClass().getDeclaredMethod("createGrammars",
+					// paramString);
+					// grs = (Grammars) method.invoke(grammarFactory, schemaId);
+					// }
+					// f.setGrammars(grs);
+					// } catch (Exception e) {
+					throw new EXIException("EXI Header povides schemaId '"
+							+ schemaId + "'. No schemaIdResolver set!");
+					// }
 				}
 			}
 		} else if (PROFILE.equals(localName)) {
-//			emptyExiP = false;
+			// emptyExiP = false;
 			if (value.getValueType() == ValueType.DECIMAL) {
 				DecimalValue dv = (DecimalValue) value;
 				f.setLocalValuePartitions(dv.isNegative());
 				assert (dv.getIntegral().getIntegerValueType() == IntegerValueType.INT);
-				f.setMaximumNumberOfBuiltInElementGrammars(dv
-						.getIntegral().intValue() - 1);
+				f.setMaximumNumberOfBuiltInElementGrammars(dv.getIntegral()
+						.intValue() - 1);
 				assert (dv.getRevFractional().getIntegerValueType() == IntegerValueType.INT);
 				f.setMaximumNumberOfBuiltInProductions(dv.getRevFractional()
 						.intValue() - 1);

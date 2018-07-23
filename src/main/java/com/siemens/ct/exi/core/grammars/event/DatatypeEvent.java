@@ -30,7 +30,6 @@ import com.siemens.ct.exi.core.datatype.Datatype;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface DatatypeEvent extends Event {

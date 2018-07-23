@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.types.TypedTypeEncoder;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class ListValue extends AbstractValue {
@@ -51,19 +50,19 @@ public class ListValue extends AbstractValue {
 		this.numberOfValues = values.length;
 		this.listDatatype = listDatatype;
 	}
-	
+
 	public int getNumberOfValues() {
 		return numberOfValues;
 	}
 
-	public Value[] toValues() {		
+	public Value[] toValues() {
 		return values;
 	}
-	
+
 	public Datatype getListDatatype() {
 		return listDatatype;
 	}
-	
+
 	public int getCharactersLength() {
 		if (slen == -1) {
 			slen = values.length > 0 ? (values.length - 1) : 0; // (n-1)
@@ -94,7 +93,6 @@ public class ListValue extends AbstractValue {
 		}
 	}
 
-	
 	public static ListValue parse(String value, Datatype listDatatype) {
 		// iterate over all tokens
 		StringTokenizer st = new StringTokenizer(value);
@@ -114,14 +112,13 @@ public class ListValue extends AbstractValue {
 				return null;
 			}
 		}
-		
+
 		return new ListValue(values, listDatatype);
 	}
-	
-	
+
 	protected final boolean _equals(ListValue o) {
 		// datatype
-		if ( listDatatype.getBuiltInType() != o.listDatatype.getBuiltInType() ) {
+		if (listDatatype.getBuiltInType() != o.listDatatype.getBuiltInType()) {
 			return false;
 		}
 		// values
@@ -136,7 +133,7 @@ public class ListValue extends AbstractValue {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -149,11 +146,11 @@ public class ListValue extends AbstractValue {
 			return lv == null ? false : _equals(lv);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hc = 0;
-		for(Value val : values) {
+		for (Value val : values) {
 			hc = (hc * 31) ^ val.hashCode();
 		}
 		return hc;

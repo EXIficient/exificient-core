@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class SchemaInformedProduction extends AbstractProduction {

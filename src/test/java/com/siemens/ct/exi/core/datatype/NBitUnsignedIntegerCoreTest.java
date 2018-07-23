@@ -207,43 +207,47 @@ public class NBitUnsignedIntegerCoreTest extends AbstractCoreTestCase {
 
 	public void testNBitUnsignedIntegerFacet1() throws IOException,
 			EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ "  <xs:simpleType name='NBit'>"
-//				+ "    <xs:restriction base='xs:integer'>"
-//				+ "      <xs:minInclusive value='2' />"
-//				+ "      <xs:maxExclusive value='10'/>"
-//				+ "    </xs:restriction>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
-//
-//		Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
-//				schemaAsString, "NBit", "");
-		Datatype datatype = new NBitUnsignedIntegerDatatype(IntegerValue.parse("2"), IntegerValue.parse("10"), null);
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + "  <xs:simpleType name='NBit'>"
+		// + "    <xs:restriction base='xs:integer'>"
+		// + "      <xs:minInclusive value='2' />"
+		// + "      <xs:maxExclusive value='10'/>"
+		// + "    </xs:restriction>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
+		//
+		// Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
+		// schemaAsString, "NBit", "");
+		Datatype datatype = new NBitUnsignedIntegerDatatype(
+				IntegerValue.parse("2"), IntegerValue.parse("10"), null);
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
-		
+
 		// try to validate
 		assertFalse(typeEncoder.isValid(datatype, new StringValue("12")));
 	}
 
 	public void testNBitUnsignedIntegerFacet2() throws IOException,
 			EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ "  <xs:simpleType name='NBit'>"
-//				+ "    <xs:restriction base='xs:long'>"
-//				+ "      <xs:minInclusive value='-200' />"
-//				+ "      <xs:maxExclusive value='-10'/>"
-//				+ "    </xs:restriction>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
-//
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + "  <xs:simpleType name='NBit'>"
+		// + "    <xs:restriction base='xs:long'>"
+		// + "      <xs:minInclusive value='-200' />"
+		// + "      <xs:maxExclusive value='-10'/>"
+		// + "    </xs:restriction>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
+		//
 		StringValue sValue = new StringValue("-12");
-//
-//		Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
-//				schemaAsString, "NBit", "");
-		Datatype datatype = new NBitUnsignedIntegerDatatype(IntegerValue.parse("-200"), IntegerValue.parse("-10"), null);
+		//
+		// Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
+		// schemaAsString, "NBit", "");
+		Datatype datatype = new NBitUnsignedIntegerDatatype(
+				IntegerValue.parse("-200"), IntegerValue.parse("-10"), null);
 		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
-		
+
 		// write (bit & byte )
 		assertTrue(typeEncoder.isValid(datatype, sValue));
 		// bit
@@ -259,28 +263,31 @@ public class NBitUnsignedIntegerCoreTest extends AbstractCoreTestCase {
 		sDecoded = typeDecoder.readValue(datatype, null, getBitDecoder(), null);
 		assertTrue(sValue + " != " + sDecoded, sDecoded.equals(sValue));
 		// byte
-		sDecoded = typeDecoder.readValue(datatype, null, getByteDecoder(), null);
+		sDecoded = typeDecoder
+				.readValue(datatype, null, getByteDecoder(), null);
 		assertTrue(sValue + " != " + sDecoded, sDecoded.equals(sValue));
 	}
 
 	public void testNBitUnsignedIntegerFacet3() throws IOException,
 			EXIException {
-//		String schemaAsString = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//				+ "  <xs:simpleType name='NBit'>"
-//				+ "    <xs:restriction base='xs:int'>"
-//				+ "      <xs:minInclusive value='-200' />"
-//				+ "      <xs:maxExclusive value='-10'/>"
-//				+ "    </xs:restriction>"
-//				+ "  </xs:simpleType>"
-//				+ "</xs:schema>";
+		// String schemaAsString =
+		// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+		// + "  <xs:simpleType name='NBit'>"
+		// + "    <xs:restriction base='xs:int'>"
+		// + "      <xs:minInclusive value='-200' />"
+		// + "      <xs:maxExclusive value='-10'/>"
+		// + "    </xs:restriction>"
+		// + "  </xs:simpleType>"
+		// + "</xs:schema>";
 
 		StringValue sValue = new StringValue("-12");
 
-		Datatype datatype = new NBitUnsignedIntegerDatatype(IntegerValue.parse("-200"), IntegerValue.parse("-10"), null);
+		Datatype datatype = new NBitUnsignedIntegerDatatype(
+				IntegerValue.parse("-200"), IntegerValue.parse("-10"), null);
 		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
-//		Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
-//				schemaAsString, "NBit", "");
+		// Datatype datatype = DatatypeMappingTest.getSimpleDatatypeFor(
+		// schemaAsString, "NBit", "");
 
 		// write (bit & byte )
 		assertTrue(typeEncoder.isValid(datatype, sValue));
@@ -297,7 +304,8 @@ public class NBitUnsignedIntegerCoreTest extends AbstractCoreTestCase {
 		sDecoded = typeDecoder.readValue(datatype, null, getBitDecoder(), null);
 		assertTrue(sValue + " != " + sDecoded, sDecoded.equals(sValue));
 		// byte
-		sDecoded = typeDecoder.readValue(datatype, null, getByteDecoder(), null);
+		sDecoded = typeDecoder
+				.readValue(datatype, null, getByteDecoder(), null);
 		assertTrue(sValue + " != " + sDecoded, sDecoded.equals(sValue));
 	}
 

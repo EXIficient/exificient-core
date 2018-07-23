@@ -59,7 +59,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
@@ -105,7 +104,6 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 	// content values
 	protected Map<QNameContext, PreReadValue> contentValues;
 
-
 	protected List<Value> xsiValues;
 	protected int xsiValueIndex;
 	protected List<String> xsiPrefixes;
@@ -114,12 +112,13 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 	// deflate stuff
 	protected Inflater inflater;
 	// protected InputStream recentInflaterInputStream;
-	
-	// Note: Map needs to be sorted to retrieve correct channel order (e.g., LinkedHashMap)
+
+	// Note: Map needs to be sorted to retrieve correct channel order (e.g.,
+	// LinkedHashMap)
 	protected Map<QNameContext, List<Datatype>> channelDatatypes;
-	
+
 	protected Map<QNameContext, PreReadValue> preReadValues;
-	
+
 	protected boolean firstChannel;
 
 	protected InputStream is;
@@ -141,10 +140,10 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		processingEntries = new ArrayList<ProcessingInstruction>();
 
 		preReadValues = new HashMap<QNameContext, PreReadValue>();
-		
-		// Note: needs to be sorted map for channel order 
+
+		// Note: needs to be sorted map for channel order
 		channelDatatypes = new LinkedHashMap<QNameContext, List<Datatype>>();
-		
+
 		// content values
 		contentValues = new HashMap<QNameContext, PreReadValue>();
 
@@ -186,7 +185,7 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		lastBlockElementContext = null;
 
 		channelDatatypes.clear();
-		
+
 		// initialize block etc
 		initBlock();
 
@@ -215,22 +214,22 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		xsiPrefixes.clear();
 		xsiPrefixIndex = 0;
 	}
-	
+
 	protected void initCompressionBlock() {
 		// re-set all channels
 		this.channelDatatypes.clear();
-		
+
 		this.preReadValues.clear();
 	}
-	
+
 	protected void addDatatype(QNameContext qnc, Datatype d) {
 		List<Datatype> ds = this.channelDatatypes.get(qnc);
-		if(ds == null) {
+		if (ds == null) {
 			// create new list
 			ds = new ArrayList<Datatype>();
 			// add to map (sorted due to linked hashmap)
 			channelDatatypes.put(qnc, ds);
-		} 
+		}
 		ds.add(d);
 	}
 
@@ -240,13 +239,15 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 
 		initForEachRun();
 	}
-	
+
 	EXIInflaterInputStream inflaterInputStream;
-	
-	public void updateInputStream(InputStream is) throws EXIException, IOException {
+
+	public void updateInputStream(InputStream is) throws EXIException,
+			IOException {
 		this.is = is;
-		if(!(this.is instanceof PushbackInputStream)) {
-			 this.is = new PushbackInputStream(is, DecodingOptions.PUSHBACK_BUFFER_SIZE);
+		if (!(this.is instanceof PushbackInputStream)) {
+			this.is = new PushbackInputStream(is,
+					DecodingOptions.PUSHBACK_BUFFER_SIZE);
 		}
 		inflaterInputStream = null;
 
@@ -260,16 +261,15 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		throw new RuntimeException(
 				"[EXI] Reorderd EXI Body decoder needs to be set via setInputStream(...)");
 	}
-	
+
 	public void updateInputChannel(DecoderChannel decoderChannel)
 			throws EXIException, IOException {
 		throw new RuntimeException(
 				"[EXI] Reorderd EXI Body decoder needs to be set via updateInputStream(...)");
 	}
-	
-	
+
 	private void readjustInputStream(InputStream is) throws IOException {
-		assert((codingMode == CodingMode.COMPRESSION));
+		assert ((codingMode == CodingMode.COMPRESSION));
 		if (inflaterInputStream != null) {
 			// inflater reads beyond deflate stream, reset position
 			// Note: pushback needs to be called given that it resets inflater
@@ -282,11 +282,14 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		if (codingMode == CodingMode.COMPRESSION) {
 			// readjust channel of previous inflate streams
 			readjustInputStream(is);
-			
-			inflaterInputStream = new EXIInflaterInputStream((PushbackInputStream) is, inflater, DecodingOptions.PUSHBACK_BUFFER_SIZE);
+
+			inflaterInputStream = new EXIInflaterInputStream(
+					(PushbackInputStream) is, inflater,
+					DecodingOptions.PUSHBACK_BUFFER_SIZE);
 			return new ByteDecoderChannel(inflaterInputStream);
-			
-//			 return new ByteDecoderChannel(new InflaterInputStream(is, inflater, inputBufferSize));
+
+			// return new ByteDecoderChannel(new InflaterInputStream(is,
+			// inflater, inputBufferSize));
 		} else {
 			assert (codingMode == CodingMode.PRE_COMPRESSION);
 			if (firstChannel) {
@@ -313,8 +316,7 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		if (getXsiTypeContext().equals(attributeQNameContext)) {
 			// xsi:type
 			updateAttributeToXsiType();
-		} else if (getXsiNilContext().equals(
-				attributeQNameContext)
+		} else if (getXsiNilContext().equals(attributeQNameContext)
 				&& getCurrentGrammar().isSchemaInformed()) {
 			// xsi:nil
 			eventTypes.set(eventTypes.size() - 1, EventType.ATTRIBUTE_XSI_NIL);
@@ -418,8 +420,7 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 				break;
 			case ATTRIBUTE:
 				Datatype dtAT = decodeAttributeStructure();
-				if (getXsiTypeContext().equals(
-						this.attributeQNameContext)) {
+				if (getXsiTypeContext().equals(this.attributeQNameContext)) {
 					updateAttributeToXsiType();
 				} else {
 					addQNameEntry(new QNameEntry(this.attributeQNameContext,
@@ -431,13 +432,15 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 				decodeAttributeStructure();
 				addQNameEntry(new QNameEntry(attributeQNameContext,
 						attributePrefix));
-				incrementValues(attributeQNameContext, BuiltIn.getDefaultDatatype());
+				incrementValues(attributeQNameContext,
+						BuiltIn.getDefaultDatatype());
 				break;
 			case ATTRIBUTE_ANY_INVALID_VALUE:
 				decodeAttributeAnyInvalidValueStructure();
 				addQNameEntry(new QNameEntry(attributeQNameContext,
 						attributePrefix));
-				incrementValues(attributeQNameContext, BuiltIn.getDefaultDatatype());
+				incrementValues(attributeQNameContext,
+						BuiltIn.getDefaultDatatype());
 				break;
 			case ATTRIBUTE_NS:
 				decodeAttributeNSStructure();
@@ -519,19 +522,20 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 		// qnameEntries.get(qnameEntries.size()-1) );
 		updateElementContext(lastBlockElementContext);
 	}
-	
 
 	protected void preReadBlockContent() throws EXIException {
 		try {
-			Iterator<QNameContext> iterCh = this.channelDatatypes.keySet().iterator();
-			
+			Iterator<QNameContext> iterCh = this.channelDatatypes.keySet()
+					.iterator();
+
 			if (blockValues <= Constants.MAX_NUMBER_OF_VALUES) {
 				// single compressed stream (includes structure)
-				
-				while(iterCh.hasNext()) {
+
+				while (iterCh.hasNext()) {
 					QNameContext o = iterCh.next();
 					List<Datatype> lds = this.channelDatatypes.get(o);
-					Value[] contentValues = readValues(lds, o, channel, stringDecoder);
+					Value[] contentValues = readValues(lds, o, channel,
+							stringDecoder);
 					PreReadValue prv = new PreReadValue(contentValues);
 					this.preReadValues.put(o, prv);
 				}
@@ -541,14 +545,15 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 
 				DecoderChannel bdcLessEqual100 = null;
 
-				while(iterCh.hasNext()) {
+				while (iterCh.hasNext()) {
 					QNameContext o = iterCh.next();
 					List<Datatype> lds = this.channelDatatypes.get(o);
 					if (lds.size() <= Constants.MAX_NUMBER_OF_VALUES) {
 						if (bdcLessEqual100 == null) {
 							bdcLessEqual100 = getNextChannel();
 						}
-						Value[] contentValues = readValues(lds, o, bdcLessEqual100, stringDecoder);
+						Value[] contentValues = readValues(lds, o,
+								bdcLessEqual100, stringDecoder);
 						PreReadValue prv = new PreReadValue(contentValues);
 						this.preReadValues.put(o, prv);
 					}
@@ -556,12 +561,13 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 
 				// proper stream for greater100
 				iterCh = this.channelDatatypes.keySet().iterator();
-				while(iterCh.hasNext()) {
+				while (iterCh.hasNext()) {
 					QNameContext o = iterCh.next();
 					List<Datatype> lds = this.channelDatatypes.get(o);
 					if (lds.size() > Constants.MAX_NUMBER_OF_VALUES) {
 						DecoderChannel bdcGreater100 = getNextChannel();
-						Value[] contentValues = readValues(lds, o, bdcGreater100, stringDecoder);
+						Value[] contentValues = readValues(lds, o,
+								bdcGreater100, stringDecoder);
 						PreReadValue prv = new PreReadValue(contentValues);
 						this.preReadValues.put(o, prv);
 					}
@@ -572,15 +578,16 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 			throw new EXIException(e);
 		}
 	}
-	
-	
-	private Value[] readValues(List<Datatype> lds, QNameContext o, DecoderChannel valueChannel, StringDecoder stringDecoder) throws IOException {
+
+	private Value[] readValues(List<Datatype> lds, QNameContext o,
+			DecoderChannel valueChannel, StringDecoder stringDecoder)
+			throws IOException {
 		Value[] contentValues = new Value[lds.size()];
 		for (int i = 0; i < lds.size(); i++) {
-			contentValues[i] = typeDecoder.readValue(
-					lds.get(i), o, valueChannel, stringDecoder);
+			contentValues[i] = typeDecoder.readValue(lds.get(i), o,
+					valueChannel, stringDecoder);
 		}
-		
+
 		return contentValues;
 	}
 
@@ -617,7 +624,7 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 			throws EXIException, IOException {
 
 		blockValues--;
-		
+
 		Value v = this.preReadValues.get(qname).getNextContantValue();
 
 		return v;
@@ -729,13 +736,13 @@ public class EXIBodyDecoderReordered extends AbstractEXIBodyDecoder {
 			IOException {
 		return decodeCharacters();
 	}
-	
-
 
 	public void decodeEndDocument() throws EXIException {
 		if (codingMode == CodingMode.COMPRESSION) {
-			// Note: in many cases not needed (e.g., if no more EXI documents in stream )
-			// fix input stream so that another process can read data at the right position...
+			// Note: in many cases not needed (e.g., if no more EXI documents in
+			// stream )
+			// fix input stream so that another process can read data at the
+			// right position...
 			try {
 				readjustInputStream(is);
 			} catch (IOException e) {

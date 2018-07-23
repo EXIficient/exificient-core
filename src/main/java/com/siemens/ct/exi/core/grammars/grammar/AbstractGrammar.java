@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.grammars.grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
+
  */
 
 import java.util.List;
@@ -55,7 +55,7 @@ public abstract class AbstractGrammar implements Grammar {
 	protected static final Event END_ELEMENT = new EndElement();
 
 	protected String label = null;
-	
+
 	// EXI Profile
 	protected int stopLearningContainerSize = Constants.NOT_FOUND;
 
@@ -92,10 +92,10 @@ public abstract class AbstractGrammar implements Grammar {
 
 	public void learnCharacters() {
 	}
-	
+
 	public void stopLearning() {
 	}
-	
+
 	public int learningStopped() {
 		return stopLearningContainerSize;
 	}
@@ -108,8 +108,7 @@ public abstract class AbstractGrammar implements Grammar {
 		if (this.label != null && !this.label.equals("")) {
 			return this.label;
 		} else {
-			return this.getClass().getName() + "[" + this.hashCode()
-					+ "]";
+			return this.getClass().getName() + "[" + this.hashCode() + "]";
 		}
 	}
 
@@ -127,7 +126,6 @@ public abstract class AbstractGrammar implements Grammar {
 	public Grammar getElementContentGrammar() {
 		return this;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {

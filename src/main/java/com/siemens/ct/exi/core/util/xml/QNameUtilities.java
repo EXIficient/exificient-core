@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.Constants;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class QNameUtilities {
@@ -77,8 +76,10 @@ public class QNameUtilities {
 	 * UnprefixedName ::= LocalPart
 	 * </p>
 	 * 
-	 * @param localName local-name
-	 * @param pfx prefix
+	 * @param localName
+	 *            local-name
+	 * @param pfx
+	 *            prefix
 	 * @return <code>String</code> for qname
 	 */
 	public static final String getQualifiedName(String localName, String pfx) {
@@ -92,7 +93,8 @@ public class QNameUtilities {
 	 * {http://www.w3.org/2001/XMLSchema}decimal &rarr;
 	 * org.w3.2001.XMLSchema.decimal
 	 * 
-	 * @param qname qualified name
+	 * @param qname
+	 *            qualified name
 	 * @return className or null if converting is not possible
 	 */
 	public static String getClassName(QName qname) {

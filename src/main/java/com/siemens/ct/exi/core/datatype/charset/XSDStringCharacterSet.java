@@ -30,7 +30,6 @@ package com.siemens.ct.exi.core.datatype.charset;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class XSDStringCharacterSet extends AbstractRestrictedCharacterSet {

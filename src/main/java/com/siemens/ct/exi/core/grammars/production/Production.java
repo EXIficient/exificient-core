@@ -26,21 +26,19 @@ package com.siemens.ct.exi.core.grammars.production;
 import com.siemens.ct.exi.core.grammars.event.Event;
 import com.siemens.ct.exi.core.grammars.grammar.Grammar;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface Production {
 
 	public Event getEvent();
-	
+
 	public Grammar getNextGrammar();
-	
+
 	public int getEventCode();
-	
+
 }

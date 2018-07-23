@@ -32,12 +32,11 @@ import java.io.InputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class ByteDecoderChannel extends AbstractDecoderChannel implements
 		DecoderChannel {
-	
+
 	protected InputStream is;
 
 	public ByteDecoderChannel(InputStream istream) {
@@ -50,8 +49,8 @@ public class ByteDecoderChannel extends AbstractDecoderChannel implements
 
 	public int decode() throws IOException {
 		int b = is.read();
-		if(b == -1) {
-			throw new EOFException("Premature EOS found while reading data.");	
+		if (b == -1) {
+			throw new EOFException("Premature EOS found while reading data.");
 		}
 		return b;
 	}
@@ -97,22 +96,24 @@ public class ByteDecoderChannel extends AbstractDecoderChannel implements
 	public byte[] decodeBinary() throws IOException {
 		final int length = decodeUnsignedInteger();
 		byte[] result = new byte[length];
-		
+
 		int readBytes = 0;
-		while(readBytes < length) {
+		while (readBytes < length) {
 			int len = is.read(result, readBytes, length - readBytes);
-			if(len == -1) {
-				throw new EOFException("Premature EOS found while reading data.");
+			if (len == -1) {
+				throw new EOFException(
+						"Premature EOS found while reading data.");
 			}
 			readBytes += len;
 		}
 
-//		int readBytes = is.read(result);
-//		if (readBytes < length) {
-//			// special case: not all bytes are read
-//			while ((readBytes += is.read(result, readBytes, length - readBytes)) < length) {
-//			}
-//		}
+		// int readBytes = is.read(result);
+		// if (readBytes < length) {
+		// // special case: not all bytes are read
+		// while ((readBytes += is.read(result, readBytes, length - readBytes))
+		// < length) {
+		// }
+		// }
 
 		return result;
 	}

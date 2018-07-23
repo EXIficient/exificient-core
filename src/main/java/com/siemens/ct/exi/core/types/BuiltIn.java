@@ -35,7 +35,6 @@ import com.siemens.ct.exi.core.datatype.StringDatatype;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BuiltIn {
@@ -57,18 +56,18 @@ public class BuiltIn {
 	 */
 	public static final QName XSD_DATETIME = new QName(
 			Constants.XML_SCHEMA_NS_URI, "dateTime");
-	public static final QName XSD_TIME = new QName(
-			Constants.XML_SCHEMA_NS_URI, "time");
-	public static final QName XSD_DATE = new QName(
-			Constants.XML_SCHEMA_NS_URI, "date");
+	public static final QName XSD_TIME = new QName(Constants.XML_SCHEMA_NS_URI,
+			"time");
+	public static final QName XSD_DATE = new QName(Constants.XML_SCHEMA_NS_URI,
+			"date");
 	public static final QName XSD_GYEARMONTH = new QName(
 			Constants.XML_SCHEMA_NS_URI, "gYearMonth");
 	public static final QName XSD_GYEAR = new QName(
 			Constants.XML_SCHEMA_NS_URI, "gYear");
 	public static final QName XSD_GMONTHDAY = new QName(
 			Constants.XML_SCHEMA_NS_URI, "gMonthDay");
-	public static final QName XSD_GDAY = new QName(
-			Constants.XML_SCHEMA_NS_URI, "gDay");
+	public static final QName XSD_GDAY = new QName(Constants.XML_SCHEMA_NS_URI,
+			"gDay");
 	public static final QName XSD_GMONTH = new QName(
 			Constants.XML_SCHEMA_NS_URI, "gMonth");
 
@@ -112,8 +111,10 @@ public class BuiltIn {
 	 * default QName / BuiltInType / Datatype
 	 */
 	public static final QName DEFAULT_VALUE_NAME = XSD_STRING;
-	
-	private static final Datatype DEFAULT_DATATYPE = new StringDatatype(new QNameContext(-1, -1, new QName("")));
+
+	private static final Datatype DEFAULT_DATATYPE = new StringDatatype(
+			new QNameContext(-1, -1, new QName("")));
+
 	public static Datatype getDefaultDatatype() {
 		return DEFAULT_DATATYPE;
 	}

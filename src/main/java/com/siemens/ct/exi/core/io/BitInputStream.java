@@ -33,7 +33,6 @@ import java.io.InputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 final public class BitInputStream {
@@ -59,7 +58,8 @@ final public class BitInputStream {
 	/**
 	 * Construct an instance of this class from an input stream.
 	 * 
-	 * @param istream input stream
+	 * @param istream
+	 *            input stream
 	 */
 	public BitInputStream(InputStream istream) {
 		this.istream = istream;
@@ -70,13 +70,14 @@ final public class BitInputStream {
 	 * allows instances of this class to be re-used. The resulting state after
 	 * calling this method is identical to that of a newly created instance.
 	 * 
-	 * @param istream input stream
+	 * @param istream
+	 *            input stream
 	 */
 	public void setInputStream(InputStream istream) {
 		this.istream = istream;
 		buffer = capacity = 0;
 	}
-	
+
 	// read direct byte
 	private final int readDirectByte() throws IOException {
 		int b;
@@ -97,7 +98,8 @@ final public class BitInputStream {
 	/**
 	 * Discard any bits currently in the buffer to byte-align stream
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void align() throws IOException {
 		if (capacity != 0) {
@@ -108,7 +110,8 @@ final public class BitInputStream {
 	/**
 	 * Returns current byte buffer without actually reading data
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 * @return lookAhead byte
 	 */
 	public int lookAhead() throws IOException {
@@ -121,8 +124,10 @@ final public class BitInputStream {
 	/**
 	 * Skip n bytes
 	 * 
-	 * @param n bytes
-	 * @throws IOException IO exception
+	 * @param n
+	 *            bytes
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public void skip(long n) throws IOException {
 		if (capacity == 0) {
@@ -141,7 +146,8 @@ final public class BitInputStream {
 	/**
 	 * Return next bit from underlying stream.
 	 * 
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 * @return read bit
 	 */
 	public int readBit() throws IOException {
@@ -156,8 +162,9 @@ final public class BitInputStream {
 	 * 
 	 * @param n
 	 *            The number of bits in the range [1,32].
-	 *            
-	 * @throws IOException IO exception
+	 * 
+	 * @throws IOException
+	 *             IO exception
 	 * @return nbit value
 	 */
 	public int readBits(int n) throws IOException {
@@ -192,7 +199,8 @@ final public class BitInputStream {
 				if (capacity == 0) {
 					readBuffer();
 				}
-				result = (result << n) | (buffer >> (capacity = (BUFFER_CAPACITY - n)));
+				result = (result << n)
+						| (buffer >> (capacity = (BUFFER_CAPACITY - n)));
 			}
 		}
 
@@ -203,7 +211,8 @@ final public class BitInputStream {
 	 * Reads one byte (8 bits) of data from the input stream
 	 * 
 	 * @return next byte as int
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	public final int read() throws IOException {
 		// possible to read direct byte?
@@ -221,15 +230,16 @@ final public class BitInputStream {
 			int readBytes = 0;
 			do {
 				int br = istream.read(b, readBytes, len - readBytes);
-				if(br == -1) {
-					throw new EOFException("Premature EOS found while reading data.");
+				if (br == -1) {
+					throw new EOFException(
+							"Premature EOS found while reading data.");
 				}
 				readBytes += br;
 			} while (readBytes < len);
 		} else {
 			final int shift = BUFFER_CAPACITY - capacity;
-			
-			for(int i=0; i<len; i++) {
+
+			for (int i = 0; i < len; i++) {
 				b[i] = (byte) ((buffer << shift) | ((buffer = readDirectByte()) >> capacity));
 			}
 

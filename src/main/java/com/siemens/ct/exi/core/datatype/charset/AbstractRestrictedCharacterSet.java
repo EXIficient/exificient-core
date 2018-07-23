@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractRestrictedCharacterSet implements
@@ -108,13 +107,12 @@ public abstract class AbstractRestrictedCharacterSet implements
 		}
 		return false;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		return codeSet.hashCode();
 	}
-	
+
 	@Override
 	public String toString() {
 		return codePointList.toString();

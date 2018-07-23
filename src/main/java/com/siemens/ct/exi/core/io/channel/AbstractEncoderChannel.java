@@ -36,11 +36,10 @@ import com.siemens.ct.exi.core.values.IntegerValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
-public abstract class AbstractEncoderChannel implements EncoderChannel {	
-	
+public abstract class AbstractEncoderChannel implements EncoderChannel {
+
 	/**
 	 * Encode a binary value as a length-prefixed sequence of octets.
 	 */
@@ -131,7 +130,8 @@ public abstract class AbstractEncoderChannel implements EncoderChannel {
 			encodeBigInteger(iv.bigIntegerValue());
 			break;
 		default:
-			throw new IOException("Unexpcted EXI integer value type " + iv.getValueType());
+			throw new IOException("Unexpcted EXI integer value type "
+					+ iv.getValueType());
 		}
 	}
 
@@ -221,7 +221,8 @@ public abstract class AbstractEncoderChannel implements EncoderChannel {
 			encodeUnsignedBigInteger(iv.bigIntegerValue());
 			break;
 		default:
-			throw new IOException("Unexpcted EXI integer value type " + iv.getValueType());
+			throw new IOException("Unexpcted EXI integer value type "
+					+ iv.getValueType());
 		}
 	}
 
@@ -292,7 +293,8 @@ public abstract class AbstractEncoderChannel implements EncoderChannel {
 		// [TimeZone]
 		if (datetime.presenceTimezone) {
 			encodeBoolean(true);
-			encodeNBitUnsignedInteger(datetime.timezone + DateTimeValue.TIMEZONE_OFFSET_IN_MINUTES,
+			encodeNBitUnsignedInteger(datetime.timezone
+					+ DateTimeValue.TIMEZONE_OFFSET_IN_MINUTES,
 					DateTimeValue.NUMBER_BITS_TIMEZONE);
 		} else {
 			encodeBoolean(false);

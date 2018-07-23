@@ -33,13 +33,12 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class ExtendedStringDatatype extends AbstractDatatype {
 
 	protected String lastValue;
-	
+
 	protected List<String> sharedStrings;
 	protected EnumDatatype grammarStrings;
 
@@ -47,22 +46,22 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 		// default whiteSpace facet for string is preserve
 		this(schemaType, WhiteSpace.preserve);
 	}
-	
+
 	public ExtendedStringDatatype(QNameContext schemaType, WhiteSpace whiteSpace) {
 		super(BuiltInType.EXTENDED_STRING, schemaType);
-		
+
 		/* default whiteSpace facet for string is preserve */
 		this.whiteSpace = whiteSpace;
 	}
-	
+
 	public void setSharedStrings(List<String> sharedStrings) {
 		this.sharedStrings = sharedStrings;
 	}
-	
+
 	public void setGrammarStrings(EnumDatatype grammarStrings) {
 		this.grammarStrings = grammarStrings;
 	}
-	
+
 	public EnumDatatype getGrammarStrings() {
 		return this.grammarStrings;
 	}
@@ -70,6 +69,5 @@ public class ExtendedStringDatatype extends AbstractDatatype {
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_estring;
 	}
-	
-}
 
+}

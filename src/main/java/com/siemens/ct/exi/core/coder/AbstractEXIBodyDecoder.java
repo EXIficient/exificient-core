@@ -64,7 +64,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
@@ -86,7 +85,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 
 	// String Decoder
 	protected final StringDecoder stringDecoder;
-	
+
 	// current AT values
 	protected QNameContext attributeQNameContext;
 	protected String attributePrefix;
@@ -123,13 +122,13 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		super.initForEachRun();
 
 		stringDecoder.clear();
-		if(this.exiFactory.getSharedStrings() != null) {
+		if (this.exiFactory.getSharedStrings() != null) {
 			stringDecoder.setSharedStrings(this.exiFactory.getSharedStrings());
 		}
 	}
-	
 
-	protected QNameContext decodeQName(DecoderChannel channel) throws IOException {
+	protected QNameContext decodeQName(DecoderChannel channel)
+			throws IOException {
 		// decode uri & local-name
 		return decodeLocalName(decodeUri(channel), channel);
 	}
@@ -188,8 +187,8 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		return qnc;
 	}
 
-	protected String decodeQNamePrefix(RuntimeUriContext uc, DecoderChannel channel)
-			throws IOException {
+	protected String decodeQNamePrefix(RuntimeUriContext uc,
+			DecoderChannel channel) throws IOException {
 
 		String prefix = null;
 
@@ -238,9 +237,6 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 
 		return prefix;
 	}
-	
-	
-	
 
 	protected final EventType decodeEventCode() throws EXIException,
 			IOException {
@@ -337,8 +333,8 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		int level2 = channel.decodeNBitUnsignedInteger(MethodsBag
 				.getCodingLength(ch2));
 
-		int ch3= fidelityOptions.get3rdLevelCharacteristics();
-		
+		int ch3 = fidelityOptions.get3rdLevelCharacteristics();
+
 		if (ch3 > 0) {
 			return (level2 < (ch2 - 1) ? level2 : Constants.NOT_FOUND);
 		} else {
@@ -361,80 +357,90 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 	protected final void decodeEndDocumentStructure() throws EXIException,
 			IOException {
 		// Debug check for EXI profile stream consistency ?
-		if(this.limitGrammarLearning) {
-			if(this.maxBuiltInElementGrammars != -1) {
+		if (this.limitGrammarLearning) {
+			if (this.maxBuiltInElementGrammars != -1) {
 				// count grammars that evolved with other than AT(xsi:type)
 				int evolvedGrs = 0;
-				
-				Iterator<StartElement> iterSEs = runtimeGlobalElements.values().iterator();
-				while(iterSEs.hasNext()) {
+
+				Iterator<StartElement> iterSEs = runtimeGlobalElements.values()
+						.iterator();
+				while (iterSEs.hasNext()) {
 					StartElement se = iterSEs.next();
 					Grammar stg = se.getGrammar();
-					assert(stg.getGrammarType() == GrammarType.BUILT_IN_START_TAG_CONTENT);
+					assert (stg.getGrammarType() == GrammarType.BUILT_IN_START_TAG_CONTENT);
 					Grammar ecg = stg.getElementContentGrammar();
-					assert(ecg.getGrammarType() == GrammarType.BUILT_IN_ELEMENT_CONTENT);
-					
-					if(ecg.getNumberOfEvents() != 1) {
+					assert (ecg.getGrammarType() == GrammarType.BUILT_IN_ELEMENT_CONTENT);
+
+					if (ecg.getNumberOfEvents() != 1) {
 						// BuiltIn Element Content grammar has EE per default
 						evolvedGrs++;
 					} else {
-						if(stg.getNumberOfEvents() > 1) {
+						if (stg.getNumberOfEvents() > 1) {
 							evolvedGrs++;
 						} else if (stg.getNumberOfEvents() == 1) {
 							// check for AT(xsi:type)
-							if(!isBuiltInStartTagGrammarWithAtXsiTypeOnly(stg) ) {
+							if (!isBuiltInStartTagGrammarWithAtXsiTypeOnly(stg)) {
 								evolvedGrs++;
 							}
 						}
 					}
 				}
-				
-				if(evolvedGrs > maxBuiltInElementGrammars) {
-					throw new RuntimeException("EXI profile stream does not respect parameter maxBuiltInElementGrammars. Expected " + maxBuiltInElementGrammars + " but was " + evolvedGrs);
-				}	
+
+				if (evolvedGrs > maxBuiltInElementGrammars) {
+					throw new RuntimeException(
+							"EXI profile stream does not respect parameter maxBuiltInElementGrammars. Expected "
+									+ maxBuiltInElementGrammars
+									+ " but was "
+									+ evolvedGrs);
+				}
 			}
-			
+
 			// TODO how to detect ghost nodes that are never used
-//			if(false && this.maxBuiltInProductions != -1) {
-//				System.err.println("prods " + this.maxBuiltInProductions);
-//				// count learned productions
-//				int learnedProds = 0;
-//				
-//				Iterator<StartElement> iterSEs = runtimeGlobalElements.values().iterator();
-//				while(iterSEs.hasNext()) {
-//					StartElement se = iterSEs.next();
-//					Grammar stg = se.getGrammar();
-//					assert(stg.getGrammarType() == GrammarType.BUILT_IN_START_TAG_CONTENT);
-//					Grammar ecg = stg.getElementContentGrammar();
-//					assert(ecg.getGrammarType() == GrammarType.BUILT_IN_ELEMENT_CONTENT);
-//					
-//					int ls;
-//					
-//					if((ls = stg.learningStopped()) != Constants.NOT_FOUND) {
-//						// learning stopped
-//						learnedProds += stg.getNumberOfEvents() - ls;
-//					} else {
-//						if(isBuiltInStartTagGrammarWithAtXsiTypeOnly(stg) ) {
-//							// AT(xsi:type) does not count
-//						} else {
-//							learnedProds += stg.getNumberOfEvents();
-//						}
-//					}
-//					
-//					if((ls = ecg.learningStopped()) != Constants.NOT_FOUND) {
-//						// learning stopped
-//						learnedProds += ecg.getNumberOfEvents() - ls;
-//					} else {
-//						learnedProds += ecg.getNumberOfEvents() - 1; // EE
-//					}
-//				}
-//
-//				if(learnedProds > maxBuiltInProductions) {
-//					throw new RuntimeException("EXI profile stream does not respect parameter maxBuiltInProductions. Expected " + maxBuiltInProductions + " but was " + learnedProds);
-//				}	
-//			}
+			// if(false && this.maxBuiltInProductions != -1) {
+			// System.err.println("prods " + this.maxBuiltInProductions);
+			// // count learned productions
+			// int learnedProds = 0;
+			//
+			// Iterator<StartElement> iterSEs =
+			// runtimeGlobalElements.values().iterator();
+			// while(iterSEs.hasNext()) {
+			// StartElement se = iterSEs.next();
+			// Grammar stg = se.getGrammar();
+			// assert(stg.getGrammarType() ==
+			// GrammarType.BUILT_IN_START_TAG_CONTENT);
+			// Grammar ecg = stg.getElementContentGrammar();
+			// assert(ecg.getGrammarType() ==
+			// GrammarType.BUILT_IN_ELEMENT_CONTENT);
+			//
+			// int ls;
+			//
+			// if((ls = stg.learningStopped()) != Constants.NOT_FOUND) {
+			// // learning stopped
+			// learnedProds += stg.getNumberOfEvents() - ls;
+			// } else {
+			// if(isBuiltInStartTagGrammarWithAtXsiTypeOnly(stg) ) {
+			// // AT(xsi:type) does not count
+			// } else {
+			// learnedProds += stg.getNumberOfEvents();
+			// }
+			// }
+			//
+			// if((ls = ecg.learningStopped()) != Constants.NOT_FOUND) {
+			// // learning stopped
+			// learnedProds += ecg.getNumberOfEvents() - ls;
+			// } else {
+			// learnedProds += ecg.getNumberOfEvents() - 1; // EE
+			// }
+			// }
+			//
+			// if(learnedProds > maxBuiltInProductions) {
+			// throw new
+			// RuntimeException("EXI profile stream does not respect parameter maxBuiltInProductions. Expected "
+			// + maxBuiltInProductions + " but was " + learnedProds);
+			// }
+			// }
 		}
-		
+
 	}
 
 	protected final QNameContext decodeStartElementStructure()
@@ -457,8 +463,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		// StartElementNS
 		StartElementNS seNS = ((StartElementNS) nextEvent);
 		// decode local-name
-		RuntimeUriContext uc = getUri(seNS
-				.getNamespaceUriID());
+		RuntimeUriContext uc = getUri(seNS.getNamespaceUriID());
 		QNameContext qnc = this.decodeLocalName(uc, channel);
 
 		// next SE ...
@@ -539,12 +544,12 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		if (preserveLexicalValues) {
 			// as String
 			attributeValue = typeDecoder.readValue(booleanDatatype,
-					getXsiNilContext(), channel,
-					stringDecoder);
+					getXsiNilContext(), channel, stringDecoder);
 		} else {
 			// as Boolean
 			attributeValue = channel.decodeBooleanValue();
-			// attributeValue = booleanDatatype.readValue(null, channel, stringDecoder);
+			// attributeValue = booleanDatatype.readValue(null, channel,
+			// stringDecoder);
 		}
 
 		boolean xsiNil = false;
@@ -555,10 +560,10 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		} else {
 			// parse string value again (lexical value mode)
 			if (attributeValue instanceof BooleanValue) {
-				xsiNil = ((BooleanValue)attributeValue).toBoolean();
+				xsiNil = ((BooleanValue) attributeValue).toBoolean();
 			} else {
 				BooleanValue bv = BooleanValue.parse(attributeValue.toString());
-				if(bv != null) {
+				if (bv != null) {
 					xsiNil = bv.toBoolean();
 				}
 			}
@@ -588,8 +593,8 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 		// read xsi:type content
 		if (this.preserveLexicalValues) {
 			// assert(preservePrefix); // Note: requirement
-			attributeValue = typeDecoder.readValue(BuiltIn.getDefaultDatatype(),
-					getXsiTypeContext(), channel,
+			attributeValue = typeDecoder.readValue(
+					BuiltIn.getDefaultDatatype(), getXsiTypeContext(), channel,
 					stringDecoder);
 			String sType = attributeValue.toString();
 			// extract prefix
@@ -609,7 +614,8 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 			qncType = decodeQName(channel);
 			String qncTypePrefix;
 			if (preservePrefix) {
-				qncTypePrefix = decodeQNamePrefix(getUri(qncType.getNamespaceUriID()), channel);
+				qncTypePrefix = decodeQNamePrefix(
+						getUri(qncType.getNamespaceUriID()), channel);
 			} else {
 				checkDefaultPrefixNamespaceDeclaration(qncType);
 				qncTypePrefix = qncType.getDefaultPrefix();
@@ -629,9 +635,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 			throws IOException {
 		String pfx;
 		if (preservePrefix) {
-			pfx = decodeQNamePrefix(
-					getUri(qnc.getNamespaceUriID()),
-					channel);
+			pfx = decodeQNamePrefix(getUri(qnc.getNamespaceUriID()), channel);
 			// Note: IF elementPrefix is still null it will be determined by a
 			// subsequently following NS event
 		} else {
@@ -646,8 +650,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 			throws IOException {
 		if (preservePrefix) {
 			attributePrefix = decodeQNamePrefix(
-					getUri(qnc.getNamespaceUriID()),
-					channel);
+					getUri(qnc.getNamespaceUriID()), channel);
 		} else {
 			checkDefaultPrefixNamespaceDeclaration(qnc);
 			attributePrefix = qnc.getDefaultPrefix();
@@ -691,8 +694,7 @@ public abstract class AbstractEXIBodyDecoder extends AbstractEXIBodyCoder
 			IOException {
 		// AttributeEventNS
 		AttributeNS atNS = ((AttributeNS) nextEvent);
-		RuntimeUriContext uc = getUri(atNS
-				.getNamespaceUriID());
+		RuntimeUriContext uc = getUri(atNS.getNamespaceUriID());
 		attributeQNameContext = decodeLocalName(uc, channel);
 
 		// handle attribute prefix

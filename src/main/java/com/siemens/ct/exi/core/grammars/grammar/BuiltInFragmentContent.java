@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.event.StartElement;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -55,7 +54,7 @@ public class BuiltInFragmentContent extends AbstractBuiltInGrammar {
 		// SE(*) --> FragmentContent
 		addProduction(START_ELEMENT_GENERIC, this);
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.BUILT_IN_FRAGMENT_CONTENT;
 	}

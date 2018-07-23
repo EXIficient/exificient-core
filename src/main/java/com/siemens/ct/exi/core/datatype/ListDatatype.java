@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class ListDatatype extends AbstractDatatype {
@@ -47,7 +46,7 @@ public class ListDatatype extends AbstractDatatype {
 
 		this.listDatatype = listDatatype;
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return listDatatype.getDatatypeID();
 	}
@@ -55,10 +54,10 @@ public class ListDatatype extends AbstractDatatype {
 	public Datatype getListDatatype() {
 		return listDatatype;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(super.equals(o) && o instanceof ListDatatype ) {
+		if (super.equals(o) && o instanceof ListDatatype) {
 			ListDatatype l = (ListDatatype) o;
 			return (this.listDatatype.equals(l.listDatatype));
 		}

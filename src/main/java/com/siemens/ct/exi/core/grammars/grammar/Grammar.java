@@ -34,7 +34,6 @@ import com.siemens.ct.exi.core.grammars.production.Production;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface Grammar {
@@ -43,15 +42,14 @@ public interface Grammar {
 	 * rule created according to schema information
 	 */
 	public boolean isSchemaInformed();
-	
-	
+
 	/**
-	 *  Informs whether a grammar has first level EndElement (EE) production
+	 * Informs whether a grammar has first level EndElement (EE) production
 	 * 
 	 * @return boolean according to whether EE is available
 	 */
 	public boolean hasEndElement();
-	
+
 	/*
 	 * Retrieve grammar type
 	 */
@@ -77,23 +75,25 @@ public interface Grammar {
 	public void learnAttribute(Attribute at);
 
 	public void learnCharacters();
-	
+
 	/**
 	 * Learning is stopped for the EXI Profile.
 	 * 
-	 * <p>Grammar learning is stopped in the sense that counters are incremented but the actual events cannot be retrieved anymore.
-	 * However, it is taken care that neither EE, CH, nor AT(xsi:type) is learned more than twice.</p> 
+	 * <p>
+	 * Grammar learning is stopped in the sense that counters are incremented
+	 * but the actual events cannot be retrieved anymore. However, it is taken
+	 * care that neither EE, CH, nor AT(xsi:type) is learned more than twice.
+	 * </p>
 	 */
 	public void stopLearning();
 
-	
 	/**
 	 * Reports internal state
 	 * 
 	 * @return -1 for learning not stopped. Otherwise ID
 	 */
 	public int learningStopped();
-	
+
 	/*
 	 * For moving to element content grammar
 	 */

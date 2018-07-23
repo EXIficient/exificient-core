@@ -28,7 +28,6 @@ package com.siemens.ct.exi.core.values;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class StringValue extends AbstractValue {
@@ -57,7 +56,7 @@ public class StringValue extends AbstractValue {
 		checkCharacters();
 		return characters.length;
 	}
-	
+
 	public char[] getCharacters() {
 		checkCharacters();
 		return characters;
@@ -65,7 +64,7 @@ public class StringValue extends AbstractValue {
 
 	public void getCharacters(char[] cbuffer, int offset) {
 		checkCharacters();
-		
+
 		// not optimal, need to copy char data
 		System.arraycopy(characters, 0, cbuffer, offset, characters.length);
 	}
@@ -90,11 +89,10 @@ public class StringValue extends AbstractValue {
 		}
 		return this == o ? true : toString().equals(o.toString());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
 	}
-	
 
 }

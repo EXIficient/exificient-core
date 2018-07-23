@@ -38,25 +38,25 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
-public class StringEncoderImpl extends AbstractStringCoder implements StringEncoder {
-	
+public class StringEncoderImpl extends AbstractStringCoder implements
+		StringEncoder {
+
 	// strings (all)
 	protected Map<String, ValueContainer> stringValues;
-	
+
 	public StringEncoderImpl(boolean localValuePartitions) {
 		this(localValuePartitions, DEFAULT_INITIAL_QNAME_LISTS);
 	}
-	
+
 	public StringEncoderImpl(boolean localValuePartitions, int initialQNameLists) {
 		super(localValuePartitions, initialQNameLists);
 		stringValues = new HashMap<String, ValueContainer>();
 	}
-	
-	public void writeValue(QNameContext context,
-			EncoderChannel valueChannel, String value) throws IOException {
+
+	public void writeValue(QNameContext context, EncoderChannel valueChannel,
+			String value) throws IOException {
 
 		ValueContainer vc = stringValues.get(value);
 
@@ -69,8 +69,10 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 				 * string value in the "local" value partition
 				 */
 				valueChannel.encodeUnsignedInteger(0);
-				int numberBitsLocal = MethodsBag.getCodingLength(getNumberOfStringValues(context));
-				valueChannel.encodeNBitUnsignedInteger(vc.localValueID, numberBitsLocal);
+				int numberBitsLocal = MethodsBag
+						.getCodingLength(getNumberOfStringValues(context));
+				valueChannel.encodeNBitUnsignedInteger(vc.localValueID,
+						numberBitsLocal);
 			} else {
 				/*
 				 * global value hit ==> value is represented as one (1) encoded
@@ -79,9 +81,11 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 				 */
 				valueChannel.encodeUnsignedInteger(1);
 				// global value size
-				
-				int numberBitsGlobal = MethodsBag.getCodingLength(stringValues.size());
-				valueChannel.encodeNBitUnsignedInteger(vc.globalValueID, numberBitsGlobal);
+
+				int numberBitsGlobal = MethodsBag.getCodingLength(stringValues
+						.size());
+				valueChannel.encodeNBitUnsignedInteger(vc.globalValueID,
+						numberBitsGlobal);
 			}
 		} else {
 			/*
@@ -104,11 +108,11 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 		}
 
 	}
-	
+
 	public ValueContainer getValueContainer(String value) {
 		return this.stringValues.get(value);
 	}
-	
+
 	public int getValueContainerSize() {
 		return stringValues.size();
 	}
@@ -117,7 +121,6 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 	public boolean isStringHit(String value) throws IOException {
 		return (stringValues.get(value) != null);
 	}
-	
 
 	public void addValue(QNameContext qnc, String value) {
 		assert (!stringValues.containsKey(value));
@@ -137,9 +140,9 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 		super.clear();
 		stringValues.clear();
 	}
-	
+
 	public void setSharedStrings(List<String> sharedStrings) {
-		for(String s : sharedStrings) {
+		for (String s : sharedStrings) {
 			this.addValue(null, s);
 		}
 	}
@@ -151,8 +154,8 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 		public final int localValueID;
 		public final int globalValueID;
 
-		public ValueContainer(String value, QNameContext context, int localValueID,
-				int globalValueID) {
+		public ValueContainer(String value, QNameContext context,
+				int localValueID, int globalValueID) {
 			this.value = value;
 			this.context = context;
 			this.localValueID = localValueID;
@@ -161,10 +164,9 @@ public class StringEncoderImpl extends AbstractStringCoder implements StringEnco
 
 		@Override
 		public String toString() {
-			return "['" + value + "', " + context + "," + localValueID + "," + globalValueID
-					+ "]";
+			return "['" + value + "', " + context + "," + localValueID + ","
+					+ globalValueID + "]";
 		}
 	}
-
 
 }

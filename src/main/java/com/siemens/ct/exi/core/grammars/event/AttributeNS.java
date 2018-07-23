@@ -23,30 +23,28 @@
 
 package com.siemens.ct.exi.core.grammars.event;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class AttributeNS extends AbstractEvent {
-	
+
 	protected final String namespaceUri;
 	protected final int namespaceUriID;
-	
+
 	public AttributeNS(int namespaceUriID, String namespaceUri) {
 		super(EventType.ATTRIBUTE_NS);
 		this.namespaceUriID = namespaceUriID;
 		this.namespaceUri = namespaceUri;
 	}
-	
+
 	public String getNamespaceURI() {
 		return namespaceUri;
 	}
-	
+
 	public int getNamespaceUriID() {
 		return namespaceUriID;
 	}

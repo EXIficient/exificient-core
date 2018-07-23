@@ -49,7 +49,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class LexicalTypeEncoder extends AbstractTypeEncoder {
@@ -78,7 +77,9 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 		this(null, null, null);
 	}
 
-	public LexicalTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
+	public LexicalTypeEncoder(QName[] dtrMapTypes,
+			QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
@@ -100,15 +101,18 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 		switch (lastDatatype.getDatatypeID()) {
 		case exi_base64Binary:
 			isValid(rcsBase64Binary, lastValue);
-			writeRCSValue(rcsBase64Binary, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsBase64Binary, qnContext, valueChannel,
+					stringEncoder, lastValueString);
 			break;
 		case exi_hexBinary:
 			isValid(rcsHexBinary, lastValue);
-			writeRCSValue(rcsHexBinary, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsHexBinary, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_boolean:
 			isValid(rcsBoolean, lastValue);
-			writeRCSValue(rcsBoolean, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsBoolean, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_dateTime:
 		case exi_time:
@@ -119,19 +123,23 @@ public class LexicalTypeEncoder extends AbstractTypeEncoder {
 		case exi_gDay:
 		case exi_gMonth:
 			isValid(rcsDateTime, lastValue);
-			writeRCSValue(rcsDateTime, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsDateTime, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_decimal:
 			isValid(rcsDecimal, lastValue);
-			writeRCSValue(rcsDecimal, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsDecimal, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_double:
 			isValid(rcsDouble, lastValue);
-			writeRCSValue(rcsDouble, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsDouble, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_integer:
 			isValid(rcsInteger, lastValue);
-			writeRCSValue(rcsInteger, qnContext, valueChannel, stringEncoder, lastValueString);
+			writeRCSValue(rcsInteger, qnContext, valueChannel, stringEncoder,
+					lastValueString);
 			break;
 		case exi_string:
 			// exi:string no restricted character set

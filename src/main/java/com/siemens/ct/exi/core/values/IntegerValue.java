@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class IntegerValue extends AbstractValue implements
@@ -53,39 +52,39 @@ public class IntegerValue extends AbstractValue implements
 	protected final int ival;
 	protected final long lval;
 	protected final BigInteger bval;
-	
+
 	protected final IntegerValueType iValType;
 
 	private IntegerValue(int ival) {
 		super(ValueType.INTEGER);
-		
+
 		this.ival = ival;
 		this.iValType = IntegerValueType.INT;
-		
+
 		this.lval = 0L;
 		this.bval = null;
 	}
-	
+
 	public IntegerValueType getIntegerValueType() {
 		return iValType;
 	}
 
 	private IntegerValue(long lval) {
 		super(ValueType.INTEGER);
-		
+
 		this.ival = 0;
 		this.iValType = IntegerValueType.LONG;
-		
+
 		this.lval = lval;
 		this.bval = null;
 	}
 
 	private IntegerValue(BigInteger bval) {
 		super(ValueType.INTEGER);
-		
+
 		this.bval = bval;
 		this.iValType = IntegerValueType.BIG;
-		
+
 		this.ival = 0;
 		this.lval = 0L;
 	}
@@ -95,7 +94,7 @@ public class IntegerValue extends AbstractValue implements
 		case INT:
 			return this.ival;
 		case LONG:
-			return (int)this.lval;
+			return (int) this.lval;
 		case BIG:
 			return bval.intValue();
 		default:
@@ -146,7 +145,7 @@ public class IntegerValue extends AbstractValue implements
 		if (val._equals(ZERO)) {
 			return this;
 		}
-		
+
 		IntegerValue iv;
 
 		switch (iValType) {
@@ -180,14 +179,14 @@ public class IntegerValue extends AbstractValue implements
 						val.bval));
 				break;
 			default:
-				iv = null;	
+				iv = null;
 				break;
 			}
 			break;
 		case BIG:
 			switch (val.iValType) {
 			case INT:
-				iv =new IntegerValue(this.bval.add(BigInteger
+				iv = new IntegerValue(this.bval.add(BigInteger
 						.valueOf(val.ival)));
 				break;
 			case LONG:
@@ -205,7 +204,7 @@ public class IntegerValue extends AbstractValue implements
 		default:
 			throw new RuntimeException("Unsupported Integer Type " + valueType);
 		}
-		
+
 		return iv;
 	}
 
@@ -215,7 +214,7 @@ public class IntegerValue extends AbstractValue implements
 		}
 
 		IntegerValue iv;
-		
+
 		switch (iValType) {
 		case INT:
 			switch (val.iValType) {
@@ -223,7 +222,7 @@ public class IntegerValue extends AbstractValue implements
 				iv = new IntegerValue(this.ival - val.ival);
 				break;
 			case LONG:
-				iv =IntegerValue.valueOf(this.ival - val.lval);
+				iv = IntegerValue.valueOf(this.ival - val.lval);
 				break;
 			case BIG:
 				iv = IntegerValue.valueOf(BigInteger.valueOf(this.ival)
@@ -243,7 +242,7 @@ public class IntegerValue extends AbstractValue implements
 				iv = IntegerValue.valueOf(this.lval - val.lval);
 				break;
 			case BIG:
-				iv =IntegerValue.valueOf(BigInteger.valueOf(this.lval)
+				iv = IntegerValue.valueOf(BigInteger.valueOf(this.lval)
 						.subtract(val.bval));
 				break;
 			default:
@@ -379,7 +378,7 @@ public class IntegerValue extends AbstractValue implements
 				slen = -1;
 			}
 		}
-		
+
 		return slen;
 	}
 
@@ -388,7 +387,9 @@ public class IntegerValue extends AbstractValue implements
 		case INT:
 			if (ival == Integer.MIN_VALUE) {
 				// --> copy
-				System.arraycopy(MethodsBag.INTEGER_MIN_VALUE_CHARARRAY, 0, cbuffer, offset, MethodsBag.INTEGER_MIN_VALUE_CHARARRAY.length);
+				System.arraycopy(MethodsBag.INTEGER_MIN_VALUE_CHARARRAY, 0,
+						cbuffer, offset,
+						MethodsBag.INTEGER_MIN_VALUE_CHARARRAY.length);
 			} else {
 				assert (cbuffer.length >= getCharactersLength());
 				MethodsBag.itos(ival, offset + getCharactersLength(), cbuffer);
@@ -397,7 +398,9 @@ public class IntegerValue extends AbstractValue implements
 		case LONG:
 			if (lval == Long.MIN_VALUE) {
 				// --> copy
-				System.arraycopy(MethodsBag.LONG_MIN_VALUE_CHARARRAY, 0, cbuffer, offset, MethodsBag.LONG_MIN_VALUE_CHARARRAY.length);
+				System.arraycopy(MethodsBag.LONG_MIN_VALUE_CHARARRAY, 0,
+						cbuffer, offset,
+						MethodsBag.LONG_MIN_VALUE_CHARARRAY.length);
 			} else {
 				assert (cbuffer.length >= getCharactersLength());
 				MethodsBag.itos(lval, offset + getCharactersLength(), cbuffer);
@@ -411,7 +414,7 @@ public class IntegerValue extends AbstractValue implements
 			// return null;
 		}
 	}
-	
+
 	private final boolean _equals(IntegerValue o) {
 		switch (this.iValType) {
 		case INT:
@@ -419,14 +422,13 @@ public class IntegerValue extends AbstractValue implements
 		case LONG:
 			return (o.iValType == IntegerValueType.LONG && this.lval == o.lval);
 		case BIG:
-			return (o.iValType == IntegerValueType.BIG
-					&& this.bval.equals(o.bval));
+			return (o.iValType == IntegerValueType.BIG && this.bval
+					.equals(o.bval));
 		default:
 			return false;
 		}
 	}
 
-	
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -439,7 +441,7 @@ public class IntegerValue extends AbstractValue implements
 			return iv == null ? false : _equals(iv);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hc = 0;
@@ -449,7 +451,7 @@ public class IntegerValue extends AbstractValue implements
 			break;
 		case LONG:
 			// Long hashCode: return (int)(value ^ (value >>> 32));
-			hc = (int)(lval ^ (lval >>> 32));
+			hc = (int) (lval ^ (lval >>> 32));
 			break;
 		case BIG:
 			hc = bval.hashCode();

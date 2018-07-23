@@ -38,7 +38,6 @@ import com.siemens.ct.exi.core.values.IntegerValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractDecoderChannel implements DecoderChannel {
@@ -47,17 +46,17 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 	private final int[] maskedOctets = new int[MAX_OCTETS_FOR_LONG];
 	/* long == 64 bits, 9 * 7bits = 63 bits */
 	private final static int MAX_OCTETS_FOR_LONG = 9;
-	
+
 	/* Helper for building strings */
 	protected StringBuilder sbHelper;
 
-	
 	public AbstractDecoderChannel() {
 	}
-	
+
 	public BooleanValue decodeBooleanValue() throws IOException {
 		// return new BooleanValue(decodeBoolean());
-		return decodeBoolean() ? BooleanValue.BOOLEAN_VALUE_TRUE : BooleanValue.BOOLEAN_VALUE_FALSE;
+		return decodeBoolean() ? BooleanValue.BOOLEAN_VALUE_TRUE
+				: BooleanValue.BOOLEAN_VALUE_FALSE;
 	}
 
 	/**
@@ -87,7 +86,8 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 			if (Character.isSupplementaryCodePoint(codePoint)) {
 				// supplementary code-point
 				// Assumption: it doesn't happen very often
-				return decodeStringOnlySupplementaryCodePoints(ca, length, i, codePoint);
+				return decodeStringOnlySupplementaryCodePoints(ca, length, i,
+						codePoint);
 			} else {
 				ca[i] = (char) codePoint;
 			}
@@ -95,32 +95,30 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 
 		return ca;
 	}
-	
-	private char[] decodeStringOnlySupplementaryCodePoints(char[] ca, int length, int i, int codePoint) throws IOException {
-		assert(Character.isSupplementaryCodePoint(codePoint));
-		if(sbHelper == null) {
+
+	private char[] decodeStringOnlySupplementaryCodePoints(char[] ca,
+			int length, int i, int codePoint) throws IOException {
+		assert (Character.isSupplementaryCodePoint(codePoint));
+		if (sbHelper == null) {
 			sbHelper = new StringBuilder(length + 10);
 		} else {
 			sbHelper.setLength(0);
 		}
-		
+
 		sbHelper.append(ca, 0, i); // append chars so far
 		sbHelper.appendCodePoint(codePoint); // append current code-point
 		for (int k = i + 1; k < length; k++) {
 			sbHelper.appendCodePoint(decodeUnsignedInteger());
 		}
-		
+
 		int len = sbHelper.length();
 		char dst[] = new char[len];
 		sbHelper.getChars(0, len, dst, 0);
-		
-		return dst;
-		
-		// return  sb.toString().toCharArray(); // return char array
-	}
-	
 
-	
+		return dst;
+
+		// return sb.toString().toCharArray(); // return char array
+	}
 
 	/**
 	 * Decode an arbitrary precision non negative integer using a sequence of
@@ -134,8 +132,8 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 
 		// < 128: just one byte, optimal case
 		// ELSE: multiple bytes...
-		
-		if(result >= 128) {
+
+		if (result >= 128) {
 			result = (result & 127);
 			int mShift = 7;
 			int b;
@@ -154,7 +152,7 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 				// step 1
 			} while (b >= 128);
 		}
-		
+
 		return result;
 	}
 
@@ -179,7 +177,8 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 	 * to store the integer's value.
 	 * 
 	 * @return integer
-	 * @throws IOException IO exception
+	 * @throws IOException
+	 *             IO exception
 	 */
 	protected int decodeInteger() throws IOException {
 		if (decodeBoolean()) {
@@ -202,7 +201,7 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 			return decodeUnsignedLong();
 		}
 	}
-	
+
 	public IntegerValue decodeIntegerValue() throws IOException {
 		return decodeUnsignedIntegerValue(decodeBoolean());
 	}
@@ -221,10 +220,10 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 			// another octet is going to come
 			if (b < 128) {
 				/* no more octets */
-				switch(i) {
+				switch (i) {
 				case 0:
 					/* one octet only */
-					return IntegerValue.valueOf(negative ? -(b+1) : b);
+					return IntegerValue.valueOf(negative ? -(b + 1) : b);
 				case 1:
 				case 2:
 				case 3:
@@ -232,23 +231,25 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 					maskedOctets[i] = b;
 					/* int == 32 bits, 4 * 7bits = 28 bits */
 					int iResult = 0;
-					for (int k = i; k >= 0 ; k--) {
+					for (int k = i; k >= 0; k--) {
 						iResult = (iResult << 7) | maskedOctets[k];
 					}
 					// For negative values, the Unsigned Integer holds the
 					// magnitude of the value minus 1
-					return IntegerValue.valueOf(negative ? -(iResult+1) : iResult);
+					return IntegerValue.valueOf(negative ? -(iResult + 1)
+							: iResult);
 				default:
 					/* long value */
 					maskedOctets[i] = b;
 					/* long == 64 bits, 9 * 7bits = 63 bits */
 					long lResult = 0L;
-					for (int k = i; k >= 0 ; k--) {
+					for (int k = i; k >= 0; k--) {
 						lResult = (lResult << 7) | maskedOctets[k];
 					}
 					// For negative values, the Unsigned Integer holds the
 					// magnitude of the value minus 1
-					return IntegerValue.valueOf(negative ? -(lResult+1L) : lResult);
+					return IntegerValue.valueOf(negative ? -(lResult + 1L)
+							: lResult);
 				}
 			} else {
 				// the 7 least significant bits hold the actual value
@@ -305,11 +306,11 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 	 */
 	public DecimalValue decodeDecimalValue() throws IOException {
 		boolean negative = decodeBoolean();
-		
+
 		IntegerValue integral = decodeUnsignedIntegerValue(false);
 		IntegerValue revFractional = decodeUnsignedIntegerValue(false);
-		
-		return new DecimalValue(negative, integral, revFractional);	
+
+		return new DecimalValue(negative, integral, revFractional);
 	}
 
 	/**
@@ -367,9 +368,8 @@ public abstract class AbstractDecoderChannel implements DecoderChannel {
 				- DateTimeValue.TIMEZONE_OFFSET_IN_MINUTES
 				: 0;
 
-		return new DateTimeValue(type, year, monthDay, time,
-				fractionalSecs, presenceTimezone,
-				timeZone);
+		return new DateTimeValue(type, year, monthDay, time, fractionalSecs,
+				presenceTimezone, timeZone);
 	}
 
 }

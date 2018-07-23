@@ -29,12 +29,12 @@ import com.siemens.ct.exi.core.values.Value;
 public class ValueAndDatatype {
 	public final Value value;
 	public final Datatype datatype;
-	
+
 	public ValueAndDatatype(Value value, Datatype datatype) {
 		this.value = value;
 		this.datatype = datatype;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "\"" + value + "\" AS " + datatype;

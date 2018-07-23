@@ -34,7 +34,6 @@ import com.siemens.ct.exi.core.exceptions.UnsupportedOption;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DecodingOptions {

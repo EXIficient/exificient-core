@@ -33,12 +33,11 @@ import com.siemens.ct.exi.core.io.BitOutputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BitEncoderChannel extends AbstractEncoderChannel implements
 		EncoderChannel {
-	
+
 	/**
 	 * Underlying bit output stream to which bits and bytes are written.
 	 */
@@ -47,7 +46,8 @@ public class BitEncoderChannel extends AbstractEncoderChannel implements
 	/**
 	 * Construct an encoder from output stream.
 	 * 
-	 * @param ostream output stream
+	 * @param ostream
+	 *            output stream
 	 */
 	public BitEncoderChannel(OutputStream ostream) {
 		this.ostream = new BitOutputStream(ostream);

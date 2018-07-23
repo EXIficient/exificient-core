@@ -156,12 +156,13 @@ public class EXIHeaderCoreTest extends TestCase {
 		if (noOptionsFactory == null) {
 			noOptionsFactory = DefaultEXIFactory.newInstance();
 		}
-//		if(noOptionsFactory.getSchemaIdResolver() == null) {
-//			// set default schemaId resolver
-//			noOptionsFactory.setSchemaIdResolver(new DefaultSchemaIdResolver());
-//		}
+		// if(noOptionsFactory.getSchemaIdResolver() == null) {
+		// // set default schemaId resolver
+		// noOptionsFactory.setSchemaIdResolver(new DefaultSchemaIdResolver());
+		// }
 
-		EXIFactory decodedTest = headerDecoder.readEXIOptions(decoderChannel, noOptionsFactory);
+		EXIFactory decodedTest = headerDecoder.readEXIOptions(decoderChannel,
+				noOptionsFactory);
 
 		assertTrue(test.equals(decodedTest));
 	}
@@ -190,8 +191,10 @@ public class EXIHeaderCoreTest extends TestCase {
 	public void testEXIOptions4() throws EXIException, IOException {
 		EXIFactory ef = DefaultEXIFactory.newInstance();
 		ef.setFidelityOptions(FidelityOptions.createAll());
-		// Canonical EXI: Preserve.lexicalValues true omits datatypeRepresentationMap
-		ef.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_LEXICAL_VALUE, false);
+		// Canonical EXI: Preserve.lexicalValues true omits
+		// datatypeRepresentationMap
+		ef.getFidelityOptions().setFidelity(
+				FidelityOptions.FEATURE_LEXICAL_VALUE, false);
 		QName[] dtrMapTypes = new QName[2];
 		dtrMapTypes[0] = new QName("", "bla");
 		dtrMapTypes[1] = new QName("ccc", "xhc");
@@ -207,8 +210,10 @@ public class EXIHeaderCoreTest extends TestCase {
 	public void testEXIOptions5() throws EXIException, IOException {
 		EXIFactory ef = DefaultEXIFactory.newInstance();
 		ef.setFidelityOptions(FidelityOptions.createAll());
-		// Canonical EXI: Preserve.lexicalValues true omits datatypeRepresentationMap
-		ef.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_LEXICAL_VALUE, false);
+		// Canonical EXI: Preserve.lexicalValues true omits
+		// datatypeRepresentationMap
+		ef.getFidelityOptions().setFidelity(
+				FidelityOptions.FEATURE_LEXICAL_VALUE, false);
 		ef.setCodingMode(CodingMode.COMPRESSION);
 		ef.setBlockSize(200);
 		ef.setValueMaxLength(12);
@@ -230,26 +235,26 @@ public class EXIHeaderCoreTest extends TestCase {
 		_testOptions(ef);
 	}
 
-//	public void testEXIOptions7() throws EXIException, IOException {
-//		EXIFactory ef = DefaultEXIFactory.newInstance();
-//		Grammars g = GrammarFactory.newInstance().createXSDTypesOnlyGrammars();
-//		ef.setGrammars(g);
-//		EncodingOptions ho = ef.getEncodingOptions();
-//		ho.setOption(EncodingOptions.INCLUDE_SCHEMA_ID); // built-in
-//
-//		_testOptions(ef);
-//	}
+	// public void testEXIOptions7() throws EXIException, IOException {
+	// EXIFactory ef = DefaultEXIFactory.newInstance();
+	// Grammars g = GrammarFactory.newInstance().createXSDTypesOnlyGrammars();
+	// ef.setGrammars(g);
+	// EncodingOptions ho = ef.getEncodingOptions();
+	// ho.setOption(EncodingOptions.INCLUDE_SCHEMA_ID); // built-in
+	//
+	// _testOptions(ef);
+	// }
 
-//	public void testEXIOptions8() throws EXIException, IOException {
-//		EXIFactory ef = DefaultEXIFactory.newInstance();
-//		String xsdLocation = "data/EXIOptionsHeader/EXIOptionsHeader.xsd";
-//		Grammars g = GrammarFactory.newInstance().createGrammars(xsdLocation);
-//		ef.setGrammars(g);
-//		EncodingOptions ho = ef.getEncodingOptions();
-//		ho.setOption(EncodingOptions.INCLUDE_SCHEMA_ID); // schema-informed
-//
-//		_testOptions(ef);
-//	}
+	// public void testEXIOptions8() throws EXIException, IOException {
+	// EXIFactory ef = DefaultEXIFactory.newInstance();
+	// String xsdLocation = "data/EXIOptionsHeader/EXIOptionsHeader.xsd";
+	// Grammars g = GrammarFactory.newInstance().createGrammars(xsdLocation);
+	// ef.setGrammars(g);
+	// EncodingOptions ho = ef.getEncodingOptions();
+	// ho.setOption(EncodingOptions.INCLUDE_SCHEMA_ID); // schema-informed
+	//
+	// _testOptions(ef);
+	// }
 
 	public void testEXIOptions9() throws EXIException, IOException {
 		EXIFactory ef = DefaultEXIFactory.newInstance();
@@ -294,60 +299,62 @@ public class EXIHeaderCoreTest extends TestCase {
 		_testOptions(ef);
 	}
 
-//	String schemaBla = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
-//			+ " <xs:element name='root' type='xs:string' nillable='true' >"
-//			+ " </xs:element>" + "</xs:schema>";
-//
-//	public void testEXIOptionsBugID3425036() throws EXIException, IOException {
-//		String schemaId = "bla";
-//
-//		GrammarFactory gf = GrammarFactory.newInstance();
-//
-//		InputStream is = new ByteArrayInputStream(schemaBla.getBytes());
-//		Grammars g = gf.createGrammars(is);
-//		g.setSchemaId(schemaId);
-//		EXIFactory ef = DefaultEXIFactory.newInstance();
-//		ef.setGrammars(g);
-//
-//		EncodingOptions eo = ef.getEncodingOptions();
-//		eo.setOption(EncodingOptions.INCLUDE_OPTIONS);
-//		eo.setOption(EncodingOptions.INCLUDE_SCHEMA_ID);
-//
-//		ef.setEncodingOptions(eo);
-//
-//		// write header
-//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//		BitEncoderChannel bec = new BitEncoderChannel(baos);
-//		EXIHeaderEncoder he = new EXIHeaderEncoder();
-//		he.write(bec, ef);
-//		bec.flush();
-//
-//		// Note: No exception should be thrown due to schemaId
-//
-//		// decoder header
-//		BitDecoderChannel bdc = new BitDecoderChannel(new ByteArrayInputStream(
-//				baos.toByteArray()));
-//		EXIHeaderDecoder hd = new EXIHeaderDecoder();
-//		EXIFactory fDec = DefaultEXIFactory.newInstance();
-//		fDec.setSchemaIdResolver(new BlaSchemaIdResolver());
-//		hd.parse(bdc, fDec);
-//
-//		// assertTrue(hd.isSchemaIdSet());
-//		// assertTrue(schemaId.equals(hd.getSchemaId()));
-//
-//	}
-//
-//	class BlaSchemaIdResolver implements SchemaIdResolver {
-//
-//		public Grammars resolveSchemaId(String schemaId) throws EXIException {
-//			if ("bla".equals(schemaId)) {
-//				InputStream is = new ByteArrayInputStream(schemaBla.getBytes());
-//				return GrammarFactory.newInstance().createGrammars(is);
-//			} else {
-//				throw new RuntimeException("Unspoorted schemaId: " + schemaId);
-//			}
-//		}
-//
-//	}
+	// String schemaBla =
+	// "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
+	// + " <xs:element name='root' type='xs:string' nillable='true' >"
+	// + " </xs:element>" + "</xs:schema>";
+	//
+	// public void testEXIOptionsBugID3425036() throws EXIException, IOException
+	// {
+	// String schemaId = "bla";
+	//
+	// GrammarFactory gf = GrammarFactory.newInstance();
+	//
+	// InputStream is = new ByteArrayInputStream(schemaBla.getBytes());
+	// Grammars g = gf.createGrammars(is);
+	// g.setSchemaId(schemaId);
+	// EXIFactory ef = DefaultEXIFactory.newInstance();
+	// ef.setGrammars(g);
+	//
+	// EncodingOptions eo = ef.getEncodingOptions();
+	// eo.setOption(EncodingOptions.INCLUDE_OPTIONS);
+	// eo.setOption(EncodingOptions.INCLUDE_SCHEMA_ID);
+	//
+	// ef.setEncodingOptions(eo);
+	//
+	// // write header
+	// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// BitEncoderChannel bec = new BitEncoderChannel(baos);
+	// EXIHeaderEncoder he = new EXIHeaderEncoder();
+	// he.write(bec, ef);
+	// bec.flush();
+	//
+	// // Note: No exception should be thrown due to schemaId
+	//
+	// // decoder header
+	// BitDecoderChannel bdc = new BitDecoderChannel(new ByteArrayInputStream(
+	// baos.toByteArray()));
+	// EXIHeaderDecoder hd = new EXIHeaderDecoder();
+	// EXIFactory fDec = DefaultEXIFactory.newInstance();
+	// fDec.setSchemaIdResolver(new BlaSchemaIdResolver());
+	// hd.parse(bdc, fDec);
+	//
+	// // assertTrue(hd.isSchemaIdSet());
+	// // assertTrue(schemaId.equals(hd.getSchemaId()));
+	//
+	// }
+	//
+	// class BlaSchemaIdResolver implements SchemaIdResolver {
+	//
+	// public Grammars resolveSchemaId(String schemaId) throws EXIException {
+	// if ("bla".equals(schemaId)) {
+	// InputStream is = new ByteArrayInputStream(schemaBla.getBytes());
+	// return GrammarFactory.newInstance().createGrammars(is);
+	// } else {
+	// throw new RuntimeException("Unspoorted schemaId: " + schemaId);
+	// }
+	// }
+	//
+	// }
 
 }

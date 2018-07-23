@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.event.StartElement;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -51,16 +50,16 @@ public class BuiltInElement extends AbstractBuiltInContent {
 		// EE on first level
 		addProduction(END_ELEMENT, END_RULE);
 	}
-	
+
 	@Override
 	public boolean hasEndElement() {
 		return true;
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.BUILT_IN_ELEMENT_CONTENT;
 	}
-	
+
 	@Override
 	public void learnStartElement(StartElement se) {
 		addProduction(se, this);
@@ -70,7 +69,7 @@ public class BuiltInElement extends AbstractBuiltInContent {
 	 * Note: learnEndElement ( ) not necessary since EE is already present on
 	 * first level for element-content-rules
 	 */
-	
+
 	@Override
 	public void learnAttribute(Attribute at) {
 		// this should never happen!

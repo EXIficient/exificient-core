@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class StringDatatype extends AbstractDatatype {
@@ -42,7 +41,7 @@ public class StringDatatype extends AbstractDatatype {
 		// default whiteSpace facet for string is preserve
 		this(schemaType, WhiteSpace.preserve);
 	}
-	
+
 	public StringDatatype(QNameContext schemaType, WhiteSpace whiteSpace) {
 		this(schemaType, false);
 		/* default whiteSpace facet for string is preserve */
@@ -61,6 +60,5 @@ public class StringDatatype extends AbstractDatatype {
 	public boolean isDerivedByUnion() {
 		return isDerivedByUnion;
 	}
-	
-}
 
+}

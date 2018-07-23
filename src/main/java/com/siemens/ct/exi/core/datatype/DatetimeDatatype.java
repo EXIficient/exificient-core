@@ -34,7 +34,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DatetimeDatatype extends AbstractDatatype {
@@ -47,10 +46,10 @@ public class DatetimeDatatype extends AbstractDatatype {
 		super(BuiltInType.DATETIME, schemaType);
 		this.datetimeType = dateType;
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		DatatypeID dtID;
-		switch(datetimeType) {
+		switch (datetimeType) {
 		case dateTime:
 			dtID = DatatypeID.exi_dateTime;
 			break;
@@ -98,10 +97,10 @@ public class DatetimeDatatype extends AbstractDatatype {
 			return isValidString(value.toString());
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(super.equals(o) && o instanceof DatetimeDatatype ) {
+		if (super.equals(o) && o instanceof DatetimeDatatype) {
 			DatetimeDatatype dt = (DatetimeDatatype) o;
 			return (this.datetimeType == dt.getDatetimeType());
 		}

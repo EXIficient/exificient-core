@@ -49,7 +49,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class LexicalTypeDecoder extends AbstractTypeDecoder {
@@ -75,7 +74,9 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 		this(null, null, null);
 	}
 
-	public LexicalTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
+	public LexicalTypeDecoder(QName[] dtrMapTypes,
+			QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
@@ -86,14 +87,17 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 		if (this.dtrMapInUse) {
 			datatype = this.getDtrDatatype(datatype);
 		}
-		
+
 		switch (datatype.getDatatypeID()) {
 		case exi_base64Binary:
-			return readRCSValue(rcsBase64Binary, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsBase64Binary, qnContext, valueChannel,
+					stringDecoder);
 		case exi_hexBinary:
-			return readRCSValue(rcsHexBinary, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsHexBinary, qnContext, valueChannel,
+					stringDecoder);
 		case exi_boolean:
-			return readRCSValue(rcsBoolean, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsBoolean, qnContext, valueChannel,
+					stringDecoder);
 		case exi_dateTime:
 		case exi_time:
 		case exi_date:
@@ -102,13 +106,17 @@ public class LexicalTypeDecoder extends AbstractTypeDecoder {
 		case exi_gMonthDay:
 		case exi_gDay:
 		case exi_gMonth:
-			return readRCSValue(rcsDateTime, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsDateTime, qnContext, valueChannel,
+					stringDecoder);
 		case exi_decimal:
-			return readRCSValue(rcsDecimal, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsDecimal, qnContext, valueChannel,
+					stringDecoder);
 		case exi_double:
-			return readRCSValue(rcsDouble, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsDouble, qnContext, valueChannel,
+					stringDecoder);
 		case exi_integer:
-			return readRCSValue(rcsInteger, qnContext, valueChannel, stringDecoder);
+			return readRCSValue(rcsInteger, qnContext, valueChannel,
+					stringDecoder);
 		case exi_string:
 			// exi:string no restricted character set
 			return stringDecoder.readValue(qnContext, valueChannel);

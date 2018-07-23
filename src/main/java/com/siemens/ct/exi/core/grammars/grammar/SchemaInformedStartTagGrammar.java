@@ -28,14 +28,13 @@ package com.siemens.ct.exi.core.grammars.grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
  * first rule is different (namespace declaration, xsi:type and xsi:nil)
  */
 public interface SchemaInformedStartTagGrammar extends SchemaInformedGrammar {
-	
+
 	public void setElementContentGrammar(Grammar elementContent2);
-	
+
 }

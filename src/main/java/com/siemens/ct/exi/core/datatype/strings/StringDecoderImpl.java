@@ -37,10 +37,10 @@ import com.siemens.ct.exi.core.values.StringValue;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
-public class StringDecoderImpl  extends AbstractStringCoder implements StringDecoder {
+public class StringDecoderImpl extends AbstractStringCoder implements
+		StringDecoder {
 
 	// global values (all)
 	protected List<StringValue> globalValues;
@@ -48,7 +48,7 @@ public class StringDecoderImpl  extends AbstractStringCoder implements StringDec
 	public StringDecoderImpl(boolean localValuePartitions) {
 		this(localValuePartitions, DEFAULT_INITIAL_QNAME_LISTS);
 	}
-	
+
 	public StringDecoderImpl(boolean localValuePartitions, int initialQNameLists) {
 		super(localValuePartitions, initialQNameLists);
 		globalValues = new ArrayList<StringValue>();
@@ -102,15 +102,14 @@ public class StringDecoderImpl  extends AbstractStringCoder implements StringDec
 		return value;
 	}
 
-	public StringValue readValueLocalHit(
-			QNameContext qnc, DecoderChannel valueChannel)
-			throws IOException {
+	public StringValue readValueLocalHit(QNameContext qnc,
+			DecoderChannel valueChannel) throws IOException {
 		assert (localValuePartitions);
 		int n = MethodsBag.getCodingLength(getNumberOfStringValues(qnc));
 		int localID = valueChannel.decodeNBitUnsignedInteger(n);
 		List<StringValue> lvs = localValues.get(qnc);
-		assert(lvs != null);
-		assert(localID < lvs.size());
+		assert (lvs != null);
+		assert (localID < lvs.size());
 		return lvs.get(localID);
 	}
 
@@ -121,12 +120,11 @@ public class StringDecoderImpl  extends AbstractStringCoder implements StringDec
 		return globalValues.get(globalID);
 	}
 
-	public void addValue(QNameContext qnc,
-			StringValue value) {
+	public void addValue(QNameContext qnc, StringValue value) {
 		// global
 		assert (!globalValues.contains(value));
 		globalValues.add(value);
-		
+
 		// local
 		this.addLocalValue(qnc, value);
 	}
@@ -135,12 +133,11 @@ public class StringDecoderImpl  extends AbstractStringCoder implements StringDec
 		super.clear();
 		globalValues.clear();
 	}
-	
+
 	public void setSharedStrings(List<String> sharedStrings) {
-		for(String s : sharedStrings) {
+		for (String s : sharedStrings) {
 			this.addValue(null, new StringValue(s));
 		}
 	}
-
 
 }

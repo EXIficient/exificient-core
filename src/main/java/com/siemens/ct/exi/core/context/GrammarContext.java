@@ -23,7 +23,6 @@
 
 package com.siemens.ct.exi.core.context;
 
-
 import java.util.Arrays;
 
 /**
@@ -31,11 +30,10 @@ import java.util.Arrays;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class GrammarContext {
-	
+
 	protected final GrammarUriContext[] grammarUriContexts;
 	protected final int numberofQNamesContexts;
 
@@ -69,12 +67,15 @@ public class GrammarContext {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof GrammarContext)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof GrammarContext))
+			return false;
 
 		GrammarContext that = (GrammarContext) o;
 
-		if (numberofQNamesContexts != that.numberofQNamesContexts) return false;
+		if (numberofQNamesContexts != that.numberofQNamesContexts)
+			return false;
 		return Arrays.equals(grammarUriContexts, that.grammarUriContexts);
 	}
 }

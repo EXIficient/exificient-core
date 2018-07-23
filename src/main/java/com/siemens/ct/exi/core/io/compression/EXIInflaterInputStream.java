@@ -42,7 +42,6 @@ import java.util.zip.ZipException;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EXIInflaterInputStream extends FilterInputStream {
@@ -99,18 +98,21 @@ public class EXIInflaterInputStream extends FilterInputStream {
 	}
 
 	public void pushbackAndReset() throws IOException {
-//		boolean needsInput = inf.needsInput();
-//		boolean needsDictionary = inf.needsDictionary();
-//		System.out.println("available " + this.in.available());
-//		System.out.println("finished " + inf.finished() + ", closed " + closed + ", needsInput " + needsInput + ",  needsDictionary " + needsDictionary + ", Remaining " + inf.getRemaining() + ", reachEOF " + reachEOF);
-		while(!inf.finished() && this.in.available() > 0) {
+		// boolean needsInput = inf.needsInput();
+		// boolean needsDictionary = inf.needsDictionary();
+		// System.out.println("available " + this.in.available());
+		// System.out.println("finished " + inf.finished() + ", closed " +
+		// closed + ", needsInput " + needsInput + ",  needsDictionary " +
+		// needsDictionary + ", Remaining " + inf.getRemaining() + ", reachEOF "
+		// + reachEOF);
+		while (!inf.finished() && this.in.available() > 0) {
 			this.read(); // discard
 		}
-		
+
 		int rem = inf.getRemaining();
-		if(rem > 0) {
+		if (rem > 0) {
 			// System.out.println("pushback " + rem + " bytes");
-			((PushbackInputStream) in).unread(buf, len - rem, rem);			
+			((PushbackInputStream) in).unread(buf, len - rem, rem);
 		}
 
 		inf.reset();

@@ -28,7 +28,6 @@ package com.siemens.ct.exi.core.values;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 // re-uses code from org.apache.xerces.impl.dv.util.HexBin;
@@ -95,8 +94,7 @@ public class BinaryHexValue extends AbstractBinaryValue {
 
 		return hc;
 	}
-	
-	
+
 	/*
 	 * ****************************************************************
 	 * org.apache.xerces.impl.dv.util.HexBin

@@ -34,7 +34,6 @@ import com.siemens.ct.exi.core.types.BuiltIn;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class Attribute extends AbstractDatatypeEvent {
@@ -47,13 +46,13 @@ public class Attribute extends AbstractDatatypeEvent {
 		this.qnameContext = qnc;
 		this.qname = qnameContext.getQName();
 	}
-	
+
 	public Attribute(QNameContext qnc) {
 		this(qnc, BuiltIn.getDefaultDatatype());
 	}
-	
+
 	public QNameContext getQNameContext() {
-		return this.qnameContext;	
+		return this.qnameContext;
 	}
 
 	public QName getQName() {

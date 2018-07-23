@@ -44,7 +44,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
@@ -61,13 +60,14 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
 
-	protected Value readRCSValue(RestrictedCharacterSetDatatype rcsDT, QNameContext qnContext, DecoderChannel valueChannel,
+	protected Value readRCSValue(RestrictedCharacterSetDatatype rcsDT,
+			QNameContext qnContext, DecoderChannel valueChannel,
 			StringDecoder stringDecoder) throws IOException {
 
-//		RestrictedCharacterSetDatatype rcsDT = (RestrictedCharacterSetDatatype) datatype;
+		// RestrictedCharacterSetDatatype rcsDT =
+		// (RestrictedCharacterSetDatatype) datatype;
 		RestrictedCharacterSet rcs = rcsDT.getRestrictedCharacterSet();
-		
-		
+
 		StringValue value;
 
 		int i = valueChannel.decodeUnsignedInteger();

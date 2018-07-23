@@ -44,11 +44,10 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class SchemaLessGrammars extends AbstractGrammars {
-	
+
 	static {
 		GrammarUriContext[] grammarUriContextsX = new GrammarUriContext[3];
 		int qNameID = 0;
@@ -85,8 +84,7 @@ public class SchemaLessGrammars extends AbstractGrammars {
 				qNameID++;
 			}
 			grammarUriContextsX[namespaceUriID] = new GrammarUriContext(
-					namespaceUriID,
-					Constants.XML_SCHEMA_INSTANCE_NS_URI,
+					namespaceUriID, Constants.XML_SCHEMA_INSTANCE_NS_URI,
 					grammarQNames2, Constants.PREFIXES_XSI);
 		}
 
@@ -109,7 +107,8 @@ public class SchemaLessGrammars extends AbstractGrammars {
 				builtInDocEndGrammar, "DocContent");
 		// Document rule
 		documentGrammar = new Document("Document");
-		documentGrammar.addProduction(new StartDocument(), builtInDocContentGrammar);
+		documentGrammar.addProduction(new StartDocument(),
+				builtInDocContentGrammar);
 	}
 
 	public final boolean isBuiltInXMLSchemaTypesOnly() {
@@ -141,7 +140,8 @@ public class SchemaLessGrammars extends AbstractGrammars {
 		 * Fragment
 		 */
 		fragmentGrammar = new Fragment("Fragment");
-		fragmentGrammar.addProduction(new StartDocument(), builtInFragmentContentGrammar);
+		fragmentGrammar.addProduction(new StartDocument(),
+				builtInFragmentContentGrammar);
 
 		return fragmentGrammar;
 	}

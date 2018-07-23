@@ -190,23 +190,23 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc, stringDecoder)
-				.toString().equals(val1));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc,
+						stringDecoder).toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
-				.toString().equals(val2));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc,
+						stringDecoder).toString().equals(val2));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC2, bdc, stringDecoder)
-				.toString().equals(val1));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC2, bdc,
+						stringDecoder).toString().equals(val1));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
-				.toString().equals(val3));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc,
+						stringDecoder).toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc, stringDecoder)
-				.toString().equals(val3));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC1, bdc,
+						stringDecoder).toString().equals(val3));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc, stringDecoder)
-				.toString().equals(val3));
+				.readValue(BuiltIn.getDefaultDatatype(), qncC3, bdc,
+						stringDecoder).toString().equals(val3));
 	}
 
 	@Test
@@ -291,8 +291,8 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
-				.toString().equals(atCh1));
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc,
+						stringDecoder).toString().equals(atCh1));
 		assertTrue(ddl
 				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
@@ -306,8 +306,8 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				.readValue(BuiltIn.getDefaultDatatype(), qncCex3, bdc,
 						stringDecoder).toString().equals(ch3));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
-				.toString().equals(atCh2));
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc,
+						stringDecoder).toString().equals(atCh2));
 		assertTrue(ddl
 				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
@@ -519,10 +519,10 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 		assertTrue(ddl.readValue(dt, qncQc, bdc, stringDecoder).toString()
 				.equals(s2)); /* no local hit */
 	}
-	
-	
+
 	@Test
-	public void testStringTableValueSharedStrings() throws IOException, EXIException {
+	public void testStringTableValueSharedStrings() throws IOException,
+			EXIException {
 
 		QName ca1 = new QName("at1");
 
@@ -550,9 +550,9 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 		// GrammarContext grammarContext =
 		// exiFactory.getGrammars().getGrammarContext();
 
-		List<String> sharedStrings = Arrays.asList(new String[]{atCh2, ch2, ch3});
-		
-		
+		List<String> sharedStrings = Arrays.asList(new String[] { atCh2, ch2,
+				ch3 });
+
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		/*
@@ -608,8 +608,8 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				baos.toByteArray()));
 
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
-				.toString().equals(atCh1));
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc,
+						stringDecoder).toString().equals(atCh1));
 		assertTrue(ddl
 				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
@@ -623,8 +623,8 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				.readValue(BuiltIn.getDefaultDatatype(), qncCex3, bdc,
 						stringDecoder).toString().equals(ch3));
 		assertTrue(ddl
-				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc, stringDecoder)
-				.toString().equals(atCh2));
+				.readValue(BuiltIn.getDefaultDatatype(), qncCa1, bdc,
+						stringDecoder).toString().equals(atCh2));
 		assertTrue(ddl
 				.readValue(BuiltIn.getDefaultDatatype(), qncCexx1, bdc,
 						stringDecoder).toString().equals(ch1));
@@ -638,6 +638,5 @@ public class StringTableCoreTest extends AbstractCoreTestCase {
 				.readValue(BuiltIn.getDefaultDatatype(), qncCex2, bdc,
 						stringDecoder).toString().equals(ch3));
 	}
-
 
 }

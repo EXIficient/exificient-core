@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.io.BitInputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class BitDecoderChannel extends AbstractDecoderChannel implements
@@ -49,7 +48,8 @@ public class BitDecoderChannel extends AbstractDecoderChannel implements
 	/**
 	 * Construct a decoder from input stream
 	 * 
-	 * @param is input stream
+	 * @param is
+	 *            input stream
 	 */
 	public BitDecoderChannel(InputStream is) {
 		this.istream = new BitInputStream(is);
@@ -86,14 +86,14 @@ public class BitDecoderChannel extends AbstractDecoderChannel implements
 	public boolean decodeBoolean() throws IOException {
 		return (istream.readBit() == 1);
 	}
-	
+
 	/**
 	 * Decode a binary value as a length-prefixed sequence of octets.
 	 */
 	public byte[] decodeBinary() throws IOException {
 		final int length = decodeUnsignedInteger();
 		byte[] result = new byte[length];
-		
+
 		istream.read(result, 0, length);
 		return result;
 	}

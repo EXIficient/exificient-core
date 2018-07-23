@@ -97,11 +97,13 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		EncoderChannel bitEC = getBitEncoder();
 		typeEncoder.writeValue(null, bitEC, null);
 		bitEC.flush();
-		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null, getBitDecoder(), null);
+		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null,
+				getBitDecoder(), null);
 		assertTrue(v == val1.toBoolean());
 		// Byte
 		typeEncoder.writeValue(null, getByteEncoder(), null);
-		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null, getByteDecoder(), null);
+		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null,
+				getByteDecoder(), null);
 		assertTrue(v == val2.toBoolean());
 	}
 
@@ -112,18 +114,20 @@ public class BooleanCoreTest extends AbstractCoreTestCase {
 		TypeDecoder typeDecoder = new TypedTypeDecoder();
 		TypeEncoder typeEncoder = new TypedTypeEncoder();
 		Datatype bool = new BooleanDatatype(null);
-		boolean valid =typeEncoder.isValid(bool, s);
+		boolean valid = typeEncoder.isValid(bool, s);
 		assertTrue(valid);
 
 		// Bit
 		EncoderChannel bitEC = getBitEncoder();
 		typeEncoder.writeValue(null, bitEC, null);
 		bitEC.flush();
-		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null, getBitDecoder(), null);
+		BooleanValue val1 = (BooleanValue) typeDecoder.readValue(bool, null,
+				getBitDecoder(), null);
 		assertTrue(v == val1.toBoolean());
 		// Byte
 		typeEncoder.writeValue(null, getByteEncoder(), null);
-		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null, getByteDecoder(), null);
+		BooleanValue val2 = (BooleanValue) typeDecoder.readValue(bool, null,
+				getByteDecoder(), null);
 		assertTrue(v == val2.toBoolean());
 	}
 

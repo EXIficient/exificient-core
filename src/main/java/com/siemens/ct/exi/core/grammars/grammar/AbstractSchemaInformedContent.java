@@ -23,13 +23,12 @@
 
 package com.siemens.ct.exi.core.grammars.grammar;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1-SNAPSHOT
+ *         -SNAPSHOT
  */
 
 public abstract class AbstractSchemaInformedContent extends

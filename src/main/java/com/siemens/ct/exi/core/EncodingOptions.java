@@ -36,7 +36,6 @@ import com.siemens.ct.exi.core.exceptions.UnsupportedOption;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class EncodingOptions {
@@ -44,7 +43,9 @@ public class EncodingOptions {
 	/** Include EXI Cookie */
 	public static final String INCLUDE_COOKIE = "INCLUDE_COOKIE";
 
-	/** Include EXI Options (or opposite of omitOptionsDocument in Canonical EXI) */
+	/**
+	 * Include EXI Options (or opposite of omitOptionsDocument in Canonical EXI)
+	 */
 	public static final String INCLUDE_OPTIONS = "INCLUDE_OPTIONS";
 
 	/** Include schemaID as part of EXI Options */
@@ -73,7 +74,9 @@ public class EncodingOptions {
 	public static final String UTC_TIME = "UTC_TIME";
 
 	/**
-	 * To indicate that the EXI stream should respect the Canonical EXI rules (see http://www.w3.org/TR/exi-c14n)
+	 * To indicate that the EXI stream should respect the Canonical EXI rules
+	 * (see http://www.w3.org/TR/exi-c14n)
+	 * 
 	 * @see INCLUDE_OPTIONS
 	 * @see UTC_TIME
 	 */
@@ -157,7 +160,8 @@ public class EncodingOptions {
 			options.put(key, null);
 		} else if (key.equals(CANONICAL_EXI)) {
 			options.put(key, null);
-			// by default the Canonical EXI Option "omitOptionsDocument" is false
+			// by default the Canonical EXI Option "omitOptionsDocument" is
+			// false
 			// --> include options
 			this.setOption(INCLUDE_OPTIONS);
 		} else if (key.equals(UTC_TIME)) {

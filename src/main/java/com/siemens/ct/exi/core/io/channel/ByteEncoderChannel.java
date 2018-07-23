@@ -31,19 +31,19 @@ import java.io.OutputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 final public class ByteEncoderChannel extends AbstractEncoderChannel implements
 		EncoderChannel {
-	
+
 	private final OutputStream os;
 	protected int len;
 
 	/**
 	 * Construct a byte aligned encoder from output stream.
 	 * 
-	 * @param os output stream
+	 * @param os
+	 *            output stream
 	 */
 	public ByteEncoderChannel(OutputStream os) {
 		this.os = os;
@@ -53,7 +53,7 @@ final public class ByteEncoderChannel extends AbstractEncoderChannel implements
 	public OutputStream getOutputStream() {
 		return os;
 	}
-	
+
 	public int getLength() {
 		return len;
 	}

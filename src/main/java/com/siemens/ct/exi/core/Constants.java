@@ -31,15 +31,14 @@ import javax.xml.XMLConstants;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface Constants {
-	
-//	/**
-//	 * Version string to identify library (e.g., in EXIficientGUI)
-//	 */
-//	public static final String VERSION = "1.0.0-SNAPSHOT";
+
+	// /**
+	// * Version string to identify library (e.g., in EXIficientGUI)
+	// */
+	// public static final String VERSION = "1.0.0-SNAPSHOT";
 
 	/**
 	 * <p>
@@ -57,106 +56,106 @@ public interface Constants {
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_BASE64BINARY = "base64Binary";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:hexBinary
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_HEXBINARY = "hexBinary";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:boolean
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_BOOLEAN = "boolean";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:dateTime
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_DATETIME = "dateTime";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:time
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_TIME = "time";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:date
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_DATE = "date";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:gYearMonth
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_GYEARMONTH = "gYearMonth";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:gYear
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_GYEAR = "gYear";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:gMonthDay
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_GMONTHDAY = "gMonthDay";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:gDay
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_GDAY = "gDay";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:gMonth
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_GMONTH = "gMonth";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:decimal
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_DECIMAL = "decimal";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:float and xsd:double
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_DOUBLE = "double";
-	
+
 	/**
 	 * <p>
 	 * W3C EXI local-name for datatype xsd:integer
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_INTEGER = "integer";
-	
+
 	/**
 	 * <p>
-	 * W3C EXI local-name for datatype xsd:string, xsd:anySimpleType and all types derived by union
+	 * W3C EXI local-name for datatype xsd:string, xsd:anySimpleType and all
+	 * types derived by union
 	 * </p>
 	 */
 	public static final String W3C_EXI_LN_STRING = "string";
-	
-	
+
 	/**
 	 * XML Reader feature
 	 */
@@ -205,7 +204,7 @@ public interface Constants {
 	public static final String XML_NS_URI = XMLConstants.XML_NS_URI; // "http://www.w3.org/XML/1998/namespace"
 	public static final String XML_SCHEMA_INSTANCE_NS_URI = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI; // "http://www.w3.org/2001/XMLSchema-instance"
 	public static final String XML_SCHEMA_NS_URI = XMLConstants.W3C_XML_SCHEMA_NS_URI; // "http://www.w3.org/2001/XMLSchema"
-	
+
 	public static final String XSI_PFX = "xsi";
 	public static final String XSI_TYPE = "type";
 	public static final String XSI_NIL = "nil";
@@ -214,7 +213,7 @@ public interface Constants {
 
 	public static final String XSD_LIST_DELIM = " ";
 	public static final char XSD_LIST_DELIM_CHAR = ' ';
-	public static final char[] XSD_LIST_DELIM_CHAR_ARRAY = {' '};
+	public static final char[] XSD_LIST_DELIM_CHAR_ARRAY = { ' ' };
 
 	// public static final String CDATA_START = "<![CDATA[";
 	// public static final char[] CDATA_START_ARRAY = CDATA_START.toCharArray();

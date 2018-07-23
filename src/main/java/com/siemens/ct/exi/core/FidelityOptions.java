@@ -44,7 +44,6 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class FidelityOptions {
@@ -72,7 +71,7 @@ public class FidelityOptions {
 
 	/* special strict handling */
 	protected boolean isStrict = false;
-	
+
 	/* quick fidelity booleans */
 	protected boolean isComment = false;
 	protected boolean isPI = false;
@@ -80,7 +79,6 @@ public class FidelityOptions {
 	protected boolean isPrefix = false;
 	protected boolean isLexicalValue = false;
 	protected boolean isSC = false;
-	
 
 	protected FidelityOptions() {
 		options = new HashSet<String>();
@@ -136,7 +134,7 @@ public class FidelityOptions {
 		fo.isPrefix = true;
 		fo.options.add(FEATURE_LEXICAL_VALUE);
 		fo.isLexicalValue = true;
-		
+
 		// fo.options.add(FEATURE_SC);
 
 		return fo;
@@ -149,7 +147,8 @@ public class FidelityOptions {
 	 *            referring to a specific feature
 	 * @param decision
 	 *            enabling or disabling feature
-	 * @throws UnsupportedOption if option is not supported
+	 * @throws UnsupportedOption
+	 *             if option is not supported
 	 */
 	public void setFidelity(String key, boolean decision)
 			throws UnsupportedOption {
@@ -167,7 +166,7 @@ public class FidelityOptions {
 				isPrefix = false;
 				isLexicalValue = false;
 				isSC = false;
-				
+
 				if (prevContainedLexVal) {
 					options.add(FEATURE_LEXICAL_VALUE);
 					isLexicalValue = true;
@@ -216,7 +215,7 @@ public class FidelityOptions {
 				}
 				if (key.equals(FEATURE_SC)) {
 					isSC = true;
-				}	
+				}
 			} else {
 				// remove option (if present)
 				options.remove(key);
@@ -234,7 +233,7 @@ public class FidelityOptions {
 				}
 				if (key.equals(FEATURE_SC)) {
 					isSC = false;
-				}				
+				}
 			}
 		} else {
 			throw new UnsupportedOption("FidelityOption '" + key
@@ -282,18 +281,18 @@ public class FidelityOptions {
 	public String toString() {
 		return options.toString();
 	}
-	
-	public int get1stLevelEventCodeLength(Grammar grammar){
+
+	public int get1stLevelEventCodeLength(Grammar grammar) {
 		int cl1;
-		
-		switch(grammar.getGrammarType()) {
-		/* Root grammars*/
+
+		switch (grammar.getGrammarType()) {
+		/* Root grammars */
 		case DOCUMENT:
 		case FRAGMENT:
 			cl1 = 0;
 			break;
 		case DOC_END:
-			if(isComment || isPI) {
+			if (isComment || isPI) {
 				cl1 = 1;
 			} else {
 				cl1 = 0;
@@ -301,35 +300,39 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_DOC_CONTENT:
 		case BUILT_IN_DOC_CONTENT:
-			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + ((isDTD || isComment || isPI) ? 1 : 0));
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents()
+					+ ((isDTD || isComment || isPI) ? 1 : 0));
 			break;
 		case SCHEMA_INFORMED_FRAGMENT_CONTENT:
 		case BUILT_IN_FRAGMENT_CONTENT:
-			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + ((isComment || isPI) ? 1 : 0));
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents()
+					+ ((isComment || isPI) ? 1 : 0));
 			break;
 		/* Schema-informed Element and Type Grammars */
 		case SCHEMA_INFORMED_FIRST_START_TAG_CONTENT:
 		case SCHEMA_INFORMED_START_TAG_CONTENT:
 		case SCHEMA_INFORMED_ELEMENT_CONTENT:
-			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + (get2ndLevelCharacteristics(grammar) > 0 ? 1 : 0));
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents()
+					+ (get2ndLevelCharacteristics(grammar) > 0 ? 1 : 0));
 			break;
 		case BUILT_IN_START_TAG_CONTENT:
 		case BUILT_IN_ELEMENT_CONTENT:
-			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + 1); // always second level!
+			cl1 = MethodsBag.getCodingLength(grammar.getNumberOfEvents() + 1); // always
+																				// second
+																				// level!
 			break;
 		default:
-			cl1 = -1;	
+			cl1 = -1;
 		}
-		
+
 		return cl1;
 	}
-	
-	
+
 	public EventType get2ndLevelEventType(final int ec2, Grammar grammar) {
 		EventType eventType = null;
-		
-		switch(grammar.getGrammarType()) {
-		/* Root grammars*/
+
+		switch (grammar.getGrammarType()) {
+		/* Root grammars */
 		case DOCUMENT:
 		case FRAGMENT:
 		case DOC_END:
@@ -340,17 +343,17 @@ public class FidelityOptions {
 		/* Built-in Document and Fragment Grammars */
 		case SCHEMA_INFORMED_DOC_CONTENT:
 		case BUILT_IN_DOC_CONTENT:
-			if(isDTD && ec2 == 0 ) {
+			if (isDTD && ec2 == 0) {
 				eventType = EventType.DOC_TYPE;
 			}
 			break;
 		/* Schema-informed Element and Type Grammars */
 		case SCHEMA_INFORMED_FIRST_START_TAG_CONTENT:
 			SchemaInformedFirstStartTagGrammar sifst = (SchemaInformedFirstStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// isTypeCastable, isNillable
 				if (sifst.isTypeCastable()) {
-					if(ec2 == 0) {
+					if (ec2 == 0) {
 						eventType = EventType.ATTRIBUTE_XSI_TYPE;
 					} else if (ec2 == 1) {
 						eventType = EventType.ATTRIBUTE_XSI_NIL;
@@ -359,15 +362,16 @@ public class FidelityOptions {
 					eventType = EventType.ATTRIBUTE_XSI_NIL;
 				}
 			} else {
-				// {0,EE?, 1,xsi:type, 2,xsi:nil, 3,AT*, 4,AT-untyped, 5,NS, 6,SC, 7,SE*, 8,CH, 9,ER, {CM, PI}}
+				// {0,EE?, 1,xsi:type, 2,xsi:nil, 3,AT*, 4,AT-untyped, 5,NS,
+				// 6,SC, 7,SE*, 8,CH, 9,ER, {CM, PI}}
 				int dec = 0;
-				if(sifst.hasEndElement()) {
+				if (sifst.hasEndElement()) {
 					dec++;
-				} 
-				if(ec2 == 0 - dec) {
+				}
+				if (ec2 == 0 - dec) {
 					eventType = EventType.END_ELEMENT_UNDECLARED; // EE
 				} else {
-					if(ec2 == 1 - dec) {
+					if (ec2 == 1 - dec) {
 						eventType = EventType.ATTRIBUTE_XSI_TYPE; // xsi:type
 					} else if (ec2 == 2 - dec) {
 						eventType = EventType.ATTRIBUTE_XSI_NIL; // xsi:nil
@@ -376,24 +380,24 @@ public class FidelityOptions {
 					} else if (ec2 == 4 - dec) {
 						eventType = EventType.ATTRIBUTE_INVALID_VALUE; // AT-untyped
 					} else {
-						if(!isPrefix) {
+						if (!isPrefix) {
 							dec++;
 						}
 						if (ec2 == 5 - dec) {
 							eventType = EventType.NAMESPACE_DECLARATION; // NS
 						} else {
-							if(!isSC) {
+							if (!isSC) {
 								dec++;
 							}
 							if (ec2 == 6 - dec) {
 								eventType = EventType.SELF_CONTAINED; // SC
 							} else {
-								if(ec2 == 7 - dec) {
+								if (ec2 == 7 - dec) {
 									eventType = EventType.START_ELEMENT_GENERIC_UNDECLARED; // SE*
-								} else if(ec2 == 8 - dec) {
+								} else if (ec2 == 8 - dec) {
 									eventType = EventType.CHARACTERS_GENERIC_UNDECLARED; // CH
 								} else {
-									if(!isDTD) {
+									if (!isDTD) {
 										dec++;
 									}
 									if (ec2 == 9 - dec) {
@@ -408,15 +412,15 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_START_TAG_CONTENT:
 			SchemaInformedStartTagGrammar sist = (SchemaInformedStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {0,EE?, 1,AT*, 2,AT-untyped, 3,SE*, 4,CH, 5,ER, {CM, PI}}
 				int dec = 0;
-				if(sist.hasEndElement()) {
+				if (sist.hasEndElement()) {
 					dec++;
-				} 
-				if(ec2 == 0 - dec) {
+				}
+				if (ec2 == 0 - dec) {
 					eventType = EventType.END_ELEMENT_UNDECLARED; // EE
 				} else {
 					if (ec2 == 1 - dec) {
@@ -424,12 +428,12 @@ public class FidelityOptions {
 					} else if (ec2 == 2 - dec) {
 						eventType = EventType.ATTRIBUTE_INVALID_VALUE; // AT-untyped
 					} else {
-						if(ec2 == 3 - dec) {
+						if (ec2 == 3 - dec) {
 							eventType = EventType.START_ELEMENT_GENERIC_UNDECLARED; // SE*
-						} else if(ec2 == 4 - dec) {
+						} else if (ec2 == 4 - dec) {
 							eventType = EventType.CHARACTERS_GENERIC_UNDECLARED; // CH
 						} else {
-							if(!isDTD) {
+							if (!isDTD) {
 								dec++;
 							}
 							if (ec2 == 5 - dec) {
@@ -442,23 +446,23 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_ELEMENT_CONTENT:
 			SchemaInformedGrammar sig = (SchemaInformedGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {0,EE?, 1,SE*, 2,CH*, 3,ER?, {CM, PI}}
 				int dec = 0;
-				if(sig.hasEndElement()) {
+				if (sig.hasEndElement()) {
 					dec++;
-				} 
-				if(ec2 == 0 - dec) {
+				}
+				if (ec2 == 0 - dec) {
 					eventType = EventType.END_ELEMENT_UNDECLARED; // EE
 				} else {
-					if(ec2 == 1 - dec) {
+					if (ec2 == 1 - dec) {
 						eventType = EventType.START_ELEMENT_GENERIC_UNDECLARED; // SE*
-					} else if(ec2 == 2 - dec) {
+					} else if (ec2 == 2 - dec) {
 						eventType = EventType.CHARACTERS_GENERIC_UNDECLARED; // CH
 					} else {
-						if(!isDTD) {
+						if (!isDTD) {
 							dec++;
 						}
 						if (ec2 == 3 - dec) {
@@ -471,31 +475,31 @@ public class FidelityOptions {
 		/* Built-in Element Grammars */
 		case BUILT_IN_START_TAG_CONTENT:
 			// {0,EE, 1,AT*, 2,NS, 3,SC, 4,SE*, 5,CH, 6,ER, {CM, PI}}
-			if(ec2 == 0) {
+			if (ec2 == 0) {
 				eventType = EventType.END_ELEMENT_UNDECLARED; // EE
 			} else {
 				if (ec2 == 1) {
 					eventType = EventType.ATTRIBUTE_GENERIC_UNDECLARED; // AT*
 				} else {
 					int dec = 0;
-					if(!isPrefix) {
+					if (!isPrefix) {
 						dec++;
 					}
 					if (ec2 == 2 - dec) {
 						eventType = EventType.NAMESPACE_DECLARATION; // NS
 					} else {
-						if(!isSC) {
+						if (!isSC) {
 							dec++;
 						}
 						if (ec2 == 3 - dec) {
 							eventType = EventType.SELF_CONTAINED; // SC
 						} else {
-							if(ec2 == 4 - dec) {
+							if (ec2 == 4 - dec) {
 								eventType = EventType.START_ELEMENT_GENERIC_UNDECLARED; // SE*
-							} else if(ec2 == 5 - dec) {
+							} else if (ec2 == 5 - dec) {
 								eventType = EventType.CHARACTERS_GENERIC_UNDECLARED; // CH
 							} else {
-								if(!isDTD) {
+								if (!isDTD) {
 									dec++;
 								}
 								if (ec2 == 6 - dec) {
@@ -509,26 +513,25 @@ public class FidelityOptions {
 			break;
 		case BUILT_IN_ELEMENT_CONTENT:
 			// {0,SE*, 1,CH, 2,ER, {CM, PI}}
-			if(ec2 == 0) {
+			if (ec2 == 0) {
 				eventType = EventType.START_ELEMENT_GENERIC_UNDECLARED; // SE*
-			} else if(ec2 == 1) {
+			} else if (ec2 == 1) {
 				eventType = EventType.CHARACTERS_GENERIC_UNDECLARED; // CH
 			} else {
-				if(isDTD && ec2 == 2) {
+				if (isDTD && ec2 == 2) {
 					eventType = EventType.ENTITY_REFERENCE; // ER
 				}
 			}
 			break;
 		}
-		
-		
+
 		return eventType;
 	}
-	
+
 	public int get2ndLevelEventCode(final EventType eventType, Grammar grammar) {
 		int ec2 = Constants.NOT_FOUND;
-		switch(grammar.getGrammarType()) {
-		/* Root grammars*/
+		switch (grammar.getGrammarType()) {
+		/* Root grammars */
 		case DOCUMENT:
 		case FRAGMENT:
 		case DOC_END:
@@ -539,34 +542,36 @@ public class FidelityOptions {
 		/* Built-in Document and Fragment Grammars */
 		case SCHEMA_INFORMED_DOC_CONTENT:
 		case BUILT_IN_DOC_CONTENT:
-			if(isDTD && eventType == EventType.DOC_TYPE) {
+			if (isDTD && eventType == EventType.DOC_TYPE) {
 				ec2 = 0;
 			}
 			break;
 		/* Schema-informed Element and Type Grammars */
 		case SCHEMA_INFORMED_FIRST_START_TAG_CONTENT:
 			SchemaInformedFirstStartTagGrammar sifst = (SchemaInformedFirstStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// isTypeCastable, isNillable
 				if (sifst.isTypeCastable()) {
-					if(eventType == EventType.ATTRIBUTE_XSI_TYPE) {
+					if (eventType == EventType.ATTRIBUTE_XSI_TYPE) {
 						ec2 = 0;
 					} else if (eventType == EventType.ATTRIBUTE_XSI_NIL) {
 						ec2 = 1;
 					}
-				} else if (sifst.isNillable() && eventType == EventType.ATTRIBUTE_XSI_NIL) {
+				} else if (sifst.isNillable()
+						&& eventType == EventType.ATTRIBUTE_XSI_NIL) {
 					ec2 = 0;
 				}
 			} else {
-				// {0,EE?, 1,xsi:type, 2,xsi:nil, 3,AT*, 4,AT-untyped, 5,NS, 6,SC, 7,SE*, 8,CH, 9,ER, {CM, PI}}
+				// {0,EE?, 1,xsi:type, 2,xsi:nil, 3,AT*, 4,AT-untyped, 5,NS,
+				// 6,SC, 7,SE*, 8,CH, 9,ER, {CM, PI}}
 				int dec = 0;
-				if(sifst.hasEndElement()) {
+				if (sifst.hasEndElement()) {
 					dec++;
-				} 
-				if(eventType == EventType.END_ELEMENT_UNDECLARED) {
+				}
+				if (eventType == EventType.END_ELEMENT_UNDECLARED) {
 					ec2 = 0 - dec; // EE
 				} else {
-					if(eventType == EventType.ATTRIBUTE_XSI_TYPE) {
+					if (eventType == EventType.ATTRIBUTE_XSI_TYPE) {
 						ec2 = 1 - dec; // xsi:type
 					} else if (eventType == EventType.ATTRIBUTE_XSI_NIL) {
 						ec2 = 2 - dec; // xsi:nil
@@ -575,24 +580,24 @@ public class FidelityOptions {
 					} else if (eventType == EventType.ATTRIBUTE_INVALID_VALUE) {
 						ec2 = 4 - dec; // AT-untyped
 					} else {
-						if(!isPrefix) {
+						if (!isPrefix) {
 							dec++;
 						}
 						if (eventType == EventType.NAMESPACE_DECLARATION) {
 							ec2 = 5 - dec; // NS
 						} else {
-							if(!isSC) {
+							if (!isSC) {
 								dec++;
 							}
 							if (eventType == EventType.SELF_CONTAINED) {
 								ec2 = 6 - dec; // SC
 							} else {
-								if(eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
+								if (eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
 									ec2 = 7 - dec; // SE*
-								} else if(eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
+								} else if (eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
 									ec2 = 8 - dec; // CH
 								} else {
-									if(!isDTD) {
+									if (!isDTD) {
 										dec++;
 									}
 									if (eventType == EventType.ENTITY_REFERENCE) {
@@ -607,15 +612,15 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_START_TAG_CONTENT:
 			SchemaInformedStartTagGrammar sist = (SchemaInformedStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {0,EE?, 1,AT*, 2,AT-untyped, 3,SE*, 4,CH, 5,ER, {CM, PI}}
 				int dec = 0;
-				if(sist.hasEndElement()) {
+				if (sist.hasEndElement()) {
 					dec++;
-				} 
-				if(eventType == EventType.END_ELEMENT_UNDECLARED) {
+				}
+				if (eventType == EventType.END_ELEMENT_UNDECLARED) {
 					ec2 = 0 - dec; // EE
 				} else {
 					if (eventType == EventType.ATTRIBUTE_GENERIC_UNDECLARED) {
@@ -623,12 +628,12 @@ public class FidelityOptions {
 					} else if (eventType == EventType.ATTRIBUTE_INVALID_VALUE) {
 						ec2 = 2 - dec; // AT-untyped
 					} else {
-						if(eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
+						if (eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
 							ec2 = 3 - dec; // SE*
-						} else if(eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
+						} else if (eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
 							ec2 = 4 - dec; // CH
 						} else {
-							if(!isDTD) {
+							if (!isDTD) {
 								dec++;
 							}
 							if (eventType == EventType.ENTITY_REFERENCE) {
@@ -641,23 +646,23 @@ public class FidelityOptions {
 			break;
 		case SCHEMA_INFORMED_ELEMENT_CONTENT:
 			SchemaInformedGrammar sig = (SchemaInformedGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {0,EE?, 1,SE*, 2,CH*, 3,ER?, {CM, PI}}
 				int dec = 0;
-				if(sig.hasEndElement()) {
+				if (sig.hasEndElement()) {
 					dec++;
-				} 
-				if(eventType == EventType.END_ELEMENT_UNDECLARED) {
+				}
+				if (eventType == EventType.END_ELEMENT_UNDECLARED) {
 					ec2 = 0 - dec; // EE
 				} else {
-					if(eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
+					if (eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
 						ec2 = 1 - dec; // SE*
-					} else if(eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
+					} else if (eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
 						ec2 = 2 - dec; // CH
 					} else {
-						if(!isDTD) {
+						if (!isDTD) {
 							dec++;
 						}
 						if (eventType == EventType.ENTITY_REFERENCE) {
@@ -670,31 +675,31 @@ public class FidelityOptions {
 		/* Built-in Element Grammars */
 		case BUILT_IN_START_TAG_CONTENT:
 			// {0,EE, 1,AT*, 2,NS, 3,SC, 4,SE*, 5,CH, 6,ER, {CM, PI}}
-			if(eventType == EventType.END_ELEMENT_UNDECLARED) {
+			if (eventType == EventType.END_ELEMENT_UNDECLARED) {
 				ec2 = 0; // EE
 			} else {
 				if (eventType == EventType.ATTRIBUTE_GENERIC_UNDECLARED) {
 					ec2 = 1; // AT*
 				} else {
 					int dec = 0;
-					if(!isPrefix) {
+					if (!isPrefix) {
 						dec++;
 					}
 					if (eventType == EventType.NAMESPACE_DECLARATION) {
 						ec2 = 2 - dec; // NS
 					} else {
-						if(!isSC) {
+						if (!isSC) {
 							dec++;
 						}
 						if (eventType == EventType.SELF_CONTAINED) {
 							ec2 = 3 - dec; // SC
 						} else {
-							if(eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
+							if (eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
 								ec2 = 4 - dec; // SE*
-							} else if(eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
+							} else if (eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
 								ec2 = 5 - dec; // CH
 							} else {
-								if(!isDTD) {
+								if (!isDTD) {
 									dec++;
 								}
 								if (eventType == EventType.ENTITY_REFERENCE) {
@@ -708,32 +713,31 @@ public class FidelityOptions {
 			break;
 		case BUILT_IN_ELEMENT_CONTENT:
 			// {0,SE*, 1,CH, 2,ER, {CM, PI}}
-			if(eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
+			if (eventType == EventType.START_ELEMENT_GENERIC_UNDECLARED) {
 				ec2 = 0; // SE*
-			} else if(eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
+			} else if (eventType == EventType.CHARACTERS_GENERIC_UNDECLARED) {
 				ec2 = 1; // CH
 			} else {
-				if(isDTD && eventType == EventType.ENTITY_REFERENCE) {
+				if (isDTD && eventType == EventType.ENTITY_REFERENCE) {
 					ec2 = 2; // ER
 				}
 			}
 			break;
 		}
-		
+
 		return ec2;
 	}
 
-	
 	public int get2ndLevelCharacteristics(Grammar grammar) {
 		int ch2 = 0;
-		switch(grammar.getGrammarType()) {
-		/* Root grammars*/
+		switch (grammar.getGrammarType()) {
+		/* Root grammars */
 		case DOCUMENT:
 		case FRAGMENT:
-			//ch2 = 0;
+			// ch2 = 0;
 			break;
 		case DOC_END:
-			if(get3rdLevelCharacteristics() > 0) {
+			if (get3rdLevelCharacteristics() > 0) {
 				ch2++;
 			}
 			break;
@@ -741,78 +745,80 @@ public class FidelityOptions {
 		/* Built-in Document and Fragment Grammars */
 		case SCHEMA_INFORMED_DOC_CONTENT:
 		case BUILT_IN_DOC_CONTENT:
-			if(isDTD) {
+			if (isDTD) {
 				ch2++;
 			}
-			if(get3rdLevelCharacteristics() > 0) {
+			if (get3rdLevelCharacteristics() > 0) {
 				ch2++;
 			}
 			break;
 		case SCHEMA_INFORMED_FRAGMENT_CONTENT:
 		case BUILT_IN_FRAGMENT_CONTENT:
-			if(get3rdLevelCharacteristics() > 0) {
+			if (get3rdLevelCharacteristics() > 0) {
 				ch2++;
 			}
 			break;
 		/* Schema-informed Element and Type Grammars */
 		case SCHEMA_INFORMED_FIRST_START_TAG_CONTENT:
 			SchemaInformedFirstStartTagGrammar sifst = (SchemaInformedFirstStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// isTypeCastable, isNillable
-				ch2 = (sifst.isTypeCastable() ? 1 : 0) + (sifst.isNillable() ? 1 : 0);
+				ch2 = (sifst.isTypeCastable() ? 1 : 0)
+						+ (sifst.isNillable() ? 1 : 0);
 			} else {
-				// {EE?, xsi:type, xsi:nil, AT*, AT-untyped, NS, SC, SE*, CH, ER, {CM, PI}}
-				if(!sifst.hasEndElement()) { // EE
+				// {EE?, xsi:type, xsi:nil, AT*, AT-untyped, NS, SC, SE*, CH,
+				// ER, {CM, PI}}
+				if (!sifst.hasEndElement()) { // EE
 					ch2++;
 				}
 				ch2 += 4; // xsi:type, xsi:nil, AT*, AT-untyped,
-				if(isPrefix) { // NS
+				if (isPrefix) { // NS
 					ch2++;
 				}
-				if(isSC) { // SC
+				if (isSC) { // SC
 					ch2++;
 				}
 				ch2 += 2; // SE*, CH
-				if(isDTD) { // ER
+				if (isDTD) { // ER
 					ch2++;
 				}
-				if(get3rdLevelCharacteristics() > 0) { // {CM, PI}
+				if (get3rdLevelCharacteristics() > 0) { // {CM, PI}
 					ch2++;
 				}
 			}
 			break;
 		case SCHEMA_INFORMED_START_TAG_CONTENT:
 			SchemaInformedStartTagGrammar sist = (SchemaInformedStartTagGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {EE?, AT*, AT-untyped, SE*, CH, ER, {CM, PI}}
-				if(!sist.hasEndElement()) { // EE
+				if (!sist.hasEndElement()) { // EE
 					ch2++;
 				}
 				ch2 += 4; // AT*, AT-untyped, SE*, CH
-				if(isDTD) { // ER
+				if (isDTD) { // ER
 					ch2++;
 				}
-				if(get3rdLevelCharacteristics() > 0) { // {CM, PI}
+				if (get3rdLevelCharacteristics() > 0) { // {CM, PI}
 					ch2++;
 				}
 			}
 			break;
 		case SCHEMA_INFORMED_ELEMENT_CONTENT:
 			SchemaInformedGrammar sig = (SchemaInformedGrammar) grammar;
-			if(isStrict) {
+			if (isStrict) {
 				// no events
 			} else {
 				// {EE?, SE*, CH*, ER?, {CM, PI}}
-				if(!sig.hasEndElement()) { // EE
+				if (!sig.hasEndElement()) { // EE
 					ch2++;
 				}
 				ch2 += 2; // SE*, CH
-				if(isDTD) { // ER
+				if (isDTD) { // ER
 					ch2++;
 				}
-				if(get3rdLevelCharacteristics() > 0) { // {CM, PI}
+				if (get3rdLevelCharacteristics() > 0) { // {CM, PI}
 					ch2++;
 				}
 			}
@@ -821,37 +827,37 @@ public class FidelityOptions {
 		case BUILT_IN_START_TAG_CONTENT:
 			// {EE, AT*, NS, SC, SE*, CH, ER, {CM, PI}}
 			ch2 += 2; // EE, AT*
-			if(isPrefix) { // NS
+			if (isPrefix) { // NS
 				ch2++;
 			}
-			if(isSC) { // SC
+			if (isSC) { // SC
 				ch2++;
 			}
 			ch2 += 2; // SE*, CH
-			if(isDTD) { // ER
+			if (isDTD) { // ER
 				ch2++;
 			}
-			if(get3rdLevelCharacteristics() > 0) { // {CM, PI}
+			if (get3rdLevelCharacteristics() > 0) { // {CM, PI}
 				ch2++;
 			}
 			break;
 		case BUILT_IN_ELEMENT_CONTENT:
 			// {SE*, CH, ER, {CM, PI}}
 			ch2 += 2; // SE*, CH
-			if(isDTD) { // ER
+			if (isDTD) { // ER
 				ch2++;
 			}
-			if(get3rdLevelCharacteristics() > 0) { // {CM, PI}
+			if (get3rdLevelCharacteristics() > 0) { // {CM, PI}
 				ch2++;
 			}
 			break;
 		}
 		return ch2;
 	}
-	
+
 	public EventType get3rdLevelEventType(final int ec3) {
 		EventType eventType = null;
-		
+
 		if (ec3 == 0) {
 			if (isComment) {
 				return EventType.COMMENT;
@@ -859,20 +865,19 @@ public class FidelityOptions {
 				eventType = EventType.PROCESSING_INSTRUCTION;
 			}
 		} else if (ec3 == 1) {
-			assert(isFidelityEnabled(FidelityOptions.FEATURE_COMMENT));
-			assert(isComment);
-			assert(isFidelityEnabled(FidelityOptions.FEATURE_PI));
-			assert(isPI);
+			assert (isFidelityEnabled(FidelityOptions.FEATURE_COMMENT));
+			assert (isComment);
+			assert (isFidelityEnabled(FidelityOptions.FEATURE_PI));
+			assert (isPI);
 			eventType = EventType.PROCESSING_INSTRUCTION;
 		}
-		
+
 		return eventType;
 	}
-	
-	
+
 	public int get3rdLevelEventCode(EventType eventType) {
 		int ec3 = Constants.NOT_FOUND;
-		
+
 		if (!isStrict) {
 			// CM
 			if (isComment) {
@@ -890,18 +895,16 @@ public class FidelityOptions {
 
 		return ec3;
 	}
-	
 
 	public int get3rdLevelCharacteristics() {
 		int ch = 0;
-		if(isComment) {
+		if (isComment) {
 			ch++;
 		}
-		if(isPI) {
+		if (isPI) {
 			ch++;
 		}
 		return ch;
 	}
-	
 
 }

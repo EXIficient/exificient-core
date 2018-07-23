@@ -41,14 +41,14 @@ import com.siemens.ct.exi.core.util.MethodsBag;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		BuiltInGrammar {
 
 	protected List<Production> containers;
-	// Note: BuiltInDocContent and BuiltInFragmentContent do not use this variable
+	// Note: BuiltInDocContent and BuiltInFragmentContent do not use this
+	// variable
 	protected int ec1Length = -1;
 
 	public AbstractBuiltInGrammar() {
@@ -56,14 +56,14 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		containers = new ArrayList<Production>();
 		ec1Length = 0;
 	}
-	
+
 	public boolean hasEndElement() {
 		return false;
 	}
-	
+
 	@Override
 	public void stopLearning() {
-		if(stopLearningContainerSize == Constants.NOT_FOUND) {
+		if (stopLearningContainerSize == Constants.NOT_FOUND) {
 			stopLearningContainerSize = containers.size();
 		}
 	}
@@ -75,7 +75,6 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 	public Grammar getTypeEmpty() {
 		return this;
 	}
-	
 
 	public int getNumberOfEvents() {
 		return containers.size();
@@ -88,8 +87,10 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 
 		containers.add(new SchemaLessProduction(this, grammar, event,
 				getNumberOfEvents()));
-		// pre-calculate count for log2 (Note: always 2nd level productions available)
-		// Note: BuiltInDocContent and BuiltInFragmentContent do not use this variable
+		// pre-calculate count for log2 (Note: always 2nd level productions
+		// available)
+		// Note: BuiltInDocContent and BuiltInFragmentContent do not use this
+		// variable
 		this.ec1Length = MethodsBag.getCodingLength(containers.size() + 1);
 	}
 
@@ -126,21 +127,21 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		for (int i = 0; i < containers.size(); i++) {
 			Production ei = containers.get(i);
 			if (ei.getEvent().isEventType(eventType)) {
-				if(!isExiProfilGhostNode(ei)) {
+				if (!isExiProfilGhostNode(ei)) {
 					return ei;
 				}
 			}
 		}
-		
+
 		return null; // not found
 	}
-	
+
 	private final boolean isExiProfilGhostNode(Production ei) {
-		if(stopLearningContainerSize == Constants.NOT_FOUND) {
+		if (stopLearningContainerSize == Constants.NOT_FOUND) {
 			// no learning-stop at all
 			return false;
 		} else {
-			return ( ei.getEventCode() < (getNumberOfEvents() - this.stopLearningContainerSize) );		
+			return (ei.getEventCode() < (getNumberOfEvents() - this.stopLearningContainerSize));
 		}
 	}
 
@@ -149,9 +150,10 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		for (int i = 0; i < containers.size(); i++) {
 			Production ei = containers.get(i);
 			if (ei.getEvent().isEventType(EventType.START_ELEMENT)
-					&& checkQualifiedName(((StartElement) ei.getEvent()).getQName(),
+					&& checkQualifiedName(
+							((StartElement) ei.getEvent()).getQName(),
 							namespaceURI, localName)) {
-				if(!isExiProfilGhostNode(ei)) {
+				if (!isExiProfilGhostNode(ei)) {
 					return ei;
 				}
 			}
@@ -168,9 +170,10 @@ public abstract class AbstractBuiltInGrammar extends AbstractGrammar implements
 		for (int i = 0; i < containers.size(); i++) {
 			Production ei = containers.get(i);
 			if (ei.getEvent().isEventType(EventType.ATTRIBUTE)
-					&& checkQualifiedName(((Attribute) ei.getEvent()).getQName(),
+					&& checkQualifiedName(
+							((Attribute) ei.getEvent()).getQName(),
 							namespaceURI, localName)) {
-				if(!isExiProfilGhostNode(ei)) {
+				if (!isExiProfilGhostNode(ei)) {
 					return ei;
 				}
 			}

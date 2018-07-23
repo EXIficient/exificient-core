@@ -60,32 +60,35 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class TypedTypeEncoder extends AbstractTypeEncoder {
-	
+
 	public Datatype lastDatatype;
 	protected final boolean doNormalize;
 
 	public TypedTypeEncoder() throws EXIException {
 		this(false);
 	}
-	
+
 	public TypedTypeEncoder(boolean doNormalize) throws EXIException {
 		this(null, null, null);
 	}
 
-	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
-		this(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype, false);
+	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
+			throws EXIException {
+		this(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype,
+				false);
 	}
-	
-	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype, boolean doNormalize) throws EXIException {
+
+	public TypedTypeEncoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype,
+			boolean doNormalize) throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 		this.doNormalize = doNormalize;
 	}
 
-	
 	protected byte[] lastBytes;
 	protected BooleanValue lastBool;
 	protected int lastBooleanID;
@@ -99,15 +102,16 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 	protected String lastString;
 	protected int lastEnumIndex;
 	protected ListValue lastListValues;
-	
+
 	public boolean isValid(Datatype datatype, Value value) {
-		if (this.dtrMapInUse && datatype.getBuiltInType() != BuiltInType.EXTENDED_STRING) {
+		if (this.dtrMapInUse
+				&& datatype.getBuiltInType() != BuiltInType.EXTENDED_STRING) {
 			lastDatatype = this.getDtrDatatype(datatype);
 		} else {
 			lastDatatype = datatype;
 		}
 
-		switch(lastDatatype.getBuiltInType()) {
+		switch (lastDatatype.getBuiltInType()) {
 		case BINARY_BASE64:
 		case BINARY_HEX:
 			if (value instanceof AbstractBinaryValue) {
@@ -170,7 +174,7 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			} else {
 				return isValidString(value.toString());
 			}
-			
+
 		case DATETIME:
 			if (value instanceof DateTimeValue) {
 				lastDatetime = ((DateTimeValue) value);
@@ -182,7 +186,8 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			lastString = value.toString();
 			return true;
 		case RCS_STRING:
-			// Note: no validity check needed since any char-sequence can be encoded
+			// Note: no validity check needed since any char-sequence can be
+			// encoded
 			// due to fallback mechanism
 			lastString = value.toString();
 			return true;
@@ -204,8 +209,8 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			if (value instanceof ListValue) {
 				ListDatatype listDT = (ListDatatype) lastDatatype;
 				ListValue lv = (ListValue) value;
-				if (listDT.getListDatatype().getBuiltInType() == lv.getListDatatype()
-						.getBuiltInType()) {
+				if (listDT.getListDatatype().getBuiltInType() == lv
+						.getListDatatype().getBuiltInType()) {
 					this.lastListValues = lv;
 					return true;
 				} else {
@@ -220,21 +225,19 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			return false;
 			// throw new IOException("QName is not an allowed as EXI datatype");
 		}
-		
+
 		return false;
-//		return lastDatatype.isValid(value);
+		// return lastDatatype.isValid(value);
 	}
-	
-	
-	
-//	// Note: isValid MUST be called before and the method MUST return true
-//	public void normalize() { // e.g., Canonical DateTime normalization
-//		
-//		
-//	}
-	
+
+	// // Note: isValid MUST be called before and the method MUST return true
+	// public void normalize() { // e.g., Canonical DateTime normalization
+	//
+	//
+	// }
+
 	protected boolean isValidString(String value) {
-		switch(lastDatatype.getBuiltInType()) {
+		switch (lastDatatype.getBuiltInType()) {
 		case BINARY_BASE64:
 			value = value.trim();
 			BinaryBase64Value bvb = BinaryBase64Value.parse(value);
@@ -305,7 +308,8 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			return (lastInteger != null);
 		case DATETIME:
 			DatetimeDatatype datetimeDT = (DatetimeDatatype) lastDatatype;
-			lastDatetime = DateTimeValue.parse(value, datetimeDT.getDatetimeType());
+			lastDatetime = DateTimeValue.parse(value,
+					datetimeDT.getDatetimeType());
 			return (lastDatetime != null);
 		case LIST:
 			ListDatatype listDT = (ListDatatype) lastDatatype;
@@ -315,38 +319,38 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			return false;
 		}
 	}
-	
-	
+
 	protected void normalize(Datatype datatype) {
-		switch(datatype.getBuiltInType()) {
+		switch (datatype.getBuiltInType()) {
 		case DATETIME:
-			// see https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation
-			if(lastDatetime != null) {
+			// see
+			// https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dateTime-canonical-representation
+			if (lastDatetime != null) {
 				lastDatetime = lastDatetime.normalize();
 			}
 			break;
 		case LIST:
-			if(lastListValues != null) {
+			if (lastListValues != null) {
 				Datatype dt = lastListValues.getListDatatype();
-				for(Value v : lastListValues.toValues()) {
+				for (Value v : lastListValues.toValues()) {
 					isValid(dt, v);
 					normalize(dt);
 				}
 			}
 			break;
 		default:
-			/* do nothing*/	
+			/* do nothing */
 		}
 	}
 
 	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
 			StringEncoder stringEncoder) throws IOException {
-		if(doNormalize) {
+		if (doNormalize) {
 			normalize(lastDatatype);
-//			lastDatatype.normalize();
+			// lastDatatype.normalize();
 		}
-		
-		switch(lastDatatype.getBuiltInType()) {
+
+		switch (lastDatatype.getBuiltInType()) {
 		case BINARY_BASE64:
 		case BINARY_HEX:
 			valueChannel.encodeBinary(lastBytes);
@@ -359,8 +363,7 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			break;
 		case DECIMAL:
 			valueChannel.encodeDecimal(lastDecimal.isNegative(),
-					lastDecimal.getIntegral(),
-					lastDecimal.getRevFractional());
+					lastDecimal.getIntegral(), lastDecimal.getRevFractional());
 			break;
 		case FLOAT:
 			valueChannel.encodeFloat(lastFloat);
@@ -368,7 +371,8 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		case NBIT_UNSIGNED_INTEGER:
 			NBitUnsignedIntegerDatatype nbitDT = (NBitUnsignedIntegerDatatype) lastDatatype;
 			IntegerValue iv = lastNBitInteger.subtract(nbitDT.getLowerBound());
-			valueChannel.encodeNBitUnsignedInteger(iv.intValue(), nbitDT.getNumberOfBits());
+			valueChannel.encodeNBitUnsignedInteger(iv.intValue(),
+					nbitDT.getNumberOfBits());
 			break;
 		case UNSIGNED_INTEGER:
 			valueChannel.encodeUnsignedIntegerValue(lastUnsignedInteger);
@@ -384,21 +388,23 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			break;
 		case RCS_STRING:
 			RestrictedCharacterSetDatatype rcsDT = (RestrictedCharacterSetDatatype) lastDatatype;
-			writeRCSValue(rcsDT, qnContext, valueChannel,
-					stringEncoder, lastString);
+			writeRCSValue(rcsDT, qnContext, valueChannel, stringEncoder,
+					lastString);
 			break;
 		case EXTENDED_STRING:
 			ExtendedStringDatatype esDT = (ExtendedStringDatatype) lastDatatype;
-			writeExtendedValue(esDT, qnContext, valueChannel, stringEncoder, lastString);
+			writeExtendedValue(esDT, qnContext, valueChannel, stringEncoder,
+					lastString);
 			break;
 		case ENUMERATION:
 			EnumerationDatatype enumDT = (EnumerationDatatype) lastDatatype;
-			valueChannel.encodeNBitUnsignedInteger(lastEnumIndex, enumDT.getCodingLength());
+			valueChannel.encodeNBitUnsignedInteger(lastEnumIndex,
+					enumDT.getCodingLength());
 			break;
 		case LIST:
 			ListDatatype listDT = (ListDatatype) lastDatatype;
 			Datatype listDatatype = listDT.getListDatatype();
-			
+
 			// length prefixed sequence of values
 			Value[] values = lastListValues.toValues();
 			valueChannel.encodeUnsignedInteger(values.length);
@@ -418,41 +424,42 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		default:
 			throw new IOException("EXI datatype not supported");
 		}
-		
-		
-//		lastDatatype.writeValue(qnContext, valueChannel, stringEncoder);
+
+		// lastDatatype.writeValue(qnContext, valueChannel, stringEncoder);
 	}
-	
-	
+
 	int getEnumIndex(EnumDatatype grammarStrings, StringValue sv) {
-		for(int i=0; i< grammarStrings.getEnumerationSize() ; i++) {
+		for (int i = 0; i < grammarStrings.getEnumerationSize(); i++) {
 			Value v = grammarStrings.getEnumValue(i);
-			if(sv.equals(v)) {
+			if (sv.equals(v)) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
-	
-	protected void writeExtendedValue(ExtendedStringDatatype esDT, QNameContext context,
-			EncoderChannel valueChannel, StringEncoder stringEncoder, String value) throws IOException {
+
+	protected void writeExtendedValue(ExtendedStringDatatype esDT,
+			QNameContext context, EncoderChannel valueChannel,
+			StringEncoder stringEncoder, String value) throws IOException {
 
 		EnumDatatype grammarStrings = esDT.getGrammarStrings();
-		
-		ValueContainer vc = stringEncoder.getValueContainer(value); //    .stringValues.get(value);
+
+		ValueContainer vc = stringEncoder.getValueContainer(value); // .stringValues.get(value);
 
 		if (vc != null) {
 			// hit
-			if (stringEncoder.isLocalValuePartitions() && context.equals(vc.context)) {
+			if (stringEncoder.isLocalValuePartitions()
+					&& context.equals(vc.context)) {
 				/*
 				 * local value hit ==> is represented as zero (0) encoded as an
 				 * Unsigned Integer followed by the compact identifier of the
 				 * string value in the "local" value partition
 				 */
 				valueChannel.encodeUnsignedInteger(0);
-				int numberBitsLocal = MethodsBag.getCodingLength(stringEncoder.getNumberOfStringValues(context));
-				valueChannel.encodeNBitUnsignedInteger(vc.localValueID, numberBitsLocal);
+				int numberBitsLocal = MethodsBag.getCodingLength(stringEncoder
+						.getNumberOfStringValues(context));
+				valueChannel.encodeNBitUnsignedInteger(vc.localValueID,
+						numberBitsLocal);
 			} else {
 				/*
 				 * global value hit ==> value is represented as one (1) encoded
@@ -461,9 +468,11 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 				 */
 				valueChannel.encodeUnsignedInteger(1);
 				// global value size
-				
-				int numberBitsGlobal = MethodsBag.getCodingLength(stringEncoder.getValueContainerSize());
-				valueChannel.encodeNBitUnsignedInteger(vc.globalValueID, numberBitsGlobal);
+
+				int numberBitsGlobal = MethodsBag.getCodingLength(stringEncoder
+						.getValueContainerSize());
+				valueChannel.encodeNBitUnsignedInteger(vc.globalValueID,
+						numberBitsGlobal);
 			}
 		} else {
 			/*
@@ -471,21 +480,23 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 			 * string literal is encoded as a String with the length incremented
 			 * by 6.
 			 */
-			
+
 			// --> check grammar strings
 			int gindex = -1;
-			if(grammarStrings != null && 
-					(gindex = getEnumIndex(grammarStrings, new StringValue(value))) >= 0
-//					isValid(esDT, new StringValue(value))
-					) {
+			if (grammarStrings != null
+					&& (gindex = getEnumIndex(grammarStrings, new StringValue(
+							value))) >= 0
+			// isValid(esDT, new StringValue(value))
+			) {
 				valueChannel.encodeUnsignedInteger(2); // grammar string
-				valueChannel.encodeNBitUnsignedInteger(gindex, grammarStrings.getCodingLength());
-			
+				valueChannel.encodeNBitUnsignedInteger(gindex,
+						grammarStrings.getCodingLength());
+
 				// this.isValid(ExtendedStringDatatype, value)
 				// writeValue(context, valueChannel, stringEncoder);
 			} else {
 				// TODO (3)shared string, (4)split string, (5)undefined
-				
+
 				final int L = value.codePointCount(0, value.length());
 				valueChannel.encodeUnsignedInteger(L + 6);
 				/*
@@ -502,5 +513,5 @@ public class TypedTypeEncoder extends AbstractTypeEncoder {
 		}
 
 	}
-	
+
 }

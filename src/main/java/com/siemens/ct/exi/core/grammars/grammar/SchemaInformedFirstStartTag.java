@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.grammars.production.Production;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class SchemaInformedFirstStartTag extends SchemaInformedStartTag
@@ -50,11 +49,11 @@ public class SchemaInformedFirstStartTag extends SchemaInformedStartTag
 	public SchemaInformedFirstStartTag() {
 		super();
 	}
-	
+
 	public SchemaInformedFirstStartTag(SchemaInformedGrammar elementContent2) {
 		super(elementContent2);
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.SCHEMA_INFORMED_FIRST_START_TAG_CONTENT;
 	}
@@ -93,23 +92,19 @@ public class SchemaInformedFirstStartTag extends SchemaInformedStartTag
 	public void setTypeEmpty(SchemaInformedFirstStartTagGrammar typeEmpty) {
 		this.typeEmpty = typeEmpty;
 	}
-	
-	
-
-	
 
 	public SchemaInformedFirstStartTagGrammar getTypeEmpty() {
-		if(USE_RUNTIME_EMPTY_TYPE) {
+		if (USE_RUNTIME_EMPTY_TYPE) {
 			return (SchemaInformedFirstStartTagGrammar) getTypeEmptyInternal();
 		} else {
 			return this.typeEmpty;
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj) {
+		if (this == obj) {
 			return true;
 		}
 		if (obj instanceof SchemaInformedFirstStartTag) {
@@ -123,12 +118,12 @@ public class SchemaInformedFirstStartTag extends SchemaInformedStartTag
 
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return (isTypeCastable ? 1 : 0) ^ (isNillable ? 1 : 0) ^ super.hashCode();
+		return (isTypeCastable ? 1 : 0) ^ (isNillable ? 1 : 0)
+				^ super.hashCode();
 	}
-
 
 	public String toString() {
 		String s = "First";

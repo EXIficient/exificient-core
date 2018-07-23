@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractDatatype implements Datatype {
@@ -41,13 +40,13 @@ public abstract class AbstractDatatype implements Datatype {
 
 	// for codec map
 	protected final QNameContext schemaType;
-	
+
 	// base datatype
 	protected Datatype baseDatatype;
-	
+
 	// grammar enumeration
 	protected EnumDatatype grammarEnumeration;
-	
+
 	// whiteSpace
 	protected WhiteSpace whiteSpace;
 
@@ -58,7 +57,8 @@ public abstract class AbstractDatatype implements Datatype {
 	public AbstractDatatype(BuiltInType builtInType, QNameContext schemaType) {
 		this.builtInType = builtInType;
 		this.schemaType = schemaType;
-		// For all atomic datatypes other than string the value of whiteSpace is collapse
+		// For all atomic datatypes other than string the value of whiteSpace is
+		// collapse
 		whiteSpace = WhiteSpace.collapse;
 	}
 
@@ -69,31 +69,31 @@ public abstract class AbstractDatatype implements Datatype {
 	public QNameContext getSchemaType() {
 		return schemaType;
 	}
-	
+
 	public Datatype getBaseDatatype() {
 		return baseDatatype;
 	}
-	
+
 	public void setBaseDatatype(Datatype baseDatatype) {
 		this.baseDatatype = baseDatatype;
 	}
-	
+
 	public void setGrammarEnumeration(EnumDatatype grammarEnumeration) {
 		this.grammarEnumeration = grammarEnumeration;
 	}
-	
+
 	public EnumDatatype getGrammarEnumeration() {
 		return grammarEnumeration;
 	}
-	
+
 	public WhiteSpace getWhiteSpace() {
 		return this.whiteSpace;
 	}
 
 	public boolean equals(Object o) {
 		if (o instanceof Datatype) {
-			if(builtInType == ((Datatype) o).getBuiltInType()) {
-				if(schemaType == null) {
+			if (builtInType == ((Datatype) o).getBuiltInType()) {
+				if (schemaType == null) {
 					return (((Datatype) o).getSchemaType() == null);
 				} else {
 					return (schemaType.equals(((Datatype) o).getSchemaType()));
@@ -110,5 +110,5 @@ public abstract class AbstractDatatype implements Datatype {
 	public String toString() {
 		return builtInType.toString();
 	}
-	
+
 }

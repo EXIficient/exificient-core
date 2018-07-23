@@ -42,7 +42,6 @@ import com.siemens.ct.exi.core.types.TypeEncoder;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface EXIFactory extends Cloneable {
@@ -53,7 +52,7 @@ public interface EXIFactory extends Cloneable {
 	 * 
 	 * @param fidelityOptions
 	 *            new fidelity options
-	 *            
+	 * 
 	 * @see FidelityOptions
 	 */
 	public void setFidelityOptions(FidelityOptions fidelityOptions);
@@ -73,7 +72,7 @@ public interface EXIFactory extends Cloneable {
 	 * 
 	 * @param headerOptions
 	 *            header options
-	 *            
+	 * 
 	 * @see EncodingOptions
 	 */
 	public void setEncodingOptions(EncodingOptions headerOptions);
@@ -85,11 +84,12 @@ public interface EXIFactory extends Cloneable {
 	 * @see EncodingOptions
 	 */
 	public EncodingOptions getEncodingOptions();
-	
+
 	/**
 	 * Sets the options used by the EXI Decoder(e.g., ignore schemaId).
 	 * 
-	 * @param options decoding options
+	 * @param options
+	 *            decoding options
 	 * @see DecodingOptions decoding options
 	 */
 	public void setDecodingOptions(DecodingOptions options);
@@ -105,7 +105,8 @@ public interface EXIFactory extends Cloneable {
 	/**
 	 * Sets specific schemaId resolver.
 	 * 
-	 * @param schemaIdResolver schemaId resolver
+	 * @param schemaIdResolver
+	 *            schemaId resolver
 	 * @see SchemaIdResolver
 	 */
 	public void setSchemaIdResolver(SchemaIdResolver schemaIdResolver);
@@ -121,7 +122,8 @@ public interface EXIFactory extends Cloneable {
 	 * Informs the factory that we are dealing with an XML fragment instead of
 	 * an XML document
 	 * 
-	 * @param isFragment true if is fragment
+	 * @param isFragment
+	 *            true if is fragment
 	 * 
 	 */
 	public void setFragment(boolean isFragment);
@@ -136,7 +138,8 @@ public interface EXIFactory extends Cloneable {
 	/**
 	 * Sets the EXI <code>Grammars</code> used for coding.
 	 * 
-	 * @param grammar grammar
+	 * @param grammar
+	 *            grammar
 	 * 
 	 */
 	public void setGrammars(Grammars grammar);
@@ -152,7 +155,8 @@ public interface EXIFactory extends Cloneable {
 	/**
 	 * Re-sets the coding mode used by the factory.
 	 * 
-	 * @param codingMode coding mode
+	 * @param codingMode
+	 *            coding mode
 	 */
 	public void setCodingMode(CodingMode codingMode);
 
@@ -168,7 +172,8 @@ public interface EXIFactory extends Cloneable {
 	 * The default blockSize is intentionally large (1,000,000) but can be
 	 * reduced for processing large documents on devices with limited memory.
 	 * 
-	 * @param blockSize blockSize
+	 * @param blockSize
+	 *            blockSize
 	 */
 	public void setBlockSize(int blockSize);
 
@@ -235,23 +240,30 @@ public interface EXIFactory extends Cloneable {
 	 * specific schema datatypes. This capability is called Datatype
 	 * Representation Map.
 	 * 
-	 * @param dtrMapTypes dtrMap types
-	 * @param dtrMapRepresentations dtrMap representations
+	 * @param dtrMapTypes
+	 *            dtrMap types
+	 * @param dtrMapRepresentations
+	 *            dtrMap representations
 	 */
 	public void setDatatypeRepresentationMap(QName[] dtrMapTypes,
 			QName[] dtrMapRepresentations);
 
-	
 	/**
-	 * The DTR map representation may use  built-in String datatypes (e.g., <code>exi:string</code>) or use
-	 * user-defined type representations. This method allows to register the datatype that should be used.
+	 * The DTR map representation may use built-in String datatypes (e.g.,
+	 * <code>exi:string</code>) or use user-defined type representations. This
+	 * method allows to register the datatype that should be used.
 	 * 
-	 * @param dtrMapRepresentation dtrMap type
-	 * @param datatype dtrMap datatype
-	 * @return the previous value associated with <code>dtrMapRepresentation</code>, or <code>null</code> if there was no mapping
+	 * @param dtrMapRepresentation
+	 *            dtrMap type
+	 * @param datatype
+	 *            dtrMap datatype
+	 * @return the previous value associated with
+	 *         <code>dtrMapRepresentation</code>, or <code>null</code> if there
+	 *         was no mapping
 	 */
-	public Datatype registerDatatypeRepresentationMapDatatype(QName dtrMapRepresentation, Datatype datatype);
-	
+	public Datatype registerDatatypeRepresentationMapDatatype(
+			QName dtrMapRepresentation, Datatype datatype);
+
 	/**
 	 * EXI processors MAY provide the capability to specify different built-in
 	 * EXI datatype representations or user-defined datatype representations for
@@ -277,10 +289,11 @@ public interface EXIFactory extends Cloneable {
 	 * one of "compression", "pre-compression" or "strict" elements are present
 	 * in the same options document.
 	 * 
-	 * @param scElements selfContained elements
+	 * @param scElements
+	 *            selfContained elements
 	 */
 	public void setSelfContainedElements(QName[] scElements);
-	
+
 	/**
 	 * Self-contained elements may be read independently from the rest of the
 	 * EXI body, allowing them to be indexed for random access. The
@@ -288,21 +301,24 @@ public interface EXIFactory extends Cloneable {
 	 * one of "compression", "pre-compression" or "strict" elements are present
 	 * in the same options document.
 	 * 
-	 * @param scElements selfContained elements
-	 * @param scHandler handler for SC elements
+	 * @param scElements
+	 *            selfContained elements
+	 * @param scHandler
+	 *            handler for SC elements
 	 */
-	public void setSelfContainedElements(QName[] scElements, SelfContainedHandler scHandler);
+	public void setSelfContainedElements(QName[] scElements,
+			SelfContainedHandler scHandler);
 
 	/**
 	 * Returns boolean value telling whether a certain element is encoded as
 	 * selfContained fragment.
 	 * 
-	 * @param element qualified element name
+	 * @param element
+	 *            qualified element name
 	 * @return true if a certain element is selfContained
 	 */
 	public boolean isSelfContainedElement(QName element);
-	
-	
+
 	/**
 	 * Returns selfContained element handler.
 	 * 
@@ -322,7 +338,8 @@ public interface EXIFactory extends Cloneable {
 	 * behavior of the EXI 1.0 specification
 	 * </p>
 	 * 
-	 * @param useLocalValuePartitions whether to use localValue partitions
+	 * @param useLocalValuePartitions
+	 *            whether to use localValue partitions
 	 */
 	public void setLocalValuePartitions(boolean useLocalValuePartitions);
 
@@ -346,7 +363,8 @@ public interface EXIFactory extends Cloneable {
 	 * represents the behavior of the EXI 1.0 specification
 	 * </p>
 	 * 
-	 * @param maximumNumberOfBuiltInElementGrammars maximum number of Built-In element grammars
+	 * @param maximumNumberOfBuiltInElementGrammars
+	 *            maximum number of Built-In element grammars
 	 */
 	public void setMaximumNumberOfBuiltInElementGrammars(
 			int maximumNumberOfBuiltInElementGrammars);
@@ -370,7 +388,8 @@ public interface EXIFactory extends Cloneable {
 	 * represents the behavior of the EXI 1.0 specification
 	 * </p>
 	 * 
-	 * @param maximumNumberOfBuiltInProductions maximum number of Built-In productions
+	 * @param maximumNumberOfBuiltInProductions
+	 *            maximum number of Built-In productions
 	 */
 	public void setMaximumNumberOfBuiltInProductions(
 			int maximumNumberOfBuiltInProductions);
@@ -392,54 +411,55 @@ public interface EXIFactory extends Cloneable {
 	 * @return whether schema learning is disabled
 	 */
 	public boolean isGrammarLearningDisabled();
-	
-	
+
 	/**
 	 * (Experimental) Feature to pre-agree on shared strings.
 	 * 
-	 * @param sharedStrings list of shared strings
+	 * @param sharedStrings
+	 *            list of shared strings
 	 */
 	public void setSharedStrings(List<String> sharedStrings);
-	
-	
+
 	/**
 	 * (Experimental) Return list of shared strings.
 	 * 
 	 * @return null or shared strings if any
 	 */
 	public List<String> getSharedStrings();
-	
-	
+
 	/**
-	 * (Experimental) Feature which dictates that grammar does not grow in any circumstance
+	 * (Experimental) Feature which dictates that grammar does not grow in any
+	 * circumstance
 	 * 
-	 * @param isNonEvolving whether instead of built-in grammars schema-informed Element Fragment Grammar is used
+	 * @param isNonEvolving
+	 *            whether instead of built-in grammars schema-informed Element
+	 *            Fragment Grammar is used
 	 */
 	public void setUsingNonEvolvingGrammars(boolean isNonEvolving);
-	
-	
+
 	/**
 	 * (Experimental) Returns whether non-evolving grammars are used
 	 * 
 	 * @return true or false
 	 */
 	public boolean isUsingNonEvolvingGrammars();
-	
 
 	/**
 	 * Returns an <code>EXIBodyEncoder</code>
 	 * 
 	 * @return encoder using the previously set coding options.
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * 
 	 */
 	public EXIBodyEncoder createEXIBodyEncoder() throws EXIException;
-	
+
 	/**
 	 * Returns an <code>EXIStreamEncoder</code>
 	 * 
 	 * @return stream encoder using the previously set coding options.
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * 
 	 */
 	public EXIStreamEncoder createEXIStreamEncoder() throws EXIException;
@@ -448,16 +468,18 @@ public interface EXIFactory extends Cloneable {
 	 * Returns an <code>EXIBodyDecoder</code>
 	 * 
 	 * @return decoder using the previously set coding options.
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * 
 	 */
 	public EXIBodyDecoder createEXIBodyDecoder() throws EXIException;
-	
+
 	/**
 	 * Returns an <code>EXIStreamDecoder</code>
 	 * 
 	 * @return stream decoder using the previously set coding options.
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * 
 	 */
 	public EXIStreamDecoder createEXIStreamDecoder() throws EXIException;
@@ -475,7 +497,8 @@ public interface EXIFactory extends Cloneable {
 	 * Preserve.LexicalValues
 	 * 
 	 * @return type encoder according given EXI options
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * @see TypeEncoder
 	 */
 	public TypeEncoder createTypeEncoder() throws EXIException;
@@ -493,7 +516,8 @@ public interface EXIFactory extends Cloneable {
 	 * Preserve.LexicalValues
 	 * 
 	 * @return type decoder according given EXI options
-	 * @throws EXIException EXI exception
+	 * @throws EXIException
+	 *             EXI exception
 	 * @see TypeDecoder
 	 */
 	public TypeDecoder createTypeDecoder() throws EXIException;

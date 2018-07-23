@@ -28,7 +28,6 @@ package com.siemens.ct.exi.core.util;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class MethodsBag {
@@ -38,8 +37,7 @@ public class MethodsBag {
 	// C O D I N G _ L E N G T H Operations
 	//
 	// ///////////////////////////////////////////////////////
-	private static final double log2div = Math.log( 2.0 );
-
+	private static final double log2div = Math.log(2.0);
 
 	/**
 	 * Returns the least number of 7 bit-blocks that is needed to represent the
@@ -117,8 +115,8 @@ public class MethodsBag {
 
 	static final public int getCodingLength(final int characteristics) {
 		assert (characteristics >= 0);
-		
-		switch(characteristics) {
+
+		switch (characteristics) {
 		case 0:
 		case 1:
 			return 0;
@@ -194,7 +192,7 @@ public class MethodsBag {
 			// 33 .. 64
 			return 6;
 		default:
-			assert(characteristics > 64);
+			assert (characteristics > 64);
 			if (characteristics < 129) {
 				// 65 .. 128
 				return 7;
@@ -309,9 +307,12 @@ public class MethodsBag {
 	 * 
 	 * Will fail if i == Integer.MIN_VALUE
 	 * 
-	 * @param i integer
-	 * @param index index
-	 * @param buf character buffer
+	 * @param i
+	 *            integer
+	 * @param index
+	 *            index
+	 * @param buf
+	 *            character buffer
 	 */
 	public final static void itos(int i, int index, char[] buf) {
 		assert (!(i == Integer.MIN_VALUE));
@@ -355,9 +356,12 @@ public class MethodsBag {
 	 * the least significant digit at the specified index (exclusive), and
 	 * working backwards from there.
 	 * 
-	 * @param i integer
-	 * @param index index
-	 * @param buf character buffer
+	 * @param i
+	 *            integer
+	 * @param index
+	 *            index
+	 * @param buf
+	 *            character buffer
 	 */
 	public final static void itos(long i, int index, char[] buf) {
 		if (i == Long.MIN_VALUE) {
@@ -438,9 +442,12 @@ public class MethodsBag {
 	 * 
 	 * Will fail if i &lt; 0 (zero)
 	 * 
-	 * @param i integer
-	 * @param index index
-	 * @param buf character buffer
+	 * @param i
+	 *            integer
+	 * @param index
+	 *            index
+	 * @param buf
+	 *            character buffer
 	 * 
 	 * @return number of written chars
 	 */
@@ -479,9 +486,12 @@ public class MethodsBag {
 	 * 
 	 * Will fail if i &lt; 0 (zero)
 	 * 
-	 * @param i integer
-	 * @param index index
-	 * @param buf character buffer
+	 * @param i
+	 *            integer
+	 * @param index
+	 *            index
+	 * @param buf
+	 *            character buffer
 	 */
 	public final static void itosReverse(long i, int index, char[] buf) {
 		assert (i >= 0);

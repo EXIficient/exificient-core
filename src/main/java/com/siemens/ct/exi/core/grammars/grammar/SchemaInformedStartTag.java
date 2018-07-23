@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.grammars.production.SchemaInformedProduction;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -60,96 +59,98 @@ public class SchemaInformedStartTag extends AbstractSchemaInformedContent
 		implements SchemaInformedStartTagGrammar, Cloneable {
 
 	protected Grammar elementContent2;
-	
-	
+
 	protected SchemaInformedStartTagGrammar sifst = null;
-	
+
 	static final SchemaInformedGrammar elementContent2Empty = new SchemaInformedElement();
 	static {
 		elementContent2Empty.addTerminalProduction(END_ELEMENT);
 	}
-	
 
 	public SchemaInformedStartTag() {
 		super();
 	}
-	
+
 	public SchemaInformedStartTag(SchemaInformedGrammar elementContent2) {
 		this();
 		this.elementContent2 = elementContent2;
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.SCHEMA_INFORMED_START_TAG_CONTENT;
 	}
-	
+
 	public void setElementContentGrammar(Grammar elementContent2) {
 		this.elementContent2 = elementContent2;
 	}
 
 	@Override
 	public Grammar getElementContentGrammar() {
-		assert(elementContent2 != null);
+		assert (elementContent2 != null);
 		return elementContent2;
 	}
 
 	@Override
 	public SchemaInformedStartTag clone() {
-		// SchemaInformedStartTag clone = new SchemaInformedStartTag(elementContent2);
+		// SchemaInformedStartTag clone = new
+		// SchemaInformedStartTag(elementContent2);
 		SchemaInformedStartTag clone = (SchemaInformedStartTag) super.clone();
-		
+
 		// remove self-references
-		for(int i=0; i<clone.containers.length; i++) {
+		for (int i = 0; i < clone.containers.length; i++) {
 			Production ei = clone.containers[i];
 			if (ei.getNextGrammar() == this) {
-				clone.containers[i] = new SchemaInformedProduction(clone, ei.getEvent(), i);
+				clone.containers[i] = new SchemaInformedProduction(clone,
+						ei.getEvent(), i);
 			}
-			
+
 		}
-		
+
 		return clone;
 	}
 
-	
 	protected SchemaInformedStartTagGrammar getTypeEmptyInternal() {
-		if(sifst == null) {
-			if(this.getGrammarType() == GrammarType.SCHEMA_INFORMED_FIRST_START_TAG_CONTENT) {
+		if (sifst == null) {
+			if (this.getGrammarType() == GrammarType.SCHEMA_INFORMED_FIRST_START_TAG_CONTENT) {
 				sifst = new SchemaInformedFirstStartTag();
 			} else if (this.getGrammarType() == GrammarType.SCHEMA_INFORMED_START_TAG_CONTENT) {
 				sifst = new SchemaInformedStartTag();
 			} else {
-				throw new RuntimeException("Unexpected GrammarType " + this.getGrammarType() + " for typeEmpty " + this);
+				throw new RuntimeException("Unexpected GrammarType "
+						+ this.getGrammarType() + " for typeEmpty " + this);
 			}
 			sifst.setElementContentGrammar(elementContent2Empty);
-			
-			for(int i=0; i<this.getNumberOfEvents(); i++) {
+
+			for (int i = 0; i < this.getNumberOfEvents(); i++) {
 				Production prod = this.getProduction(i);
 				Event ev = prod.getEvent();
 				Grammar ng = prod.getNextGrammar();
-				switch(ev.getEventType()) {
+				switch (ev.getEventType()) {
 				case ATTRIBUTE:
 				case ATTRIBUTE_NS:
 				case ATTRIBUTE_GENERIC:
-					if(ng == this) {
+					if (ng == this) {
 						sifst.addProduction(ev, sifst);
-					} else if(ng.getGrammarType() == GrammarType.SCHEMA_INFORMED_FIRST_START_TAG_CONTENT) {
+					} else if (ng.getGrammarType() == GrammarType.SCHEMA_INFORMED_FIRST_START_TAG_CONTENT) {
 						SchemaInformedFirstStartTag ng2 = (SchemaInformedFirstStartTag) ng;
 						sifst.addProduction(ev, ng2.getTypeEmptyInternal());
 					} else if (ng.getGrammarType() == GrammarType.SCHEMA_INFORMED_START_TAG_CONTENT) {
-						SchemaInformedStartTag ng2 =  (SchemaInformedStartTag) ng;
+						SchemaInformedStartTag ng2 = (SchemaInformedStartTag) ng;
 						sifst.addProduction(ev, ng2.getTypeEmptyInternal());
 					} else {
-						throw new RuntimeException("Unexpected GrammarType " + ng.getGrammarType() + " for typeEmpty " + this);
+						throw new RuntimeException("Unexpected GrammarType "
+								+ ng.getGrammarType() + " for typeEmpty "
+								+ this);
 					}
 					break;
 				default:
-					if(!sifst.hasEndElement()) {
+					if (!sifst.hasEndElement()) {
 						sifst.addTerminalProduction(END_ELEMENT);
 					}
 				}
 			}
 		}
-		
+
 		return sifst;
 	}
 

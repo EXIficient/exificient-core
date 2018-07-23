@@ -31,7 +31,6 @@ import com.siemens.ct.exi.core.grammars.event.EventType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -56,17 +55,18 @@ public class BuiltInDocContent extends AbstractBuiltInGrammar {
 		this(docEnd);
 		this.setLabel(label);
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.BUILT_IN_DOC_CONTENT;
 	}
-	
+
 	@Override
 	public final void addProduction(Event event, Grammar grammar) {
-		if(!event.isEventType(EventType.START_ELEMENT_GENERIC) || this.getNumberOfEvents() > 0) {
+		if (!event.isEventType(EventType.START_ELEMENT_GENERIC)
+				|| this.getNumberOfEvents() > 0) {
 			throw new RuntimeException("Mis-use of BuiltInDocContent grammar");
 		}
 		super.addProduction(event, grammar);
 	}
-	
+
 }

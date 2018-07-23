@@ -23,13 +23,11 @@
 
 package com.siemens.ct.exi.core.values;
 
-
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class QNameValue extends AbstractValue {
@@ -40,7 +38,7 @@ public class QNameValue extends AbstractValue {
 
 	protected char[] characters;
 	protected final String sValue;
-	
+
 	public QNameValue(String namespaceUri, String localName, String prefix) {
 		super(ValueType.QNAME);
 		this.namespaceUri = namespaceUri;
@@ -50,18 +48,18 @@ public class QNameValue extends AbstractValue {
 		if (prefix == null || prefix.length() == 0) {
 			sValue = localName;
 		} else {
-			sValue = prefix + ":" + localName; 
+			sValue = prefix + ":" + localName;
 		}
 	}
 
 	public String getNamespaceUri() {
 		return this.namespaceUri;
 	}
-	
+
 	public String getLocalName() {
 		return this.localName;
 	}
-	
+
 	public String getPrefix() {
 		return prefix;
 	}
@@ -70,16 +68,15 @@ public class QNameValue extends AbstractValue {
 		return sValue.length();
 	}
 
-
 	public char[] getCharacters() {
-		if(characters == null) {
+		if (characters == null) {
 			int len = sValue.length();
 			characters = new char[len];
 			sValue.getChars(0, sValue.length(), characters, 0);
 		}
 		return characters;
 	}
-	
+
 	public void getCharacters(char[] cbuffer, int offset) {
 		for (int i = 0; i < sValue.length(); i++) {
 			cbuffer[i + offset] = sValue.charAt(i);
@@ -103,16 +100,16 @@ public class QNameValue extends AbstractValue {
 		}
 		if (o instanceof QNameValue) {
 			QNameValue other = (QNameValue) o;
-			return namespaceUri.equals(other.namespaceUri) && localName.equals(other.localName);
+			return namespaceUri.equals(other.namespaceUri)
+					&& localName.equals(other.localName);
 		} else {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return namespaceUri.hashCode() ^ localName.hashCode();
 	}
-	
 
 }

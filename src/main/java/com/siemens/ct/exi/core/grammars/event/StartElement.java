@@ -33,7 +33,6 @@ import com.siemens.ct.exi.core.grammars.grammar.Grammar;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class StartElement extends AbstractEvent {
@@ -48,19 +47,20 @@ public class StartElement extends AbstractEvent {
 		this.qnameContext = qnc;
 		this.qname = qnameContext.getQName();
 	}
-	
+
 	public StartElement(QNameContext qnc, Grammar grammar) {
 		this(qnc);
 		this.setGrammar(grammar);
 	}
-	
+
 	public QNameContext getQNameContext() {
-		return this.qnameContext;	
+		return this.qnameContext;
 	}
 
 	public QName getQName() {
 		return this.qname;
 	}
+
 	public void setGrammar(Grammar grammar) {
 		this.grammar = grammar;
 	}

@@ -38,29 +38,29 @@ import com.siemens.ct.exi.core.container.NamespaceDeclaration;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface AttributeList {
-	
+
 	public void clear();
 
 	/*
 	 * NS
 	 */
 	public void addNamespaceDeclaration(String uri, String pfx);
-	
+
 	public int getNumberOfNamespaceDeclarations();
-	
+
 	public NamespaceDeclaration getNamespaceDeclaration(int index);
-	
+
 	/*
 	 * Any attribute other than NS
 	 */
-	public void addAttribute(String uri, String localName, String pfx, String value);
-	
+	public void addAttribute(String uri, String localName, String pfx,
+			String value);
+
 	public void addAttribute(QName at, String value);
-	
+
 	/*
 	 * XSI-Type
 	 */

@@ -32,7 +32,6 @@ import com.siemens.ct.exi.core.grammars.event.StartElement;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 /*
@@ -52,19 +51,19 @@ public class BuiltInStartTag extends AbstractBuiltInContent {
 
 	protected boolean learnedEE = false;
 	protected boolean learnedXsiType = false;
-	
+
 	public BuiltInStartTag() {
 		super();
 
 		// initialize elementContent
 		elementContent = new BuiltInElement();
 	}
-	
+
 	@Override
 	public boolean hasEndElement() {
 		return learnedEE;
 	}
-	
+
 	public GrammarType getGrammarType() {
 		return GrammarType.BUILT_IN_START_TAG_CONTENT;
 	}
@@ -96,10 +95,10 @@ public class BuiltInStartTag extends AbstractBuiltInContent {
 
 	@Override
 	public void learnAttribute(Attribute at) {
-		// Errata, xsi:type not learned			
+		// Errata, xsi:type not learned
 		QNameContext qnc = at.getQNameContext();
-		if(qnc.getNamespaceUriID() == 2 && qnc.getLocalNameID() == 1) {
-			if(!learnedXsiType) {
+		if (qnc.getNamespaceUriID() == 2 && qnc.getLocalNameID() == 1) {
+			if (!learnedXsiType) {
 				addProduction(at, this);
 				learnedXsiType = true;
 			}
@@ -107,5 +106,5 @@ public class BuiltInStartTag extends AbstractBuiltInContent {
 			addProduction(at, this);
 		}
 	}
-	
+
 }

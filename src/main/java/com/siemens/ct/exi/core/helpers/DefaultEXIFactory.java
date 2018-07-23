@@ -81,7 +81,6 @@ import com.siemens.ct.exi.core.util.sort.QNameSort;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class DefaultEXIFactory implements EXIFactory {
@@ -120,13 +119,13 @@ public class DefaultEXIFactory implements EXIFactory {
 	protected int maximumNumberOfBuiltInProductions = -1;
 	/* default: false */
 	protected boolean grammarLearningDisabled = false;
-	
+
 	/* shared strings */
 	protected List<String> sharedStrings;
-	
+
 	/* non evolving grammars */
 	protected boolean isUsingNonEvolvingGrammrs;
-	
+
 	protected static final QNameSort qnameSort = new QNameSort();
 
 	protected DefaultEXIFactory() {
@@ -219,12 +218,14 @@ public class DefaultEXIFactory implements EXIFactory {
 			this.dtrMapRepresentations = dtrMapRepresentations;
 		}
 	}
-	
-	public Datatype registerDatatypeRepresentationMapDatatype(QName dtrMapRepresentation, Datatype datatype) {
-		if(this.dtrMapRepresentationsDatatype == null) {
+
+	public Datatype registerDatatypeRepresentationMapDatatype(
+			QName dtrMapRepresentation, Datatype datatype) {
+		if (this.dtrMapRepresentationsDatatype == null) {
 			this.dtrMapRepresentationsDatatype = new HashMap<QName, Datatype>();
 		}
-		return this.dtrMapRepresentationsDatatype.put(dtrMapRepresentation, datatype);
+		return this.dtrMapRepresentationsDatatype.put(dtrMapRepresentation,
+				datatype);
 	}
 
 	public QName[] getDatatypeRepresentationMapTypes() {
@@ -375,15 +376,14 @@ public class DefaultEXIFactory implements EXIFactory {
 	public boolean isGrammarLearningDisabled() {
 		return this.grammarLearningDisabled;
 	}
-	
+
 	public void setSharedStrings(List<String> sharedStrings) {
 		this.sharedStrings = sharedStrings;
 	}
-	
+
 	public List<String> getSharedStrings() {
 		return this.sharedStrings;
 	}
-	
 
 	// @Override
 	public void setUsingNonEvolvingGrammars(boolean isNonEvolving) {
@@ -394,7 +394,6 @@ public class DefaultEXIFactory implements EXIFactory {
 	public boolean isUsingNonEvolvingGrammars() {
 		return this.isUsingNonEvolvingGrammrs;
 	}
-
 
 	// some consistency and sanity checks
 	protected void doSanityCheck() throws EXIException {
@@ -414,8 +413,7 @@ public class DefaultEXIFactory implements EXIFactory {
 		}
 
 		// blockSize in NON compression mode? Just ignore it!
-		
-		
+
 		// canonical EXI (http://www.w3.org/TR/exi-c14n/)
 		if (this.getEncodingOptions().isOptionEnabled(
 				EncodingOptions.CANONICAL_EXI)) {
@@ -423,66 +421,67 @@ public class DefaultEXIFactory implements EXIFactory {
 		}
 	}
 
-//	public void setEXIBodyEncoder(String className) throws EXIException {
-//		try {
-//			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
-//			Class<?> aClass = classLoader.loadClass(className);
-//			Object aObject = aClass.newInstance();
-//			if (!EXIBodyEncoder.class.isInstance(aObject)) {
-//				throw new EXIException("Class does not implemement "
-//						+ EXIBodyEncoder.class);
-//			}
-//
-//			setEXIBodyEncoder((EXIBodyEncoder) aObject);
-//
-//		} catch (ClassNotFoundException e) {
-//			throw new EXIException(e);
-//		} catch (InstantiationException e) {
-//			throw new EXIException(e);
-//		} catch (IllegalAccessException e) {
-//			throw new EXIException(e);
-//		}
-//	}
-//
-//	public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
-//			throws EXIException {
-//		this.bodyEncoder = bodyEncoder;
-//	}
-//
-//	public void setEXIBodyDecoder(String className) throws EXIException {
-//		try {
-//			ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
-//			Class<?> aClass = classLoader.loadClass(className);
-//			Object aObject = aClass.newInstance();
-//			if (!EXIBodyDecoder.class.isInstance(aObject)) {
-//				throw new EXIException("Class does not implemement "
-//						+ EXIBodyDecoder.class);
-//			}
-//
-//			setEXIBodyDecoder((EXIBodyDecoder) aObject);
-//
-//		} catch (ClassNotFoundException e) {
-//			throw new EXIException(e);
-//		} catch (InstantiationException e) {
-//			throw new EXIException(e);
-//		} catch (IllegalAccessException e) {
-//			throw new EXIException(e);
-//		}
-//	}
-//
-//	public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
-//			throws EXIException {
-//		this.bodyDecoder = bodyDecoder;
-//	}
+	// public void setEXIBodyEncoder(String className) throws EXIException {
+	// try {
+	// ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
+	// Class<?> aClass = classLoader.loadClass(className);
+	// Object aObject = aClass.newInstance();
+	// if (!EXIBodyEncoder.class.isInstance(aObject)) {
+	// throw new EXIException("Class does not implemement "
+	// + EXIBodyEncoder.class);
+	// }
+	//
+	// setEXIBodyEncoder((EXIBodyEncoder) aObject);
+	//
+	// } catch (ClassNotFoundException e) {
+	// throw new EXIException(e);
+	// } catch (InstantiationException e) {
+	// throw new EXIException(e);
+	// } catch (IllegalAccessException e) {
+	// throw new EXIException(e);
+	// }
+	// }
+	//
+	// public void setEXIBodyEncoder(EXIBodyEncoder bodyEncoder)
+	// throws EXIException {
+	// this.bodyEncoder = bodyEncoder;
+	// }
+	//
+	// public void setEXIBodyDecoder(String className) throws EXIException {
+	// try {
+	// ClassLoader classLoader = DefaultEXIFactory.class.getClassLoader();
+	// Class<?> aClass = classLoader.loadClass(className);
+	// Object aObject = aClass.newInstance();
+	// if (!EXIBodyDecoder.class.isInstance(aObject)) {
+	// throw new EXIException("Class does not implemement "
+	// + EXIBodyDecoder.class);
+	// }
+	//
+	// setEXIBodyDecoder((EXIBodyDecoder) aObject);
+	//
+	// } catch (ClassNotFoundException e) {
+	// throw new EXIException(e);
+	// } catch (InstantiationException e) {
+	// throw new EXIException(e);
+	// } catch (IllegalAccessException e) {
+	// throw new EXIException(e);
+	// }
+	// }
+	//
+	// public void setEXIBodyDecoder(EXIBodyDecoder bodyDecoder)
+	// throws EXIException {
+	// this.bodyDecoder = bodyDecoder;
+	// }
 
 	public EXIBodyEncoder createEXIBodyEncoder() throws EXIException {
-//		if (bodyEncoder != null) {
-//			return bodyEncoder;
-//		}
+		// if (bodyEncoder != null) {
+		// return bodyEncoder;
+		// }
 
 		doSanityCheck();
 
-		if (codingMode == CodingMode.COMPRESSION || codingMode == CodingMode.PRE_COMPRESSION) {
+		if (codingMode == CodingMode.COMPRESSION
+				|| codingMode == CodingMode.PRE_COMPRESSION) {
 			return new EXIBodyEncoderReordered(this);
 		} else {
 			if (fidelityOptions.isFidelityEnabled(FidelityOptions.FEATURE_SC)) {
@@ -502,7 +501,7 @@ public class DefaultEXIFactory implements EXIFactory {
 	protected void updateFactoryAccordingCanonicalEXI()
 			throws UnsupportedOption {
 		// update canonical options according to canonical EXI rules
-		
+
 		// * A Canonical EXI Header MUST NOT begin with the optional EXI Cookie
 		this.getEncodingOptions().unsetOption(EncodingOptions.INCLUDE_COOKIE);
 		// * When the alignment option compression is set, pre-compress MUST be
@@ -528,8 +527,7 @@ public class DefaultEXIFactory implements EXIFactory {
 			j++;
 			for (int i = 0; i < dtrMapTypes.length - j; i++) {
 				// if (array[i] > array[i + 1]) {
-				if (qnameSort.compare(dtrMapTypes[i],
-						dtrMapTypes[i + 1]) > 0) {
+				if (qnameSort.compare(dtrMapTypes[i], dtrMapTypes[i + 1]) > 0) {
 					tmpType = dtrMapTypes[i];
 					dtrMapTypes[i] = dtrMapTypes[i + 1];
 					dtrMapTypes[i + 1] = tmpType;
@@ -543,13 +541,14 @@ public class DefaultEXIFactory implements EXIFactory {
 	}
 
 	public EXIBodyDecoder createEXIBodyDecoder() throws EXIException {
-//		if (bodyDecoder != null) {
-//			return bodyDecoder;
-//		}
+		// if (bodyDecoder != null) {
+		// return bodyDecoder;
+		// }
 
 		doSanityCheck();
 
-		if (codingMode == CodingMode.COMPRESSION || codingMode == CodingMode.PRE_COMPRESSION) {
+		if (codingMode == CodingMode.COMPRESSION
+				|| codingMode == CodingMode.PRE_COMPRESSION) {
 			return new EXIBodyDecoderReordered(this);
 		} else {
 			if (fidelityOptions.isFidelityEnabled(FidelityOptions.FEATURE_SC)) {
@@ -609,9 +608,11 @@ public class DefaultEXIFactory implements EXIFactory {
 				typeEncoder = new LexicalTypeEncoder(dtrMapTypes,
 						dtrMapRepresentations, dtrMapRepresentationsDatatype);
 			} else {
-				boolean doNormalize = this.getEncodingOptions().isOptionEnabled(EncodingOptions.UTC_TIME);
+				boolean doNormalize = this.getEncodingOptions()
+						.isOptionEnabled(EncodingOptions.UTC_TIME);
 				typeEncoder = new TypedTypeEncoder(dtrMapTypes,
-						dtrMapRepresentations, dtrMapRepresentationsDatatype, doNormalize);
+						dtrMapRepresentations, dtrMapRepresentationsDatatype,
+						doNormalize);
 			}
 
 		} else {

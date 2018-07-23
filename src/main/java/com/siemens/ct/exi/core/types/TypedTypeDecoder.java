@@ -54,7 +54,6 @@ import com.siemens.ct.exi.core.values.Value;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class TypedTypeDecoder extends AbstractTypeDecoder {
@@ -63,7 +62,8 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 		this(null, null, null);
 	}
 
-	public TypedTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype)
+	public TypedTypeDecoder(QName[] dtrMapTypes, QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
 			throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
@@ -74,8 +74,8 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 		if (this.dtrMapInUse) {
 			datatype = this.getDtrDatatype(datatype);
 		}
-		
-		switch(datatype.getBuiltInType()) {
+
+		switch (datatype.getBuiltInType()) {
 		case BINARY_BASE64:
 			return new BinaryBase64Value(valueChannel.decodeBinary());
 		case BINARY_HEX:
@@ -91,7 +91,8 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 			return valueChannel.decodeFloatValue();
 		case NBIT_UNSIGNED_INTEGER:
 			NBitUnsignedIntegerDatatype nbitDT = (NBitUnsignedIntegerDatatype) datatype;
-			IntegerValue iv = valueChannel.decodeNBitUnsignedIntegerValue(nbitDT.getNumberOfBits());
+			IntegerValue iv = valueChannel
+					.decodeNBitUnsignedIntegerValue(nbitDT.getNumberOfBits());
 			return iv.add(nbitDT.getLowerBound());
 		case UNSIGNED_INTEGER:
 			return valueChannel.decodeUnsignedIntegerValue();
@@ -107,21 +108,25 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 			return readRCSValue(rcsDT, qnContext, valueChannel, stringDecoder);
 		case EXTENDED_STRING:
 			ExtendedStringDatatype esDT = (ExtendedStringDatatype) datatype;
-			return readExtendedString(esDT, qnContext, valueChannel, stringDecoder);
+			return readExtendedString(esDT, qnContext, valueChannel,
+					stringDecoder);
 		case ENUMERATION:
 			EnumerationDatatype enumDT = (EnumerationDatatype) datatype;
-			int index = valueChannel.decodeNBitUnsignedInteger(enumDT.getCodingLength());
+			int index = valueChannel.decodeNBitUnsignedInteger(enumDT
+					.getCodingLength());
 			assert (index >= 0 && index < enumDT.getEnumerationSize());
 			return enumDT.getEnumValue(index);
 		case LIST:
 			ListDatatype lDT = (ListDatatype) datatype;
 			Datatype listDatatype = lDT.getListDatatype();
-			
+
 			int len = valueChannel.decodeUnsignedInteger();
-			Value[]  values = new Value[len];
+			Value[] values = new Value[len];
 			for (int l = 0; l < len; l++) {
-				values[l] = readValue(listDatatype, qnContext, valueChannel,stringDecoder);
-				// values[l] = listDatatype.readValue(qnContext, valueChannel,stringDecoder);
+				values[l] = readValue(listDatatype, qnContext, valueChannel,
+						stringDecoder);
+				// values[l] = listDatatype.readValue(qnContext,
+				// valueChannel,stringDecoder);
 			}
 			Value retVal = new ListValue(values, listDatatype);
 
@@ -130,16 +135,16 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 			/* not allowed datatype */
 			throw new IOException("QName is not an allowed as EXI datatype");
 		}
-		
+
 		return null;
 		// return datatype.readValue(qnContext, valueChannel, stringDecoder);
 	}
-	
-	
-	protected StringValue readExtendedString(ExtendedStringDatatype esDT, QNameContext context, DecoderChannel valueChannel,
+
+	protected StringValue readExtendedString(ExtendedStringDatatype esDT,
+			QNameContext context, DecoderChannel valueChannel,
 			StringDecoder stringDecoder) throws IOException {
 		EnumDatatype grammarStrings = esDT.getGrammarStrings();
-		
+
 		StringValue value = null;
 
 		int i = valueChannel.decodeUnsignedInteger();
@@ -160,27 +165,31 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 			break;
 		case 2:
 			// grammar string (enum)
-			int index = valueChannel.decodeNBitUnsignedInteger(grammarStrings.getCodingLength());
+			int index = valueChannel.decodeNBitUnsignedInteger(grammarStrings
+					.getCodingLength());
 			assert (index >= 0 && index < grammarStrings.getEnumerationSize());
 			Value v = grammarStrings.getEnumValue(index);
-			// Value v = grammarStrings.readValue(context, valueChannel, stringDecoder);
-			
-			if(v instanceof StringValue) {
-				value = (StringValue) v;	
+			// Value v = grammarStrings.readValue(context, valueChannel,
+			// stringDecoder);
+
+			if (v instanceof StringValue) {
+				value = (StringValue) v;
 			} else {
 				value = new StringValue(v.toString());
 			}
 			break;
 		case 3:
 			// shared string
-			throw new IOException("ExtendedString, no support for <shared string>");
+			throw new IOException(
+					"ExtendedString, no support for <shared string>");
 			// break;
 		case 4:
 			// split string
-			throw new IOException("ExtendedString, no support for <split string>");
+			throw new IOException(
+					"ExtendedString, no support for <split string>");
 			// break;
 		case 5:
-			// undefined 
+			// undefined
 			throw new IOException("ExtendedString, no support for <undefined>");
 			// break;
 		default:
@@ -204,7 +213,7 @@ public class TypedTypeDecoder extends AbstractTypeDecoder {
 			}
 			break;
 		}
-		
+
 		assert (value != null);
 		return value;
 	}

@@ -911,30 +911,32 @@ public class SchemaLessCoreTest extends TestCase {
 			decoder.decodeEndDocument();
 		}
 	}
-	
-	public void testFixPreservePrefixesSE1() throws EXIException, IOException {		
+
+	public void testFixPreservePrefixesSE1() throws EXIException, IOException {
 		// assumption: encoder does not report prefixes properly (null)
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
-		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
-		
+		exiFactory.getFidelityOptions().setFidelity(
+				FidelityOptions.FEATURE_PREFIX, true);
+
 		/*
-		 *  encode XML to EXI
+		 * encode XML to EXI
 		 */
 		ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
 		EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
 		EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
 		bodyEncoder.encodeStartDocument();
-		bodyEncoder.encodeStartElement("urn:foo", "root",  null);
+		bodyEncoder.encodeStartElement("urn:foo", "root", null);
 		bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
 		bodyEncoder.encodeEndElement();
 		bodyEncoder.encodeEndDocument();
 		bodyEncoder.flush();
-		
+
 		/*
-		 *  decode EXI to XML
+		 * decode EXI to XML
 		 */
 		EXIStreamDecoder streamDecoder = exiFactory.createEXIStreamDecoder();
-		EXIBodyDecoder bodyDecoder = streamDecoder.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
+		EXIBodyDecoder bodyDecoder = streamDecoder
+				.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
 		assertTrue(bodyDecoder.next() == EventType.START_DOCUMENT);
 		bodyDecoder.decodeStartDocument();
 		assertTrue(bodyDecoder.next() == EventType.START_ELEMENT_GENERIC);
@@ -949,31 +951,34 @@ public class SchemaLessCoreTest extends TestCase {
 		assertTrue(bodyDecoder.next() == EventType.END_DOCUMENT);
 		bodyDecoder.decodeEndDocument();
 	}
-	
-	public void testFixPreservePrefixesAT1() throws EXIException, IOException {		
+
+	public void testFixPreservePrefixesAT1() throws EXIException, IOException {
 		// assumption: encoder does not report prefixes properly (null)
 		EXIFactory exiFactory = DefaultEXIFactory.newInstance();
-		exiFactory.getFidelityOptions().setFidelity(FidelityOptions.FEATURE_PREFIX, true);
-		
+		exiFactory.getFidelityOptions().setFidelity(
+				FidelityOptions.FEATURE_PREFIX, true);
+
 		/*
-		 *  encode XML to EXI
+		 * encode XML to EXI
 		 */
 		ByteArrayOutputStream osEXI = new ByteArrayOutputStream();
 		EXIStreamEncoder streamEncoder = exiFactory.createEXIStreamEncoder();
 		EXIBodyEncoder bodyEncoder = streamEncoder.encodeHeader(osEXI);
 		bodyEncoder.encodeStartDocument();
-		bodyEncoder.encodeStartElement("urn:foo", "root",  "foo");
+		bodyEncoder.encodeStartElement("urn:foo", "root", "foo");
 		bodyEncoder.encodeNamespaceDeclaration("urn:foo", "foo");
-		bodyEncoder.encodeAttribute("urn:foo", "at1",  null, new StringValue("x"));
+		bodyEncoder.encodeAttribute("urn:foo", "at1", null,
+				new StringValue("x"));
 		bodyEncoder.encodeEndElement();
 		bodyEncoder.encodeEndDocument();
 		bodyEncoder.flush();
-		
+
 		/*
-		 *  decode EXI to XML
+		 * decode EXI to XML
 		 */
 		EXIStreamDecoder streamDecoder = exiFactory.createEXIStreamDecoder();
-		EXIBodyDecoder bodyDecoder = streamDecoder.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
+		EXIBodyDecoder bodyDecoder = streamDecoder
+				.decodeHeader(new ByteArrayInputStream(osEXI.toByteArray()));
 		assertTrue(bodyDecoder.next() == EventType.START_DOCUMENT);
 		bodyDecoder.decodeStartDocument();
 		assertTrue(bodyDecoder.next() == EventType.START_ELEMENT_GENERIC);

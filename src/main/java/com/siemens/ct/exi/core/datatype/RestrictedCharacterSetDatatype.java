@@ -32,11 +32,10 @@ import com.siemens.ct.exi.core.types.BuiltInType;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public class RestrictedCharacterSetDatatype extends AbstractDatatype {
-	
+
 	protected RestrictedCharacterSet rcs;
 
 	public RestrictedCharacterSetDatatype(RestrictedCharacterSet rcs,
@@ -44,25 +43,25 @@ public class RestrictedCharacterSetDatatype extends AbstractDatatype {
 		// default whiteSpace facet for string is preserve
 		this(rcs, schemaType, WhiteSpace.preserve);
 	}
-	
+
 	public RestrictedCharacterSetDatatype(RestrictedCharacterSet rcs,
 			QNameContext schemaType, WhiteSpace whiteSpace) {
 		super(BuiltInType.RCS_STRING, schemaType);
 		this.rcs = rcs;
 		this.whiteSpace = whiteSpace;
 	}
-	
+
 	public RestrictedCharacterSet getRestrictedCharacterSet() {
 		return this.rcs;
 	}
-	
+
 	public DatatypeID getDatatypeID() {
 		return DatatypeID.exi_string;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(super.equals(o) && o instanceof RestrictedCharacterSetDatatype ) {
+		if (super.equals(o) && o instanceof RestrictedCharacterSetDatatype) {
 			RestrictedCharacterSetDatatype r = (RestrictedCharacterSetDatatype) o;
 			return (this.rcs.equals(r.rcs));
 		}

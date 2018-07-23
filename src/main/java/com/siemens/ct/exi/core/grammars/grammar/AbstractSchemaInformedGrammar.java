@@ -44,7 +44,6 @@ import com.siemens.ct.exi.core.util.sort.AttributeSort;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
@@ -117,7 +116,7 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 		// TODO more
 		if ((event.isEventType(EventType.END_ELEMENT)
 				|| event.isEventType(EventType.ATTRIBUTE_GENERIC) || event
-				.isEventType(EventType.START_ELEMENT_GENERIC))
+					.isEventType(EventType.START_ELEMENT_GENERIC))
 				&& getProduction(event.getEventType()) != null) {
 			// has already event --> nothing to do
 			// System.err.println("Event " + event + " already present!");
@@ -330,7 +329,8 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 		return null; // not found
 	}
 
-	public Production getStartElementProduction(String namespaceURI, String localName) {
+	public Production getStartElementProduction(String namespaceURI,
+			String localName) {
 		for (int i = 0; i < containers.length; i++) {
 			Production ei = containers[i];
 			if (ei.getEvent().isEventType(EventType.START_ELEMENT)
@@ -355,7 +355,8 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 		return null; // not found
 	}
 
-	public Production getAttributeProduction(String namespaceURI, String localName) {
+	public Production getAttributeProduction(String namespaceURI,
+			String localName) {
 		for (int i = 0; i < containers.length; i++) {
 			Production ei = containers[i];
 			if (ei.getEvent().isEventType(EventType.ATTRIBUTE)
@@ -388,17 +389,25 @@ public abstract class AbstractSchemaInformedGrammar extends AbstractGrammar
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof AbstractSchemaInformedGrammar)) return false;
-		if (!super.equals(o)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof AbstractSchemaInformedGrammar))
+			return false;
+		if (!super.equals(o))
+			return false;
 
 		AbstractSchemaInformedGrammar that = (AbstractSchemaInformedGrammar) o;
 
-		if (codeLengthA != that.codeLengthA) return false;
-		if (codeLengthB != that.codeLengthB) return false;
-		if (hasEndElement != that.hasEndElement) return false;
-		if (leastAttributeEventCode != that.leastAttributeEventCode) return false;
-		if (numberOfDeclaredAttributes != that.numberOfDeclaredAttributes) return false;
+		if (codeLengthA != that.codeLengthA)
+			return false;
+		if (codeLengthB != that.codeLengthB)
+			return false;
+		if (hasEndElement != that.hasEndElement)
+			return false;
+		if (leastAttributeEventCode != that.leastAttributeEventCode)
+			return false;
+		if (numberOfDeclaredAttributes != that.numberOfDeclaredAttributes)
+			return false;
 		return Arrays.equals(containers, that.containers);
 	}
 }

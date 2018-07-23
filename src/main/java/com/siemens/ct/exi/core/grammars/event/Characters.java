@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.grammars.event;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
+
  */
 
 import com.siemens.ct.exi.core.datatype.Datatype;
@@ -43,10 +43,10 @@ public class Characters extends AbstractDatatypeEvent {
 		if (super.equals(o)) {
 			// event-type is ok already
 			Characters ch = (Characters) o;
-//			return (this.valueType.equals(ch.valueType) && this.datatype
-//					.getBuiltInType().equals(ch.getDatatype().getBuiltInType()));
-			return this.datatype
-					.getBuiltInType().equals(ch.getDatatype().getBuiltInType());
+			// return (this.valueType.equals(ch.valueType) && this.datatype
+			// .getBuiltInType().equals(ch.getDatatype().getBuiltInType()));
+			return this.datatype.getBuiltInType().equals(
+					ch.getDatatype().getBuiltInType());
 		} else {
 			return false;
 		}

@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.datatype.strings;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
+
  */
 
 import java.io.IOException;
@@ -41,12 +41,13 @@ public interface StringEncoder extends StringCoder {
 
 	public void addValue(QNameContext qnContext, String value);
 
-	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel, String value)
-			throws IOException;
+	public void writeValue(QNameContext qnContext, EncoderChannel valueChannel,
+			String value) throws IOException;
 
 	public boolean isStringHit(String value) throws IOException;
-	
+
 	public ValueContainer getValueContainer(String value);
+
 	public int getValueContainerSize();
 
 }

@@ -23,7 +23,6 @@
 
 package com.siemens.ct.exi.core.datatype.charset;
 
-
 /**
  * If a string value is associated with a schema datatype and one or more of the
  * datatypes in its datatype hierarchy has one or more pattern facets, there may
@@ -33,16 +32,17 @@ package com.siemens.ct.exi.core.datatype.charset;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public interface RestrictedCharacterSet {
 	/**
 	 * Retrieves the code-point for given code.
 	 * 
-	 * @param code code
+	 * @param code
+	 *            code
 	 * @return codePoint code-point
-	 * @throws IndexOutOfBoundsException  out-of-bound exception
+	 * @throws IndexOutOfBoundsException
+	 *             out-of-bound exception
 	 */
 
 	public int getCodePoint(int code);

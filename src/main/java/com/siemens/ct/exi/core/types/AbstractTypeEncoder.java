@@ -42,7 +42,6 @@ import com.siemens.ct.exi.core.io.channel.EncoderChannel;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
@@ -53,13 +52,16 @@ public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
 	}
 
 	public AbstractTypeEncoder(QName[] dtrMapTypes,
-			QName[] dtrMapRepresentations, Map<QName, Datatype> dtrMapRepresentationsDatatype) throws EXIException {
+			QName[] dtrMapRepresentations,
+			Map<QName, Datatype> dtrMapRepresentationsDatatype)
+			throws EXIException {
 		super(dtrMapTypes, dtrMapRepresentations, dtrMapRepresentationsDatatype);
 	}
-	
-	
-	protected void writeRCSValue(RestrictedCharacterSetDatatype rcsDT, QNameContext qnContext, EncoderChannel valueChannel,
-			StringEncoder stringEncoder, String lastValidValue) throws IOException {
+
+	protected void writeRCSValue(RestrictedCharacterSetDatatype rcsDT,
+			QNameContext qnContext, EncoderChannel valueChannel,
+			StringEncoder stringEncoder, String lastValidValue)
+			throws IOException {
 		if (stringEncoder.isStringHit(lastValidValue)) {
 			stringEncoder.writeValue(qnContext, valueChannel, lastValidValue);
 		} else {
@@ -72,7 +74,7 @@ public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
 			valueChannel.encodeUnsignedInteger(L + 2);
 
 			RestrictedCharacterSet rcs = rcsDT.getRestrictedCharacterSet();
-			
+
 			/*
 			 * If length L is greater than zero the string S is added
 			 */

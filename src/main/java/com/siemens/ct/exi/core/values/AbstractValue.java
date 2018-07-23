@@ -28,7 +28,6 @@ package com.siemens.ct.exi.core.values;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1
  */
 
 public abstract class AbstractValue implements Value {
@@ -44,7 +43,7 @@ public abstract class AbstractValue implements Value {
 	public final ValueType getValueType() {
 		return valueType;
 	}
-	
+
 	public char[] getCharacters() {
 		char[] dst = new char[getCharactersLength()];
 		getCharacters(dst, 0);
@@ -58,8 +57,7 @@ public abstract class AbstractValue implements Value {
 
 	public String toString(char[] cbuffer, int offset) {
 		getCharacters(cbuffer, offset);
-		return new String(cbuffer, offset,
-				getCharactersLength());
+		return new String(cbuffer, offset, getCharactersLength());
 	}
 
 }
