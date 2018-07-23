@@ -39,7 +39,7 @@ import com.siemens.ct.exi.core.io.channel.BitEncoderChannel;
  * used for encoding the EXI body.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 public class EXIStreamEncoderImpl implements EXIStreamEncoder {

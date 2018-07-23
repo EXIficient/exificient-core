@@ -36,7 +36,7 @@ import com.siemens.ct.exi.core.container.NamespaceDeclaration;
  * then by qname uri.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

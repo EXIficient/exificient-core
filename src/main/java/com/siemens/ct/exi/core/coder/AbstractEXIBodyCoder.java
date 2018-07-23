@@ -57,7 +57,7 @@ import com.siemens.ct.exi.core.util.xml.QNameUtilities;
  * Shared functionality between EXI Body Encoder and EXI Body Decoder.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

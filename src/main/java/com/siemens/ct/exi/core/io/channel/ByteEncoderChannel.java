@@ -29,7 +29,7 @@ import java.io.OutputStream;
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

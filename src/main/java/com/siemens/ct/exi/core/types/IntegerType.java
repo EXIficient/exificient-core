@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.types;
  * informs about the type declared in the schema.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

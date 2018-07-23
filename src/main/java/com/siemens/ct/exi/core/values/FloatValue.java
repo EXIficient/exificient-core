@@ -31,7 +31,7 @@ import com.siemens.ct.exi.core.Constants;
  * the 10-based exponent of the floating point number
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

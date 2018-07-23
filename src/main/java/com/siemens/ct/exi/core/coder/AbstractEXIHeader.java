@@ -40,7 +40,7 @@ import com.siemens.ct.exi.core.helpers.DefaultEXIFactory;
  * EXI Header (see http://www.w3.org/TR/exi/#header)
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

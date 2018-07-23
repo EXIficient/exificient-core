@@ -35,7 +35,7 @@ import com.siemens.ct.exi.core.grammars.event.StartElement;
  * EXI's lexical order: sorted first by qname's local-name then by qname's URI.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 public class StartElementSort implements Comparator<StartElement> {

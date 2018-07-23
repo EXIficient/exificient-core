@@ -29,7 +29,7 @@ import javax.xml.XMLConstants;
  * This class contains useful constants to the entire EXI project
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

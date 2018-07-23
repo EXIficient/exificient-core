@@ -28,7 +28,7 @@ package com.siemens.ct.exi.core.datatype.charset;
  * http://www.w3.org/TR/exi/#builtInRestrictedStrings
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

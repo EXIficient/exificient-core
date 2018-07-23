@@ -29,7 +29,7 @@ import com.siemens.ct.exi.core.EXIFactory;
  * Factory for creating attribute lists according to EXI Factory.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

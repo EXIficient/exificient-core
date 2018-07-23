@@ -38,7 +38,7 @@ import com.siemens.ct.exi.core.values.Value;
  * Internal EXI Encoder interface to transform XML events to an EXI stream.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

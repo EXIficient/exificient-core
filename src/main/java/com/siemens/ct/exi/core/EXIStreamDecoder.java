@@ -44,7 +44,7 @@ import com.siemens.ct.exi.core.exceptions.EXIException;
  * </p>
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

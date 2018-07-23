@@ -33,7 +33,7 @@ import java.util.Set;
  * Utility class to build a RestrictedCharacterSet by a given Set.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

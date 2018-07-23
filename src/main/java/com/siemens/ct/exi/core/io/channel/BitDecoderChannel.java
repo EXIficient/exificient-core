@@ -34,7 +34,7 @@ import com.siemens.ct.exi.core.io.BitInputStream;
  * operations. Thus, whenever possible, whole bytes should be read instead.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

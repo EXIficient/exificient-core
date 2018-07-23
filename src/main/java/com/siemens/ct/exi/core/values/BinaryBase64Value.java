@@ -26,7 +26,7 @@ package com.siemens.ct.exi.core.values;
 /**
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 // re-uses code from org.apache.xerces.impl.dv.util.Base64Bin;

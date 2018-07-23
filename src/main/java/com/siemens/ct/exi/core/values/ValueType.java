@@ -27,7 +27,7 @@ package com.siemens.ct.exi.core.values;
  * Value types: e.g., String Values, Integers, Floats etc.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

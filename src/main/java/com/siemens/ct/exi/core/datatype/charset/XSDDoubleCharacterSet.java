@@ -30,7 +30,7 @@ import com.siemens.ct.exi.core.util.xml.XMLWhitespace;
  * http://www.w3.org/TR/exi/#builtInRestrictedStrings
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 

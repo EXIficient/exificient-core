@@ -31,7 +31,7 @@ import java.io.InputStream;
  * Read bits and bytes from an underlying input stream.
  * 
  * @author Daniel.Peintner.EXT@siemens.com
- * @author Joerg.Heuer@siemens.com
+ * @author Richard.Kuntschke@siemens.com
  * 
  */
 
