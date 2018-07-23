@@ -29,7 +29,7 @@ package com.siemens.ct.exi.core.exceptions;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1-SNAPSHOT
+ * @version 1.0.1
  */
 
 public class UnsupportedOption extends EXIException {

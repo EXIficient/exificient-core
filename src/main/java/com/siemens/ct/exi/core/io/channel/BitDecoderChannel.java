@@ -36,7 +36,7 @@ import com.siemens.ct.exi.core.io.BitInputStream;
  * @author Daniel.Peintner.EXT@siemens.com
  * @author Joerg.Heuer@siemens.com
  * 
- * @version 1.0.1-SNAPSHOT
+ * @version 1.0.1
  */
 
 public class BitDecoderChannel extends AbstractDecoderChannel implements
