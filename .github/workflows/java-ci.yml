@@ -15,3 +15,6 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
+        env:
+            SONATYPE_USERNAME: daniel_peintner
+            secure: "QNOb+OkjiBLk7XPS2s9U/nPhDXRt+BRel5BNdJ2Oe+yeSl2cpNbkl3uty4DoxULy2wTIJJluwRMCeHFOjdqMUmLdKmMCYcTo+VBaRd82P7o3t1oztwL5zHRdCVJ8T3tbH3ML4w/sTdGWYknwS+D/6LdEB8UEsSuhyUZMOI8RMUMzwph95cq34DUm12GGJ+7W9fxzD3w8jS6iefxSB2MaQfGnLmiq/L2w8yGqFy69FjBDs0oKZ6cm5DVTZI8YVFrSlilbFtDt3v9bl2l/+q53Twyw16ZEHqUOMN++8CzQT4ySMDZb66k0YCsL/QLCttQsqevi2E4+QPMTYGJeEOX8R005jFKCayL4krpoEbaePQfEYDOstr7u7sUFUMtIVgAr9ZsIQ/mdke/FV5vJIdExV1D2ct2wFjq5Ao+q3cHu8CY1vOpKQo4wZBHTGqQBgZqA56YOUiQb3xiWc5f8VJ/EzJA2SjHBP/OiXO+3BMX/Hy88hlFRDXG9+AFXKSzl9um6nt3m6Ipb+K2K8q4Z3LYH/dkI7CzuRba9rAN/tIIzkVCJzS8mfzQaEbAzO1PWeYaTp4Sq9uyuDlQQ5hoCtSGsULVcObwoG1LWrNh+BtRVLV6Puk0Tm6VLpyLFMHTWhQUE7feUwA8eVa9DtpSKMFN8VikEfEmZGqlJQsryEihoIQA="
