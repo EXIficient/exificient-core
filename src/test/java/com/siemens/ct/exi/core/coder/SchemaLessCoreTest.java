@@ -316,10 +316,6 @@ public class SchemaLessCoreTest extends TestCase {
 		}
 	}
 
-	public void testFailX() {
-		fail("Test");
-	}
-
 	public void testSchemaLess3() throws IOException, SAXException,
 			EXIException {
 		EXIFactory factory = DefaultEXIFactory.newInstance();
