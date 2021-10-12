@@ -15,6 +15,8 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
+      - name: Deploy with Maven
+        run: mvn deploy --settings settings.xml -DskipTests=true -B
         env:
             SONATYPE_USERNAME: daniel_peintner
-            secure: "QNOb+OkjiBLk7XPS2s9U/nPhDXRt+BRel5BNdJ2Oe+yeSl2cpNbkl3uty4DoxULy2wTIJJluwRMCeHFOjdqMUmLdKmMCYcTo+VBaRd82P7o3t1oztwL5zHRdCVJ8T3tbH3ML4w/sTdGWYknwS+D/6LdEB8UEsSuhyUZMOI8RMUMzwph95cq34DUm12GGJ+7W9fxzD3w8jS6iefxSB2MaQfGnLmiq/L2w8yGqFy69FjBDs0oKZ6cm5DVTZI8YVFrSlilbFtDt3v9bl2l/+q53Twyw16ZEHqUOMN++8CzQT4ySMDZb66k0YCsL/QLCttQsqevi2E4+QPMTYGJeEOX8R005jFKCayL4krpoEbaePQfEYDOstr7u7sUFUMtIVgAr9ZsIQ/mdke/FV5vJIdExV1D2ct2wFjq5Ao+q3cHu8CY1vOpKQo4wZBHTGqQBgZqA56YOUiQb3xiWc5f8VJ/EzJA2SjHBP/OiXO+3BMX/Hy88hlFRDXG9+AFXKSzl9um6nt3m6Ipb+K2K8q4Z3LYH/dkI7CzuRba9rAN/tIIzkVCJzS8mfzQaEbAzO1PWeYaTp4Sq9uyuDlQQ5hoCtSGsULVcObwoG1LWrNh+BtRVLV6Puk0Tm6VLpyLFMHTWhQUE7feUwA8eVa9DtpSKMFN8VikEfEmZGqlJQsryEihoIQA="
+            secure: "V/MtY7NEa1wjYVXrvHpZj9kOxehDaOE+86evKTAZJEBqbmAi6nDU+rCKZ6ODJubsf0n6Y4nW2nC/x+8dSuUSLpQA+BoDozS6Topo60Qg/SCoN/7udnxL56o2EYq7aHLPaLPAEoyrZ1EuSwpg+z5Yb6ngQEzr74EG943LgXh/9iN6RG4jidsXULc7XlBflI0trRH9WnlmqXeiKDQWdER//tXmoFidja8rj+Hps78M5sfyJ93BKEZcFnxO1st+IqRX1qBv8WBhQRtQP/yZKkauRTSk8313JGBn/EUegdHDnRZXwbCAuUQ5qBInyGOAGaGC/0iJLIFWDr/BAQG/1Fo4ESf5VysbR7uR4ZpmNyID1erE/ebo8WK61klZFxiFa02Vj3L/pqWbfaplXVhHes2pC9yS/10J3hpgoNiq9hUfO1FVHB9EBVWVimMKqOVZbIAg/UED70YTZKxCRe2szvMVQXtPu7W7EnKIeEbVB5qZiYEp6Tw3/cl8EpTF0fYQR6jh58UuXaxjvGLzCmwGG4odkHcZOisQCREZolQnKROr0hq26QLZMW4gqXfCISPCwmMxxqGAN9OTAVclsIQpwEvH0rGCmpWnXiUhD5xE8SDdw7SZ7wJAhHA1zABO2ZHpIUCN/TRKLynjXkec5E4njs+BTD1kOyu7azGaf4QJEDO1za0="
