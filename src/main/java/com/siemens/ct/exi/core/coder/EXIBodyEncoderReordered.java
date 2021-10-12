@@ -274,9 +274,6 @@ public class EXIBodyEncoderReordered extends AbstractEXIBodyEncoder {
 	protected void finalizeStream() throws IOException {
 		if (codingMode == CodingMode.COMPRESSION) {
 			deflaterOS.finish();
-			if (deflater != null) { // https://github.com/EXIficient/exificient/issues/26
-				deflater.end();
-			}
 		}
 		// else nothing to do
 	}
@@ -288,6 +285,10 @@ public class EXIBodyEncoderReordered extends AbstractEXIBodyEncoder {
 
 		// finalize document
 		os.flush();
+
+		if (deflater != null) { // https://github.com/EXIficient/exificient/issues/26
+			deflater.end();
+		}
 	}
 
 }
