@@ -50,7 +50,7 @@ public class ByteDecoderChannel extends AbstractDecoderChannel implements
 	public int decode() throws IOException {
 		int b = is.read();
 		if (b == -1) {
-			throw new EOFException("Premature EOS found while reading data.");
+			throw new EOFException("Premature EOF found while reading data.");
 		}
 		return b;
 	}
