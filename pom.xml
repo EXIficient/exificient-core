@@ -85,8 +85,8 @@
 
   <properties>
     <!-- maven-compiler-plugin configuration -->
-    <maven.compiler.source>1.5</maven.compiler.source>
-    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -146,14 +146,14 @@
         <configuration>
           <overview>${basedir}/src/main/java/overview.html</overview>
         </configuration>
-        <executions>
+        <!--<executions>
           <execution>
             <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
             </goals>
           </execution>
-        </executions>
+        </executions>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
