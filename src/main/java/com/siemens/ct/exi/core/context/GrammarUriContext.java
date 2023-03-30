@@ -97,7 +97,7 @@ public class GrammarUriContext extends AbstractUriContext {
 
 	protected static QNameContext binarySearch(QNameContext[] grammarQNames,
 			String localName) {
-		Objects.requireNonNull(grammarQNames, "grammarQNames parameter could not be null");
+		Objects.requireNonNull(grammarQNames, "grammarQNames parameter cannot be null");
 
 		int low = 0;
 		int high = grammarQNames.length - 1;
