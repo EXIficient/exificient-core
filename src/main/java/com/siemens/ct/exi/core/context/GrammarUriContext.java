@@ -24,6 +24,7 @@
 package com.siemens.ct.exi.core.context;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.siemens.ct.exi.core.Constants;
 
@@ -96,10 +97,7 @@ public class GrammarUriContext extends AbstractUriContext {
 
 	protected static QNameContext binarySearch(QNameContext[] grammarQNames,
 			String localName) {
-		if (grammarQNames == null) {
-			System.err.println("ERROR null");
-		}
-		assert (grammarQNames != null);
+		Objects.requireNonNull(grammarQNames, "grammarQNames parameter cannot be null");
 
 		int low = 0;
 		int high = grammarQNames.length - 1;
