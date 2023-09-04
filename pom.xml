@@ -4,7 +4,7 @@
   <artifactId>exificient-core</artifactId>
   <name>EXIficient-Core</name>
   <url>http://exificient.github.io/</url>
-  <version>1.0.6</version>
+  <version>1.0.7-SNAPSHOT</version>
   <packaging>jar</packaging><!-- bundle -->
   <description>EXIficient is an open source implementation of the W3C Efficient XML Interchange
     (EXI) format specification written in the Java programming language. The EXI format is a very
@@ -41,7 +41,7 @@
     <developerConnection>scm:git:https://github.com/EXIficient/exificient-core.git</developerConnection>
     <!--<url>https://github.com/EXIficient/exificient-core</url>-->
     <url>https://github.com/EXIficient/exificient-core.git</url>
-    <tag>v1.0.6</tag>
+    <tag>v1.0.2</tag>
   </scm>
 
   <dependencies>
