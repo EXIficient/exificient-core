@@ -41,7 +41,7 @@
     <developerConnection>scm:git:https://github.com/EXIficient/exificient-core.git</developerConnection>
     <!--<url>https://github.com/EXIficient/exificient-core</url>-->
     <url>https://github.com/EXIficient/exificient-core.git</url>
-    <tag>v1.0. </tag>
+    <tag>v1.0.2</tag>
   </scm>
 
   <dependencies>
