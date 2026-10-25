@@ -92,8 +92,8 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 				int numberOfBits = rcs.getCodingLength();
 				int size = rcs.size();
 
-				char[] cValue = new char[L];
-				value = new StringValue(cValue);
+				// L characters; one above U+FFFF takes two chars
+				StringBuilder sb = new StringBuilder(L);
 
 				for (int k = 0; k < L; k++) {
 					int code = valueChannel
@@ -106,8 +106,9 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 						codePoint = rcs.getCodePoint(code);
 					}
 
-					Character.toChars(codePoint, cValue, k);
+					sb.appendCodePoint(codePoint);
 				}
+				value = new StringValue(sb.toString());
 
 				// After encoding the string value, it is added to both the
 				// associated "local" value string table partition and the
