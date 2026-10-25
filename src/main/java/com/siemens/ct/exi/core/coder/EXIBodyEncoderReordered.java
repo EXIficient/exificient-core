@@ -173,9 +173,10 @@ public class EXIBodyEncoderReordered extends AbstractEXIBodyEncoder {
 		 * represented in the EXI stream. If a sequence of these events occurs
 		 * following the final block, implementations must take care to avoid
 		 * allocating an extra, empty block for the implicit events at the end
-		 * of the stream.
+		 * of the stream. A block whose structure takes no bytes but which has
+		 * values is not such a block: its values must be written.
 		 */
-		if (channel.getLength() == 0) {
+		if (channel.getLength() == 0 && blockValues == 0) {
 			// empty block -> no deflate stream ...
 		}
 		/*
