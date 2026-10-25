@@ -31,6 +31,7 @@ import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.core.context.QNameContext;
 import com.siemens.ct.exi.core.datatype.charset.CodePointCharacterSet;
+import com.siemens.ct.exi.core.datatype.strings.BoundedStringEncoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoderImpl;
 import com.siemens.ct.exi.core.exceptions.EXIException;
@@ -106,5 +107,15 @@ public class RestrictedCharacterSetCoreTest extends AbstractCoreTestCase {
 		Value v = new TypedTypeDecoder().readValue(dt, qnc, getBitDecoder(),
 				new StringDecoderImpl(false));
 		assertEquals(s, v.toString());
+	}
+
+	public void testValueMaxLengthCountsCharacters() throws IOException {
+		// one character, two UTF-16 units: within valueMaxLength 1
+		String s = new StringBuilder().appendCodePoint(0x1F600).toString();
+		BoundedStringEncoderImpl enc = new BoundedStringEncoderImpl(true, 1, -1);
+		enc.addValue(qnc, s);
+		assertTrue(enc.isStringHit(s));
+		enc.addValue(qnc, "ab"); // two characters: too long
+		assertFalse(enc.isStringHit("ab"));
 	}
 }

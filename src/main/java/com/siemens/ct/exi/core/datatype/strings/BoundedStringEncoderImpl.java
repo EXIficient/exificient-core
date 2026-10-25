@@ -65,7 +65,9 @@ public class BoundedStringEncoderImpl extends StringEncoderImpl {
 	@Override
 	public void addValue(QNameContext context, String value) {
 		// first: check "valueMaxLength"
-		if (valueMaxLength < 0 || value.length() <= valueMaxLength) {
+		// valueMaxLength counts characters (code points)
+		if (valueMaxLength < 0
+				|| value.codePointCount(0, value.length()) <= valueMaxLength) {
 			// next: check "valuePartitionCapacity"
 			if (valuePartitionCapacity < 0) {
 				// no "valuePartitionCapacity" restriction
