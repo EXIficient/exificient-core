@@ -40,8 +40,8 @@ import com.siemens.ct.exi.core.FidelityOptions;
 import com.siemens.ct.exi.core.context.GrammarContext;
 import com.siemens.ct.exi.core.context.GrammarUriContext;
 import com.siemens.ct.exi.core.context.QNameContext;
-import com.siemens.ct.exi.core.datatype.Datatype;
-import com.siemens.ct.exi.core.datatype.StringDatatype;
+import com.siemens.ct.exi.core.datatype.BooleanDatatype;
+import com.siemens.ct.exi.core.datatype.DecimalDatatype;
 import com.siemens.ct.exi.core.grammars.SchemaInformedGrammars;
 import com.siemens.ct.exi.core.grammars.event.Attribute;
 import com.siemens.ct.exi.core.grammars.event.Characters;
@@ -65,25 +65,37 @@ import com.siemens.ct.exi.core.values.StringValue;
  * A block whose structure channel takes no bytes must still carry its values
  * (issue #13).
  * <p>
- * With the strict grammars of
- * {@code <xs:element name="r"><xs:complexType><xs:simpleContent>
- * <xs:extension base="xs:string"><xs:attribute name="k" type="xs:string" use="required"/>
- * </xs:extension></xs:simpleContent></xs:complexType></xs:element>} and a
- * block size of 1, the value of {@code k} closes the first block. The
- * characters of {@code r} and the following end events take zero bits, so the
- * second block has an empty structure channel and one value.
+ * Schema and document from the issue:
+ * 
+ * <pre>
+ * &lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:m" xmlns="urn:m" elementFormDefault="qualified"&gt;
+ *   &lt;xs:element name="r"&gt;&lt;xs:complexType&gt;&lt;xs:sequence&gt;
+ *     &lt;xs:element name="i"&gt;&lt;xs:complexType&gt;&lt;xs:simpleContent&gt;&lt;xs:extension base="xs:decimal"&gt;
+ *       &lt;xs:attribute name="k" type="xs:boolean"/&gt;
+ *     &lt;/xs:extension&gt;&lt;/xs:simpleContent&gt;&lt;/xs:complexType&gt;&lt;/xs:element&gt;
+ *   &lt;/xs:sequence&gt;&lt;/xs:complexType&gt;&lt;/xs:element&gt;
+ * &lt;/xs:schema&gt;
+ * 
+ * &lt;r xmlns="urn:m"&gt;&lt;i k="true"&gt;1&lt;/i&gt;&lt;/r&gt;
+ * </pre>
+ * 
+ * With strict grammars and a block size of 1, the value of {@code k} closes
+ * the first block. The characters of {@code i} take zero bits, so the second
+ * block has an empty structure channel and the value {@code 1}.
  */
 public class EmptyStructureBlockCoreTest extends TestCase {
 
+	private static final String NS = "urn:m";
+
 	public void testPreCompression() throws Exception {
-		assertRoundTrip(CodingMode.PRE_COMPRESSION);
+		assertEncoding(CodingMode.PRE_COMPRESSION, "80000001000100");
 	}
 
 	public void testCompression() throws Exception {
-		assertRoundTrip(CodingMode.COMPRESSION);
+		assertEncoding(CodingMode.COMPRESSION, "8063606004006360640000");
 	}
 
-	private static void assertRoundTrip(CodingMode codingMode)
+	private static void assertEncoding(CodingMode codingMode, String expected)
 			throws Exception {
 		EXIFactory factory = DefaultEXIFactory.newInstance();
 		factory.setGrammars(createGrammars());
@@ -92,28 +104,36 @@ public class EmptyStructureBlockCoreTest extends TestCase {
 		factory.setBlockSize(1);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		EXIBodyEncoder encoder = factory.createEXIBodyEncoder();
-		encoder.setOutputStream(baos);
+		EXIBodyEncoder encoder = factory.createEXIStreamEncoder().encodeHeader(
+				baos);
 		encoder.encodeStartDocument();
-		encoder.encodeStartElement("", "r", null);
-		encoder.encodeAttribute("", "k", null, new StringValue("a"));
-		encoder.encodeCharacters(new StringValue("b"));
+		encoder.encodeStartElement(NS, "r", null);
+		encoder.encodeStartElement(NS, "i", null);
+		encoder.encodeAttribute("", "k", null, new StringValue("true"));
+		encoder.encodeCharacters(new StringValue("1"));
+		encoder.encodeEndElement();
 		encoder.encodeEndElement();
 		encoder.encodeEndDocument();
 		encoder.flush();
+		assertEquals(expected, toHex(baos.toByteArray()));
 
-		EXIBodyDecoder decoder = factory.createEXIBodyDecoder();
-		decoder.setInputStream(new ByteArrayInputStream(baos.toByteArray()));
+		EXIBodyDecoder decoder = factory.createEXIStreamDecoder().decodeHeader(
+				new ByteArrayInputStream(baos.toByteArray()));
 		assertEquals(EventType.START_DOCUMENT, decoder.next());
 		decoder.decodeStartDocument();
 		assertEquals(EventType.START_ELEMENT, decoder.next());
-		assertEquals(new QName("", "r"), decoder.decodeStartElement()
+		assertEquals(new QName(NS, "r"), decoder.decodeStartElement()
+				.getQName());
+		assertEquals(EventType.START_ELEMENT, decoder.next());
+		assertEquals(new QName(NS, "i"), decoder.decodeStartElement()
 				.getQName());
 		assertEquals(EventType.ATTRIBUTE, decoder.next());
 		assertEquals(new QName("", "k"), decoder.decodeAttribute().getQName());
-		assertEquals("a", decoder.getAttributeValue().toString());
+		assertEquals("true", decoder.getAttributeValue().toString());
 		assertEquals(EventType.CHARACTERS, decoder.next());
-		assertEquals("b", decoder.decodeCharacters().toString());
+		assertEquals("1.0", decoder.decodeCharacters().toString());
+		assertEquals(EventType.END_ELEMENT, decoder.next());
+		decoder.decodeEndElement();
 		assertEquals(EventType.END_ELEMENT, decoder.next());
 		decoder.decodeEndElement();
 		assertEquals(EventType.END_DOCUMENT, decoder.next());
@@ -121,36 +141,49 @@ public class EmptyStructureBlockCoreTest extends TestCase {
 	}
 
 	/**
-	 * Builds the grammars exificient-grammars derives from the schema above.
+	 * Builds the strict grammars exificient-grammars derives from the schema.
 	 */
 	private static SchemaInformedGrammars createGrammars() {
 		QNameContext k = new QNameContext(0, 0, new QName("", "k"));
-		QNameContext r = new QNameContext(0, 1, new QName("", "r"));
+		QNameContext i = new QNameContext(4, 0, new QName(NS, "i"));
+		QNameContext r = new QNameContext(4, 1, new QName(NS, "r"));
 		QNameContext[] xsdNames = qNames(3, Constants.XML_SCHEMA_NS_URI,
 				Constants.LOCAL_NAMES_XSD);
 		GrammarUriContext[] uris = {
-				new GrammarUriContext(0, "", new QNameContext[] { k, r }),
+				new GrammarUriContext(0, "", new QNameContext[] { k }),
 				new GrammarUriContext(1, Constants.XML_NS_URI, qNames(1,
 						Constants.XML_NS_URI, Constants.LOCAL_NAMES_XML)),
 				new GrammarUriContext(2,
 						Constants.XML_SCHEMA_INSTANCE_NS_URI, qNames(2,
 								Constants.XML_SCHEMA_INSTANCE_NS_URI,
 								Constants.LOCAL_NAMES_XSI)),
-				new GrammarUriContext(3, Constants.XML_SCHEMA_NS_URI, xsdNames) };
-		Datatype string = new StringDatatype(
-				xsdNames[Arrays.asList(Constants.LOCAL_NAMES_XSD).indexOf(
-						"string")]);
+				new GrammarUriContext(3, Constants.XML_SCHEMA_NS_URI, xsdNames),
+				new GrammarUriContext(4, NS, new QNameContext[] { i, r }) };
+		BooleanDatatype xsBoolean = new BooleanDatatype(xsdName(xsdNames,
+				"boolean"));
+		DecimalDatatype xsDecimal = new DecimalDatatype(xsdName(xsdNames,
+				"decimal"));
 
-		// r: AT(k) StartTag, CH EE
-		SchemaInformedElement end = new SchemaInformedElement();
-		end.addTerminalProduction(new EndElement());
-		SchemaInformedStartTag content = new SchemaInformedStartTag(end);
-		content.addProduction(new Characters(string), end);
-		SchemaInformedFirstStartTag firstStartTag = new SchemaInformedFirstStartTag(
-				end);
-		firstStartTag.addProduction(new Attribute(k, string), content);
+		// i: AT(k) or CH, then CH, then EE
+		SchemaInformedElement iEnd = new SchemaInformedElement();
+		iEnd.addTerminalProduction(new EndElement());
+		SchemaInformedStartTag iContent = new SchemaInformedStartTag(iEnd);
+		iContent.addProduction(new Characters(xsDecimal), iEnd);
+		SchemaInformedFirstStartTag iStart = new SchemaInformedFirstStartTag(
+				iEnd);
+		iStart.addProduction(new Attribute(k, xsBoolean), iContent);
+		iStart.addProduction(new Characters(xsDecimal), iEnd);
+		StartElement seI = new StartElement(i);
+		seI.setGrammar(iStart);
+
+		// r: SE(i), then EE
+		SchemaInformedElement rEnd = new SchemaInformedElement();
+		rEnd.addTerminalProduction(new EndElement());
+		SchemaInformedFirstStartTag rStart = new SchemaInformedFirstStartTag(
+				rEnd);
+		rStart.addProduction(seI, rEnd);
 		StartElement seR = new StartElement(r);
-		seR.setGrammar(firstStartTag);
+		seR.setGrammar(rStart);
 		r.setGlobalStartElement(seR);
 
 		DocEnd docEnd = new DocEnd("DocEnd");
@@ -162,7 +195,7 @@ public class EmptyStructureBlockCoreTest extends TestCase {
 		Document document = new Document("Document");
 		document.addProduction(new StartDocument(), docContent);
 
-		int qNames = 2 + Constants.LOCAL_NAMES_XML.length
+		int qNames = 3 + Constants.LOCAL_NAMES_XML.length
 				+ Constants.LOCAL_NAMES_XSI.length + xsdNames.length;
 		return new SchemaInformedGrammars(new GrammarContext(uris, qNames),
 				document, null, null);
@@ -171,10 +204,24 @@ public class EmptyStructureBlockCoreTest extends TestCase {
 	private static QNameContext[] qNames(int uriId, String uri,
 			String[] localNames) {
 		QNameContext[] qNames = new QNameContext[localNames.length];
-		for (int i = 0; i < localNames.length; i++) {
-			qNames[i] = new QNameContext(uriId, i,
-					new QName(uri, localNames[i]));
+		for (int n = 0; n < localNames.length; n++) {
+			qNames[n] = new QNameContext(uriId, n, new QName(uri,
+					localNames[n]));
 		}
 		return qNames;
+	}
+
+	private static QNameContext xsdName(QNameContext[] xsdNames,
+			String localName) {
+		return xsdNames[Arrays.asList(Constants.LOCAL_NAMES_XSD).indexOf(
+				localName)];
+	}
+
+	private static String toHex(byte[] bytes) {
+		StringBuilder hex = new StringBuilder();
+		for (byte b : bytes) {
+			hex.append(String.format("%02x", b));
+		}
+		return hex.toString();
 	}
 }
