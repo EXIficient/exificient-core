@@ -31,6 +31,7 @@ import javax.xml.namespace.QName;
 
 import com.siemens.ct.exi.core.context.QNameContext;
 import com.siemens.ct.exi.core.datatype.charset.CodePointCharacterSet;
+import com.siemens.ct.exi.core.datatype.strings.BoundedStringDecoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.BoundedStringEncoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringDecoderImpl;
 import com.siemens.ct.exi.core.datatype.strings.StringEncoderImpl;
@@ -117,5 +118,30 @@ public class RestrictedCharacterSetCoreTest extends AbstractCoreTestCase {
 		assertTrue(enc.isStringHit(s));
 		enc.addValue(qnc, "ab"); // two characters: too long
 		assertFalse(enc.isStringHit("ab"));
+	}
+
+	public void testValueMaxLengthCountsCharactersDecoder() {
+		// decoded values are backed by char[], as decodeStringOnly returns
+		BoundedStringDecoderImpl dec = new BoundedStringDecoderImpl(true, 1,
+				-1);
+		dec.addValue(qnc, new StringValue(Character.toChars(0x1F600)));
+		assertEquals(1, dec.getNumberOfStringValues(qnc));
+		dec.addValue(qnc, new StringValue("ab".toCharArray())); // too long
+		assertEquals(1, dec.getNumberOfStringValues(qnc));
+	}
+
+	public void testBMPDecode() throws IOException, EXIException {
+		// b, U+00E9 outside the set but in the BMP, a
+		EncoderChannel ec = getBitEncoder();
+		ec.encodeUnsignedInteger(3 + 2);
+		ec.encodeNBitUnsignedInteger(1, 2);
+		ec.encodeNBitUnsignedInteger(2, 2);
+		ec.encodeUnsignedInteger(0xE9);
+		ec.encodeNBitUnsignedInteger(0, 2);
+		ec.flush();
+
+		Value v = new TypedTypeDecoder().readValue(abDatatype(), qnc,
+				getBitDecoder(), new StringDecoderImpl(false));
+		assertEquals("béa", v.toString());
 	}
 }

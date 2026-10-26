@@ -73,10 +73,12 @@ public class BoundedStringDecoderImpl extends StringDecoderImpl {
 	@Override
 	public void addValue(QNameContext context, StringValue value) {
 		// first: check "valueMaxLength"
-		// valueMaxLength counts characters (code points), as the encoder does
-		String s = value.toString();
+		// valueMaxLength counts characters (code points), as the encoder does;
+		// UTF-16 units are never fewer, so count only when they exceed it
 		if (valueMaxLength < 0
-				|| s.codePointCount(0, s.length()) <= valueMaxLength) {
+				|| value.getCharactersLength() <= valueMaxLength
+				|| Character.codePointCount(value.getCharacters(), 0,
+						value.getCharactersLength()) <= valueMaxLength) {
 			// next: check "valuePartitionCapacity"
 			if (valuePartitionCapacity < 0) {
 				// no "valuePartitionCapacity" restriction
