@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2018 Siemens AG
+ * Copyright (c) 2007-2026 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -211,7 +211,9 @@ public abstract class AbstractEXIBodyEncoder extends AbstractEXIBodyCoder
 			// string value was not found in local partition
 			// ==> string literal is encoded as a String
 			// with the length of the string incremented by one
-			channel.encodeUnsignedInteger(localName.length() + 1);
+			// the length counts characters (code points), not UTF-16 units
+			channel.encodeUnsignedInteger(localName.codePointCount(0,
+					localName.length()) + 1);
 			channel.encodeStringOnly(localName);
 			// After encoding the string value, it is added to the string
 			// table partition and assigned the next available compact
