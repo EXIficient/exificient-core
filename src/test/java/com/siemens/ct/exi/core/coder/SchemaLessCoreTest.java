@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2018 Siemens AG
+ * Copyright (c) 2007-2026 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -96,6 +96,52 @@ public class SchemaLessCoreTest extends TestCase {
 			// decoder.decodeEndElementUndeclared();
 			decoder.decodeEndElement();
 
+			assertTrue(decoder.next() == EventType.END_DOCUMENT);
+			decoder.decodeEndDocument();
+		}
+	}
+
+	public void testLocalNameNonBMP() throws IOException, EXIException {
+		EXIFactory factory = DefaultEXIFactory.newInstance();
+		factory.setFidelityOptions(FidelityOptions.createDefault());
+		factory.setCodingMode(CodingMode.BIT_PACKED);
+
+		// three characters, four UTF-16 units: U+10000 is a NameStartChar
+		String ln = new StringBuilder("a").appendCodePoint(0x10000)
+				.append("b").toString();
+		QName s1 = new QName("", ln);
+		QName s2 = new QName("", "el2");
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		{
+			EXIBodyEncoder encoder = factory.createEXIBodyEncoder();
+			encoder.setOutputStream(baos);
+			encoder.encodeStartDocument();
+			encoder.encodeStartElement(s1.getNamespaceURI(),
+					s1.getLocalPart(), null);
+			encoder.encodeStartElement(s2.getNamespaceURI(),
+					s2.getLocalPart(), null);
+			encoder.encodeEndElement();
+			encoder.encodeEndElement();
+			encoder.encodeEndDocument();
+			encoder.flush();
+		}
+
+		{
+			EXIBodyDecoder decoder = factory.createEXIBodyDecoder();
+			decoder.setInputStream(new ByteArrayInputStream(baos.toByteArray()));
+
+			assertTrue(decoder.next() == EventType.START_DOCUMENT);
+			decoder.decodeStartDocument();
+			assertTrue(decoder.next() == EventType.START_ELEMENT_GENERIC);
+			assertEquals(s1, decoder.decodeStartElement().getQName());
+			assertTrue(decoder.next() == EventType.START_ELEMENT_GENERIC_UNDECLARED);
+			assertEquals(s2, decoder.decodeStartElement().getQName());
+			assertTrue(decoder.next() == EventType.END_ELEMENT_UNDECLARED);
+			decoder.decodeEndElement();
+			// ElementContent of the built-in grammar: EE is declared
+			assertTrue(decoder.next() == EventType.END_ELEMENT);
+			decoder.decodeEndElement();
 			assertTrue(decoder.next() == EventType.END_DOCUMENT);
 			decoder.decodeEndDocument();
 		}
