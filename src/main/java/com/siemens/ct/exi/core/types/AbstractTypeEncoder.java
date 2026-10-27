@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2018 Siemens AG
+ * Copyright (c) 2007-2026 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +69,9 @@ public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
 			// string-table miss ==> restricted character
 			// string literal is encoded as a String with the length
 			// incremented by two.
-			final int L = lastValidValue.length();
+			// L counts characters (code points), not UTF-16 code units
+			final int L = lastValidValue.codePointCount(0,
+					lastValidValue.length());
 
 			valueChannel.encodeUnsignedInteger(L + 2);
 
@@ -82,8 +84,10 @@ public abstract class AbstractTypeEncoder extends AbstractTypeCoder implements
 				// number of bits
 				int numberOfBits = rcs.getCodingLength();
 
-				for (int i = 0; i < L; i++) {
+				for (int i = 0; i < lastValidValue.length();) {
 					int codePoint = lastValidValue.codePointAt(i);
+					// a surrogate pair is one character
+					i += Character.charCount(codePoint);
 					int code = rcs.getCode(codePoint);
 					if (code == Constants.NOT_FOUND) {
 						// indicate deviation

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2018 Siemens AG
+ * Copyright (c) 2007-2026 Siemens AG
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -92,8 +92,10 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 				int numberOfBits = rcs.getCodingLength();
 				int size = rcs.size();
 
+				// L characters; one above U+FFFF takes two chars, so switch
+				// to a StringBuilder at the first one (see decodeStringOnly)
 				char[] cValue = new char[L];
-				value = new StringValue(cValue);
+				StringBuilder sb = null;
 
 				for (int k = 0; k < L; k++) {
 					int code = valueChannel
@@ -106,8 +108,19 @@ public abstract class AbstractTypeDecoder extends AbstractTypeCoder implements
 						codePoint = rcs.getCodePoint(code);
 					}
 
-					Character.toChars(codePoint, cValue, k);
+					if (sb != null) {
+						sb.appendCodePoint(codePoint);
+					} else if (codePoint > Character.MAX_VALUE) {
+						// Assumption: it doesn't happen very often
+						sb = new StringBuilder(L + 1);
+						sb.append(cValue, 0, k);
+						sb.appendCodePoint(codePoint);
+					} else {
+						cValue[k] = (char) codePoint;
+					}
 				}
+				value = sb == null ? new StringValue(cValue) : new StringValue(
+						sb.toString());
 
 				// After encoding the string value, it is added to both the
 				// associated "local" value string table partition and the
